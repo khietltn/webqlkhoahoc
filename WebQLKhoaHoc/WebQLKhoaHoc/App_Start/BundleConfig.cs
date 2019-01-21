@@ -23,9 +23,25 @@ namespace WebQLKhoaHoc
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/qlkh").Include(
+                "~/Scripts/custom.js",
+                "~/Scripts/jquery-ui.min.js",
+                "~/Scripts/jquery-plugin-collection.js"
+            ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                "~/Content/animate.css",
+                "~/Content/css-plugin-collections.css",
+                "~/Content/custom-bootstrap-margin-padding.css",
+                "~/Content/menuzord-rounded-boxed.css",
+                "~/Content/reponsive.css",
+                "~/Content/style-main.css",
+                "~/Content/theme-skin-color-set-1.css",
+                "~/Content/utility-classes.css"
+
+                ));
         }
     }
 }

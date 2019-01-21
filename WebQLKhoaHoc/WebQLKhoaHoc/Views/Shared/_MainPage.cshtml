@@ -1,0 +1,162 @@
+﻿
+<html lang="en">
+<!-- Head BEGIN -->
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <script src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" data-auto-replace-svg="nest"></script>
+    <title>@ViewBag.Title</title>
+    <!-- Theme styles START -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- Theme styles END -->
+</head>
+<!-- Head END -->
+<!-- Body BEGIN -->
+<body class="">
+    <div id="wrapper" class="clearfix">
+        <!-- Header -->
+        <header id="header" class="header">
+            <div class="header-middle p-0 bg-lightest xs-text-center">
+                <div class="container pt-0 pb-0">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-3 text-left">
+                            <div class="widget no-border m-0">
+                                <a class=" menuzord-menu flip xs-pull-center mt-10 mb-10" href="javascript:void(0)">
+                                    <img src="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/logo-wide.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-8 col-md-9">
+                            <div class="widget mt-10 pull-left sm-pull-none sm-text-center">
+                                <h3 class="font-weight-800 text-theme-colored font-27">CSDL KHOA HỌC VÀ CÔNG NGHỆ</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-nav">
+                <div class="header-nav-wrapper navbar-scrolltofixed bg-theme-colored border-bottom-theme-color-2-1px" style="z-index: 1000;">
+                    <div class="container">
+                        <nav id="menuzord" class="menuzord bg-theme-colored pull-left flip menuzord-responsive">
+                            <ul class="menuzord-menu menuzord-indented scrollable" style="max-height: 400px;">
+                                <li>
+                                    @Html.ActionLink("Trang Chủ", "Index", "Home")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Nhà Khoa Học", "Index", "NhaKhoaHocs")
+                                </li>
+                                <li>
+                                    <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/topic">Đề tài khoa học</a>
+                                </li>
+                                <li>
+                                    <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/article">Bài báo khoa học</a>
+                                </li>
+                                <li>
+                                    <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book">Sách và giáo trình</a>
+                                </li>
+                                <li class="scrollable-fix"></li>
+                            </ul>
+                            <ul class="pull-right flip menuzord-menu menuzord-indented scrollable" style="max-height: 400px;">
+                                <li>
+                                    <a class="bg-theme-color-2 text-white font-14" href="http://csdlkhoahoc.hueuni.edu.vn/index.php/auth/login">
+                                        Đăng nhập
+                                    </a>
+                                </li>
+                                <li class="scrollable-fix"></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div><div></div>
+            </div>
+        </header>
+
+        @RenderBody()
+   
+    </div>
+
+
+    <!-- Footer -->
+    <footer id="footer" class="footer divider layer-overlay overlay-dark-9" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/1920x1280.png" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/1920x1280.png&quot;);">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-6">
+                    <div class="widget dark">
+                        <h5 class="widget-title mb-10">Thông tin liên hệ</h5>
+                        <ul class="list mt-5">
+                            <li class="m-0 pl-10 pr-10">
+                                <i class="fa fa-map-marker text-theme-color-2 mr-5"></i>
+                                Ban Khoa học, Công nghệ và Môi trường - Đại học Huế. Số 03 Lê Lợi - TP Huế
+                            </li>
+                            <li class="m-0 pl-10 pr-10">
+                                <i class="fa fa-phone text-theme-color-2 mr-5"></i>
+                                0234 384 5799
+                            </li>
+                            <li class="m-0 pl-10 pr-10">
+                                <i class="fa fa-user text-theme-color-2 mr-5"></i>
+                                Hỗ trợ kỹ thuật: Nguyễn Anh Toàn
+                            </li>
+                            <li class="m-0 pl-10 pr-10">
+                                <i class="fa fa-mobile text-theme-color-2 mr-5"></i>
+                                0947 338 008
+                            </li>
+                            <li class="m-0 pl-10 pr-10">
+                                <i class="fa fa-envelope-o text-theme-color-2 mr-5"></i>
+                                natoan@hueuni.edu.vn
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-6 text-center">
+                    <div class="widget dark">
+                        <img class="mt-5" width="200" alt="" src="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/logo-white.png">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer-bottom bg-black-333">
+            <div class="container pt-20 pb-20">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="font-11 text-black-777 m-0">Bản quyền thuộc Đại học Huế © 2011.</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="widget no-border m-0">
+                            Hổ trợ kỹ thuật, xử lý sự cố Hotline: 0234.3823123 hoặc 0983.431.561
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <div id="mydata" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+
+    <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+
+    <!-- end wrapper -->
+    <!-- Footer Scripts -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/qlkh")
+    @RenderSection("scripts", required: false)
+
+
+
+
+
+
+</body>
+<!-- END BODY -->
+</html>

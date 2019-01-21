@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,10 +41,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -107,12 +117,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -158,29 +162,182 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BacDaoTao.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaiBao.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CapDeTai.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CapTapChi.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChuyenMon.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChuyenMonNKH.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChuyenNganh.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NhaKhoaHocsController.cs" />
+    <Compile Include="DeTai.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DonViChuTri.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DonViQL.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DSNguoiThamGiaBaiBao.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DSNguoiThamGiaDeTai.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DSTacGia.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HocHam.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HocVi.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KinhPhiDeTai.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LinhVuc.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoaiHinhDeTai.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="NgachVienChuc.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NganhDaoTao.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NhaKhoaHoc.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NhaXuatBan.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NhomLinhVuc.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhanLoaiSach.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhanLoaiSP.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhanLoaiTapChi.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QLKH.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKH.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QLKH.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QLKH.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKH.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="QuaTrinhCongTac.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuaTrinhDaoTao.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SachGiaoTrinh.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TinhTrangDeTai.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrinhDoNgoaiNgu.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XepLoai.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css-plugin-collections.css" />
+    <Content Include="Content\custom-bootstrap-margin-padding.css" />
+    <Content Include="Content\lightbox\close.png" />
+    <Content Include="Content\lightbox\loading.gif" />
+    <Content Include="Content\lightbox\next.png" />
+    <Content Include="Content\lightbox\prev.png" />
+    <Content Include="Content\menuzord-rounded-boxed.css" />
+    <Content Include="Content\responsive.css" />
+    <Content Include="Content\style-main.css" />
+    <Content Include="Content\theme-skin-color-set-1.css" />
+    <Content Include="Content\utility-classes.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="QLKH.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLKH.edmx</DependentUpon>
+      <LastGenOutput>QLKH.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="QLKH.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLKH.edmx</DependentUpon>
+      <LastGenOutput>QLKH.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="QLKH.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLKH.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="QLKH.edmx.diagram">
+      <DependentUpon>QLKH.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-plugin-collection.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -214,6 +371,12 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_MainPage.cshtml" />
+    <Content Include="Views\NhaKhoaHocs\Create.cshtml" />
+    <Content Include="Views\NhaKhoaHocs\Delete.cshtml" />
+    <Content Include="Views\NhaKhoaHocs\Details.cshtml" />
+    <Content Include="Views\NhaKhoaHocs\Edit.cshtml" />
+    <Content Include="Views\NhaKhoaHocs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -224,6 +387,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
