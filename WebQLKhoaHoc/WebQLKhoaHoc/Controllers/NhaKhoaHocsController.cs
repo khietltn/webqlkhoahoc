@@ -40,7 +40,13 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            return View(nhaKhoaHoc);
+            ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh");
+            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+            ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam");
+            ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi");
+            ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach");
+            NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHoc);
+            return View(nkh);
         }
 
         // GET: NhaKhoaHocs/Create
