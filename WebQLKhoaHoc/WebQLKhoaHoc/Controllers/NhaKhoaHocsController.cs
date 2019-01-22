@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebQLKhoaHoc;
 using WebQLKhoaHoc.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -16,7 +18,7 @@ namespace WebQLKhoaHoc.Controllers
         private QLKhoaHocEntities db = new QLKhoaHocEntities();
 
         // GET: NhaKhoaHocs
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? Page_No)
         {
             
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs.ToList(), "MaChuyenNganh", "TenChuyenNganh");
@@ -25,7 +27,11 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaHocVi = new SelectList(db.HocVis.ToList(), "MaHocVi", "TenHocVi");
             ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs.ToList(), "MaNgach", "TenNgach");
             var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc);
-            return View(await nhaKhoaHocs.ToListAsync());
+
+			
+			int Size_Of_Page = 4;
+			int No_Of_Page = (Page_No ?? 1);
+            return View(nhaKhoaHocs.ToList().ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         // GET: NhaKhoaHocs/Details/5

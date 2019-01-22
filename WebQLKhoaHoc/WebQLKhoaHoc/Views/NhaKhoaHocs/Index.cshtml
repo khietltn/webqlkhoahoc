@@ -1,191 +1,195 @@
-﻿@model IEnumerable<WebQLKhoaHoc.NhaKhoaHoc>
+﻿@model IPagedList<WebQLKhoaHoc.NhaKhoaHoc>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_MainPage.cshtml";
 
 }
+
+@using PagedList.Mvc;
+@using PagedList;
+
 @{
-    QLKhoaHocEntities db = new QLKhoaHocEntities(); 
+	QLKhoaHocEntities db = new QLKhoaHocEntities();
 }
 
 <!-- Start main-content -->
 <div class="main-content">
-    <!-- Section: Scientist header -->
-    <section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
-        @using (Html.BeginForm("Search", "NhaKhoaHocs", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <div class="display-table">
-                <div class="display-table-cell">
-                    <div class="container pt-30 pb-20">
-                        <div class="row">
-                            <div class="col-md-6 pt-10">
-                                <h2 class="title text-white">Dữ liệu Nhà khoa học</h2>
-                                <ol class="breadcrumb text-left text-black mt-10">
-                                    <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
-                                    <li class="active text-gray-silver">Nhà khoa học</li>
-                                </ol>
-                            </div>
-                            <div class="col-md-6">
-                                <!-- Appointment Form Starts -->
-                                <form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                <div class="styled-select">
-                                                    @Html.DropDownList("MaDonVi", (IEnumerable<SelectListItem>)ViewBag.MaDonViQL, "--Chọn đơn vị--", new { @class = "form-control" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                @Html.DropDownList("MaNgach", (IEnumerable<SelectListItem>)ViewBag.MaNgachVienChuc, "--Chọn ngạch--", new { @class = "form-control" })
-                                            </div>
-                                        </div>
+	<!-- Section: Scientist header -->
+	<section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
+		@using (Html.BeginForm("Search", "NhaKhoaHocs", FormMethod.Post))
+		{
+			@Html.AntiForgeryToken()
+			<div class="display-table">
+				<div class="display-table-cell">
+					<div class="container pt-30 pb-20">
+						<div class="row">
+							<div class="col-md-6 pt-10">
+								<h2 class="title text-white">Dữ liệu Nhà khoa học</h2>
+								<ol class="breadcrumb text-left text-black mt-10">
+									<li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+									<li class="active text-gray-silver">Nhà khoa học</li>
+								</ol>
+							</div>
+							<div class="col-md-6">
+								<!-- Appointment Form Starts -->
+								<form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 pl-5 pr-5">
+											<div class="form-group mb-5">
+												<div class="styled-select">
+													@Html.DropDownList("MaDonVi", (IEnumerable<SelectListItem>)ViewBag.MaDonViQL, "--Chọn đơn vị--", new { @class = "form-control" })
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 pl-5 pr-5">
+											<div class="form-group mb-5">
+												@Html.DropDownList("MaNgach", (IEnumerable<SelectListItem>)ViewBag.MaNgachVienChuc, "--Chọn ngạch--", new { @class = "form-control" })
+											</div>
+										</div>
 
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                @Html.DropDownList("MaHocHam", (IEnumerable<SelectListItem>)ViewBag.MaHocHam, "--Chọn học hàm--", new { @class = "form-control" })
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                @Html.DropDownList("MaHocVi", (IEnumerable<SelectListItem>)ViewBag.MaHocVi, "--Chọn học vị--", new { @class = "form-control" })
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                @Html.DropDownList("MaCNDaoTao", (IEnumerable<SelectListItem>)ViewBag.MaCNDaoTao, "--Chọn chuyên ngành--", new { @class = "form-control" })
-                                            </div>
-                                        </div>
+										<div class="col-xs-12 col-sm-6 pl-5 pr-5">
+											<div class="form-group mb-5">
+												@Html.DropDownList("MaHocHam", (IEnumerable<SelectListItem>)ViewBag.MaHocHam, "--Chọn học hàm--", new { @class = "form-control" })
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 pl-5 pr-5">
+											<div class="form-group mb-5">
+												@Html.DropDownList("MaHocVi", (IEnumerable<SelectListItem>)ViewBag.MaHocVi, "--Chọn học vị--", new { @class = "form-control" })
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 pl-5 pr-5">
+											<div class="form-group mb-5">
+												@Html.DropDownList("MaCNDaoTao", (IEnumerable<SelectListItem>)ViewBag.MaCNDaoTao, "--Chọn chuyên ngành--", new { @class = "form-control" })
+											</div>
+										</div>
 
-                                        <div class="col-xs-12 col-sm-8 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                <div class="styled-select">
-                                                    <input name="SearchValue" id="SearchValue" class="form-control" type="text" placeholder="Từ khóa tìm kiếm" value="@ViewBag.SearchValue">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
-                                                    Tìm Kiếm
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+										<div class="col-xs-12 col-sm-8 pl-5 pr-5">
+											<div class="form-group mb-5">
+												<div class="styled-select">
+													<input name="SearchValue" id="SearchValue" class="form-control" type="text" placeholder="Từ khóa tìm kiếm" value="@ViewBag.SearchValue">
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-4 pl-5 pr-5">
+											<div class="form-group mb-5">
+												<button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
+													Tìm Kiếm
+												</button>
+											</div>
+										</div>
+									</div>
 
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </section>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</section>
 </div>
 <p>
-    @Html.ActionLink("Create New", "Create")
+	@Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaNKHHoSo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HoNKH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenNKH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GioiTinhNKH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DiaChiLienHe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DienThoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailLienHe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AnhDaiDien)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChuyenNganh.TenChuyenNganh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DonViQL.TenDonVI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HocHam.TenHocHam)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HocVi.TenHocVi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgachVienChuc.TenNgach)
-        </th>
-        <th></th>
-    </tr>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.First().MaNKHHoSo)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().HoNKH)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().TenNKH)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().GioiTinhNKH)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().NgaySinh)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().DiaChiLienHe)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().DienThoai)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().EmailLienHe)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().AnhDaiDien)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().ChuyenNganh.TenChuyenNganh)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().DonViQL.TenDonVI)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().HocHam.TenHocHam)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().HocVi.TenHocVi)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().NgachVienChuc.TenNgach)
+		</th>
+		<th></th>
+	</tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaNKHHoSo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoNKH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenNKH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GioiTinhNKH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChiLienHe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailLienHe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnhDaiDien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChuyenNganh.TenChuyenNganh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HocHam.TenHocHam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HocVi.TenHocVi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgachVienChuc.TenNgach)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MaNKH }) |
-                @Html.ActionLink("Details", "Details", new { id = item.MaNKH }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MaNKH })
-            </td>
-        </tr>
-    }
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.MaNKHHoSo)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.HoNKH)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TenNKH)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.GioiTinhNKH)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.NgaySinh)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.DiaChiLienHe)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.DienThoai)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.EmailLienHe)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.AnhDaiDien)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ChuyenNganh.TenChuyenNganh)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.HocHam.TenHocHam)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.HocVi.TenHocVi)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.NgachVienChuc.TenNgach)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.MaNKH }) |
+				@Html.ActionLink("Details", "Details", new { id = item.MaNKH }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.MaNKH })
+			</td>
+		</tr>
+	}
 
 </table>
