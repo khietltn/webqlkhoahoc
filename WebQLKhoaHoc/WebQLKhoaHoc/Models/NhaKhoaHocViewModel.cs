@@ -7,6 +7,9 @@ namespace WebQLKhoaHoc.Models
 {
     public class NhaKhoaHocViewModel
     {
+        public int DsBaiBao { get; set; }
+        public int DsDetai { get; set; }
+        public int DsSach { get; set; }
         public string MaNKH { get; set; }
         public string MaNKHHoSo { get; set; }
         public string HoNKH { get; set; }
@@ -69,8 +72,12 @@ namespace WebQLKhoaHoc.Models
                 MaNKH = nkh.MaNKH,
                 ChuyenMonNKHs = nkh.ChuyenMonNKHs,
                 GioiTinhNKH = nkh.GioiTinhNKH,
-                ChuyenNganh = nkh.ChuyenNganh
-                
+                ChuyenNganh = nkh.ChuyenNganh,
+                LinhVucs = nkh.LinhVucs,
+                DsBaiBao = nkh.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == nkh.MaNKH).Count(),
+                DsSach = nkh.DSTacGias.Where(p => p.MaNKH == nkh.MaNKH).Count(),
+                DsDetai = nkh.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == nkh.MaNKH).Count()
+
             };
         }
 
