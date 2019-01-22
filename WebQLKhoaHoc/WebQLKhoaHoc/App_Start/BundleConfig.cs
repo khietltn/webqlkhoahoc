@@ -39,8 +39,8 @@ namespace WebQLKhoaHoc
                 "~/Content/reponsive.css",
                 "~/Content/style-main.css",
                 "~/Content/theme-skin-color-set-1.css",
-                "~/Content/utility-classes.css"
-
+                "~/Content/utility-classes.css",
+                "~/Content/Pagination.css"
                 ));
         }
     }

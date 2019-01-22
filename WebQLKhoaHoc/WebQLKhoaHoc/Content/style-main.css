@@ -82,6 +82,13 @@ This file contains the common styles of this theme.
  * Typography.less
  * -----------------------------------------------
 */
+.media-body, .media-left, .media-right {
+    display: table-cell;
+    vertical-align: top;
+}
+.media-left {
+    padding-right: 10px;
+}
 ::selection {
   background: #333333;
   color: #fff;

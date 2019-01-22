@@ -304,6 +304,7 @@
     <Content Include="Content\lightbox\prev.png" />
     <Content Include="Content\menuzord-rounded-boxed.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Pagination.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\style-main.css" />
     <Content Include="Content\theme-skin-color-set-1.css" />
@@ -312,6 +313,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\avatar.bmp" />
     <Content Include="QLKH.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKH.edmx</DependentUpon>

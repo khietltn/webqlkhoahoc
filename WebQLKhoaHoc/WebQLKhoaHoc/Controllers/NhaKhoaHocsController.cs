@@ -27,11 +27,20 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaHocVi = new SelectList(db.HocVis.ToList(), "MaHocVi", "TenHocVi");
             ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs.ToList(), "MaNgach", "TenNgach");
             var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc);
+            var listNKH = nhaKhoaHocs.Concat(nhaKhoaHocs)
+                                     .Concat(nhaKhoaHocs)
+                                     .Concat(nhaKhoaHocs)
+                                     .Concat(nhaKhoaHocs)
+                                     .ToList();
 
+            for (int i = 0; i <= listNKH.Count; i++)
+            {
+                NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(listNKH[i]);
+            }
 
-            int Size_Of_Page = 4;
-            int No_Of_Page = (Page_No ?? 1);
-            return View(nhaKhoaHocs.ToList().ToPagedList(No_Of_Page, Size_Of_Page));
+            int Size_Of_Page = 6;
+			int No_Of_Page = (Page_No ?? 1);
+            return View(listNKH.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         // GET: NhaKhoaHocs/Details/5
