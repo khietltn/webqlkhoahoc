@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_MainPage.cshtml";
+   
 }
 
 
@@ -92,8 +93,17 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="thumb">
-                                    <img class="img-fullwidth" src="@Model.AnhCaNhan.IsNullOrWhiteSpace() ? '~/Image/avatar.bmp' : @Model.AnhCaNhan' style="max-height: 26.4vw; border-radius: 50%" />
-                                   
+                                @{
+                                    if (Model.AnhCaNhan.IsNullOrWhiteSpace())
+                                    {
+                                        <img src = @Url.Content("~/Image/avatar.bmp") />
+                                    }
+                                    else
+                                    {
+                                        <img class="img-fullwidth" src="@Model.AnhCaNhan"/>
+                                    }
+                                }
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mt-20 text-center">

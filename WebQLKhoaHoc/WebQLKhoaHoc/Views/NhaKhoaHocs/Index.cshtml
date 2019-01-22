@@ -102,9 +102,6 @@
                                     <h3 class="text-uppercase text-theme-colored title line-bottom">
                                         Dữ liệu Nhà khoa học
                                         <div class="dropdown pull-right">
-                                            <a role="button" data-toggle="dropdown" href="javascript:;">
-                                                Need data
-                                            </a>
                                             <div class="dropdown-menu">
                                                 <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/index/export/xls">
                                                     <i class="fa fa-exchange"></i>
@@ -127,7 +124,17 @@
                                         <div class="content border-1px border-bottom-theme-color-2-2px pt-20 pb-30 bg-light clearfix" style="height:350px; overflow-y: auto;">
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="thumb mb-10">
-                                                    <img class="img-fullwidth" src="string.Format(" data:image/jpeg;base64,{0}", Convert.ToBase64String(@Html.DisplayFor(modelItem => item.AnhDaiDien)))" alt="@Html.DisplayFor(modelItem => item.HoNKH) @Html.DisplayFor(modelItem => item.TenNKH)">
+                                                    @{
+                                                        if (String.IsNullOrWhiteSpace(item.AnhCaNhan))
+                                                        {
+                                                            <img src="../Image/avatar.bmp" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="img-fullwidth" src="@item.AnhCaNhan" />
+                                                        }
+                                                    }
+
                                                 </div>
                                                 <ul class="styled-icons icon-dark icon-circled icon-theme-colored icon-sm pull-left flip">
                                                     <li></li>
@@ -154,7 +161,7 @@
                                                     <b>Đơn vị quản lý:</b> <br>
                                                     @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
                                                 </p>
-                                                <a class="btn btn-theme-colored btn-sm pull-left flip" href="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/detail/id/2873">
+                                                <a class="btn btn-theme-colored btn-sm pull-left flip" href="@Url.Action("Details", "NhaKhoaHocs", new { id = item.MaNKH })">
                                                     Xem chi tiết
                                                 </a>
                                             </div>
@@ -167,7 +174,7 @@
 
 
 
-                        <div class="row paging mt-20">
+                        <div class="row paging mt-20 text-center">
                             @Html.PagedListPager(Model, Page_No => Url.Action("Index", "NhaKhoaHocs", new { Page_No, search = Request.QueryString["search"] }))
                         </div>
                     </div>
@@ -176,12 +183,4 @@
         </div>
     </section>
 </div>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-
-
-
-</table>
 
