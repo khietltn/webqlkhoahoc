@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.Ajax.Utilities;
 
 namespace WebQLKhoaHoc.Models
 {
     public class NhaKhoaHocViewModel
     {
+
         public int DsBaiBao { get; set; }
         public int DsDetai { get; set; }
         public int DsSach { get; set; }
@@ -20,7 +22,7 @@ namespace WebQLKhoaHoc.Models
         public string DienThoai { get; set; }
         public string EmailLienHe { get; set; }
         public string MaHocHam { get; set; }
-        public string TenHocHam { get; set; }
+        public virtual HocHam HocHam { get; set; }
         public DateTime NamKetThucDaoTao { get; set; }
         public string MaHocVi { get; set; }
         public string MaCNDaoTao { get; set; }
@@ -43,42 +45,42 @@ namespace WebQLKhoaHoc.Models
 
         public static NhaKhoaHocViewModel Mapping(NhaKhoaHoc nkh)
         {
-            return new NhaKhoaHocViewModel
-            {
-                NgachVienChuc = nkh.NgachVienChuc,
-                NgaySinh = nkh.NgaySinh,
-                HoNKH = nkh.HoNKH,
-                TenNKH = nkh.TenNKH,
-                AnhCaNhan = string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(nkh.AnhCaNhan)),
-                DienThoai = nkh.DienThoai,
-                DiaChiLienHe = nkh.DiaChiLienHe,
-                TenHocHam = nkh.HocHam.TenHocHam,
-                NamKetThucDaoTao = nkh.QuaTrinhDaoTaos.Where(p => p.MaNKH == nkh.MaNKH).Max(t => t.NamTotNghiep).Value,
-                HocVi = nkh.HocVi,
-                DonViQL = nkh.DonViQL,
-                MaCNDaoTao = nkh.MaCNDaoTao,
-                MaDonViQL = nkh.MaDonViQL,
-                EmailLienHe = nkh.EmailLienHe,
-                QuaTrinhCongTacs = nkh.QuaTrinhCongTacs,
-                QuaTrinhDaoTaos = nkh.QuaTrinhDaoTaos,
-                DSNguoiThamGiaBaiBaos = nkh.DSNguoiThamGiaBaiBaos,
-                DSNguoiThamGiaDeTais = nkh.DSNguoiThamGiaDeTais,
-                DSTacGias = nkh.DSTacGias,
-                TrinhDoNgoaiNgus = nkh.TrinhDoNgoaiNgus,
-                MaNKHHoSo = nkh.MaNKHHoSo,
-                MaHocVi = nkh.MaHocVi,
-                MaHocHam = nkh.MaHocHam,
-                MaNgachVienChuc = nkh.MaNgachVienChuc,
-                MaNKH = nkh.MaNKH,
-                ChuyenMonNKHs = nkh.ChuyenMonNKHs,
-                GioiTinhNKH = nkh.GioiTinhNKH,
-                ChuyenNganh = nkh.ChuyenNganh,
-                LinhVucs = nkh.LinhVucs,
-                DsBaiBao = nkh.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == nkh.MaNKH).Count(),
-                DsSach = nkh.DSTacGias.Where(p => p.MaNKH == nkh.MaNKH).Count(),
-                DsDetai = nkh.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == nkh.MaNKH).Count()
+            NhaKhoaHocViewModel nkhvm = new NhaKhoaHocViewModel();
+            nkhvm.NgachVienChuc = nkh.NgachVienChuc ?? new NgachVienChuc();
+            nkhvm.NgaySinh = nkh.NgaySinh ?? new DateTime();
+            nkhvm.HoNKH = nkh.HoNKH ?? String.Empty;
+            nkhvm.TenNKH = nkh.TenNKH ?? String.Empty;
+            nkhvm.AnhCaNhan = nkh.AnhCaNhan != null ? string.Format("data:image/jpeg;base64;{0}", Convert.ToBase64String(nkh.AnhCaNhan)) : String.Empty;
+            nkhvm.DienThoai = nkh.DienThoai ?? String.Empty;
+            nkhvm.DiaChiLienHe = nkh.DiaChiLienHe ?? String.Empty;
+            nkhvm.HocHam = nkh.HocHam ?? new HocHam();
+            nkhvm.NamKetThucDaoTao = nkh.QuaTrinhDaoTaos.Count > 0 ? nkh.QuaTrinhDaoTaos.Where(p => p.MaNKH == nkh.MaNKH).Max(t => t.NamTotNghiep).Value : new DateTime();
+            nkhvm.HocVi = nkh.HocVi ?? new HocVi();
+            nkhvm.DonViQL = nkh.DonViQL ?? new DonViQL();
+            nkhvm.MaCNDaoTao = nkh.MaCNDaoTao ?? String.Empty;
+            nkhvm.MaDonViQL = nkh.MaDonViQL ?? String.Empty;
+            nkhvm.EmailLienHe = nkh.EmailLienHe ?? String.Empty;
+            nkhvm.QuaTrinhCongTacs = nkh.QuaTrinhCongTacs ?? new List<QuaTrinhCongTac>();
+            nkhvm.QuaTrinhDaoTaos = nkh.QuaTrinhDaoTaos ?? new List<QuaTrinhDaoTao>();
+            nkhvm.DSNguoiThamGiaBaiBaos = nkh.DSNguoiThamGiaBaiBaos ?? new List<DSNguoiThamGiaBaiBao>();
+            nkhvm.DSNguoiThamGiaDeTais = nkh.DSNguoiThamGiaDeTais ?? new List<DSNguoiThamGiaDeTai>();
+            nkhvm.DSTacGias = nkh.DSTacGias ?? new List<DSTacGia>();
+            nkhvm.TrinhDoNgoaiNgus = nkh.TrinhDoNgoaiNgus ?? new List<TrinhDoNgoaiNgu>();
+            nkhvm.MaNKHHoSo = nkh.MaNKHHoSo ?? String.Empty;
+            nkhvm.MaHocVi = nkh.MaHocVi ?? String.Empty;
+            nkhvm.MaHocHam = nkh.MaHocHam ?? String.Empty;
+            nkhvm.MaNgachVienChuc = nkh.MaNgachVienChuc ?? String.Empty;
+            nkhvm.MaNKH = nkh.MaNKH ?? String.Empty;
+            nkhvm.ChuyenMonNKHs = nkh.ChuyenMonNKHs ?? new List<ChuyenMonNKH>();
+            nkhvm.GioiTinhNKH = nkh.GioiTinhNKH ?? String.Empty;
+            nkhvm.ChuyenNganh = nkh.ChuyenNganh ?? new ChuyenNganh();
+            nkhvm.LinhVucs = nkh.LinhVucs ?? new List<LinhVuc>();
+            nkhvm.DsBaiBao = nkh.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == nkh.MaNKH).Count();
+            nkhvm.DsSach = nkh.DSTacGias.Where(p => p.MaNKH == nkh.MaNKH).Count();
+            nkhvm.DsDetai = nkh.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == nkh.MaNKH).Count();
 
-            };
+
+            return nkhvm;
         }
 
     }

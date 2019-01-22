@@ -20,18 +20,27 @@ namespace WebQLKhoaHoc.Controllers
         // GET: NhaKhoaHocs
         public async Task<ActionResult> Index(int? Page_No)
         {
-            
+
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs.ToList(), "MaChuyenNganh", "TenChuyenNganh");
             ViewBag.MaDonViQL = new SelectList(db.DonViQLs.ToList(), "MaDonVi", "TenDonVI");
             ViewBag.MaHocHam = new SelectList(db.HocHams.ToList(), "MaHocHam", "TenHocHam");
             ViewBag.MaHocVi = new SelectList(db.HocVis.ToList(), "MaHocVi", "TenHocVi");
             ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs.ToList(), "MaNgach", "TenNgach");
             var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc);
+            var listNKH = nhaKhoaHocs.Concat(nhaKhoaHocs)
+                                     .Concat(nhaKhoaHocs)
+                                     .Concat(nhaKhoaHocs)
+                                     .Concat(nhaKhoaHocs)
+                                     .ToList();
 
-			
-			int Size_Of_Page = 4;
+            for (int i = 0; i <= listNKH.Count; i++)
+            {
+                NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(listNKH[i]);
+            }
+
+            int Size_Of_Page = 6;
 			int No_Of_Page = (Page_No ?? 1);
-            return View(nhaKhoaHocs.ToList().ToPagedList(No_Of_Page, Size_Of_Page));
+            return View(listNKH.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         // GET: NhaKhoaHocs/Details/5
@@ -77,7 +86,7 @@ namespace WebQLKhoaHoc.Controllers
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaDonVi))
             {
-               nhaKhoaHocs =  nhaKhoaHocs.Where(p => p.MaDonViQL == nhaKhoaHoc.MaDonVi).ToList();
+                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaDonViQL == nhaKhoaHoc.MaDonVi).ToList();
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaHocHam))
             {
