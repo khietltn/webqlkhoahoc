@@ -50,7 +50,7 @@ namespace WebQLKhoaHoc.Models
             nkhvm.NgaySinh = nkh.NgaySinh ?? new DateTime();
             nkhvm.HoNKH = nkh.HoNKH ?? String.Empty;
             nkhvm.TenNKH = nkh.TenNKH ?? String.Empty;
-            nkhvm.AnhCaNhan = nkh.AnhCaNhan != null ? string.Format("data:image/jpeg;base64;{0}", Convert.ToBase64String(nkh.AnhCaNhan)) : String.Empty;
+            nkhvm.AnhCaNhan = nkh.AnhCaNhan != null ? string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(nkh.AnhCaNhan)) : String.Empty;
             nkhvm.DienThoai = nkh.DienThoai ?? String.Empty;
             nkhvm.DiaChiLienHe = nkh.DiaChiLienHe ?? String.Empty;
             nkhvm.HocHam = nkh.HocHam ?? new HocHam();

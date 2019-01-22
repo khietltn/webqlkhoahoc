@@ -32,15 +32,16 @@ namespace WebQLKhoaHoc.Controllers
                                      .Concat(nhaKhoaHocs)
                                      .Concat(nhaKhoaHocs)
                                      .ToList();
-
-            for (int i = 0; i <= listNKH.Count; i++)
+            var lstNKH = new List<NhaKhoaHocViewModel>();
+            for (int i = 0; i < listNKH.Count; i++)
             {
                 NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(listNKH[i]);
+                lstNKH.Add(nkh);
             }
 
             int Size_Of_Page = 6;
 			int No_Of_Page = (Page_No ?? 1);
-            return View(listNKH.ToPagedList(No_Of_Page, Size_Of_Page));
+            return View(lstNKH.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         // GET: NhaKhoaHocs/Details/5
