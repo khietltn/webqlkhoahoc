@@ -1,4 +1,5 @@
 ﻿@model IPagedList<WebQLKhoaHoc.NhaKhoaHoc>
+@model WebQLKhoaHoc.Models.NhaKhoaHocViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -116,7 +117,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div class="row mtli-row-clearfix">
                             @foreach (var item in Model)
                             {
@@ -126,7 +127,7 @@
                                         <div class="content border-1px border-bottom-theme-color-2-2px pt-20 pb-30 bg-light clearfix" style="height:350px; overflow-y: auto;">
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="thumb mb-10">
-                                                    <img class="img-fullwidth" src="string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(@Html.DisplayFor(modelItem => item.AnhDaiDien)))" alt="@Html.DisplayFor(modelItem => item.HoNKH) @Html.DisplayFor(modelItem => item.TenNKH)">
+                                                    <img class="img-fullwidth" src="string.Format(" data:image/jpeg;base64,{0}", Convert.ToBase64String(@Html.DisplayFor(modelItem => item.AnhDaiDien)))" alt="@Html.DisplayFor(modelItem => item.HoNKH) @Html.DisplayFor(modelItem => item.TenNKH)">
                                                 </div>
                                                 <ul class="styled-icons icon-dark icon-circled icon-theme-colored icon-sm pull-left flip">
                                                     <li></li>
@@ -159,21 +160,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             }
-                            </div>
-                        
+                        </div>
 
 
-                        <div class="row mt-20">
-                            Pagging here
+
+                        <div class="row paging mt-20">
+                            @Html.PagedListPager(Model, Page_No => Url.Action("Index", "NhaKhoaHocs", new { Page_No, search = Request.QueryString["search"] }))
                         </div>
                     </div>
                 </section>
             </div>
         </div>
-    </section>       
+    </section>
 </div>
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -184,4 +185,3 @@
 
 </table>
 
-@Html.PagedListPager(Model, Page_No => Url.Action("Index", "NhaKhoaHocs", new { Page_No, search=Request.QueryString["search"]}))
