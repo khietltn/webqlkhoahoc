@@ -313,6 +313,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\avatar.bmp" />
     <Content Include="QLKH.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKH.edmx</DependentUpon>
