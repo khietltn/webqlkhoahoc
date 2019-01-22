@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc.Controllers
         // GET: NhaKhoaHocs
         public async Task<ActionResult> Index(int? Page_No)
         {
-            
+
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs.ToList(), "MaChuyenNganh", "TenChuyenNganh");
             ViewBag.MaDonViQL = new SelectList(db.DonViQLs.ToList(), "MaDonVi", "TenDonVI");
             ViewBag.MaHocHam = new SelectList(db.HocHams.ToList(), "MaHocHam", "TenHocHam");
@@ -77,7 +77,7 @@ namespace WebQLKhoaHoc.Controllers
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaDonVi))
             {
-               nhaKhoaHocs =  nhaKhoaHocs.Where(p => p.MaDonViQL == nhaKhoaHoc.MaDonVi).ToList();
+                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaDonViQL == nhaKhoaHoc.MaDonVi).ToList();
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaHocHam))
             {
