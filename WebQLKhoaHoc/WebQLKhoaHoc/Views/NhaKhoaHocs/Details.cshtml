@@ -111,7 +111,7 @@
                                     <div class="col-xs-12 col-sm-6 col-md-4 mb-md-50">
                                         <div class="funfact text-center">
                                             <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/article/index/user/2873/page/1">
-                                                <h2 data-animation-duration="2000" data-value="0" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">0</h2>
+                                                <h2 data-animation-duration="2000" data-value="@Model.DsBaiBao" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">0</h2>
                                             </a>
                                             <h5 class="text-uppercase mb-0">Bài báo</h5>
                                         </div>
@@ -119,7 +119,7 @@
                                     <div class="col-xs-12 col-sm-6 col-md-4 mb-md-50">
                                         <div class="funfact text-center">
                                             <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book/index/user/2873/page/1">
-                                                <h2 data-animation-duration="2000" data-value="0" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">0</h2>
+                                                <h2 data-animation-duration="2000" data-value="@Model.DsSach" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">0</h2>
                                             </a>
                                             <h5 class="text-uppercase mb-0">Sách - Giáo trình</h5>
                                         </div>
@@ -127,7 +127,7 @@
                                     <div class="col-xs-12 col-sm-6 col-md-4 mb-md-50">
                                         <div class="funfact text-center">
                                             <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/topic/index/user/2873/page/1">
-                                                <h2 data-animation-duration="2000" data-value="1" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">1</h2>
+                                                <h2 data-animation-duration="2000" data-value="@Model.DsDetai" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">1</h2>
                                             </a>
                                             <h5 class="text-uppercase mb-0">Đề tài khoa học</h5>
                                         </div>
@@ -207,19 +207,29 @@
                                                             </p>
                                                             <h5 class="mt-0 mb-0 font-weight-600">Ngành đào tạo:</h5>
                                                             <p>
-
+                                                                <span>@Model.ChuyenNganh.NganhDaoTao.TenNganhDaoTao</span>
                                                             </p>
                                                             <h5 class="mt-0 mb-0 font-weight-600">Chuyên ngành đào tạo:</h5>
                                                             <p>
-
+                                                                <span>@Model.ChuyenNganh.TenChuyenNganh</span>
                                                             </p>
                                                             <h5 class="mt-0 mb-0 font-weight-600">Chuyên môn giảng dạy:</h5>
                                                             <p>
-
-                                                            </p>
+                                                                @{
+                                                                    foreach (var item in Model.ChuyenMonNKHs)
+                                                                    {
+                                                                        <span>@item.ChuyenMon.TenChuyenMon;</span>
+                                                                    }
+                                                                }
+                                                                    </p>
                                                             <h5 class="mt-0 mb-0 font-weight-600">Lĩnh vực nghiên cứu:</h5>
                                                             <p>
-                                                                Lí luận và phương pháp dạy học môn Văn-Tiếng Việt
+                                                                @{
+                                                                    foreach (var item in Model.LinhVucs)
+                                                                    {
+                                                                        <span>@item.TenLinhVuc; </span>
+                                                                    }
+                                                                }
                                                             </p>
                                                             <h5 class="mt-0 mb-0 font-weight-600">Trình độ ngoại ngữ:</h5>
                                                             <p>
@@ -227,7 +237,6 @@
                                                                     foreach (var item in Model.TrinhDoNgoaiNgus)
                                                                     {
                                                                         <span>@item.TenTrinhDo</span>
-                                                                        <span>@item.MaTrinhDoNN</span>
                                                                         <br>
                                                                     }
                                                                 }
@@ -295,7 +304,20 @@
                                                                 <th>Chức vụ</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody></tbody>
+                                                        <tbody>
+                                                            @{
+                                                                foreach (var item in Model.QuaTrinhCongTacs)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@item.ThoiGianBD.Value.Date - @item.ThoiGIanKT.Value.Date</td>
+                                                                        <td>@item.ChucDanhCT</td>
+                                                                        <td>@item.DonViQL.TenDonVI</td>
+                                                                        <td>@item.ChucVuCT</td>
+                                                                    </tr>
+                                                                }
+
+                                                            }
+                                                        </tbody>
                                                     </table>
                                                 </div>
                                             </div>
@@ -318,12 +340,18 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Tiến sĩ</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>1981</td>
-                                                            </tr>
+                                                        @{
+                                                            foreach (var item in Model.QuaTrinhDaoTaos)
+                                                            {
+                                                                <tr>
+                                                                    <td>@item.BacDaoTao.TenBacDT</td>
+                                                                    <td>@item.CoSoDaoTao</td>
+                                                                    <td>@item.NganhDaoTao.TenNganhDaoTao</td>
+                                                                    <td>@item.NamTotNghiep.Value.Year</td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                       
                                                         </tbody>
                                                     </table>
                                                 </div>
