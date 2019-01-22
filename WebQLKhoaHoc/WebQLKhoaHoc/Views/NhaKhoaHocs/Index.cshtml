@@ -13,518 +13,76 @@
 <div class="main-content">
     <!-- Section: Scientist header -->
     <section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
-        <div class="display-table">
-            <div class="display-table-cell">
-                <div class="container pt-30 pb-20">
-                    <div class="row">
-                        <div class="col-md-6 pt-10">
-                            <h2 class="title text-white">Dữ liệu Nhà khoa học</h2>
-                            <ol class="breadcrumb text-left text-black mt-10">
-                                <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
-                                <li class="active text-gray-silver">Nhà khoa học</li>
-                            </ol>
-                        </div>
-                        <div class="col-md-6">
-                            <!-- Appointment Form Starts -->
-                            <form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 pl-5 pr-5">
-                                        <div class="form-group mb-5">
-                                            <div class="styled-select">
-                                                <select name="unit_id" id="unit_id" class="form-control">
-                                                    <option value="">--Chọn đơn vị--</option>
-                                                    <option value="2">Cơ quan Đại học Huế</option>
-                                                    <option value="96">---Ban Giám đốc</option>
-                                                    <option value="97">---Ban Công tác học sinh, sinh viên</option>
-                                                    <option value="98">---Ban Đào tạo</option>
-                                                    <option value="99">---Ban Thanh tra</option>
-                                                    <option value="101">---Ban Hợp tác Quốc tế</option>
-                                                    <option value="102">---Ban Kế hoạch - Tài chính</option>
-                                                    <option value="103">---Ban Khảo thí - Đảm bảo chất lượng giáo dục</option>
-                                                    <option value="104">---Ban Khoa học, Công nghệ và Môi trường</option>
-                                                    <option value="106">---Ban Cơ sở vật chất</option>
-                                                    <option value="107">---Ban Pháp chế và Thi đua</option>
-                                                    <option value="108">---Ban Tổ chức cán bộ</option>
-                                                    <option value="109">---Trung tâm Công nghệ thông tin</option>
-                                                    <option value="110">---Văn phòng Công đoàn Đại học Huế</option>
-                                                    <option value="111">---Văn phòng Đại học Huế</option>
-                                                    <option value="112">---Văn phòng Đảng Ủy Đại học Huế</option>
-                                                    <option value="113">---Văn phòng Đoàn thanh niên - Hội sinh viên Đại học Huế</option>
-                                                    <option value="540">---Văn phòng Công đoàn cơ sở Cơ quan Đại học Huế</option>
-                                                    <option value="541">---Văn phòng Chương trình VLIR</option>
-                                                    <option value="542">---Hội Cựu chiến binh Đại học Huế</option>
-                                                    <option value="593">---Tạp chí Khoa học</option>
-                                                    <option value="3">Trường Đại học Khoa học</option>
-                                                    <option value="116">---Ban Giám hiệu</option>
-                                                    <option value="117">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="120">---Phòng Đào tạo Đại học - Công tác sinh viên</option>
-                                                    <option value="124">---Phòng Đào tạo Sau đại học</option>
-                                                    <option value="125">---Phòng Kế hoạch tài chính - Cơ sở vật chất</option>
-                                                    <option value="129">---Phòng Khảo thí - Đảm bảo chất lượng Giáo dục</option>
-                                                    <option value="130">---Phòng Khoa học công nghệ - Hợp tác quốc tế</option>
-                                                    <option value="131">---Khoa Báo chí - Truyền thông</option>
-                                                    <option value="135">---Khoa Địa lý - Địa chất</option>
-                                                    <option value="140">---Khoa Công nghệ thông tin</option>
-                                                    <option value="145">---Khoa Hóa học</option>
-                                                    <option value="150">---Khoa Kiến trúc</option>
-                                                    <option value="154">---Khoa Lịch sử</option>
-                                                    <option value="160">---Khoa Lý luận chính trị</option>
-                                                    <option value="165">---Khoa Môi trường</option>
-                                                    <option value="169">---Khoa Ngữ văn</option>
-                                                    <option value="175">---Khoa Sinh học</option>
-                                                    <option value="182">---Khoa Toán</option>
-                                                    <option value="187">---Khoa Vật lý</option>
-                                                    <option value="191">---Khoa Điện tử - Viễn thông</option>
-                                                    <option value="192">---Khoa Xã hội học</option>
-                                                    <option value="196">---Trung tâm Khoa học xã hội và Nhân văn</option>
-                                                    <option value="197">---Trung tâm Nghiên cứu quản lý &amp; Phát triển vùng duyên hải</option>
-                                                    <option value="198">---Trung tâm Thông tin - Thư viện</option>
-                                                    <option value="202">---Trung tâm Phân tích</option>
-                                                    <option value="203">---Trung tâm Tin học</option>
-                                                    <option value="204">---Trung tâm tư vấn Kiến trúc và Ứng dụng địa chất</option>
-                                                    <option value="543">---Văn phòng Đảng Ủy</option>
-                                                    <option value="544">---Văn phòng Công đoàn</option>
-                                                    <option value="545">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="4">Trường Đại học Sư phạm</option>
-                                                    <option value="206">---Ban Giám hiệu</option>
-                                                    <option value="207">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="212">---Phòng Đào tạo đại học</option>
-                                                    <option value="216">---Phòng Đào tạo Sau đại học</option>
-                                                    <option value="217">---Phòng Công tác Sinh viên</option>
-                                                    <option value="218">---Phòng Khoa học công nghệ - Hợp tác quốc tế</option>
-                                                    <option value="219">---Phòng Kế hoạch - Tài chính</option>
-                                                    <option value="222">---Phòng Khảo thí - Đảm bảo chất lượng giáo dục</option>
-                                                    <option value="223">---Khoa Địa lý</option>
-                                                    <option value="227">---Khoa Tin học</option>
-                                                    <option value="232">---Khoa Hóa học</option>
-                                                    <option value="238">---Khoa Giáo dục Tiểu học</option>
-                                                    <option value="242">---Khoa Lịch sử</option>
-                                                    <option value="246">---Khoa Giáo dục Chính trị</option>
-                                                    <option value="250">---Khoa Tại chức</option>
-                                                    <option value="251">---Khoa Ngữ văn</option>
-                                                    <option value="257">---Khoa Sinh học</option>
-                                                    <option value="261">---Khoa Toán</option>
-                                                    <option value="265">---Khoa Vật lý</option>
-                                                    <option value="270">---Khoa Tâm lý - Giáo dục</option>
-                                                    <option value="274">---Khoa Sư phạm Kỹ thuật</option>
-                                                    <option value="278">---Khoa Giáo dục Mầm non</option>
-                                                    <option value="282">---Viện nghiên cứu giáo dục</option>
-                                                    <option value="283">---Trung tâm Công nghệ thông tin</option>
-                                                    <option value="284">---Trung tâm Thông tin - Thư viện</option>
-                                                    <option value="285">---Trung tâm VLLT và Vật lý tính toán</option>
-                                                    <option value="546">---Văn phòng Đảng Ủy</option>
-                                                    <option value="547">---Văn phòng Công đoàn</option>
-                                                    <option value="548">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="5">Trường Đại học Nông lâm</option>
-                                                    <option value="362">---Ban Giám hiệu</option>
-                                                    <option value="363">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="369">---Phòng Đào tạo đại học</option>
-                                                    <option value="370">---Phòng Công tác sinh viên</option>
-                                                    <option value="371">---Phòng Đào tạo Sau đại học</option>
-                                                    <option value="372">---Phòng Kế hoạch - Tài chính</option>
-                                                    <option value="373">---Phòng Khảo thí - Đảm bảo chất lượng Giáo dục</option>
-                                                    <option value="374">---Phòng Khoa học công nghệ - Hợp tác quốc tế</option>
-                                                    <option value="375">---Khoa Nông học</option>
-                                                    <option value="383">---Khoa Chăn nuôi - Thú y</option>
-                                                    <option value="390">---Khoa Lâm nghiệp</option>
-                                                    <option value="396">---Khoa Cơ khí - Công nghệ</option>
-                                                    <option value="401">---Khoa Thủy sản</option>
-                                                    <option value="406">---Khoa Khuyến nông và Phát triển nông thôn</option>
-                                                    <option value="411">---Khoa Tài nguyên đất và Môi trường nông nghiệp</option>
-                                                    <option value="415">---Khoa Cơ bản</option>
-                                                    <option value="420">---Trung tâm Thông tin - Thư viện</option>
-                                                    <option value="424">---Trung tâm NCKH và Phát triển công nghệ Nông Lâm nghiệp</option>
-                                                    <option value="425">---Trung tâm Phát triển nông thôn miền Trung</option>
-                                                    <option value="426">---Trung tâm Nghiên cứu biến đổi khí hậu miền Trung</option>
-                                                    <option value="428">---Viện nghiên cứu và Phát triển</option>
-                                                    <option value="552">---Văn phòng Đảng Ủy</option>
-                                                    <option value="553">---Văn phòng Công đoàn</option>
-                                                    <option value="554">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="6">Trường Đại học Y dược</option>
-                                                    <option value="287">---Ban Giám hiệu</option>
-                                                    <option value="288">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="289">---Phòng Đào tạo đại học - Công tác sinh viên</option>
-                                                    <option value="290">---Phòng Đào tạo Sau đại học</option>
-                                                    <option value="292">---Phòng Kế hoạch - Tài chính</option>
-                                                    <option value="293">---Phòng Quản trị - Cơ sở vật chất</option>
-                                                    <option value="294">---Phòng Khảo thí - Đảm bảo chất lượng giáo dục</option>
-                                                    <option value="295">---Phòng Khoa học công nghệ - Hợp tác quốc tế</option>
-                                                    <option value="296">---Khoa Y tế công cộng</option>
-                                                    <option value="297">---Khoa Điều dưỡng</option>
-                                                    <option value="298">---Khoa Răng Hàm Mặt</option>
-                                                    <option value="299">---Khoa Dược</option>
-                                                    <option value="300">---Khoa Cơ bản</option>
-                                                    <option value="301">---Bộ môn Nội</option>
-                                                    <option value="302">---Bộ môn Ngoại</option>
-                                                    <option value="303">---Bộ môn Sản</option>
-                                                    <option value="304">---Bộ môn Nhi</option>
-                                                    <option value="305">---Bộ môn Ung bướu</option>
-                                                    <option value="306">---Bộ môn Gây mê hồi sức</option>
-                                                    <option value="307">---Bộ môn Phẩu thuật thực hành</option>
-                                                    <option value="308">---Bộ môn Lao</option>
-                                                    <option value="309">---Bộ môn Truyền nhiễm</option>
-                                                    <option value="310">---Bộ môn Tâm thần</option>
-                                                    <option value="311">---Bộ môn Da liễu</option>
-                                                    <option value="313">---Bộ môn Chẩn đoán hình ảnh</option>
-                                                    <option value="314">---Bộ môn Mắt</option>
-                                                    <option value="315">---Bộ môn Tai Mũi Họng</option>
-                                                    <option value="316">---Khoa Y học cổ truyền</option>
-                                                    <option value="317">---Bộ môn Phục hồi chức năng</option>
-                                                    <option value="318">---Bộ môn Sinh lý</option>
-                                                    <option value="319">---Bộ môn Di truyền Y học</option>
-                                                    <option value="320">---Bộ môn Dược lý</option>
-                                                    <option value="321">---Bộ môn Sinh hóa</option>
-                                                    <option value="322">---Bộ môn Miễn dịch Sinh lý bệnh</option>
-                                                    <option value="323">---Bộ môn Giải phẫu</option>
-                                                    <option value="324">---Bộ môn Mô phôi</option>
-                                                    <option value="325">---Bộ môn Vi sinh</option>
-                                                    <option value="326">---Bộ môn Ký sinh trùng</option>
-                                                    <option value="327">---Bộ môn Giải phẩu bệnh - Pháp Y</option>
-                                                    <option value="328">---Bộ môn Huyết học</option>
-                                                    <option value="329">---Trung tâm Thông tin - Thư viện</option>
-                                                    <option value="330">---Bệnh viện trường Đại học Y Dược</option>
-                                                    <option value="509">------Ban Giám đốc</option>
-                                                    <option value="510">------Phòng kế hoạch tổng hợp</option>
-                                                    <option value="511">------Phòng Tài chính - Kế toán</option>
-                                                    <option value="512">------Phòng NCKH - đối ngoại</option>
-                                                    <option value="513">------Phòng Điều dưỡng</option>
-                                                    <option value="514">------Khoa Khám bệnh</option>
-                                                    <option value="515">------Khoa Ngoại Tổng hợp</option>
-                                                    <option value="516">------Khoa Ngoại Chấn thương, thần kinh, bỏng.</option>
-                                                    <option value="517">------Khoa Nội Tổng hợp.</option>
-                                                    <option value="518">------Khoa Nội Tim mạch, Hô hấp, xương khớp</option>
-                                                    <option value="519">------Khoa Phụ Sản.</option>
-                                                    <option value="520">------Khoa Nhi.</option>
-                                                    <option value="521">------Khoa Y học cổ truyền.</option>
-                                                    <option value="522">------Khoa TMH Mắt RHM</option>
-                                                    <option value="523">------Khoa Ung bướu.</option>
-                                                    <option value="524">------Khoa Chống nhiễm khuẩn.</option>
-                                                    <option value="525">------Khoa Chẩn đoán hình ảnh.</option>
-                                                    <option value="526">------Khoa Gây mê - Hồi sức - Cấp cứu</option>
-                                                    <option value="527">------Khoa Thăm dò chức năng.</option>
-                                                    <option value="528">------Khoa Huyết học - Truyền máu.</option>
-                                                    <option value="529">------Khoa Sinh hoá.</option>
-                                                    <option value="530">------Khoa Vi sinh.</option>
-                                                    <option value="531">------Khoa Ký sinh trùng.</option>
-                                                    <option value="532">------Khoa Giải phẫu bệnh.</option>
-                                                    <option value="533">------Khoa Dược - Vật tư.</option>
-                                                    <option value="534">------Đơn vị tán sỏi.</option>
-                                                    <option value="535">------Đơn vị thận nhân tạo.</option>
-                                                    <option value="536">------Đơn vị điều trị vô sinh.</option>
-                                                    <option value="537">------Đơn vị phẫu thuật mắt bằng máy Laser YAG.</option>
-                                                    <option value="538">------Trung tâm Phẫu thuật bằng dao Gamma.</option>
-                                                    <option value="549">---Văn phòng Đảng Ủy</option>
-                                                    <option value="550">---Văn phòng Công đoàn</option>
-                                                    <option value="551">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="585">---Tổ Thanh tra Pháp Chế</option>
-                                                    <option value="586">---Tổ Công nghệ Thông tin</option>
-                                                    <option value="7">Trường Đại học Kinh tế</option>
-                                                    <option value="444">---Ban Giám hiệu</option>
-                                                    <option value="445">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="449">---Phòng Đào tạo Đại học - Công tác sinh viên</option>
-                                                    <option value="454">---Phòng KHCN - HTQT - ĐTSĐH</option>
-                                                    <option value="455">---Phòng Kế hoạch - Tài chính</option>
-                                                    <option value="458">---Phòng Khảo thí - Đảm bảo chất lượng Giáo dục</option>
-                                                    <option value="461">---Khoa Kinh tế và Phát triển</option>
-                                                    <option value="466">---Khoa Quản trị Kinh doanh</option>
-                                                    <option value="470">---Khoa Kế toán - Kiểm toán</option>
-                                                    <option value="474">---Khoa Kinh tế Chính trị</option>
-                                                    <option value="478">---Khoa Hệ thống Thông tin Kinh tế</option>
-                                                    <option value="482">---Trung tâm Phát triển doanh nghiệp vừa và nhỏ</option>
-                                                    <option value="484">---Trung tâm Đào tạo Quản trị HTX Nông nghiệp</option>
-                                                    <option value="485">---Trung tâm Thông tin - Thư viện</option>
-                                                    <option value="558">---Văn phòng Đảng Ủy</option>
-                                                    <option value="559">---Văn phòng Công đoàn</option>
-                                                    <option value="560">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="634">---Khoa Tài chính - Ngân hàng</option>
-                                                    <option value="8">Trường Đại học Nghệ thuật</option>
-                                                    <option value="430">---Ban Giám hiệu</option>
-                                                    <option value="431">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="432">---Phòng Khoa học công nghệ - Hợp tác quốc tế</option>
-                                                    <option value="433">---Phòng Đào tạo - Công tác sinh viên</option>
-                                                    <option value="434">---Tổ Tài vụ</option>
-                                                    <option value="435">---Thư viện</option>
-                                                    <option value="436">---Khoa Hội họa</option>
-                                                    <option value="437">---Khoa Điêu khắc</option>
-                                                    <option value="438">---Khoa Sư phạm Mỹ thuật</option>
-                                                    <option value="439">---Khoa Mỹ thuật ứng dụng</option>
-                                                    <option value="440">---Bộ môn Đồ họa</option>
-                                                    <option value="441">---Tổ Cơ sở ngành</option>
-                                                    <option value="442">---Tổ Khảo thí</option>
-                                                    <option value="555">---Văn phòng Đảng Ủy</option>
-                                                    <option value="556">---Văn phòng Công đoàn</option>
-                                                    <option value="557">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="9">Trường Đại học Ngoại ngữ</option>
-                                                    <option value="489">---Ban Giám hiệu</option>
-                                                    <option value="490">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="491">---Phòng Đào tạo</option>
-                                                    <option value="492">---Phòng Công tác sinh viên</option>
-                                                    <option value="493">---Phòng Kế hoạch - Tài chính</option>
-                                                    <option value="494">---Phòng Khảo thí - Đảm bảo chất lượng Giáo dục</option>
-                                                    <option value="495">---Phòng Khoa học công nghệ - Hợp tác quốc tế</option>
-                                                    <option value="496">---Khoa Ngôn ngữ và Văn hóa Nhật Bản</option>
-                                                    <option value="497">---Khoa Ngôn ngữ và Văn hóa Hàn Quốc</option>
-                                                    <option value="498">---Khoa Quốc tế học</option>
-                                                    <option value="499">---Khoa Tiếng Anh chuyên ngành</option>
-                                                    <option value="500">---Khoa Tiếng Anh</option>
-                                                    <option value="501">---Khoa Tiếng Nga</option>
-                                                    <option value="502">---Khoa Tiếng Pháp</option>
-                                                    <option value="503">---Khoa Tiếng Trung</option>
-                                                    <option value="504">---Trung tâm Thông tin - Thư viện</option>
-                                                    <option value="505">---Khoa Việt Nam học</option>
-                                                    <option value="562">---Văn phòng Đảng Ủy</option>
-                                                    <option value="563">---Văn phòng Công đoàn</option>
-                                                    <option value="564">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="587">---Trung tâm Nghiên cứu Ứng dụng Ngôn ngữ Văn hóa</option>
-                                                    <option value="10">Viện Tài nguyên và Môi trường</option>
-                                                    <option value="44">---Ban Lãnh đạo Viện</option>
-                                                    <option value="45">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="46">---Bộ môn Quản lý môi trường và Biến đổi khí hậu</option>
-                                                    <option value="47">---Bộ môn Công nghệ môi trường</option>
-                                                    <option value="627">---Trung tâm Quan trắc và Phân tích môi trường</option>
-                                                    <option value="11">Trường Đại học Luật</option>
-                                                    <option value="34">---Ban Giám hiệu</option>
-                                                    <option value="35">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="36">---Phòng Đào tạo - Công tác sinh viên</option>
-                                                    <option value="37">---Phòng KHCN - HTQT - SĐH</option>
-                                                    <option value="38">---Khoa Luật Hành chính</option>
-                                                    <option value="39">---Khoa Luật Hình sự</option>
-                                                    <option value="40">---Khoa Luật Dân sự</option>
-                                                    <option value="41">---Khoa Luật Kinh tế - Quốc tế</option>
-                                                    <option value="42">---Trung tâm Tư vấn và Thực hành Pháp luật</option>
-                                                    <option value="567">---Đảng ủy Khoa Luật</option>
-                                                    <option value="568">---Công đoàn Cơ sở Khoa Luật</option>
-                                                    <option value="572">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="12">Trung tâm Giáo dục thường xuyên</option>
-                                                    <option value="53">---Ban Giám đốc</option>
-                                                    <option value="54">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="58">---Phòng Đào tạo</option>
-                                                    <option value="66">---Phòng Kế hoạch - Tài chính</option>
-                                                    <option value="69">---Phòng Khảo thí - Đảm bảo chất lượng Giáo dục</option>
-                                                    <option value="575">---Đảng Ủy Trung tâm Đào tạo Từ xa</option>
-                                                    <option value="577">---Văn Phòng Công đoàn</option>
-                                                    <option value="13">Khoa Giáo dục Thể chất</option>
-                                                    <option value="611">---Ban Chủ nhiệm Khoa</option>
-                                                    <option value="612">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="15">---Bộ môn Điền kinh - Thể dục</option>
-                                                    <option value="16">---Bộ môn Bóng</option>
-                                                    <option value="569">---Đảng Ủy Khoa GDTC</option>
-                                                    <option value="570">---Công đoàn Cơ sở Khoa GDTC</option>
-                                                    <option value="573">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="601">---Bộ môn Lý luận chuyên ngành</option>
-                                                    <option value="613">---Tổ Quản lý Khoa học - Đối ngoại</option>
-                                                    <option value="614">---Phòng Đào tạo - Khoa học - Hợp tác quốc tế</option>
-                                                    <option value="617">---Bộ môn Cầu lông – Bơi lội</option>
-                                                    <option value="619">---Tổ Khảo thí - Đảm bảo chất lượng giáo dục</option>
-                                                    <option value="14">Viện Công nghệ Sinh học</option>
-                                                    <option value="592">---Ban lãnh đạo Viện</option>
-                                                    <option value="596">---Phòng Tổ chức Hành chính</option>
-                                                    <option value="628">---Phòng Khoa học, Đào tạo và Hợp tác quốc tế</option>
-                                                    <option value="594">---Bộ môn Miễn dịch học và Vắc - xin</option>
-                                                    <option value="595">---Bộ môn Sinh học và CNSH ứng dụng</option>
-                                                    <option value="629">---Bộ môn Công nghệ Gen</option>
-                                                    <option value="630">---Bộ môn Công nghệ Vi sinh</option>
-                                                    <option value="631">---Bộ môn Công nghệ tế bào</option>
-                                                    <option value="632">---Bộ môn Công nghệ Enzyme và Protein</option>
-                                                    <option value="633">---Trung tâm Chăm sóc và Chữa trị vật nuôi</option>
-                                                    <option value="26">---Trung tâm ươm tạo và chuyển giao công nghệ</option>
-                                                    <option value="17">Khoa Du lịch</option>
-                                                    <option value="21">---Ban Chủ nhiệm khoa</option>
-                                                    <option value="23">---Phòng Giáo vụ - Công tác sinh viên</option>
-                                                    <option value="27">---Bộ môn Lữ hành</option>
-                                                    <option value="28">---Bộ môn Khách sạn - Nhà hàng</option>
-                                                    <option value="29">---Bộ môn CNTT &amp; Truyền thông du lịch dịch vụ</option>
-                                                    <option value="30">---Thư viện</option>
-                                                    <option value="31">---Trung tâm Thực hành liên kết doanh nghiệp</option>
-                                                    <option value="32">---Bộ môn Quản lý sự kiện và Marketing dịch vụ</option>
-                                                    <option value="565">---Chi Bộ Khoa Du lịch</option>
-                                                    <option value="566">---Công đoàn Cơ sở Khoa Du lịch</option>
-                                                    <option value="571">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="622">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="624">---Tổ Tài chính - Kế toán</option>
-                                                    <option value="625">---Phòng  Khoa học  - Hợp tác quốc tế</option>
-                                                    <option value="626">---Bộ môn Du lịch học</option>
-                                                    <option value="18">Phân hiệu Đại học Huế tại Quảng trị</option>
-                                                    <option value="574">---Chi Ủy Phân hiệu Quảng trị</option>
-                                                    <option value="602">---Ban Giám đốc</option>
-                                                    <option value="603">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="605">---Bộ môn Công nghệ Kỹ thuật - Môi trường</option>
-                                                    <option value="606">---Bộ môn Kỹ thuật trắc địa bản đồ</option>
-                                                    <option value="607">---Bộ môn Kỹ thuật Điện</option>
-                                                    <option value="608">---Bộ môn Xây dựng dân dụng và Công nghiệp</option>
-                                                    <option value="609">---Phòng Đào tạo - Khoa học công nghệ</option>
-                                                    <option value="19">Nhà Xuất bản</option>
-                                                    <option value="20">Trung tâm Học liệu</option>
-                                                    <option value="74">---Ban Giám đốc</option>
-                                                    <option value="75">---Phòng Hành chính</option>
-                                                    <option value="76">---Phòng Tài nguyên thông tin</option>
-                                                    <option value="77">---Phòng Dịch vụ thông tin</option>
-                                                    <option value="78">---Phòng Công nghệ thông tin</option>
-                                                    <option value="79">---Phòng Đào tạo quốc tế</option>
-                                                    <option value="22">Trung tâm Phục vụ Sinh viên</option>
-                                                    <option value="86">---Ban Giám đốc</option>
-                                                    <option value="87">---Phòng Tài chính - Cơ sở vật chất</option>
-                                                    <option value="88">---Tổ Ký túc xá Đội Cung</option>
-                                                    <option value="89">---Tổ Ký túc xá Tây Lộc</option>
-                                                    <option value="90">---Tổ Ký túc xá Đống Đa</option>
-                                                    <option value="91">---Phòng Tổ Chức - Hành Chính</option>
-                                                    <option value="92">---Tổ Ký túc xá Trường Bia</option>
-                                                    <option value="93">---Tổ Ký túc xá Lưu học sinh nước ngoài</option>
-                                                    <option value="24">Trung tâm Đào tạo Quốc tế</option>
-                                                    <option value="579">---Ban Giám Đốc</option>
-                                                    <option value="580">---Phòng Tổ chức - Hành chính</option>
-                                                    <option value="581">---Phòng Đào tạo</option>
-                                                    <option value="582">---Văn phòng Dự án King SeJong - Đại học Huế</option>
-                                                    <option value="583">---Phòng Thí Nghiệm Web Ngữ Nghĩa</option>
-                                                    <option value="25">Trung tâm Giáo dục Quốc phòng</option>
-                                                    <option value="81">---Ban Giám đốc</option>
-                                                    <option value="82">---Phòng Hành chính tổng hợp - Công tác chính trị</option>
-                                                    <option value="83">---Phòng Đào tạo - Quản lý sinh viên</option>
-                                                    <option value="84">---Khoa Giáo viên</option>
-                                                    <option value="576">---Đảng Ủy Trung tâm Giáo dục Quốc phòng</option>
-                                                    <option value="588">---Văn phòng Công đoàn</option>
-                                                    <option value="589">---Văn phòng Đoàn Thanh niên - Hội Sinh viên</option>
-                                                    <option value="590">---Bộ phận Khảo thí Đảm bảo Chất lượng</option>
-                                                    <option value="51">Cộng tác viên ngoài Đại học Huế</option>
+        @using (Html.BeginForm("Search", "NhaKhoaHocs", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="display-table">
+                <div class="display-table-cell">
+                    <div class="container pt-30 pb-20">
+                        <div class="row">
+                            <div class="col-md-6 pt-10">
+                                <h2 class="title text-white">Dữ liệu Nhà khoa học</h2>
+                                <ol class="breadcrumb text-left text-black mt-10">
+                                    <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+                                    <li class="active text-gray-silver">Nhà khoa học</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Appointment Form Starts -->
+                                <form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                <div class="styled-select">
+                                                    @Html.DropDownList("MaDonVi", (IEnumerable<SelectListItem>)ViewBag.MaDonViQL, "--Chọn đơn vị--", new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaNgach", (IEnumerable<SelectListItem>)ViewBag.MaNgachVienChuc, "--Chọn ngạch--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
 
-                                                </select>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaHocHam", (IEnumerable<SelectListItem>)ViewBag.MaHocHam, "--Chọn học hàm--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaHocVi", (IEnumerable<SelectListItem>)ViewBag.MaHocVi, "--Chọn học vị--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaCNDaoTao", (IEnumerable<SelectListItem>)ViewBag.MaCNDaoTao, "--Chọn chuyên ngành--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-8 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                <div class="styled-select">
+                                                    <input name="SearchValue" id="SearchValue" class="form-control" type="text" placeholder="Từ khóa tìm kiếm" value="@ViewBag.SearchValue">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
+                                                    Tìm Kiếm
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                        <div class="form-group mb-5">
-                                            <select name="quantum_id" id="quantum_id" class="form-control">
-                                                <option value="" selected="selected">--Chọn ngạch--</option>
-                                                <option value="1">Giảng viên</option>
-                                                <option value="2">Giảng viên chính</option>
-                                                <option value="4">Giảng viên cao cấp</option>
-                                                <option value="8">Giáo viên trung học</option>
-                                                <option value="5">Chuyên viên</option>
-                                                <option value="6">Chuyên viên chính</option>
-                                                <option value="9">Thư viện viên</option>
-                                                <option value="16">Kỹ thuật viên</option>
-                                                <option value="7">Kỹ thuật viên cao cấp</option>
-                                                <option value="3">Nghiên cứu viên</option>
-                                                <option value="11">Bác sỹ</option>
-                                                <option value="12">Kế toán viên</option>
-                                                <option value="13">Kỹ thuật viên chính</option>
-                                                <option value="14">Y công</option>
-                                                <option value="15">Nhân viên văn thư</option>
-                                                <option value="10">Cán sự</option>
 
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                        <div class="form-group mb-5">
-                                            <select name="title_id" id="title_id" class="form-control">
-                                                <option value="">--Chọn chức danh--</option>
-                                                <option value="4">Giáo sư danh dự</option>
-                                                <option value="3">Giáo sư</option>
-                                                <option value="2">Phó giáo sư</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                        <div class="form-group mb-5">
-                                            <select name="degree_id" id="degree_id" class="form-control">
-                                                <option value="">--Chọn học vị--</option>
-                                                <option value="4">Tiến sĩ khoa học</option>
-                                                <option value="9">Sau tiến sĩ</option>
-                                                <option value="3">Tiến sĩ</option>
-                                                <option value="7">Chuyên khoa 2</option>
-                                                <option value="2">Thạc sĩ</option>
-                                                <option value="6">Chuyên khoa 1</option>
-                                                <option value="11">Đại học</option>
-                                                <option value="1">Cử nhân</option>
-                                                <option value="5">Bác sĩ</option>
-                                                <option value="8">Dược sĩ</option>
-                                                <option value="10">Kỹ sư</option>
-                                                <option value="12">Cao đẳng</option>
-                                                <option value="13">Trung cấp</option>
-                                                <option value="14">Khác</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                        <div class="form-group mb-5">
-                                            <select name="sector_id" id="sector_id" class="form-control">
-                                                <option value="">--Chọn lĩnh vực nghiên cứu--</option>
-                                                <option value="7">---KHOA HỌC GIÁO DỤC VÀ ĐÀO TẠO GIÁO VIÊN</option>
-                                                <option value="8">---NHÂN VĂN</option>
-                                                <option value="9">---KHOA HỌC XÃ HỘI VÀ HÀNH VI</option>
-                                                <option value="11">---KINH DOANH VÀ QUẢN LÝ</option>
-                                                <option value="12">---KHOA HỌC SỰ SỐNG</option>
-                                                <option value="13">---KHOA HỌC TỰ NHIÊN</option>
-                                                <option value="14">---TOÁN VÀ THỐNG KÊ</option>
-                                                <option value="15">---MÁY TÍNH VÀ CÔNG NGHỆ THÔNG TIN</option>
-                                                <option value="19">---KỸ THUẬT</option>
-                                                <option value="25">---NÔNG  NGHIỆP, LÂM NGHIỆP VÀ THỦY SẢN</option>
-                                                <option value="35">---SỨC KHỎE</option>
-                                                <option value="36">---MÔI TRƯỜNG VÀ BẢO VỆ MÔI TRƯỜNG</option>
-                                                <option value="999">---THÚ Y</option>
-                                                <option value="116">---NGHỆ THUẬT</option>
-                                                <option value="117">---BÁO CHÍ VÀ THÔNG TIN</option>
-                                                <option value="118">---PHÁP LUẬT</option>
-                                                <option value="120">---SẢN XUẤT VÀ CHẾ BIẾN</option>
-                                                <option value="121">---KIẾN TRÚC VÀ XÂY DỰNG</option>
-                                                <option value="123">---THỂ THAO</option>
-                                                <option value="124">---DỊCH VỤ VẬN TẢI</option>
-                                                <option value="125">---AN NINH, QUỐC PHÒNG</option>
-                                                <option value="942">---CÔNG NGHỆ KỸ THUẬT</option>
-                                                <option value="1019">---KHÁC</option>
-                                                <option value="4">---KHOA HỌC GIÁO DỤC VÀ ĐÀO TẠO GIÁO VIÊN</option>
-                                                <option value="5">---NHÂN VĂN</option>
-                                                <option value="6">---KHOA HỌC XÃ HỘI VÀ HÀNH VI</option>
-                                                <option value="10">---Y HỌC</option>
-                                                <option value="22">---TOÁN VÀ THỐNG KÊ</option>
-                                                <option value="37">---KHOA HỌC SỰ SỐNG</option>
-                                                <option value="55">---KHOA HỌC TỰ NHIÊN</option>
-                                                <option value="82">---NÔNG NGHIỆP, LÂM NGHIÊP VÀ THỦY SẢN</option>
-                                                <option value="126">---NGHỆ THUẬT</option>
-                                                <option value="127">---BÁO CHÍ VÀ THÔNG TIN</option>
-                                                <option value="128">---KINH DOANH VÀ QUẢN LÝ</option>
-                                                <option value="129">---PHÁP LUẬT</option>
-                                                <option value="130">---KHOA HỌC MÁY TÍNH</option>
-                                                <option value="131">---KỸ THUẬT - CÔNG NGHỆ</option>
-                                                <option value="132">---MỎ VÀ KHAI THÁC</option>
-                                                <option value="133">---CHẾ TẠO VÀ CHẾ BIẾN</option>
-                                                <option value="134">---XÂY DỰNG VÀ KIẾN TRÚC</option>
-                                                <option value="135">---DƯỢC HỌC</option>
-                                                <option value="136">---THỂ THAO</option>
-                                                <option value="137">---VẬN TẢI</option>
-                                                <option value="138">---MÔI TRƯỜNG VÀ BẢO VỆ MÔI TRƯỜNG</option>
-                                                <option value="139">---AN NINH, QUỐC PHÒNG</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-8 pl-5 pr-5">
-                                        <div class="form-group mb-5">
-                                            <div class="styled-select">
-                                                <input name="search_value" id="search_value" class="form-control" type="text" placeholder="Từ khóa tìm kiếm" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4 pl-5 pr-5">
-                                        <div class="form-group mb-5">
-                                            <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
-                                                Tìm Kiếm
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </section>
 </div>
 <p>

@@ -224,6 +224,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="NgachVienChuc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
@@ -273,16 +274,7 @@
     <Compile Include="SachGiaoTrinh.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>QLKH.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>QLKH.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>QLKH.tt</DependentUpon>
-    </Compile>
     <Compile Include="TinhTrangDeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>

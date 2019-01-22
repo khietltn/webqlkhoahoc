@@ -14,8 +14,8 @@ namespace WebQLKhoaHoc
     
     public partial class QuaTrinhDaoTao
     {
+        public int MaQT { get; set; }
         public string MaNKH { get; set; }
-        public string MaQT { get; set; }
         public Nullable<System.DateTime> ThoiGianBD { get; set; }
         public Nullable<System.DateTime> ThoiGianKT { get; set; }
         public string MaBacDT { get; set; }

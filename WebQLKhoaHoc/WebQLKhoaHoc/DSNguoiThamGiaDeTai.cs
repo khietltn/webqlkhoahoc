@@ -16,7 +16,7 @@ namespace WebQLKhoaHoc
     {
         public string MaDeTai { get; set; }
         public string MaNKH { get; set; }
-        public byte[] LaChuNhiem { get; set; }
+        public Nullable<bool> LaChuNhiem { get; set; }
     
         public virtual DeTai DeTai { get; set; }
         public virtual NhaKhoaHoc NhaKhoaHoc { get; set; }
