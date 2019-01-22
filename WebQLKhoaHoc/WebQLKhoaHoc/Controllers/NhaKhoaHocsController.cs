@@ -31,7 +31,7 @@ namespace WebQLKhoaHoc.Controllers
 			
 			int Size_Of_Page = 4;
 			int No_Of_Page = (Page_No ?? 1);
-            return View(nhaKhoaHocs.ToList().ToPagedList(No_Of_Page, Size_Of_Page));
+            return View(nhaKhoaHocs.Concat(nhaKhoaHocs).Concat(nhaKhoaHocs).ToList().ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         // GET: NhaKhoaHocs/Details/5

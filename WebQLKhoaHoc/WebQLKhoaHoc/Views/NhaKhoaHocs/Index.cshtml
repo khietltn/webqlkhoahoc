@@ -193,3 +193,5 @@
 	}
 
 </table>
+
+@Html.PagedListPager(Model, Page_No => Url.Action("Index", "NhaKhoaHocs", new { Page_No, search=Request.QueryString["search"]}))
