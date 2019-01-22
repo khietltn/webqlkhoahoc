@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebQLKhoaHoc;
+using WebQLKhoaHoc.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -16,10 +18,20 @@ namespace WebQLKhoaHoc.Controllers
         private QLKhoaHocEntities db = new QLKhoaHocEntities();
 
         // GET: NhaKhoaHocs
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? Page_No)
         {
+            
+            ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs.ToList(), "MaChuyenNganh", "TenChuyenNganh");
+            ViewBag.MaDonViQL = new SelectList(db.DonViQLs.ToList(), "MaDonVi", "TenDonVI");
+            ViewBag.MaHocHam = new SelectList(db.HocHams.ToList(), "MaHocHam", "TenHocHam");
+            ViewBag.MaHocVi = new SelectList(db.HocVis.ToList(), "MaHocVi", "TenHocVi");
+            ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs.ToList(), "MaNgach", "TenNgach");
             var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc);
-            return View(await nhaKhoaHocs.ToListAsync());
+
+			
+			int Size_Of_Page = 4;
+			int No_Of_Page = (Page_No ?? 1);
+            return View(nhaKhoaHocs.ToList().ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         // GET: NhaKhoaHocs/Details/5
@@ -34,7 +46,13 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            return View(nhaKhoaHoc);
+            ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh");
+            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+            ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam");
+            ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi");
+            ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach");
+            NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHoc);
+            return View(nkh);
         }
 
         // GET: NhaKhoaHocs/Create
@@ -46,6 +64,44 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi");
             ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach");
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Search([Bind(Include = "MaDonVi,MaNgach,MaHocHam,MaHocVi,MaCNDaoTao,SearchValue")] NhaKhoaHocSearchViewModel nhaKhoaHoc)
+        {
+            var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc).ToList();
+            if (!String.IsNullOrEmpty(nhaKhoaHoc.MaCNDaoTao))
+            {
+                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaCNDaoTao == nhaKhoaHoc.MaCNDaoTao).ToList();
+            }
+            if (!String.IsNullOrEmpty(nhaKhoaHoc.MaDonVi))
+            {
+               nhaKhoaHocs =  nhaKhoaHocs.Where(p => p.MaDonViQL == nhaKhoaHoc.MaDonVi).ToList();
+            }
+            if (!String.IsNullOrEmpty(nhaKhoaHoc.MaHocHam))
+            {
+                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaHocHam == nhaKhoaHoc.MaHocHam).ToList();
+            }
+            if (!String.IsNullOrEmpty(nhaKhoaHoc.MaHocVi))
+            {
+                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaHocVi == nhaKhoaHoc.MaHocVi).ToList();
+            }
+            if (!String.IsNullOrEmpty(nhaKhoaHoc.MaNgach))
+            {
+                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaNgachVienChuc == nhaKhoaHoc.MaNgach).ToList();
+            }
+            if (!String.IsNullOrEmpty(nhaKhoaHoc.SearchValue))
+            {
+                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.TenNKH.Contains(nhaKhoaHoc.SearchValue)).ToList();
+            }
+            ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh");
+            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+            ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam");
+            ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi");
+            ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach");
+            ViewBag.SearchValue = nhaKhoaHoc.SearchValue;
+            return View("Index", nhaKhoaHocs);
         }
 
         // POST: NhaKhoaHocs/Create

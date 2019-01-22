@@ -24,7 +24,7 @@ namespace WebQLKhoaHoc
     
         public string MaBaiBao { get; set; }
         public string TenBaiBao { get; set; }
-        public byte[] LaTrongNuoc { get; set; }
+        public Nullable<bool> LaTrongNuoc { get; set; }
         public string CQXuatBan { get; set; }
         public string MaLoaiTapChi { get; set; }
         public string MaCapTapChi { get; set; }
