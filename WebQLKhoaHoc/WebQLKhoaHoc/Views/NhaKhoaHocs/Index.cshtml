@@ -163,15 +163,35 @@
                                                     @{
                                                         if (String.IsNullOrWhiteSpace(item.AnhCaNhan))
                                                         {
-                                                            <img src="../Image/avatar.bmp" />
+                                                            <img style="max-height: 280px; width: 100%" src="../Image/avatar.bmp" />
                                                         }
                                                         else
                                                         {
-                                                            <img class="img-fullwidth" src="@item.AnhCaNhan" />
+                                                            <img style="max-height: 280px" class="img-fullwidth" src="@item.AnhCaNhan" />
                                                         }
                                                     }
+                                                    <h4 class="name text-theme-color-2 mt-0" style="padding: 15px 0 !important">
+                                                        @Html.DisplayFor(modelItem => item.HoNKH) @Html.DisplayFor(modelItem => item.TenNKH)<br>
+                                                        <small>
+                                                            @if (!@Html.DisplayFor(modelItem => item.HocHam.TenHocHam).ToString().IsEmpty())
+                                                            {
+                                                                @Html.DisplayFor(modelItem => item.HocHam.TenHocHam)
+                                                            }
+
+                                                            @if (!@Html.DisplayFor(modelItem => item.HocHam.TenHocHam).ToString().IsEmpty() && !@Html.DisplayFor(modelItem => item.HocVi.TenHocVi).ToString().IsEmpty())
+                                                            {
+                                                                <span>-</span>
+                                                            }
+
+                                                            @if (!@Html.DisplayFor(modelItem => item.HocVi.TenHocVi).ToString().IsEmpty())
+                                                            {
+                                                                @Html.DisplayFor(modelItem => item.HocVi.TenHocVi)
+                                                            }
+                                                        </small>
+                                                    </h4>
 
                                                 </div>
+                                              
 
                                                 <div class="flip-card-back">
                                                     <h4 class="name text-theme-color-2 mt-0" style="padding: 15px 0 !important">
