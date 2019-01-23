@@ -143,7 +143,7 @@
           </Key>
           <Property Name="MaSach" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="MaNKH" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="LaChuBien" Type="binary" MaxLength="1" Nullable="false" />
+          <Property Name="LaChuBien" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="HocHam">
           <Key>
@@ -1219,7 +1219,7 @@
           </Key>
           <Property Name="MaSach" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaNKH" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LaChuBien" Type="Binary" MaxLength="1" FixedLength="true" Nullable="false" />
+          <Property Name="LaChuBien" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="NhaKhoaHoc" Relationship="Self.FK_DSTacGia_NhaKhoaHoc" FromRole="DSTacGia" ToRole="NhaKhoaHoc" />
           <NavigationProperty Name="SachGiaoTrinh" Relationship="Self.FK_DSTacGia_SachGiaoTrinh" FromRole="DSTacGia" ToRole="SachGiaoTrinh" />
         </EntityType>

@@ -384,6 +384,8 @@
     <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\degreeCharts.cshtml" />
     <Content Include="Views\Charts\quantumCharts.cshtml" />
+    <Content Include="Views\Charts\book.cshtml" />
+    <Content Include="Views\Charts\process.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
