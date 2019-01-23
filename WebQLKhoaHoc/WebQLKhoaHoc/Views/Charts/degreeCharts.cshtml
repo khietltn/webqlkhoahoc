@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "Thống kê - CSDL Khoa học";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
+}
+<div class="main-content">
+    <!-- Section: About -->
+    <section class="">
+        <div class="container">
+            <div class="section-content">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div>
+                            <form action="ThongKe" class="form-horizontal" method="post" accept-charset="utf-8">
+                                <div class="form-group">
+                                    <div class="col-md-2 text-right">
+                                        <label class="control-label">Thống kê theo:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select name="unit" class="form-control">
+                                            <option value="total" >Tổng hợp</option>
+                                            <option value="degree" selected>Trình độ</option>
+                                            <option value="quantum">Ngạch công chức</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-9">
+                                        <button type="submit" class="btn btn-primary">Thống kê</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div>
+                                <div class="text-center">
+                                    <span class="statistic-title">
+                                        <br>Tính đến thời điểm (hiện tại)
+                                    </span>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>TT</th>
+                                            <th>Đơn vị công tác</th>
+                                            <th class="text-center">Tiến sĩ khoa học</th>
+                                            <th class="text-center">Sau tiến sĩ</th>
+                                            <th class="text-center">Tiến sĩ</th>
+                                            <th class="text-center">Thạc sĩ</th>
+                                            <th class="text-center">Đại học</th>
+                                            <th class="text-center">Cử nhân</th>
+                                            <th class="text-center">Cao đẳng</th>
+                                            <th class="text-center">Trung cấp</th>
+                                            <th class="text-center">Phổ thông</th>
+                                            <th class="text-center">Khác</th>
+                                        </tr>
+                                    </thead>
+                                    @{
+                                        // lấy thông tin các khoa
+                                        QLKhoaHocEntities db = new QLKhoaHocEntities();
+                                        List<DonViQL> listDVQL = db.DonViQLs.ToList();
+                                        int stt = 1;
+                                        int[] sum = new int[10];
+                                    }
+                                    <tbody>
+                                        @foreach (var item in listDVQL)
+                                        {
+                                            <tr>
+                                                <td>@stt</td>
+                                                <td>@item.TenDonVI</td>
+                                                @{
+                                                    // lấy số giao sư của khoa
+                                                    int nTSKH = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TSKH").ToList().Count();
+                                                    int nSTS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "SauTS").ToList().Count();
+                                                    int nTS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TS").ToList().Count();
+                                                    int nThS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "ThS").ToList().Count();
+                                                    int nDH = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "DH").ToList().Count();
+                                                    int nCN = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "CN").ToList().Count();
+                                                    int nCD = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "CD").ToList().Count();
+                                                    int nTC = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TC").ToList().Count();
+                                                    int nPT = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "PT").ToList().Count();
+                                                    int nOther = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "Khac").ToList().Count();
+                                                    // cộng dồn số lượng
+                                                    int[] nType = { nTSKH, nSTS, nTS, nThS, nDH, nCN, nCD, nTC, nPT, nOther };
+
+                                                }
+
+                                                @for (int i = 0; i < nType.Length; i++)
+                                                {
+                                                    sum[i] += nType[i];
+                                                    <td class="text-center">
+                                                        @if (nType[i] > 0)
+                                                        {
+                                                            @nType[i];
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>-</span>
+                                                        }
+                                                    </td>
+                                                }
+                                            </tr>
+                                             stt++;
+                                        }
+                                            <tr>
+                                                <th colspan="2" class="text-center">Tổng cộng</th>
+                                                @foreach (var item in sum)
+                                                {
+                                                    <th class="text-center">
+                                                        @if (item > 0)
+                                                        {
+                                                            @item;
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>-</span>
+                                                        }
+                                                    </th>
+                                                }
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+
