@@ -8,7 +8,7 @@ namespace WebQLKhoaHoc.Models
 {
     public class degreeChartViewModel
     {
-        public string MaDVQL { get; set; }
+        public int MaDVQL { get; set; }
         public int TSKH { get; set; }
         public int SauTS { get; set; }
         public int TS { get; set; }
@@ -20,10 +20,10 @@ namespace WebQLKhoaHoc.Models
         public int PT { get; set; }
         public int Other { get; set; }
 
-        public static degreeChartViewModel Mapping(string madvql,int tskh,int sauts,int ts,int ths,int dh,int cn,int cd,int tc,int pt,int other)
+        public static degreeChartViewModel Mapping(int madvql,int tskh,int sauts,int ts,int ths,int dh,int cn,int cd,int tc,int pt,int other)
         {
             degreeChartViewModel degreevm = new degreeChartViewModel();
-            degreevm.MaDVQL = madvql ?? String.Format("0");
+            degreevm.MaDVQL = madvql;
             degreevm.TSKH = tskh;
             degreevm.SauTS = sauts;
             degreevm.TS = ts;

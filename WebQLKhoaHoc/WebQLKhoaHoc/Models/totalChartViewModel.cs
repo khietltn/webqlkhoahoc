@@ -7,7 +7,7 @@ namespace WebQLKhoaHoc.Models
 {
     public class totalChartViewModel
     {
-        public string MaDVQL { get; set; }
+        public int MaDVQL { get; set; }
         public int GSDD { get; set; }
         public int GS { get; set; }
         public int PGS { get; set; }
@@ -17,10 +17,10 @@ namespace WebQLKhoaHoc.Models
         public int GV { get; set; }
         public int NCV { get; set; }
 
-        public static totalChartViewModel Mapping(string madvql,int gsdd,int gs,int pgs,int tskh,int ts,int ths,int gv,int ncv)
+        public static totalChartViewModel Mapping(int madvql,int gsdd,int gs,int pgs,int tskh,int ts,int ths,int gv,int ncv)
         {
             totalChartViewModel totalvm = new totalChartViewModel();
-            totalvm.MaDVQL = madvql ?? String.Format("0");
+            totalvm.MaDVQL = madvql;
             totalvm.GSDD = gsdd;
             totalvm.GS = gs;
             totalvm.PGS = pgs;

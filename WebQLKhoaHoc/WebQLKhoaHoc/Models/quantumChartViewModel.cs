@@ -7,7 +7,7 @@ namespace WebQLKhoaHoc.Models
 {
     public class quantumChartViewModel
     {
-        public string MaDVQL { get; set; }
+        public int MaDVQL { get; set; }
         public int GV { get; set; }
         public int GVC { get; set; }
         public int GVCC { get; set; }
@@ -23,10 +23,10 @@ namespace WebQLKhoaHoc.Models
         public int NVVT { get; set; }
         public int CS { get; set; }
 
-        public static quantumChartViewModel Mapping(string MaDonVi, int nGV, int nGVC, int nGVCC, int nGVTH, int nCV, int nCVC, int nTVV, int nKTV, int nKTVCC, int nNCV, int nKTOAN, int nKTVC, int nNVVT, int nCS)
+        public static quantumChartViewModel Mapping(int MaDonVi, int nGV, int nGVC, int nGVCC, int nGVTH, int nCV, int nCVC, int nTVV, int nKTV, int nKTVCC, int nNCV, int nKTOAN, int nKTVC, int nNVVT, int nCS)
         {
             quantumChartViewModel quantumvm = new quantumChartViewModel();
-            quantumvm.MaDVQL = MaDonVi ?? String.Format("0");
+            quantumvm.MaDVQL = MaDonVi;
             quantumvm.GV = nGV;
             quantumvm.GVC = nGVC;
             quantumvm.GVCC = nGVCC;
