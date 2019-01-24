@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebQLKhoaHoc.Models;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -34,16 +35,73 @@ namespace WebQLKhoaHoc.Controllers
 
         public ActionResult totalCharts()
         {
-            return View();
+            List<totalChartViewModel> res = new List<totalChartViewModel>();
+            List<DonViQL> listDVQL = db.DonViQLs.ToList();
+            foreach (var item in listDVQL)
+            {
+                int nGSDD = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocHam == "GSDD").ToList().Count();
+                int nGS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocHam == "GS").ToList().Count();
+                int nPGS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocHam == "PGS").ToList().Count();
+                int nTSKH = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TSKH").ToList().Count();
+                int nTS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TS").ToList().Count();
+                int nThS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "ThS").ToList().Count();
+                int nGV = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && (p.MaNgachVienChuc == "GV" || p.MaNgachVienChuc == "GVC")).ToList().Count();
+                int nNCV = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "NCV").ToList().Count();
+
+                totalChartViewModel totalchart = totalChartViewModel.Mapping(item.MaDonVi,nGSDD, nGS, nPGS, nTSKH, nTS, nThS, nGV, nNCV);
+                res.Add(totalchart);
+            }
+            return View(res);
         }
 
         public ActionResult degreeCharts()
         {
-            return View();
+            List<degreeChartViewModel> res = new List<degreeChartViewModel>();
+            List<DonViQL> listDVQL = db.DonViQLs.ToList();
+            foreach (var item in listDVQL)
+            {
+                int nTSKH = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TSKH").ToList().Count();
+                int nSTS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "SauTS").ToList().Count();
+                int nTS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TS").ToList().Count();
+                int nThS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "ThS").ToList().Count();
+                int nDH = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "DH").ToList().Count();
+                int nCN = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "CN").ToList().Count();
+                int nCD = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "CD").ToList().Count();
+                int nTC = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TC").ToList().Count();
+                int nPT = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "PT").ToList().Count();
+                int nOther = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "Khac").ToList().Count();
+
+                degreeChartViewModel degreeChart = degreeChartViewModel.Mapping(item.MaDonVi, nTSKH, nSTS, nTS, nThS, nDH, nCN, nCD, nTC,nPT,nOther);
+                res.Add(degreeChart);
+            }
+            return View(res);
         }
         public ActionResult quantumCharts()
         {
-            return View();
+            List<quantumChartViewModel> res = new List<quantumChartViewModel>();
+            List<DonViQL> listDVQL = db.DonViQLs.ToList();
+            foreach (var item in listDVQL)
+            {
+                    // lấy số giao sư của khoa
+                 int nGV = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "GV").ToList().Count();
+                 int nGVC = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "GVC").ToList().Count();
+                 int nGVCC = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "GVCC").ToList().Count();
+                 int nGVTH = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "GVTH").ToList().Count();
+                 int nCV = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "CV").ToList().Count();
+                 int nCVC = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "CVC").ToList().Count();
+                 int nTVV = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "TVV").ToList().Count();
+                 int nKTV = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "KTV").ToList().Count();
+                 int nKTVCC = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "KTVCC").ToList().Count();
+                 int nNCV = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "NCV").ToList().Count();
+                 int nKTOAN = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "KTOAN").ToList().Count();
+                 int nKTVC = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "KTVC").ToList().Count();
+                 int nNVVT = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "NVVT").ToList().Count();
+                 int nCS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaNgachVienChuc == "CS").ToList().Count();
+                    // cộng dồn số lượng
+                 quantumChartViewModel quantumChart = quantumChartViewModel.Mapping(item.MaDonVi, nGV, nGVC, nGVCC, nGVTH, nCV, nCVC, nTVV, nKTV, nKTVCC, nNCV,nKTOAN,nKTVC,nNVVT,nCS);
+                res.Add(quantumChart);
+            }
+            return View(res);
         }
 
         // chart about books/documents

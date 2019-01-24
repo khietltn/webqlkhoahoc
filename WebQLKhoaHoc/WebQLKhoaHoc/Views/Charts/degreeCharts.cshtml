@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<WebQLKhoaHoc.Models.degreeChartViewModel>
 @{
     ViewBag.Title = "Thống kê - CSDL Khoa học";
     Layout = "~/Views/Shared/_MainPage.cshtml";
@@ -18,7 +19,7 @@
                                     </div>
                                     <div class="col-md-9">
                                         <select name="unit" class="form-control">
-                                            <option value="total" >Tổng hợp</option>
+                                            <option value="total">Tổng hợp</option>
                                             <option value="degree" selected>Trình độ</option>
                                             <option value="quantum">Ngạch công chức</option>
                                         </select>
@@ -57,66 +58,143 @@
                                     @{
                                         // lấy thông tin các khoa
                                         QLKhoaHocEntities db = new QLKhoaHocEntities();
-                                        List<DonViQL> listDVQL = db.DonViQLs.ToList();
                                         int stt = 1;
                                         int[] sum = new int[10];
                                     }
                                     <tbody>
-                                        @foreach (var item in listDVQL)
+                                        @foreach (var item in Model)
                                         {
+                                            sum[0] += item.TSKH;
+                                            sum[1] += item.SauTS;
+                                            sum[2] += item.TS;
+                                            sum[3] += item.ThS;
+                                            sum[4] += item.DH;
+                                            sum[5] += item.CN;
+                                            sum[6] += item.CD;
+                                            sum[7] += item.TC;
+                                            sum[8] += item.PT;
+                                            sum[9] += item.Other;
                                             <tr>
                                                 <td>@stt</td>
-                                                <td>@item.TenDonVI</td>
-                                                @{
-                                                    // lấy số giao sư của khoa
-                                                    int nTSKH = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TSKH").ToList().Count();
-                                                    int nSTS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "SauTS").ToList().Count();
-                                                    int nTS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TS").ToList().Count();
-                                                    int nThS = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "ThS").ToList().Count();
-                                                    int nDH = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "DH").ToList().Count();
-                                                    int nCN = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "CN").ToList().Count();
-                                                    int nCD = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "CD").ToList().Count();
-                                                    int nTC = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "TC").ToList().Count();
-                                                    int nPT = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "PT").ToList().Count();
-                                                    int nOther = db.NhaKhoaHocs.Where(p => p.MaDonViQL == item.MaDonVi && p.MaHocVi == "Khac").ToList().Count();
-                                                    // cộng dồn số lượng
-                                                    int[] nType = { nTSKH, nSTS, nTS, nThS, nDH, nCN, nCD, nTC, nPT, nOther };
-
-                                                }
-
-                                                @for (int i = 0; i < nType.Length; i++)
-                                                {
-                                                    sum[i] += nType[i];
-                                                    <td class="text-center">
-                                                        @if (nType[i] > 0)
-                                                        {
-                                                            @nType[i];
-                                                        }
-                                                        else
-                                                        {
-                                                            <span>-</span>
-                                                        }
-                                                    </td>
-                                                }
+                                                <td>@db.DonViQLs.Find(item.MaDVQL).TenDonVI</td>
+                                                <td class="text-center">
+                                                    @if (item.TSKH > 0)
+                                                    {
+                                                        @item.TSKH
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                <td class="text-center">
+                                                    @if (item.SauTS > 0)
+                                                    {
+                                                        @item.SauTS
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (item.TS > 0)
+                                                    {
+                                                        @item.TS
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (item.ThS > 0)
+                                                    {
+                                                        @item.ThS
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (item.DH > 0)
+                                                    {
+                                                        @item.DH
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (item.CN > 0)
+                                                    {
+                                                        @item.CN
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (item.CD > 0)
+                                                    {
+                                                        @item.CD
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (item.TC > 0)
+                                                    {
+                                                        @item.TC
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (item.PT > 0)
+                                                    {
+                                                        @item.PT
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (item.Other > 0)
+                                                    {
+                                                        @item.Other
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </td>
                                             </tr>
-                                             stt++;
+                                            stt++;
                                         }
-                                            <tr>
-                                                <th colspan="2" class="text-center">Tổng cộng</th>
-                                                @foreach (var item in sum)
-                                                {
-                                                    <th class="text-center">
-                                                        @if (item > 0)
-                                                        {
-                                                            @item;
-                                                        }
-                                                        else
-                                                        {
-                                                            <span>-</span>
-                                                        }
-                                                    </th>
-                                                }
-                                            </tr>
+                                        <tr>
+                                            <th colspan="2" class="text-center">Tổng cộng</th>
+                                            @foreach (var item in sum)
+                                            {
+                                                <th class="text-center">
+                                                    @if (item > 0)
+                                                    {
+                                                        @item;
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </th>
+                                            }
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
