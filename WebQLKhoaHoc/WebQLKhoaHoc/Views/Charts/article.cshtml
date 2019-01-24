@@ -1,6 +1,7 @@
-﻿ @{
-     ViewBag.Title = "Thống kê - CSDL Khoa học";
-     Layout = "~/Views/Shared/_MainPage.cshtml";
+﻿
+@{
+    ViewBag.Title = "Thống kê - CSDL Khoa học";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
 }
 
 <div class="main-content">
@@ -12,14 +13,14 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div>
-                            <form action="book" class="form-horizontal" method="post" accept-charset="utf-8">
+                            <form action="article" class="form-horizontal" method="post" accept-charset="utf-8">
 
                                 <div class="form-group">
                                     <div class="col-md-2 text-right">
                                         <label class="control-label">Chọn đơn vị:</label>
                                     </div>
                                     <div class="col-md-9">
-                                        @{ 
+                                        @{
                                             QLKhoaHocEntities db = new QLKhoaHocEntities();
                                             List<DonViQL> donViQLs = db.DonViQLs.ToList();
                                         }
@@ -100,7 +101,7 @@
                             <div>
                                 <div class="text-center">
                                     <span class="statistic-title">
-                                        BIỂU THỐNG KÊ SÁCH, GIÁO TRÌNH
+                                        BIỂU THỐNG KÊ BÀI BÁO KHOA HỌC
 
                                         @if (ViewBag.fromdate != null && ViewBag.todate != null)
                                         {
@@ -112,90 +113,48 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="text-center" colspan="4">Số lượng sách và giáo trình đã xuất bản</th>
+                                            <th class="text-center" colspan="2">Số bài báo trên TCKH trong nước</th>
+                                            <th class="text-center" colspan="4">Số bài báo trên TCKH nước ngoài</th>
                                         </tr>
                                         <tr>
-                                            <th class="text-center">Giáo trình</th>
-                                            <th class="text-center">Chuyên khảo</th>
-                                            <th class="text-center">Tham khảo</th>
+                                            <th class="text-center">TCKH do HĐCDGS quy định</th>
                                             <th class="text-center">Khác</th>
+                                            <th class="text-center">Tạp chí ISI</th>
+                                            <th class="text-center">Tạp chí SCOPUS</th>
+                                            <th class="text-center">Tạp chí ESCI</th>
+                                            <th class="text-center">Khác</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{ 
-                                            if (ViewBag.giaoTrinh > 0)
+                                        @{
+                                            int[] res = { 0, 0, 0, 0, 0, 0 };
+                                            if (ViewBag.nHDCDGS != null && ViewBag.nKhac_in != null && ViewBag.nISI != null && ViewBag.nSCOPUS != null && ViewBag.nESCI != null && ViewBag.nKhac_out != null)
                                             {
-                                                <td class="text-center">
-                                                    <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book/index/unit/0/book_type/2/page/1">
-                                                        @ViewBag.giaoTrinh
-                                                    </a>
-                                                </td>
+                                                res[0] = ViewBag.nHDCDGS; res[1] = ViewBag.nKhac_in; res[2] = ViewBag.nISI; res[3] = ViewBag.nSCOPUS; res[4] = ViewBag.nESCI; res[5] = ViewBag.nKhac_out;
+                                            }
+                                            foreach (var item in res)
+                                            {
+                                                if (item > 0)
+                                                {
+                                                    <td class="text-center">@item</td>
                                                 }
                                                 else
                                                 {
-                                                    <td class="text-center">
-                                                        <a href="#">
-                                                            -
-                                                        </a>
-                                                    </td>
-                                                }
-                                                if (ViewBag.chuyenKhao > 0)
-                                                {
-                                                    <td class="text-center">
-                                                        <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book/index/unit/0/book_type/2/page/1">
-                                                            @ViewBag.chuyenKhao
-                                                        </a>
-                                                    </td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="text-center">
-                                                        <a href="#">
-                                                            -
-                                                        </a>
-                                                    </td>
-                                                }
-                                                if (ViewBag.thamKhao > 0)
-                                                {
-                                                    <td class="text-center">
-                                                        <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book/index/unit/0/book_type/2/page/1">
-                                                            @ViewBag.thamKhao
-                                                        </a>
-                                                    </td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="text-center">
-                                                        <a href="#">
-                                                            -
-                                                        </a>
-                                                    </td>
-                                                }
-                                                if (ViewBag.Khac > 0)
-                                                {
-                                                    <td class="text-center">
-                                                        <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book/index/unit/0/book_type/2/page/1">
-                                                            @ViewBag.Khac
-                                                        </a>
-                                                    </td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="text-center">
-                                                        <a href="#">
-                                                            -
-                                                        </a>
-                                                    </td>
+                                                    <td class="text-center">-</td>
                                                 }
                                             }
+                                         }
                                         </tbody>
                                     </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
+
+
