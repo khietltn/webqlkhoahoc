@@ -20,12 +20,12 @@ namespace WebQLKhoaHoc
             this.DSTacGias = new HashSet<DSTacGia>();
         }
     
-        public string MaSach { get; set; }
+        public int MaSach { get; set; }
         public string MaISBN { get; set; }
         public string TenSach { get; set; }
-        public string MaLoai { get; set; }
-        public string MaLinhVuc { get; set; }
-        public string MaNXB { get; set; }
+        public Nullable<int> MaLoai { get; set; }
+        public Nullable<int> MaLinhVuc { get; set; }
+        public Nullable<int> MaNXB { get; set; }
         public Nullable<System.DateTime> NamXuatBan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

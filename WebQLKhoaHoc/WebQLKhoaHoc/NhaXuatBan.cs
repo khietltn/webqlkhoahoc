@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
             this.SachGiaoTrinhs = new HashSet<SachGiaoTrinh>();
         }
     
-        public string MaNXB { get; set; }
+        public int MaNXB { get; set; }
         public string TenNXB { get; set; }
         public string DiaChiNXB { get; set; }
         public string DienThoaiNXB { get; set; }

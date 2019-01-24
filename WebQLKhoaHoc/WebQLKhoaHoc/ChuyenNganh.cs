@@ -20,9 +20,9 @@ namespace WebQLKhoaHoc
             this.NhaKhoaHocs = new HashSet<NhaKhoaHoc>();
         }
     
-        public string MaChuyenNganh { get; set; }
+        public int MaChuyenNganh { get; set; }
         public string TenChuyenNganh { get; set; }
-        public string MaNganhDaoTao { get; set; }
+        public Nullable<int> MaNganhDaoTao { get; set; }
     
         public virtual NganhDaoTao NganhDaoTao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

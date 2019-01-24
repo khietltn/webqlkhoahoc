@@ -27,7 +27,7 @@ namespace WebQLKhoaHoc
             this.TrinhDoNgoaiNgus = new HashSet<TrinhDoNgoaiNgu>();
         }
     
-        public string MaNKH { get; set; }
+        public int MaNKH { get; set; }
         public string MaNKHHoSo { get; set; }
         public string HoNKH { get; set; }
         public string TenNKH { get; set; }
@@ -36,13 +36,13 @@ namespace WebQLKhoaHoc
         public string DiaChiLienHe { get; set; }
         public string DienThoai { get; set; }
         public string EmailLienHe { get; set; }
-        public string MaHocHam { get; set; }
-        public string MaHocVi { get; set; }
-        public string MaCNDaoTao { get; set; }
-        public string MaDonViQL { get; set; }
+        public Nullable<int> MaHocHam { get; set; }
+        public Nullable<int> MaHocVi { get; set; }
+        public Nullable<int> MaCNDaoTao { get; set; }
+        public Nullable<int> MaDonViQL { get; set; }
         public string AnhDaiDien { get; set; }
         public byte[] AnhCaNhan { get; set; }
-        public string MaNgachVienChuc { get; set; }
+        public Nullable<int> MaNgachVienChuc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChuyenMonNKH> ChuyenMonNKHs { get; set; }

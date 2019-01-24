@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
             this.QuaTrinhDaoTaos = new HashSet<QuaTrinhDaoTao>();
         }
     
-        public string MaBacDT { get; set; }
+        public int MaBacDT { get; set; }
         public string TenBacDT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

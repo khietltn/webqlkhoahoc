@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
             this.DeTais = new HashSet<DeTai>();
         }
     
-        public string MaPhanLoai { get; set; }
+        public int MaPhanLoai { get; set; }
         public string TenPhanLoai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

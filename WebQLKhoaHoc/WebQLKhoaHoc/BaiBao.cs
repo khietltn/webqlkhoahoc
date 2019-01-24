@@ -17,17 +17,18 @@ namespace WebQLKhoaHoc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BaiBao()
         {
+            this.DSBaiBaoDeTais = new HashSet<DSBaiBaoDeTai>();
             this.DSNguoiThamGiaBaiBaos = new HashSet<DSNguoiThamGiaBaiBao>();
-            this.DeTais = new HashSet<DeTai>();
             this.LinhVucs = new HashSet<LinhVuc>();
         }
     
-        public string MaBaiBao { get; set; }
+        public int MaBaiBao { get; set; }
+        public string MaISSN { get; set; }
         public string TenBaiBao { get; set; }
         public Nullable<bool> LaTrongNuoc { get; set; }
         public string CQXuatBan { get; set; }
-        public string MaLoaiTapChi { get; set; }
-        public string MaCapTapChi { get; set; }
+        public Nullable<int> MaLoaiTapChi { get; set; }
+        public Nullable<int> MaCapTapChi { get; set; }
         public Nullable<System.DateTime> NamDangBao { get; set; }
         public string TapPhatHanh { get; set; }
         public string SoPhatHanh { get; set; }
@@ -36,11 +37,11 @@ namespace WebQLKhoaHoc
         public string LinkFileUpLoad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSBaiBaoDeTai> DSBaiBaoDeTais { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DSNguoiThamGiaBaiBao> DSNguoiThamGiaBaiBaos { get; set; }
         public virtual CapTapChi CapTapChi { get; set; }
         public virtual PhanLoaiTapChi PhanLoaiTapChi { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeTai> DeTais { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LinhVuc> LinhVucs { get; set; }
     }

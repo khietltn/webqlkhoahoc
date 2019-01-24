@@ -15,11 +15,11 @@ namespace WebQLKhoaHoc
     public partial class QuaTrinhCongTac
     {
         public int MaCT { get; set; }
-        public string MaNKH { get; set; }
+        public int MaNKH { get; set; }
         public Nullable<System.DateTime> ThoiGianBD { get; set; }
         public Nullable<System.DateTime> ThoiGIanKT { get; set; }
         public string ChucDanhCT { get; set; }
-        public string MaDonViQL { get; set; }
+        public Nullable<int> MaDonViQL { get; set; }
         public string ChucVuCT { get; set; }
     
         public virtual DonViQL DonViQL { get; set; }

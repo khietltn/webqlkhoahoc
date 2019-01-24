@@ -15,7 +15,7 @@ namespace WebQLKhoaHoc
     public partial class KinhPhiDeTai
     {
         public int MaPhi { get; set; }
-        public string MaDeTai { get; set; }
+        public int MaDeTai { get; set; }
         public string LoaiKinhPhi { get; set; }
         public Nullable<System.DateTime> NamTiepNhan { get; set; }
         public Nullable<int> SoTien { get; set; }

@@ -14,8 +14,8 @@ namespace WebQLKhoaHoc
     
     public partial class DSNguoiThamGiaDeTai
     {
-        public string MaDeTai { get; set; }
-        public string MaNKH { get; set; }
+        public int MaDeTai { get; set; }
+        public int MaNKH { get; set; }
         public Nullable<bool> LaChuNhiem { get; set; }
     
         public virtual DeTai DeTai { get; set; }
