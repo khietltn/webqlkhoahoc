@@ -76,16 +76,16 @@
                                     <a href="javascript:;">Thống kê<span class="indicator"></span></a>
                                     <ul class="dropdown" style="right: auto; display: none;">
                                         <li>
-                                            <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/statistic/scientist">Đội ngũ KHCN</a>
+                                            @Html.ActionLink("Đội ngũ KHCN", "Index", "Charts")
                                         </li>
                                         <li>
                                             <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/statistic/topic">Nhiệm vụ, đề tài KHCN</a>
                                         </li>
                                         <li>
-                                            <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/statistic/article">Bài báo Khoa học</a>
+                                            @Html.ActionLink("Bài báo khoa học", "article", "Charts")
                                         </li>
                                         <li>
-                                            <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/statistic/book">Sách, giáo trình</a>
+                                            @Html.ActionLink("Sách , giáo trình", "book", "Charts")
                                         </li>
                                     </ul>
                                 </li>

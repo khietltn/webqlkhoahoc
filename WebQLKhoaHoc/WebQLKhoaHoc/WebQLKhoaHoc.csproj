@@ -190,6 +190,7 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NhaKhoaHocsController.cs" />
     <Compile Include="DeTai.cs">
@@ -379,6 +380,13 @@
     <Content Include="Views\NhaKhoaHocs\Details.cshtml" />
     <Content Include="Views\NhaKhoaHocs\Edit.cshtml" />
     <Content Include="Views\NhaKhoaHocs\Index.cshtml" />
+    <Content Include="Views\Charts\Index.cshtml" />
+    <Content Include="Views\Charts\totalCharts.cshtml" />
+    <Content Include="Views\Charts\degreeCharts.cshtml" />
+    <Content Include="Views\Charts\quantumCharts.cshtml" />
+    <Content Include="Views\Charts\book.cshtml" />
+    <Content Include="Views\Charts\process.cshtml" />
+    <Content Include="Views\Charts\article.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
