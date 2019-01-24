@@ -190,9 +190,12 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaiBaosController.cs" />
     <Compile Include="Controllers\ChartsController.cs" />
+    <Compile Include="Controllers\DeTaisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NhaKhoaHocsController.cs" />
+    <Compile Include="Controllers\SachGiaoTrinhsController.cs" />
     <Compile Include="DeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
@@ -233,14 +236,22 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaiBaoSearchViewModel.cs" />
     <Compile Include="Models\degreeChartViewModel.cs" />
+    <Compile Include="Models\DeTaiSearchViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LinhVucViewMenuModel.cs" />
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="Models\NhaKhoaHocViewModel.cs" />
     <Compile Include="Models\quantumChartViewModel.cs" />
+<<<<<<< HEAD
     <Compile Include="Models\topicChartViewModel.cs" />
     <Compile Include="Models\topicdata.cs" />
+=======
+    <Compile Include="Models\SachGiaoTrinhSearchViewModel.cs" />
+>>>>>>> c1d81f1e8f800ffde4fd4d4c1a7abd3c86d04dbe
     <Compile Include="Models\totalChartViewModel.cs" />
+    <Compile Include="Models\QLKHRepository.cs" />
     <Compile Include="NgachVienChuc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
@@ -307,13 +318,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css-plugin-collections.css" />
     <Content Include="Content\custom-bootstrap-margin-padding.css" />
+    <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\lightbox\close.png" />
     <Content Include="Content\lightbox\loading.gif" />
     <Content Include="Content\lightbox\next.png" />
     <Content Include="Content\lightbox\prev.png" />
     <Content Include="Content\menuzord-rounded-boxed.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\Pagination.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\style-main.css" />
     <Content Include="Content\theme-skin-color-set-1.css" />
@@ -394,10 +405,28 @@
     <Content Include="Views\Charts\book.cshtml" />
     <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\topicsChart.cshtml" />
     <Content Include="Views\Charts\topicChart.cshtml" />
     <Content Include="Views\Charts\atopicChart.cshtml" />
+=======
+    <Content Include="Views\DeTais\Create.cshtml" />
+    <Content Include="Views\DeTais\Delete.cshtml" />
+    <Content Include="Views\DeTais\Details.cshtml" />
+    <Content Include="Views\DeTais\Edit.cshtml" />
+    <Content Include="Views\DeTais\Index.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Create.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Delete.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Details.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Edit.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Index.cshtml" />
+    <Content Include="Views\BaiBaos\Create.cshtml" />
+    <Content Include="Views\BaiBaos\Delete.cshtml" />
+    <Content Include="Views\BaiBaos\Details.cshtml" />
+    <Content Include="Views\BaiBaos\Edit.cshtml" />
+    <Content Include="Views\BaiBaos\Index.cshtml" />
+>>>>>>> c1d81f1e8f800ffde4fd4d4c1a7abd3c86d04dbe
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
