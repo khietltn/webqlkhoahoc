@@ -414,6 +414,7 @@
     <Content Include="Views\BaiBaos\Details.cshtml" />
     <Content Include="Views\BaiBaos\Edit.cshtml" />
     <Content Include="Views\BaiBaos\Index.cshtml" />
+    <Content Include="Views\Shared\PopUpLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

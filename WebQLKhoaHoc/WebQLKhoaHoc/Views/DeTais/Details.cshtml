@@ -1,15 +1,17 @@
 ﻿@model WebQLKhoaHoc.DeTai
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/PopUpLayout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span> Thông tin đề tài</h4>
+</div>
 
-<div>
-    <h4>DeTai</h4>
-    <hr />
+<div class="modal-body">
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.MaDeTaiHoSo)
@@ -156,8 +158,13 @@
         </dd>
 
     </dl>
+
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDeTai }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+</div>
+
+
+
