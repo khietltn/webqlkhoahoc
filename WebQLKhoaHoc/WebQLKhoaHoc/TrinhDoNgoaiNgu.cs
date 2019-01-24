@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
             this.NhaKhoaHocs = new HashSet<NhaKhoaHoc>();
         }
     
-        public string MaTrinhDoNN { get; set; }
+        public int MaTrinhDoNN { get; set; }
         public string TenTrinhDo { get; set; }
         public string CapDo { get; set; }
     

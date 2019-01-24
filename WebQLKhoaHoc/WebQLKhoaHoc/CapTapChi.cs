@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
             this.BaiBaos = new HashSet<BaiBao>();
         }
     
-        public string MaCapTapChi { get; set; }
+        public int MaCapTapChi { get; set; }
         public string TenCapTapChi { get; set; }
         public string ChiChu { get; set; }
     

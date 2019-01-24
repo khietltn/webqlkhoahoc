@@ -17,27 +17,27 @@ namespace WebQLKhoaHoc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DeTai()
         {
+            this.DSBaiBaoDeTais = new HashSet<DSBaiBaoDeTai>();
             this.DSNguoiThamGiaDeTais = new HashSet<DSNguoiThamGiaDeTai>();
             this.KinhPhiDeTais = new HashSet<KinhPhiDeTai>();
-            this.BaiBaos = new HashSet<BaiBao>();
         }
     
-        public string MaDeTai { get; set; }
+        public int MaDeTai { get; set; }
         public string MaDeTaiHoSo { get; set; }
         public string TenDeTai { get; set; }
-        public string MaLoaiDeTai { get; set; }
-        public string MaCapDeTai { get; set; }
-        public string MaDVChuTri { get; set; }
-        public string MaDonViQLThucHien { get; set; }
-        public string MaLinhVuc { get; set; }
+        public Nullable<int> MaLoaiDeTai { get; set; }
+        public Nullable<int> MaCapDeTai { get; set; }
+        public Nullable<int> MaDVChuTri { get; set; }
+        public Nullable<int> MaDonViQLThucHien { get; set; }
+        public Nullable<int> MaLinhVuc { get; set; }
         public string MucTieuDeTai { get; set; }
         public string NoiDungDeTai { get; set; }
         public string KetQuaDeTai { get; set; }
         public Nullable<System.DateTime> NamBD { get; set; }
         public Nullable<System.DateTime> NamKT { get; set; }
-        public string MaXepLoai { get; set; }
-        public string MaTinhTrang { get; set; }
-        public string MaPhanLoaiSP { get; set; }
+        public Nullable<int> MaXepLoai { get; set; }
+        public Nullable<int> MaTinhTrang { get; set; }
+        public Nullable<int> MaPhanLoaiSP { get; set; }
         public string KinhPhi { get; set; }
         public string LienKetWeb { get; set; }
         public string LinkFileUpload { get; set; }
@@ -51,10 +51,10 @@ namespace WebQLKhoaHoc
         public virtual TinhTrangDeTai TinhTrangDeTai { get; set; }
         public virtual PhanLoaiSP PhanLoaiSP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSBaiBaoDeTai> DSBaiBaoDeTais { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DSNguoiThamGiaDeTai> DSNguoiThamGiaDeTais { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KinhPhiDeTai> KinhPhiDeTais { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BaiBao> BaiBaos { get; set; }
     }
 }

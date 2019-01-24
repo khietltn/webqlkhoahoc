@@ -14,9 +14,9 @@ namespace WebQLKhoaHoc
     
     public partial class DSTacGia
     {
-        public string MaSach { get; set; }
-        public string MaNKH { get; set; }
-        public bool LaChuBien { get; set; }
+        public int MaSach { get; set; }
+        public int MaNKH { get; set; }
+        public Nullable<bool> LaChuBien { get; set; }
     
         public virtual NhaKhoaHoc NhaKhoaHoc { get; set; }
         public virtual SachGiaoTrinh SachGiaoTrinh { get; set; }

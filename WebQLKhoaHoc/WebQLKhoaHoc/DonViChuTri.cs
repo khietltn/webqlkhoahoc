@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
             this.DeTais = new HashSet<DeTai>();
         }
     
-        public string MaDVChuTri { get; set; }
+        public int MaDVChuTri { get; set; }
         public string TenDVChuTri { get; set; }
         public string DiaChi { get; set; }
     

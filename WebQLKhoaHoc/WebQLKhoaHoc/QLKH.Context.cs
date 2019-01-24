@@ -35,6 +35,7 @@ namespace WebQLKhoaHoc
         public virtual DbSet<DeTai> DeTais { get; set; }
         public virtual DbSet<DonViChuTri> DonViChuTris { get; set; }
         public virtual DbSet<DonViQL> DonViQLs { get; set; }
+        public virtual DbSet<DSBaiBaoDeTai> DSBaiBaoDeTais { get; set; }
         public virtual DbSet<DSNguoiThamGiaBaiBao> DSNguoiThamGiaBaiBaos { get; set; }
         public virtual DbSet<DSNguoiThamGiaDeTai> DSNguoiThamGiaDeTais { get; set; }
         public virtual DbSet<DSTacGia> DSTacGias { get; set; }

@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
             this.ChuyenMonNKHs = new HashSet<ChuyenMonNKH>();
         }
     
-        public string MaChuyenMon { get; set; }
+        public int MaChuyenMon { get; set; }
         public string TenChuyenMon { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

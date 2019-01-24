@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
             this.LinhVucs = new HashSet<LinhVuc>();
         }
     
-        public string MaNhomLinhVuc { get; set; }
+        public int MaNhomLinhVuc { get; set; }
         public string TenNhomLinhVuc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

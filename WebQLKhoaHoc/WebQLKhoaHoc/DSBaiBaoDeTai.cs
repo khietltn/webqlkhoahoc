@@ -12,13 +12,13 @@ namespace WebQLKhoaHoc
     using System;
     using System.Collections.Generic;
     
-    public partial class ChuyenMonNKH
+    public partial class DSBaiBaoDeTai
     {
-        public int MaNKH { get; set; }
-        public int MaChuyenMon { get; set; }
-        public Nullable<System.DateTime> NgayCapNhat { get; set; }
+        public int MaDeTai { get; set; }
+        public int MaBaiBao { get; set; }
+        public string GhiChu { get; set; }
     
-        public virtual ChuyenMon ChuyenMon { get; set; }
-        public virtual NhaKhoaHoc NhaKhoaHoc { get; set; }
+        public virtual BaiBao BaiBao { get; set; }
+        public virtual DeTai DeTai { get; set; }
     }
 }
