@@ -236,6 +236,7 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaiBaoSearchViewModel.cs" />
     <Compile Include="Models\degreeChartViewModel.cs" />
     <Compile Include="Models\DeTaiSearchViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -243,6 +244,11 @@
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="Models\NhaKhoaHocViewModel.cs" />
     <Compile Include="Models\quantumChartViewModel.cs" />
+
+    <Compile Include="Models\topicChartViewModel.cs" />
+    <Compile Include="Models\topicdata.cs" />
+    <Compile Include="Models\SachGiaoTrinhSearchViewModel.cs" />
+
     <Compile Include="Models\totalChartViewModel.cs" />
     <Compile Include="Models\QLKHRepository.cs" />
     <Compile Include="NgachVienChuc.cs">
@@ -393,12 +399,17 @@
     <Content Include="Views\NhaKhoaHocs\Edit.cshtml" />
     <Content Include="Views\NhaKhoaHocs\Index.cshtml" />
     <Content Include="Views\Charts\Index.cshtml" />
-    <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\degreeCharts.cshtml" />
     <Content Include="Views\Charts\quantumCharts.cshtml" />
     <Content Include="Views\Charts\book.cshtml" />
     <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
+
+    <Content Include="Views\Charts\totalCharts.cshtml" />
+    <Content Include="Views\Charts\topicsChart.cshtml" />
+    <Content Include="Views\Charts\topicChart.cshtml" />
+    <Content Include="Views\Charts\atopicChart.cshtml" />
+
     <Content Include="Views\DeTais\Create.cshtml" />
     <Content Include="Views\DeTais\Delete.cshtml" />
     <Content Include="Views\DeTais\Details.cshtml" />
@@ -414,7 +425,11 @@
     <Content Include="Views\BaiBaos\Details.cshtml" />
     <Content Include="Views\BaiBaos\Edit.cshtml" />
     <Content Include="Views\BaiBaos\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Shared\PopUpLayout.cshtml" />
+=======
+
+>>>>>>> 79ef22fc98fdfda0b38bd13ed1f5d7e293dbf326
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
