@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Thống kê - CSDL Khoa học";
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
@@ -13,7 +12,7 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div>
-                            <form action="article" class="form-horizontal" method="post" accept-charset="utf-8">
+                            <form action="topicChart" class="form-horizontal" method="post" accept-charset="utf-8">
 
                                 <div class="form-group">
                                     <div class="col-md-2 text-right">
@@ -27,7 +26,7 @@
                                         <select name="unit" class="form-control">
                                             @if (ViewBag.unit != null)
                                             {
-                                                if (ViewBag.unit == 0)
+                                                if (ViewBag.unit == "0")
                                                 {
                                                     <option value="0" selected="selected">
                                                         --Tất cả--
@@ -99,62 +98,39 @@
                                 </div>
                             </form>
                             <div>
-                                <div class="text-center">
-                                    <span class="statistic-title">
-                                        BIỂU THỐNG KÊ BÀI BÁO KHOA HỌC
-
-                                        @if (ViewBag.fromdate != null && ViewBag.todate != null)
-                                        {
-                                            <br>
-                                            <span> TỪ @Convert.ToDateTime(@ViewBag.fromdate).ToString("dd/MM/yyyy")  ĐẾN @Convert.ToDateTime(@ViewBag.todate).ToString("dd/MM/yyyy")</span>
-                                        }
-                                    </span>
-                                </div>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="text-center" colspan="2">Số bài báo trên TCKH trong nước</th>
-                                            <th class="text-center" colspan="4">Số bài báo trên TCKH nước ngoài</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center">TCKH do HĐCDGS quy định</th>
-                                            <th class="text-center">Khác</th>
-                                            <th class="text-center">Tạp chí ISI</th>
-                                            <th class="text-center">Tạp chí SCOPUS</th>
-                                            <th class="text-center">Tạp chí ESCI</th>
-                                            <th class="text-center">Khác</th>
-
+                                            <th></th>
+                                            <th>Đơn vị công tác</th>
+                                            <th class="text-center">Dự án cấp Nhà nước</th>
+                                            <th class="text-center">Đề tài cấp Bộ</th>
+                                            <th class="text-center">Đề tài cấp Tỉnh</th>
+                                            <th class="text-center">Đề tài cấp Cơ sở</th>
+                                            <th class="text-center">Dự án hợp tác quốc tế</th>
+                                            <th class="text-center">Dự án SXTN cấp Nhà nước</th>
+                                            <th class="text-center">Đề tài độc lập cấp Nhà nước</th>
+                                            <th class="text-center">Đề tài thuộc chương trình TĐ cấp NN</th>
+                                            <th class="text-center">Dự án thuộc chương trình TĐ cấp NN</th>
+                                            <th class="text-center">Nghiên cứu cơ bản</th>
+                                            <th class="text-center">Nhiệm vụ nghiên cứu theo NĐT</th>
+                                            <th class="text-center">Giáo dục và Bảo vệ môi trường</th>
+                                            <th class="text-center">Đề tài trọng điểm cấp Bộ</th>
+                                            <th class="text-center">Dự án SXTN cấp Bộ</th>
+                                            <th class="text-center">Đề tài cấp Đại học Huế</th>
+                                            <th>Tổng cộng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{
-                                            int[] res = { 0, 0, 0, 0, 0, 0 };
-                                            if (ViewBag.nHDCDGS != null && ViewBag.nKhac_in != null && ViewBag.nISI != null && ViewBag.nSCOPUS != null && ViewBag.nESCI != null && ViewBag.nKhac_out != null)
-                                            {
-                                                res[0] = ViewBag.nHDCDGS; res[1] = ViewBag.nKhac_in; res[2] = ViewBag.nISI; res[3] = ViewBag.nSCOPUS; res[4] = ViewBag.nESCI; res[5] = ViewBag.nKhac_out;
-                                            }
-                                            foreach (var item in res)
-                                            {
-                                                if (item > 0)
-                                                {
-                                                    <td class="text-center">@item</td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="text-center">-</td>
-                                                }
-                                            }
-                                         }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </section>
-    </div>
+    </section>
+</div>
 
 

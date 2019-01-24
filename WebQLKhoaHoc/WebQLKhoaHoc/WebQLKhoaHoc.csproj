@@ -238,6 +238,8 @@
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="Models\NhaKhoaHocViewModel.cs" />
     <Compile Include="Models\quantumChartViewModel.cs" />
+    <Compile Include="Models\topicChartViewModel.cs" />
+    <Compile Include="Models\topicdata.cs" />
     <Compile Include="Models\totalChartViewModel.cs" />
     <Compile Include="NgachVienChuc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
@@ -387,12 +389,15 @@
     <Content Include="Views\NhaKhoaHocs\Edit.cshtml" />
     <Content Include="Views\NhaKhoaHocs\Index.cshtml" />
     <Content Include="Views\Charts\Index.cshtml" />
-    <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\degreeCharts.cshtml" />
     <Content Include="Views\Charts\quantumCharts.cshtml" />
     <Content Include="Views\Charts\book.cshtml" />
     <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
+    <Content Include="Views\Charts\totalCharts.cshtml" />
+    <Content Include="Views\Charts\topicsChart.cshtml" />
+    <Content Include="Views\Charts\topicChart.cshtml" />
+    <Content Include="Views\Charts\atopicChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
