@@ -244,12 +244,11 @@
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="Models\NhaKhoaHocViewModel.cs" />
     <Compile Include="Models\quantumChartViewModel.cs" />
-<<<<<<< HEAD
+
     <Compile Include="Models\topicChartViewModel.cs" />
     <Compile Include="Models\topicdata.cs" />
-=======
     <Compile Include="Models\SachGiaoTrinhSearchViewModel.cs" />
->>>>>>> c1d81f1e8f800ffde4fd4d4c1a7abd3c86d04dbe
+
     <Compile Include="Models\totalChartViewModel.cs" />
     <Compile Include="Models\QLKHRepository.cs" />
     <Compile Include="NgachVienChuc.cs">
@@ -405,12 +404,12 @@
     <Content Include="Views\Charts\book.cshtml" />
     <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
-<<<<<<< HEAD
+
     <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\topicsChart.cshtml" />
     <Content Include="Views\Charts\topicChart.cshtml" />
     <Content Include="Views\Charts\atopicChart.cshtml" />
-=======
+
     <Content Include="Views\DeTais\Create.cshtml" />
     <Content Include="Views\DeTais\Delete.cshtml" />
     <Content Include="Views\DeTais\Details.cshtml" />
@@ -426,7 +425,7 @@
     <Content Include="Views\BaiBaos\Details.cshtml" />
     <Content Include="Views\BaiBaos\Edit.cshtml" />
     <Content Include="Views\BaiBaos\Index.cshtml" />
->>>>>>> c1d81f1e8f800ffde4fd4d4c1a7abd3c86d04dbe
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
