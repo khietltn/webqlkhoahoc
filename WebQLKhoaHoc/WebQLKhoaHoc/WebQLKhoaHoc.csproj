@@ -236,7 +236,8 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-<Compile Include="Models\degreeChartViewModel.cs" />
+    <Compile Include="Models\degreeChartViewModel.cs" />
+    <Compile Include="Models\DeTaiSearchViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LinhVucViewMenuModel.cs" />
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
@@ -310,13 +311,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css-plugin-collections.css" />
     <Content Include="Content\custom-bootstrap-margin-padding.css" />
+    <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\lightbox\close.png" />
     <Content Include="Content\lightbox\loading.gif" />
     <Content Include="Content\lightbox\next.png" />
     <Content Include="Content\lightbox\prev.png" />
     <Content Include="Content\menuzord-rounded-boxed.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\Pagination.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\style-main.css" />
     <Content Include="Content\theme-skin-color-set-1.css" />
@@ -357,7 +358,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\QLKH.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
