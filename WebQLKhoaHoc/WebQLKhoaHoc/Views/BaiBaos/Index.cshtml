@@ -16,33 +16,35 @@
                     <div class="container pt-30 pb-20">
                         <div class="row">
                             <div class="col-md-6 pt-10">
-                                <h2 class="title text-white">Dữ liệu Đề Tài</h2>
+                                <h2 class="title text-white">Dữ liệu Bài Báo</h2>
                                 <ol class="breadcrumb text-left text-black mt-10">
                                     <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
-                                    <li class="active text-gray-silver">Nhà khoa học</li>
+                                    <li class="active text-gray-silver">Bài Báo</li>
                                 </ol>
                             </div>
                             <div class="col-md-6">
                                 <!-- Appointment Form Starts -->
                                 <form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 pl-5 pr-5">
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
                                             <div class="form-group mb-5">
-                                                <div class="styled-select">
-                                                    @Html.DropDownList("MaDonViQLThucHien", (IEnumerable<SelectListItem>)ViewBag.MaDonViQLThucHien, "--Chọn đơn vị--", new { @class = "form-control" })
-                                                </div>
+                                                @Html.DropDownList("MaPhanLoaiTapChi", (IEnumerable<SelectListItem>)ViewBag.MaPhanLoaiTapChi, "--Chọn phân loại tạp chí--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaLoaiTapChi", (IEnumerable<SelectListItem>)ViewBag.MaLoaiTapChi, "--Chọn loại tạp chí--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaCapTapChi", (IEnumerable<SelectListItem>)ViewBag.MaCapTapChi, "--Chọn cấp tạp chí--", new { @class = "form-control" })
                                             </div>
                                         </div>
 
                                         <div class="col-xs-12 col-sm-6 pl-5 pr-5">
                                             <div class="form-group mb-5">
-                                                @Html.DropDownList("MaCapDeTai", (IEnumerable<SelectListItem>)ViewBag.MaCapDeTai, "--Chọn cấp đề tài--", new { @class = "form-control" })
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                @Html.DropDownList("MaLinhVuc", (IEnumerable<SelectListItem>)ViewBag.MaLinhVuc, "--Chọn lĩnh vực--", new { @class = "form-control select" })
+                                                <input name="CQXuatBan" id="CQXuatBan" class="form-control" type="text" placeholder="Từ khóa tìm kiếm" value="@ViewBag.CQXuatBan">
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-6 pl-5 pr-5">

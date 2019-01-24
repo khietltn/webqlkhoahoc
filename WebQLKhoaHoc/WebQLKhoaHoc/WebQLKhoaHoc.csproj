@@ -236,6 +236,7 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaiBaoSearchViewModel.cs" />
     <Compile Include="Models\degreeChartViewModel.cs" />
     <Compile Include="Models\DeTaiSearchViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="Models\NhaKhoaHocViewModel.cs" />
     <Compile Include="Models\quantumChartViewModel.cs" />
+    <Compile Include="Models\SachGiaoTrinhSearchViewModel.cs" />
     <Compile Include="Models\totalChartViewModel.cs" />
     <Compile Include="Models\QLKHRepository.cs" />
     <Compile Include="NgachVienChuc.cs">
