@@ -11,6 +11,7 @@
     <!-- Theme styles START -->
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
     <!-- Theme styles END -->
 </head>
 <!-- Head END -->
@@ -50,13 +51,13 @@
                                     @Html.ActionLink("Nhà Khoa Học", "Index", "NhaKhoaHocs")
                                 </li>
                                 <li>
-                                    <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/topic">Đề tài khoa học</a>
+                                    @Html.ActionLink("Đề Tài Khoa Học", "Index", "DeTais")
                                 </li>
                                 <li>
-                                    <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/article">Bài báo khoa học</a>
+                                    @Html.ActionLink("Bài Bái Khoa Học", "Index", "BaiBaos")
                                 </li>
                                 <li>
-                                    <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book">Sách và giáo trình</a>
+                                    @Html.ActionLink("Sách Và Giáo Trình", "Index", "SachGiaoTrinhs")
                                 </li>
                                 <li>
                                     <a href="javascript:;">Sản phẩm khác<span class="indicator"></span></a>
@@ -181,6 +182,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/qlkh")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>
     @RenderSection("scripts", required: false)
 
 

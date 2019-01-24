@@ -190,9 +190,12 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaiBaosController.cs" />
     <Compile Include="Controllers\ChartsController.cs" />
+    <Compile Include="Controllers\DeTaisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NhaKhoaHocsController.cs" />
+    <Compile Include="Controllers\SachGiaoTrinhsController.cs" />
     <Compile Include="DeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
@@ -233,12 +236,14 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\degreeChartViewModel.cs" />
+<Compile Include="Models\degreeChartViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LinhVucViewMenuModel.cs" />
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="Models\NhaKhoaHocViewModel.cs" />
     <Compile Include="Models\quantumChartViewModel.cs" />
     <Compile Include="Models\totalChartViewModel.cs" />
+    <Compile Include="Models\QLKHRepository.cs" />
     <Compile Include="NgachVienChuc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
@@ -352,6 +357,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\QLKH.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -393,6 +399,21 @@
     <Content Include="Views\Charts\book.cshtml" />
     <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
+    <Content Include="Views\DeTais\Create.cshtml" />
+    <Content Include="Views\DeTais\Delete.cshtml" />
+    <Content Include="Views\DeTais\Details.cshtml" />
+    <Content Include="Views\DeTais\Edit.cshtml" />
+    <Content Include="Views\DeTais\Index.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Create.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Delete.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Details.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Edit.cshtml" />
+    <Content Include="Views\SachGiaoTrinhs\Index.cshtml" />
+    <Content Include="Views\BaiBaos\Create.cshtml" />
+    <Content Include="Views\BaiBaos\Delete.cshtml" />
+    <Content Include="Views\BaiBaos\Details.cshtml" />
+    <Content Include="Views\BaiBaos\Edit.cshtml" />
+    <Content Include="Views\BaiBaos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
