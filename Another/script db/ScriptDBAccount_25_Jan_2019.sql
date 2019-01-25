@@ -1,4 +1,4 @@
-USE QLKhoaHoc_ver2
+USE QLKhoaHoc
 GO
 
 CREATE TABLE ChucNang(
