@@ -19,7 +19,7 @@ namespace WebQLKhoaHoc.Controllers
         private QLKHRepository QLKHrepo = new QLKHRepository();
 
         // GET: BaiBaos
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? Page_No)
         {
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
             ViewBag.MaPhanLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
@@ -29,8 +29,24 @@ namespace WebQLKhoaHoc.Controllers
                 new SelectListItem { Text = "Ngoài Nước", Value ="0"},
             };
           
-            var baiBaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi);
-            return View(await baiBaos.ToListAsync());
+            var baiBaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs);
+
+            var listBB = baiBaos.Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .Concat(baiBaos)
+                                .ToList();
+
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
+            return View(listBB.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         [HttpPost]
@@ -86,7 +102,7 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: BaiBaos/baibaols/5
-        public async Task<ActionResult> baibaols(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
