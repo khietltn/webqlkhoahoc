@@ -180,6 +180,9 @@
     <Compile Include="CapTapChi.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
+    <Compile Include="ChucNang.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
     <Compile Include="ChuyenMon.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
@@ -235,26 +238,28 @@
     <Compile Include="LoaiHinhDeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaiBaoSearchViewModel.cs" />
     <Compile Include="Models\degreeChartViewModel.cs" />
     <Compile Include="Models\DeTaiSearchViewModel.cs" />
+    <Compile Include="Models\Encryptor.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LinhVucViewMenuModel.cs" />
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="Models\NhaKhoaHocViewModel.cs" />
     <Compile Include="Models\quantumChartViewModel.cs" />
-
     <Compile Include="Models\topicChartViewModel.cs" />
     <Compile Include="Models\topicdata.cs" />
     <Compile Include="Models\SachGiaoTrinhSearchViewModel.cs" />
-
     <Compile Include="Models\totalChartViewModel.cs" />
     <Compile Include="Models\QLKHRepository.cs" />
+    <Compile Include="Models\UserLoginViewModel.cs" />
     <Compile Include="NgachVienChuc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="NganhDaoTao.cs">
+      <DependentUpon>QLKH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NguoiDung.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="NhaKhoaHoc.cs">
@@ -404,12 +409,10 @@
     <Content Include="Views\Charts\book.cshtml" />
     <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
-
     <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\topicsChart.cshtml" />
     <Content Include="Views\Charts\topicChart.cshtml" />
     <Content Include="Views\Charts\atopicChart.cshtml" />
-
     <Content Include="Views\DeTais\Create.cshtml" />
     <Content Include="Views\DeTais\Delete.cshtml" />
     <Content Include="Views\DeTais\Details.cshtml" />
@@ -425,7 +428,6 @@
     <Content Include="Views\BaiBaos\Details.cshtml" />
     <Content Include="Views\BaiBaos\Edit.cshtml" />
     <Content Include="Views\BaiBaos\Index.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

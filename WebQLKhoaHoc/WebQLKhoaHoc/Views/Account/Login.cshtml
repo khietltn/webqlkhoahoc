@@ -1,58 +1,68 @@
-﻿@model WebQLKhoaHoc.Models.LoginViewModel
-
-@{
-    ViewBag.Title = "Log in";
+﻿@{
+    ViewBag.Title = "Cổng đăng nhập";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true)
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName)
-                    </div>
+<style>
+    .login-box {
+        margin: 7% auto;
+        width: 360px;
+    }
+    .login-logo{
+        background-color: #202C45;
+    }
+    .login-box-body {
+        padding: 10px;
+        background-color: lightgrey;
+    }
+    a.btn.btn-block.btn-google.btn-flat {
+        background-color: #dd4b39;
+        color: #fff;
+    }
+    .col-xs-4 {
+        width: 33.33333333333333%;
+        margin-left: 33%;
+    }
+</style>
+<div class="container">
+    <div class="login-box">
+        <div class="login-logo text-center">
+            <a href="#"><h3 style="color:white">Đăng nhập</h3></a>
+        </div>
+        <br />
+        <!-- /.login-logo -->
+        @if (ViewBag.Error != null)
+        {
+            <div class="text-center"><span class="alert alert-danger">@ViewBag.Error</span></div>
+        }
+        <br />
+        <div class="login-box-body">
+
+            <form action="Login" method="post" novalidate="novalidate">
+                <div class="form-group has-feedback">
+                    <input type="text" id="username" name="username" value="" class="form-control" placeholder="Tài khoản" required>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password)
-                    </div>
+                <div class="form-group has-feedback">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Mật khẩu" required>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
                     </div>
+                    <!-- /.col -->
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register", "Register") if you don't have a local account.
-                </p>
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+            </form>
+
+            <div class="social-auth-links text-center">
+                <p>- Hoặc -</p>
+                <a href="#" class="btn btn-block btn-google btn-flat">
+                    Đăng nhập bằng tài khoản email Đại học Sư Phạm
+                </a>
+            </div>
+
+            <a href="#" id="right" class="pull-right">Quên mật khẩu?</a><br>
+        </div>
+        <!-- /.login-box-body -->
     </div>
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
