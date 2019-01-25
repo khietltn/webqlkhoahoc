@@ -21,6 +21,7 @@ namespace WebQLKhoaHoc.Controllers
         // GET: BaiBaos
         public async Task<ActionResult> Index(int? Page_No)
         {
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
             ViewBag.MaPhanLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
             ViewBag.MaLoaiTapChi = new List<SelectListItem>
@@ -51,10 +52,16 @@ namespace WebQLKhoaHoc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaPhanLoaiTapChi,MaLoaiTapChi,MaCapTapChi,CQXuatBan,Fromdate,Todate,SearchValue")] BaiBaoSearchViewModel baibao)
+        public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaLinhVuc,MaPhanLoaiTapChi,MaLoaiTapChi,MaCapTapChi,CQXuatBan,Fromdate,Todate,SearchValue")] BaiBaoSearchViewModel baibao)
         {
             var baibaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).ToList();
-
+            if (!String.IsNullOrEmpty(baibao.MaLinhVuc))
+            {
+                if (baibao.MaLinhVuc[0] == 'a')
+                    baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaLinhVuc.ToString() == baibao.MaLinhVuc.Substring(1, baibao.MaLinhVuc.Length - 1))).ToList();
+                else
+                    baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaNhomLinhVuc.ToString() == baibao.MaLinhVuc)).ToList();
+            }
             if (!String.IsNullOrEmpty(baibao.MaPhanLoaiTapChi))
             {
                 baibaos = baibaos.Where(p => p.MaLoaiTapChi.ToString() == baibao.MaPhanLoaiTapChi).ToList();
@@ -84,6 +91,7 @@ namespace WebQLKhoaHoc.Controllers
             {
                 baibaos = baibaos.Where(p => p.TenBaiBao.Contains(baibao.SearchValue)).ToList();
             }
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
             ViewBag.Fromdate = baibao.Fromdate.ToShortDateString();
             ViewBag.Todate = baibao.Todate.ToShortDateString();
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");

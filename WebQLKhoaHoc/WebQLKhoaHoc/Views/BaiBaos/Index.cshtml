@@ -30,6 +30,11 @@
                                 <!-- Appointment Form Starts -->
                                 <form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
                                     <div class="row">
+                                        <div class="col-xs-12 col-sm-12 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaLinhVuc", (IEnumerable<SelectListItem>)ViewBag.MaLinhVuc, "--Chọn lĩnh vực--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
                                         <div class="col-xs-12 col-sm-6 pl-5 pr-5">
                                             <div class="form-group mb-5">
                                                 @Html.DropDownList("MaPhanLoaiTapChi", (IEnumerable<SelectListItem>)ViewBag.MaPhanLoaiTapChi, "--Chọn phân loại tạp chí--", new { @class = "form-control" })

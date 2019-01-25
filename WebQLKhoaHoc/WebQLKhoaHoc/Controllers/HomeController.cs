@@ -51,6 +51,7 @@ namespace WebQLKhoaHoc.Controllers
                     }
                     return View("~/Views/DeTais/Index.cshtml", detais.ToPagedList(No_Of_Page, Size_Of_Page));
                 case "2":
+                    ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
                     ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
                     ViewBag.MaPhanLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
                     ViewBag.MaLoaiTapChi = new List<SelectListItem>
