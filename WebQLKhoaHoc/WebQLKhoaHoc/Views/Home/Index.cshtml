@@ -3,6 +3,10 @@
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
 
+@{
+    QLKhoaHocEntities db = new QLKhoaHocEntities();
+}
+
 <div class="main-content">
 
     <!-- Section: home header -->
@@ -28,7 +32,7 @@
                                             <a class="text-white font-18" href="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist">
                                                 DỮ LIỆU NHÀ KHOA HỌC <br>
                                                 <span class="text-gray line-height-1">
-                                                    2.605
+                                                    @db.NhaKhoaHocs.Count() 
                                                     Kết Quả
                                                 </span>
                                             </a>
@@ -44,7 +48,7 @@
                                             <a class="text-white font-18" href="http://csdlkhoahoc.hueuni.edu.vn/index.php/topic">
                                                 DỮ LIỆU ĐỀ TÀI KHOA HỌC<br>
                                                 <span class="text-gray line-height-1">
-                                                    3.496
+                                                    @db.DeTais.Count()
                                                     Kết Quả
                                                 </span>
                                             </a>
@@ -60,7 +64,7 @@
                                             <a class="text-white font-18" href="http://csdlkhoahoc.hueuni.edu.vn/index.php/article">
                                                 DỮ LIỆU BÀI BÁO KHOA HỌC<br>
                                                 <span class="text-gray line-height-1">
-                                                    20.998
+                                                    @db.BaiBaos.Count()
                                                     Kết Quả
                                                 </span>
                                             </a>
@@ -76,7 +80,7 @@
                                             <a class="text-white font-18" href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book">
                                                 DỮ LIỆU SÁCH, GIÁO TRÌNH<br>
                                                 <span class="text-gray line-height-1">
-                                                    2.800
+                                                    @db.SachGiaoTrinhs.Count()
                                                     Kết Quả
                                                 </span>
                                             </a>
@@ -108,7 +112,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group mb-10">
                                                 <div class="styled-select">
-                                                    @Html.DropDownList("MaDanhMuc", (IEnumerable<SelectListItem>)ViewBag.MaDanhMuc,  new { @class = "form-control" })
+                                                    @Html.DropDownList("MaDanhMuc", (IEnumerable<SelectListItem>)ViewBag.MaDanhMuc, new { @class = "form-control" })
                                                 </div>
                                             </div>
                                         </div>
