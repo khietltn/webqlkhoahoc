@@ -7,23 +7,86 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using WebQLKhoaHoc;
+using WebQLKhoaHoc.Models;
 
 namespace WebQLKhoaHoc.Controllers
 {
     public class BaiBaosController : Controller
     {
         private QLKhoaHocEntities db = new QLKhoaHocEntities();
+        private QLKHRepository QLKHrepo = new QLKHRepository();
 
         // GET: BaiBaos
         public async Task<ActionResult> Index()
         {
+            ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
+            ViewBag.MaPhanLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
+            ViewBag.MaLoaiTapChi = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Trong Nước", Value = "1"},
+                new SelectListItem { Text = "Ngoài Nước", Value ="0"},
+            };
+          
             var baiBaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi);
             return View(await baiBaos.ToListAsync());
         }
 
-        // GET: BaiBaos/Details/5
-        public async Task<ActionResult> Details(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaPhanLoaiTapChi,MaLoaiTapChi,MaCapTapChi,CQXuatBan,Fromdate,Todate,SearchValue")] BaiBaoSearchViewModel baibao)
+        {
+            var baibaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).ToList();
+
+            if (!String.IsNullOrEmpty(baibao.MaPhanLoaiTapChi))
+            {
+                baibaos = baibaos.Where(p => p.MaLoaiTapChi.ToString() == baibao.MaPhanLoaiTapChi).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(baibao.MaLoaiTapChi))
+            {
+                if (baibao.MaLoaiTapChi == "0")
+                    baibaos = baibaos.Where(p => p.LaTrongNuoc == false).ToList();
+                else
+                    baibaos = baibaos.Where(p => p.LaTrongNuoc == true).ToList();
+            }
+
+            if (baibao.Fromdate > DateTime.MinValue)
+            {
+                baibaos = baibaos.Where(p => p.NamDangBao.Value.Year >= baibao.Fromdate.Year).ToList();
+            }
+            if (baibao.Todate > DateTime.MinValue)
+            {
+                baibaos = baibaos.Where(p => p.NamDangBao.Value.Year  <= baibao.Todate.Year).ToList();
+            }
+            if (!String.IsNullOrEmpty(baibao.CQXuatBan))
+            {
+                baibaos = baibaos.Where(p => p.CQXuatBan.Contains(baibao.CQXuatBan)).ToList();
+            }
+            if (!String.IsNullOrEmpty(baibao.SearchValue))
+            {
+                baibaos = baibaos.Where(p => p.TenBaiBao.Contains(baibao.SearchValue)).ToList();
+            }
+            ViewBag.Fromdate = baibao.Fromdate.ToShortDateString();
+            ViewBag.Todate = baibao.Todate.ToShortDateString();
+            ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
+            ViewBag.MaPhanLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
+            ViewBag.MaLoaiTapChi = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Trong Nước", Value = "1"},
+                new SelectListItem { Text = "Ngoài Nước", Value ="0"},
+            };
+            ViewBag.CQXuatBan = baibao.CQXuatBan;
+            ViewBag.SearchValue = baibao.SearchValue;
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
+            return View("Index", baibaos.ToPagedList(No_Of_Page, Size_Of_Page));
+            
+        }
+
+        // GET: BaiBaos/baibaols/5
+        public async Task<ActionResult> baibaols(int? id)
         {
             if (id == null)
             {
@@ -47,7 +110,7 @@ namespace WebQLKhoaHoc.Controllers
 
         // POST: BaiBaos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more baibaols see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb,LinkFileUpLoad")] BaiBao baiBao)
@@ -83,7 +146,7 @@ namespace WebQLKhoaHoc.Controllers
 
         // POST: BaiBaos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more baibaols see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb,LinkFileUpLoad")] BaiBao baiBao)

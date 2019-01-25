@@ -236,12 +236,19 @@
       <DependentUpon>QLKH.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-<Compile Include="Models\degreeChartViewModel.cs" />
+    <Compile Include="Models\BaiBaoSearchViewModel.cs" />
+    <Compile Include="Models\degreeChartViewModel.cs" />
+    <Compile Include="Models\DeTaiSearchViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LinhVucViewMenuModel.cs" />
     <Compile Include="Models\NhaKhoaHocSearchViewModel.cs" />
     <Compile Include="Models\NhaKhoaHocViewModel.cs" />
     <Compile Include="Models\quantumChartViewModel.cs" />
+
+    <Compile Include="Models\topicChartViewModel.cs" />
+    <Compile Include="Models\topicdata.cs" />
+    <Compile Include="Models\SachGiaoTrinhSearchViewModel.cs" />
+
     <Compile Include="Models\totalChartViewModel.cs" />
     <Compile Include="Models\QLKHRepository.cs" />
     <Compile Include="NgachVienChuc.cs">
@@ -310,13 +317,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css-plugin-collections.css" />
     <Content Include="Content\custom-bootstrap-margin-padding.css" />
+    <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\lightbox\close.png" />
     <Content Include="Content\lightbox\loading.gif" />
     <Content Include="Content\lightbox\next.png" />
     <Content Include="Content\lightbox\prev.png" />
     <Content Include="Content\menuzord-rounded-boxed.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\Pagination.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\style-main.css" />
     <Content Include="Content\theme-skin-color-set-1.css" />
@@ -357,7 +364,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\QLKH.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -393,12 +399,17 @@
     <Content Include="Views\NhaKhoaHocs\Edit.cshtml" />
     <Content Include="Views\NhaKhoaHocs\Index.cshtml" />
     <Content Include="Views\Charts\Index.cshtml" />
-    <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\degreeCharts.cshtml" />
     <Content Include="Views\Charts\quantumCharts.cshtml" />
     <Content Include="Views\Charts\book.cshtml" />
     <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
+
+    <Content Include="Views\Charts\totalCharts.cshtml" />
+    <Content Include="Views\Charts\topicsChart.cshtml" />
+    <Content Include="Views\Charts\topicChart.cshtml" />
+    <Content Include="Views\Charts\atopicChart.cshtml" />
+
     <Content Include="Views\DeTais\Create.cshtml" />
     <Content Include="Views\DeTais\Delete.cshtml" />
     <Content Include="Views\DeTais\Details.cshtml" />
@@ -414,6 +425,7 @@
     <Content Include="Views\BaiBaos\Details.cshtml" />
     <Content Include="Views\BaiBaos\Edit.cshtml" />
     <Content Include="Views\BaiBaos\Index.cshtml" />
+    <Content Include="Views\Shared\PopUpLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

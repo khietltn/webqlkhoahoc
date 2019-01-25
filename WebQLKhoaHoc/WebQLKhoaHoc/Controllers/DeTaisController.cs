@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using WebQLKhoaHoc;
 using WebQLKhoaHoc.Models;
 
@@ -17,13 +18,63 @@ namespace WebQLKhoaHoc.Controllers
         private QLKhoaHocEntities db = new QLKhoaHocEntities();
         private QLKHRepository QLKHrepo = new QLKHRepository();
         // GET: DeTais
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? Page_No)
         {
             ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
-            ViewBag.MaDVChuTri = new SelectList(db.DonViChuTris, "MaDVChuTri", "TenDVChuTri");
+            ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
             ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
             var deTais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP);
-            return View(await deTais.ToListAsync());
+			var listDT = deTais.Concat(deTais)
+							   .Concat(deTais)
+							   .Concat(deTais)
+							   .Concat(deTais)
+							   .Concat(deTais)
+							   .Concat(deTais)
+							   .ToList();
+
+			int Size_Of_Page = 6;
+			int No_Of_Page = (Page_No ?? 1);
+			return View(listDT.ToPagedList(No_Of_Page, Size_Of_Page));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaCapDeTai,MaDonViQLThucHien,MaLinhVuc,Fromdate,Todate,SearchValue")] DeTaiSearchViewModel detai)
+        {
+            var detais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).ToList();
+
+            if (!String.IsNullOrEmpty(detai.MaDonViQLThucHien))
+            {
+                detais = detais.Where(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien).ToList();
+            }
+            if (!String.IsNullOrEmpty(detai.MaLinhVuc))
+            {
+                if (detai.MaLinhVuc[0] == 'a')
+                    detais = detais.Where(p =>
+                        p.MaLinhVuc.ToString() == detai.MaLinhVuc.Substring(1, detai.MaLinhVuc.Length - 1)).ToList();
+                else
+                    detais = detais.Where(p => p.LinhVuc.MaNhomLinhVuc.ToString() == detai.MaLinhVuc).ToList();
+            }
+            if (detai.Fromdate > DateTime.MinValue)
+            {
+                detais = detais.Where(p => p.NamBD >= detai.Fromdate).ToList();
+            }
+            if (detai.Todate > DateTime.MinValue)
+            {
+                detais = detais.Where(p => p.NamKT <= detai.Todate).ToList();
+            }
+            if (!String.IsNullOrEmpty(detai.SearchValue))
+            {
+                detais = detais.Where(p => p.TenDeTai.Contains(detai.SearchValue)).ToList();
+            }
+            ViewBag.Fromdate = detai.Fromdate.ToShortDateString();
+            ViewBag.Todate = detai.Todate.ToShortDateString();
+            ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
+            ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
+            ViewBag.SearchValue = detai.SearchValue;
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
+            return View("Index", detais.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         // GET: DeTais/Details/5

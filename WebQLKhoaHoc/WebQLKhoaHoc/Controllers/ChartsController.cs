@@ -112,17 +112,17 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         [HttpPost]
-        public ActionResult book(string unit,DateTime? from_date, DateTime? to_date)
+        public ActionResult book(int unit,DateTime? from_date, DateTime? to_date)
         {
             List<DSTacGia> dSTacGias = db.DSTacGias.Where(p => p.LaChuBien == true).ToList();
             List<NhaKhoaHoc> nhaKhoaHocs = new List<NhaKhoaHoc>();
-            if (unit == "0")
+            if (unit == 0)
             {
                 nhaKhoaHocs = db.NhaKhoaHocs.ToList();
             }
             else
             {
-                nhaKhoaHocs = db.NhaKhoaHocs.Where(p => p.MaDonViQL == Int32.Parse(unit)).ToList();
+                nhaKhoaHocs = db.NhaKhoaHocs.Where(p => p.MaDonViQL == unit).ToList();
             }
             List<SachGiaoTrinh> sachGiaoTrinhs = new List<SachGiaoTrinh>();
             if (from_date != null && to_date != null)
@@ -210,17 +210,17 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         [HttpPost]
-        public ActionResult article(string unit, DateTime? from_date, DateTime? to_date)
+        public ActionResult article(int unit, DateTime? from_date, DateTime? to_date)
         {
             List<DSNguoiThamGiaBaiBao> dSNguoiThamGias = db.DSNguoiThamGiaBaiBaos.ToList();
             List<NhaKhoaHoc> nhaKhoaHocs = new List<NhaKhoaHoc>();
-            if (unit == "0")
+            if (unit == 0)
             {
                 nhaKhoaHocs = db.NhaKhoaHocs.ToList();
             }
             else
             {
-                nhaKhoaHocs = db.NhaKhoaHocs.Where(p => p.MaDonViQL == Int32.Parse(unit)).ToList();
+                nhaKhoaHocs = db.NhaKhoaHocs.Where(p => p.MaDonViQL == unit).ToList();
             }
             List<BaiBao> baiBaos = new List<BaiBao>();
             if (from_date != null && to_date != null)
@@ -291,6 +291,131 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.fromdate = from_date;
             ViewBag.todate = to_date;
             return View();
+        }
+
+        // about topic
+        public ActionResult topicChart()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult topicChart(string unit,DateTime? from_date, DateTime? to_date)
+        {
+            DateTime fd = new DateTime();
+            DateTime td = new DateTime();
+            if (from_date != null)
+            {
+                fd = Convert.ToDateTime(from_date);
+            }
+            else
+            {
+                fd = DateTime.MinValue;
+            }
+            if (to_date != null)
+            {
+                td = Convert.ToDateTime(to_date);
+            }
+            else
+            {
+                td = DateTime.MaxValue;
+            }
+
+            topicdata tpdata = topicdata.Mapping(Int32.Parse(unit), fd, td);
+
+            if (unit == "0" || unit == null)
+            {
+                return RedirectToAction("topicsChart", tpdata);
+            }
+            else
+            {
+                return RedirectToAction("atopicChart", tpdata);
+            }
+            
+        }
+
+        public ActionResult topicsChart(topicdata tpdt)
+        {
+            List<topicChartViewModel> res = new List<topicChartViewModel>();
+            List<DonViQL> listDVQL = db.DonViQLs.ToList();
+            List<DeTai> deTais = new List<DeTai>();
+            deTais = db.DeTais.Where(p => p.NamBD >= tpdt.fromdate && p.NamBD <= tpdt.todate).ToList();
+            foreach (var item in listDVQL)
+            {
+
+                int a = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 1).ToList().Count();
+                int b = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 2).ToList().Count();
+                int c = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 3).ToList().Count();
+                int d = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 4).ToList().Count();
+                int e = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 5).ToList().Count();
+                int f = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 6).ToList().Count();
+                int g = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 7).ToList().Count();
+                int h = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 8).ToList().Count();
+                int i = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 9).ToList().Count();
+                int k = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 10).ToList().Count();
+                int l = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 11).ToList().Count();
+                int m = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 12).ToList().Count();
+                int n = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 13).ToList().Count();
+                int z = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 14).ToList().Count();
+                int q = deTais.Where(p => p.MaDonViQLThucHien == item.MaDonVi && p.MaCapDeTai == 15).ToList().Count();
+
+                topicChartViewModel topicChart = topicChartViewModel.Mapping(item.MaDonVi, a, b, c, d, e, f, g, h, i, k, l, m, n, z, q);
+                res.Add(topicChart);
+            }
+
+            ViewBag.unit = tpdt.MaDVQL;
+            ViewBag.fromdate = tpdt.fromdate;
+            ViewBag.todate = tpdt.todate;
+            return View(res);
+        }
+
+        public ActionResult atopicChart(topicdata tpdt)
+        {
+            topicChartViewModel res = new topicChartViewModel();
+            List<DeTai> deTais = db.DeTais.Where(p =>p.MaDonViQLThucHien == tpdt.MaDVQL && p.NamBD >= tpdt.fromdate && p.NamBD <= tpdt.todate).ToList();
+
+            List<DeTai> a = deTais.Where(p => p.MaCapDeTai == 1).ToList();
+            List<DeTai> b = deTais.Where(p => p.MaCapDeTai == 2).ToList();
+            List<DeTai> c = deTais.Where(p => p.MaCapDeTai == 3).ToList();
+            List<DeTai> d = deTais.Where(p => p.MaCapDeTai == 4).ToList();
+            List<DeTai> e = deTais.Where(p => p.MaCapDeTai == 5).ToList();
+            List<DeTai> f = deTais.Where(p => p.MaCapDeTai == 6).ToList();
+            List<DeTai> g = deTais.Where(p => p.MaCapDeTai == 7).ToList();
+            List<DeTai> h = deTais.Where(p => p.MaCapDeTai == 8).ToList();
+            List<DeTai> i = deTais.Where(p => p.MaCapDeTai == 9).ToList();
+            List<DeTai> k = deTais.Where(p => p.MaCapDeTai == 10).ToList();
+            List<DeTai> l = deTais.Where(p => p.MaCapDeTai == 11).ToList();
+            List<DeTai> m = deTais.Where(p => p.MaCapDeTai == 12).ToList();
+            List<DeTai> n = deTais.Where(p => p.MaCapDeTai == 13).ToList();
+            List<DeTai> z = deTais.Where(p => p.MaCapDeTai == 14).ToList();
+            List<DeTai> q = deTais.Where(p => p.MaCapDeTai == 15).ToList();
+
+            res = topicChartViewModel.Mapping(tpdt.MaDVQL, a.Count, b.Count, c.Count, d.Count, e.Count, f.Count, g.Count, h.Count, i.Count, k.Count, l.Count, m.Count, n.Count, z.Count, q.Count);
+            // sum item
+            ViewBag.a = a.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.b = b.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.c = c.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.d = d.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.e = e.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.f = f.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.g = g.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.h = h.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.i = i.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.k = k.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.l = l.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.m = m.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.n = n.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.z = z.Sum(p => Convert.ToInt32(p.KinhPhi));
+            ViewBag.q = q.Sum(p => Convert.ToInt32(p.KinhPhi));
+
+            ViewBag.sumAll = ViewBag.a + ViewBag.b + ViewBag.c + ViewBag.d + ViewBag.e + ViewBag.f + ViewBag.g + ViewBag.h + ViewBag.i + ViewBag.k + ViewBag.l + ViewBag.m + ViewBag.n + ViewBag.z + ViewBag.q;
+            
+            ViewBag.unit = tpdt.MaDVQL;
+            ViewBag.fromdate = tpdt.fromdate;
+            ViewBag.todate = tpdt.todate;
+
+
+            return View(res);
         }
     }
 }
