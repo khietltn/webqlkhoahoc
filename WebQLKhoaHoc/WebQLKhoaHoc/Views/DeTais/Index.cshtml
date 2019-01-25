@@ -1,152 +1,157 @@
-﻿@model IEnumerable<WebQLKhoaHoc.DeTai>
+﻿@*@model IEnumerable<WebQLKhoaHoc.DeTai>*@
+@model IPagedList<WebQLKhoaHoc.DeTai>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_MainPage.cshtml";
 }
+
+@using PagedList.Mvc;
+@using PagedList;
+
 <!-- Start main-content -->
 <div class="main-content">
-    <section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
-        @using (Html.BeginForm("Search", "DeTais", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <div class="display-table">
-                <div class="display-table-cell">
-                    <div class="container pt-30 pb-20">
-                        <div class="row">
-                            <div class="col-md-6 pt-10">
-                                <h2 class="title text-white">Dữ liệu Đề Tài</h2>
-                                <ol class="breadcrumb text-left text-black mt-10">
-                                    <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
-                                    <li class="active text-gray-silver">Bài báo</li>
-                                </ol>
-                            </div>
-                            <div class="col-md-6">
-                                <!-- Appointment Form Starts -->
-                                <form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                <div class="styled-select">
-                                                    @Html.DropDownList("MaDonViQLThucHien", (IEnumerable<SelectListItem>)ViewBag.MaDonViQLThucHien, "--Chọn đơn vị--", new { @class = "form-control" })
-                                                </div>
-                                            </div>
-                                        </div>
+	<section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
+		@using (Html.BeginForm("Search", "DeTais", FormMethod.Post))
+		{
+			@Html.AntiForgeryToken()
+			<div class="display-table">
+				<div class="display-table-cell">
+					<div class="container pt-30 pb-20">
+						<div class="row">
+							<div class="col-md-6 pt-10">
+								<h2 class="title text-white">Dữ liệu Đề Tài</h2>
+								<ol class="breadcrumb text-left text-black mt-10">
+									<li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+									<li class="active text-gray-silver">Bài báo</li>
+								</ol>
+							</div>
+							<div class="col-md-6">
+								<!-- Appointment Form Starts -->
+								<form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 pl-5 pr-5">
+											<div class="form-group mb-5">
+												<div class="styled-select">
+													@Html.DropDownList("MaDonViQLThucHien", (IEnumerable<SelectListItem>)ViewBag.MaDonViQLThucHien, "--Chọn đơn vị--", new { @class = "form-control" })
+												</div>
+											</div>
+										</div>
 
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                @Html.DropDownList("MaCapDeTai", (IEnumerable<SelectListItem>)ViewBag.MaCapDeTai, "--Chọn cấp đề tài--", new { @class = "form-control" })
-                                            </div>
-                                        </div>
+										<div class="col-xs-12 col-sm-6 pl-5 pr-5">
+											<div class="form-group mb-5">
+												@Html.DropDownList("MaCapDeTai", (IEnumerable<SelectListItem>)ViewBag.MaCapDeTai, "--Chọn cấp đề tài--", new { @class = "form-control" })
+											</div>
+										</div>
 
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                @Html.DropDownList("MaLinhVuc", (IEnumerable<SelectListItem>)ViewBag.MaLinhVuc, "--Chọn lĩnh vực--", new { @class = "form-control select" })
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                <div class="styled-select">
-                                                    <input name="Fromdate" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@ViewBag.Fromdate" autocomplete="off">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                <div class="styled-select">
-                                                    <input name="Todate" id="Todate" class="form-control date-picker" type="text" placeholder="Đến thời điểm" value="@ViewBag.Todate" autocomplete="off">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-8 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                <div class="styled-select">
-                                                    <input name="SearchValue" id="SearchValue" class="form-control" type="text" placeholder="Từ khóa tìm kiếm" value="@ViewBag.SearchValue">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4 pl-5 pr-5">
-                                            <div class="form-group mb-5">
-                                                <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
-                                                    Tìm Kiếm
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+										<div class="col-xs-12 col-sm-6 pl-5 pr-5">
+											<div class="form-group mb-5">
+												@Html.DropDownList("MaLinhVuc", (IEnumerable<SelectListItem>)ViewBag.MaLinhVuc, "--Chọn lĩnh vực--", new { @class = "form-control select" })
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 pl-5 pr-5">
+											<div class="form-group mb-5">
+												<div class="styled-select">
+													<input name="Fromdate" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@ViewBag.Fromdate" autocomplete="off">
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 pl-5 pr-5">
+											<div class="form-group mb-5">
+												<div class="styled-select">
+													<input name="Todate" id="Todate" class="form-control date-picker" type="text" placeholder="Đến thời điểm" value="@ViewBag.Todate" autocomplete="off">
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-8 pl-5 pr-5">
+											<div class="form-group mb-5">
+												<div class="styled-select">
+													<input name="SearchValue" id="SearchValue" class="form-control" type="text" placeholder="Từ khóa tìm kiếm" value="@ViewBag.SearchValue">
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-4 pl-5 pr-5">
+											<div class="form-group mb-5">
+												<button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
+													Tìm Kiếm
+												</button>
+											</div>
+										</div>
+									</div>
 
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </section>
-    <section>
-        <div class="container">
-            <div class="section-content">
-                <section id="services" class="bg-lightest">
-                    <div class="container pt-40">
-                        <div class="section-title mb-10">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3 class="text-uppercase text-theme-colored title line-bottom">
-                                        Dữ liệu đề tài                                        
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</section>
+	<section>
+		<div class="container">
+			<div class="section-content">
+				<section id="services" class="bg-lightest">
+					<div class="container pt-40">
+						<div class="section-title mb-10">
+							<div class="row">
+								<div class="col-md-12">
+									<h3 class="text-uppercase text-theme-colored title line-bottom">
+										Dữ liệu đề tài
+									</h3>
+								</div>
+							</div>
+						</div>
 
 
-                        <div class="row mtli-row-clearfix">
-                            @foreach (var item in Model)
-                            {
-                                <div class="col-xs-12">
-                                    <div class="bg-white p-15 mb-30 border-1px">
+						<div class="row mtli-row-clearfix">
+							@foreach (var item in Model)
+							{
+								<div class="col-xs-12">
+									<div class="bg-white p-15 mb-30 border-1px">
 
-                                        <a href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("Details", "Detais", new { id = item.MaDeTai})')">
-                                            <h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
-                                                @Html.DisplayFor(modelItem => item.TenDeTai)
-                                            </h4>
-                                        </a>
-                                        <script>
-                                            function modal_load(url) {
-                                                var currentUrl = url.replace("http://", "");
-                                                $(".jquery-modal.blocker.current").children(".fade").addClass("in");
-                                                $('#mydata .modal-content').load(currentUrl);
-                                            };
-                                        </script>
-                                        
-                                        <p class="text-gray font-13 mb-0">
-                                            <i class="fa fa-globe" aria-hidden="true"></i>
-                                            <b>Lĩnh vực:</b>
-                                            @Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
-                                            <br>
-                                            <i class="fa fa-university" aria-hidden="true"></i>
-                                            <b> Đơn vị chủ trì :  </b>
-                                            @Html.DisplayFor(modelItem => item.DonViChuTri.TenDVChuTri)
-                                            <br>
-                                            <i class="fa fa-university" aria-hidden="true"></i>
-                                            <b> Đơn vị thực hiện :</b>
-                                            @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
-                                            <br>
-                                            <i class="fa fa-users" aria-hidden="true"></i>
-                                            <b>Người tham gia:</b>
-                                            <a href="#">need fillter data here</a>
-                                            <br>
+										<a href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("Details", "Detais", new { id = item.MaDeTai})')">
+											<h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
+												@Html.DisplayFor(modelItem => item.TenDeTai)
+											</h4>
+										</a>
+										<script>
+											function modal_load(url) {
+												var currentUrl = url.replace("http://", "");
+												$(".jquery-modal.blocker.current").children(".fade").addClass("in");
+												$('#mydata .modal-content').load(currentUrl);
+											};
+										</script>
 
-                                        </p>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        
-                        <div class="row mt-20">
-                            Pagging here
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-</section>
+										<p class="text-gray font-13 mb-0">
+											<i class="fa fa-globe" aria-hidden="true"></i>
+											<b>Lĩnh vực:</b>
+											@Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
+											<br>
+											<i class="fa fa-university" aria-hidden="true"></i>
+											<b> Đơn vị chủ trì :  </b>
+											@Html.DisplayFor(modelItem => item.DonViChuTri.TenDVChuTri)
+											<br>
+											<i class="fa fa-university" aria-hidden="true"></i>
+											<b> Đơn vị thực hiện :</b>
+											@Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
+											<br>
+											<i class="fa fa-users" aria-hidden="true"></i>
+											<b>Người tham gia:</b>
+											<a href="#">need fillter data here</a>
+											<br>
+
+										</p>
+									</div>
+								</div>
+							}
+						</div>
+
+						<div class="row mt-20 text-center">
+							@Html.PagedListPager(Model, Page_No => Url.Action("Index", "DeTais", new { Page_No, search = Request.QueryString["search"] }))
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</section>
 </div>

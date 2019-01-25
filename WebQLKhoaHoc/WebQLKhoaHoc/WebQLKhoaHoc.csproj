@@ -425,11 +425,7 @@
     <Content Include="Views\BaiBaos\Details.cshtml" />
     <Content Include="Views\BaiBaos\Edit.cshtml" />
     <Content Include="Views\BaiBaos\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Shared\PopUpLayout.cshtml" />
-=======
-
->>>>>>> 79ef22fc98fdfda0b38bd13ed1f5d7e293dbf326
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
