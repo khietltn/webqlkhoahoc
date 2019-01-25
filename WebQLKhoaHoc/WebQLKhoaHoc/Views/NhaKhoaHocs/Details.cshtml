@@ -317,11 +317,11 @@
                     {
                         if (i == 0)
                         {
-                                                    <li><a href="#0" data-date="@item.ThoiGianBD.Value.ToString("MM/dd/yyyy")" class="selected">@item.ThoiGianBD.Value.ToString("MM/dd")</a></li>
+                                                    <li><a href="#0" data-date="@item.ThoiGianBD.Value.ToString("dd/MM/yyyy")" class="selected">@item.ThoiGianBD.Value.ToString("dd/MM")</a></li>
 }
 else
 {
-                                                    <li><a href="#0" data-date="@item.ThoiGianBD.Value.ToString("MM/dd/yyyy")">@item.ThoiGianBD.Value.ToString("MM/dd")</a></li>
+                                                    <li><a href="#0" data-date="@item.ThoiGianBD.Value.ToString("dd/MM/yyyy")">@item.ThoiGianBD.Value.ToString("dd/MM")</a></li>
 }
 
 i = 1;
@@ -350,11 +350,11 @@ i = 1;
 
                 if (a == 0)
                 {
-                                                    <li class="selected" data-date="@item.ThoiGianBD.Value.ToString("MM/dd/yyyy")">
+                                                    <li class="selected" data-date="@item.ThoiGianBD.Value.ToString("dd/MM/yyyy")">
                                                         <table class="table table-hover">
                                                             <tr class="test">
                                                                 <th>Thời gian</th>
-                                                                <td>@item.ThoiGianBD.Value.ToString("MM/dd/yyyy") - @item.ThoiGIanKT.Value.ToString("MM/dd/yyyy")</td>
+                                                                <td>@item.ThoiGianBD.Value.ToString("dd/MM/yyyy") - @item.ThoiGIanKT.Value.ToString("dd/MM/yyyy")</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Chức danh công tác</th>
@@ -373,11 +373,11 @@ i = 1;
 }
 else
 {
-                                                    <li data-date="@item.ThoiGianBD.Value.ToString("MM/dd/yyyy")">
+                                                    <li data-date="@item.ThoiGianBD.Value.ToString("dd/MM/yyyy")">
                                                         <table class="table table-hover">
                                                             <tr>
                                                                 <th>Thời gian</th>
-                                                                <td>@item.ThoiGianBD.Value.ToString("MM/dd/yyyy") - @item.ThoiGIanKT.Value.ToString("MM/dd/yyyy")</td>
+                                                                <td>@item.ThoiGianBD.Value.ToString("dd/MM/yyyy") - @item.ThoiGIanKT.Value.ToString("dd/MM/yyyy")</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Chức danh công tác</th>
@@ -422,11 +422,11 @@ a = 1;
                         {
                             if (b == 0)
                             {
-                                                <li><a href="#0" data-date="@item.NamTotNghiep.Value.ToString("MM/dd/yyyy")" class="selected">@item.NamTotNghiep.Value.Year</a></li>
+                                                <li><a href="#0" data-date="@item.NamTotNghiep.Value.ToString("dd/MM/yyyy")" class="selected">@item.NamTotNghiep.Value.Year</a></li>
 }
 else
 {
-                                                <li><a href="#0" data-date="@item.NamTotNghiep.Value.ToString("MM/dd/yyyy")">@item.NamTotNghiep.Value.Year</a></li>
+                                                <li><a href="#0" data-date="@item.NamTotNghiep.Value.ToString("dd/MM/yyyy")">@item.NamTotNghiep.Value.Year</a></li>
 }
 
 b = 1;
@@ -455,7 +455,7 @@ b = 1;
 
                     if (c == 0)
                     {
-                                                                <li class="selected" data-date="@item.NamTotNghiep.Value.ToString("MM/dd/yyyy")">
+                                                                <li class="selected" data-date="@item.NamTotNghiep.Value.ToString("dd/MM/yyyy")">
                                                                     <table class="table table-hover">
                                                                         <tr>
                                                                             <th>Bậc đào tạo</th>
@@ -478,7 +478,7 @@ b = 1;
 }
 else
 {
-                                                <li data-date="@item.NamTotNghiep.Value.ToString("MM/dd/yyyy")">
+                                                <li data-date="@item.NamTotNghiep.Value.ToString("dd/MM/yyyy")">
                                                     <table class="table table-hover">
                                                         <tr>
                                                             <th>Bậc đào tạo</th>

@@ -94,7 +94,7 @@
                                 <div class="col-xs-12">
                                     <div class="bg-white p-15 mb-30 border-1px">
 
-                                        <a href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("Details", "Detais", new { id = item.MaSach})')">
+                                        <a href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("Details", "SachGiaoTrinhs", new { id = item.MaSach})')">
                                             <h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
                                                 @Html.DisplayFor(modelItem => item.TenSach)
                                             </h4>
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="row mt-20 text-center">
-                                @Html.PagedListPager(Model, Page_No => Url.Action("Index", "DeTais", new { Page_No, search = Request.QueryString["search"] }))
+                                @Html.PagedListPager(Model, Page_No => Url.Action("Index", "SachGiaoTrinhs", new { Page_No, search = Request.QueryString["search"] }))
                             </div>
                     </div>
                 </section>

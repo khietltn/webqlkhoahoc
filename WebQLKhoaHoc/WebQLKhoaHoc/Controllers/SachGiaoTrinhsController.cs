@@ -71,7 +71,7 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: SachGiaoTrinhs/sachgiaotrinhls/5
-        public async Task<ActionResult> sachgiaotrinhls(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
