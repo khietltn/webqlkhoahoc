@@ -129,6 +129,27 @@
             }
         </dd>
 
+        <dt>
+            Tác giả:
+        </dt>
+
+        <dd>
+            @for (int i = 0; i < Model.DSNguoiThamGiaBaiBaos.Count; i++)
+            {
+                var tg = Model.DSNguoiThamGiaBaiBaos.ToList()[i];
+                var name = tg.NhaKhoaHoc.HoNKH + " " + tg.NhaKhoaHoc.TenNKH;
+                if (tg.LaTacGiaChinh.Value)
+                {
+                    name += " (Chủ Biên)";
+                }
+                if (i < (Model.DSNguoiThamGiaBaiBaos.Count - 1))
+                {
+                    name += ", ";
+                }
+                <span>@name</span>
+            }
+        </dd>
+
     </dl>
 </div>
 
