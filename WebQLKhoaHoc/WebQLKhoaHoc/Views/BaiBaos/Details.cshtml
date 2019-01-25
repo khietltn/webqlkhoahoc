@@ -59,7 +59,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NamDangBao)
+            @Html.DisplayFor(model => model.NamDangBao.Value.Year)
         </dd>
 
         <dt>
@@ -116,6 +116,17 @@
 
         <dd>
             @Html.DisplayFor(model => model.PhanLoaiTapChi.TenLoaiTapChi)
+        </dd>
+
+        <dt>
+            Lĩnh vực:
+        </dt>
+
+        <dd>
+            @foreach (var linhvuc in Model.LinhVucs)
+            {
+                @Html.DisplayFor(modelLV => linhvuc.TenLinhVuc)
+            }
         </dd>
 
     </dl>

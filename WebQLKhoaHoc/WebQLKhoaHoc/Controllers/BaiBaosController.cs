@@ -29,7 +29,7 @@ namespace WebQLKhoaHoc.Controllers
                 new SelectListItem { Text = "Ngoài Nước", Value ="0"},
             };
           
-            var baiBaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs);
+            var baiBaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs).Include(b => b.DSNguoiThamGiaBaiBaos);
 
             var listBB = baiBaos.Concat(baiBaos)
                                 .Concat(baiBaos)
