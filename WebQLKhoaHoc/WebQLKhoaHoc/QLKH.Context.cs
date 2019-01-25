@@ -29,6 +29,7 @@ namespace WebQLKhoaHoc
         public virtual DbSet<BaiBao> BaiBaos { get; set; }
         public virtual DbSet<CapDeTai> CapDeTais { get; set; }
         public virtual DbSet<CapTapChi> CapTapChis { get; set; }
+        public virtual DbSet<ChucNang> ChucNangs { get; set; }
         public virtual DbSet<ChuyenMon> ChuyenMons { get; set; }
         public virtual DbSet<ChuyenMonNKH> ChuyenMonNKHs { get; set; }
         public virtual DbSet<ChuyenNganh> ChuyenNganhs { get; set; }
@@ -46,6 +47,7 @@ namespace WebQLKhoaHoc
         public virtual DbSet<LoaiHinhDeTai> LoaiHinhDeTais { get; set; }
         public virtual DbSet<NgachVienChuc> NgachVienChucs { get; set; }
         public virtual DbSet<NganhDaoTao> NganhDaoTaos { get; set; }
+        public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
         public virtual DbSet<NhaKhoaHoc> NhaKhoaHocs { get; set; }
         public virtual DbSet<NhaXuatBan> NhaXuatBans { get; set; }
         public virtual DbSet<NhomLinhVuc> NhomLinhVucs { get; set; }

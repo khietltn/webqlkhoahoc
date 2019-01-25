@@ -1,5 +1,4 @@
-﻿
-<html lang="en">
+﻿<html lang="en">
 <!-- Head BEGIN -->
 <head>
     <meta charset="utf-8" />
@@ -95,12 +94,31 @@
                                 </li>
                                 <li class="scrollable-fix"></li>
                             </ul>
-                            <ul class="pull-right flip menuzord-menu menuzord-indented scrollable" style="max-height: 400px;">
-                                <li>
-                                    <a class="bg-theme-color-2 text-white font-14" href="http://csdlkhoahoc.hueuni.edu.vn/index.php/auth/login">
-                                        Đăng nhập
-                                    </a>
-                                </li>
+                            <ul></ul>
+                            <ul class="menuzord-menu menuzord-indented scrollable" style="max-height: 400px;">
+
+                                @if (Session["user"] == null)
+                                {
+                                    <li>
+                                        @Html.ActionLink("Đăng nhập", "Login", "Account", null, new { @class = "bg-theme-color-2 text-white font-14" })
+                                    </li>
+                                }
+                                else
+                                {
+                                    QLKhoaHocEntities db = new QLKhoaHocEntities();
+                                    WebQLKhoaHoc.Models.UserLoginViewModel nd = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
+
+
+                                    <li>
+                                        <a><img src="~/Image/@nd.AnhDaiDien" style="width:30px;height:30px;border-radius: 50%;display: inline-block;" /> @nd.ChucVi @nd.HoVaTen</a>
+                                    <ul class="dropdown">
+                                        <li><a>Đổi mật khẩu</a></li>
+                                        <li><a>Thông tin tài khoản</a></li>
+                                        <li>@Html.ActionLink("Đăng xuất", "LogOff", "Account")</li>
+                                    </ul>
+                                    </li>
+                                    <li></li>
+                                }
                                 <li class="scrollable-fix"></li>
                             </ul>
                         </nav>
