@@ -18,13 +18,23 @@ namespace WebQLKhoaHoc.Controllers
         private QLKhoaHocEntities db = new QLKhoaHocEntities();
         private QLKHRepository QLKHrepo = new QLKHRepository();
         // GET: DeTais
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? Page_No)
         {
             ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
             ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
             ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
             var deTais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP);
-            return View(await deTais.ToListAsync());
+			var listDT = deTais.Concat(deTais)
+							   .Concat(deTais)
+							   .Concat(deTais)
+							   .Concat(deTais)
+							   .Concat(deTais)
+							   .Concat(deTais)
+							   .ToList();
+
+			int Size_Of_Page = 6;
+			int No_Of_Page = (Page_No ?? 1);
+			return View(listDT.ToPagedList(No_Of_Page, Size_Of_Page));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
