@@ -14,7 +14,7 @@
 
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.MaDeTaiHoSo)
+            Mã đề tài:
         </dt>
 
         <dd>
@@ -22,7 +22,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TenDeTai)
+            Tên đề tài:
         </dt>
 
         <dd>
@@ -30,7 +30,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.MucTieuDeTai)
+            Mục tiêu đề tài:
         </dt>
 
         <dd>
@@ -38,7 +38,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NoiDungDeTai)
+            Nội dung đề tài
         </dt>
 
         <dd>
@@ -46,7 +46,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.KetQuaDeTai)
+            Kết quả đề tài
         </dt>
 
         <dd>
@@ -54,7 +54,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NamBD)
+            Năm bắt đầu:
         </dt>
 
         <dd>
@@ -62,7 +62,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NamKT)
+            Năm kết thúc:
         </dt>
 
         <dd>
@@ -70,7 +70,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.KinhPhi)
+            Kinh phí:
         </dt>
 
         <dd>
@@ -78,7 +78,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LienKetWeb)
+            Web liên kết:
         </dt>
 
         <dd>
@@ -86,7 +86,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LinkFileUpload)
+            Link upload file:
         </dt>
 
         <dd>
@@ -94,7 +94,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CapDeTai.TenCapDeTai)
+            Cấp đề tài:
         </dt>
 
         <dd>
@@ -102,7 +102,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LoaiHinhDeTai.TenLoaiDT)
+            Loại đề tài:
         </dt>
 
         <dd>
@@ -110,7 +110,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DonViChuTri.TenDVChuTri)
+            Đơn vị chủ trì:
         </dt>
 
         <dd>
@@ -118,7 +118,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DonViQL.TenDonVI)
+            Đơn vị:
         </dt>
 
         <dd>
@@ -126,7 +126,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LinhVuc.TenLinhVuc)
+            Lĩnh vực:
         </dt>
 
         <dd>
@@ -134,7 +134,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.XepLoai.TenXepLoai)
+            Xếp loại:
         </dt>
 
         <dd>
@@ -142,7 +142,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TinhTrangDeTai.TenTinhTrang)
+            Tình trạng:
         </dt>
 
         <dd>
@@ -150,11 +150,32 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PhanLoaiSP.TenPhanLoai)
+            Phân loại:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.PhanLoaiSP.TenPhanLoai)
+        </dd>
+
+        <dt>
+            Người tham gia:
+        </dt>
+
+        <dd>
+            @for (int i = 0; i < Model.DSNguoiThamGiaDeTais.Count; i++)
+            {
+                var nkh = Model.DSNguoiThamGiaDeTais.ToList()[i];
+                var name = nkh.NhaKhoaHoc.HoNKH + " " + nkh.NhaKhoaHoc.TenNKH;
+                if (nkh.LaChuNhiem.Value)
+                {
+                    name += " (Chủ Nhiệm)";
+                }
+                if (i < (Model.DSNguoiThamGiaDeTais.Count - 1))
+                {
+                    name += ", ";
+                }
+                <span>@name</span>
+            }
         </dd>
 
     </dl>
