@@ -4,6 +4,43 @@
     ViewBag.Title = "Thống kê - CSDL Khoa học";
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
+@functions{
+    public List<List<Object>> GoogleChartData(QLKhoaHocEntities db, int take = 10, int skip = 0)
+    {
+        List<List<Object>> data = new List<List<Object>>(){new List<Object>() {
+                                            "Đơn vị công tác",
+                                            "Tiến sĩ khoa học",
+                                            "Sau tiến sĩ",
+                                            "Tiến sĩ",
+                                            "Thạc sĩ",
+                                            "Đại học",
+                                            "Cử nhân",
+                                            "Cao đẳng",
+                                            "Trung cấp",
+                                            "Phổ thông",
+                                            "Khác",
+                                        }};
+        var data_rows = Model.Skip(skip).Take(take);
+        foreach (var row in data_rows)
+        {
+            string tenDonVi = db.DonViQLs.Find(row.MaDVQL).TenDonVI;
+            data.Add(new List<Object>() {
+            tenDonVi,
+            row.TSKH,
+            row.SauTS,
+            row.TS,
+            row.ThS,
+            row.DH,
+            row.CN,
+            row.CD,
+            row.TC,
+            row.PT,
+            row.Other
+});
+        }
+        return data;
+    }
+}
 <div class="main-content">
     <!-- Section: About -->
     <section class="">
@@ -201,11 +238,59 @@
                         </div>
                     </div>
                 </div>
+                @{
 
+                    List<List<Object>> data1 = GoogleChartData(db, 10, 0);
+                    List<List<Object>> data2 = GoogleChartData(db, 10, 10);
+                    List<List<Object>> data3 = GoogleChartData(db, 10, 20);
+                    List<List<Object>> data4 = GoogleChartData(db, 9, 30);
+
+                }
+                <input type="hidden" id="data1" value="@Json.Encode(data1)" />
+                <input type="hidden" id="data2" value="@Json.Encode(data2)" />
+                <input type="hidden" id="data3" value="@Json.Encode(data3)" />
+                <input type="hidden" id="data4" value="@Json.Encode(data4)" />
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="degreeChart1"></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="degreeChart2"></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="degreeChart3"></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="degreeChart4"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 </div>
+
+@section charts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    @Scripts.Render("~/bundles/charts")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var json_data1 = $('#data1').val();
+            var json_data2 = $('#data2').val();
+            var json_data3 = $('#data3').val();
+            var json_data4 = $('#data4').val();
+            googleChart(json_data1, 'degreeChart1');
+            googleChart(json_data2, 'degreeChart2');
+            googleChart(json_data3, 'degreeChart3');
+            googleChart(json_data4, 'degreeChart4');
+        });
+    </script>
+}
 
 
 

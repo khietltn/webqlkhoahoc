@@ -29,6 +29,10 @@ namespace WebQLKhoaHoc
                 "~/Scripts/jquery-plugin-collection.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/charts").Include(
+                "~/Scripts/charts.js"
+            ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
