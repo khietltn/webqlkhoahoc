@@ -4,13 +4,62 @@
     ViewBag.Title = "Thống kê - CSDL Khoa học";
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
+@functions{
+    public List<List<Object>> GoogleChartDataSoLuong(QLKhoaHocEntities db)
+    {
+        List<List<Object>> data = new List<List<Object>>(){new List<Object>() {
+                        "Dự án",
+                        "Số lượng"
+                    }};
 
-<section class="main-content">
+        data.Add(new List<Object>() { "Dự án cấp Nhà nước", Model.DACNN });
+        data.Add(new List<Object>() { "Đề tài cấp Bộ", Model.DTCB });
+        data.Add(new List<Object>() { "Đề tài cấp Tỉnh", Model.DTCT });
+        data.Add(new List<Object>() { "Đề tài cấp Cơ sở", Model.DTCCS });
+        data.Add(new List<Object>() { "Dự án hợp tác quốc tế", Model.DAHTQT });
+        data.Add(new List<Object>() { "Dự án SXTN cấp Nhà nước", Model.DASXTNCNN });
+        data.Add(new List<Object>() { "Đề tài độc lập cấp Nhà nước", Model.DTDLCNN });
+        data.Add(new List<Object>() { "Đề tài thuộc chương trình TĐ cấp NN", Model.DTTCTDTCNN });
+        data.Add(new List<Object>() { "Dự án thuộc chương trình TĐ cấp NN", Model.DATCTTDCNN });
+        data.Add(new List<Object>() { "Nghiên cứu cơ bản", Model.NCCB });
+        data.Add(new List<Object>() { "Nhiệm vụ nghiên cứu theo NĐT", Model.NVNCTNDT });
+        data.Add(new List<Object>() { "Giáo dục và Bảo vệ môi trường", Model.GDBVMT });
+        data.Add(new List<Object>() { "Đề tài trọng điểm cấp Bộ", Model.DTTDCB });
+        data.Add(new List<Object>() { "Dự án SXTN cấp Bộ", Model.DASXTNCB });
+        data.Add(new List<Object>() { "Đề tài cấp Đại học Huế", Model.DTCDHH });
+        return data;
+    }
+
+    public List<List<Object>> GoogleChartDataTien(QLKhoaHocEntities db)
+    {
+        List<List<Object>> data = new List<List<Object>>(){new List<Object>() {
+                        "Dự án",
+                        "Tiền"
+                    }};
+
+        data.Add(new List<Object>() { "Dự án cấp Nhà nước", ViewBag.a });
+        data.Add(new List<Object>() { "Đề tài cấp Bộ", ViewBag.b });
+        data.Add(new List<Object>() { "Đề tài cấp Tỉnh", ViewBag.c });
+        data.Add(new List<Object>() { "Đề tài cấp Cơ sở", ViewBag.d });
+        data.Add(new List<Object>() { "Dự án hợp tác quốc tế", ViewBag.e });
+        data.Add(new List<Object>() { "Dự án SXTN cấp Nhà nước", ViewBag.f });
+        data.Add(new List<Object>() { "Đề tài độc lập cấp Nhà nước", ViewBag.g });
+        data.Add(new List<Object>() { "Đề tài thuộc chương trình TĐ cấp NN", ViewBag.h });
+        data.Add(new List<Object>() { "Dự án thuộc chương trình TĐ cấp NN", ViewBag.i });
+        data.Add(new List<Object>() { "Nghiên cứu cơ bản", ViewBag.k });
+        data.Add(new List<Object>() { "Nhiệm vụ nghiên cứu theo NĐT", ViewBag.l });
+        data.Add(new List<Object>() { "Giáo dục và Bảo vệ môi trường", ViewBag.m });
+        data.Add(new List<Object>() { "Đề tài trọng điểm cấp Bộ", ViewBag.n });
+        data.Add(new List<Object>() { "Dự án SXTN cấp Bộ", ViewBag.z });
+        data.Add(new List<Object>() { "Đề tài cấp Đại học Huế", ViewBag.q });
+        return data;
+    }
+}
+<div class="main-content">
     <!-- Section: About -->
     <section class="">
         <div class="container">
             <div class="section-content">
-
                 <div class="panel">
                     <div class="panel-body">
                         <div>
@@ -523,9 +572,38 @@
                         </div>
                     </div>
                 </div>
+                @{
+
+                    List<List<Object>> dataSoLuong = GoogleChartDataSoLuong(db);
+                    List<List<Object>> dataTien = GoogleChartDataTien(db);
+
+                }
+                <input type="hidden" id="dataSoLuong" value="@Json.Encode(dataSoLuong)" />
+                <input type="hidden" id="dataTien" value="@Json.Encode(dataTien)" />
+                <div class="row">
+                    <div class="col-md-6"><div id="chartSoLuong"></div></div>
+                    <div class="col-md-6"><div id="chartTien"></div></div>
+                </div>
+                @*<div class="panel">
+                    <div class="panel-body">
+                        <div id="chartTien"></div>
+                    </div>
+                </div>*@
             </div>
         </div>
     </section>
 </div>
+@section charts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    @Scripts.Render("~/bundles/charts")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var json_dataSoLuong = $('#dataSoLuong').val();
+            var json_dataTien = $('#dataTien').val();
+            googleChart(json_dataSoLuong, 'pie', 'chartSoLuong', 'Số lượng đề tài');
+            googleChart(json_dataTien, 'pie', 'chartTien', 'Số tiền');
+        });
+    </script>
+}
 
 

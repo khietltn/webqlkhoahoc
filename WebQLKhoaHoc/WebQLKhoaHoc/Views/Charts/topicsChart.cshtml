@@ -356,37 +356,37 @@
                             </div>
                         </div>
                     </div>
-                    @{
+                </div>
+                @{
 
-                        List<List<Object>> data1 = GoogleChartData(db, 10, 0);
-                        List<List<Object>> data2 = GoogleChartData(db, 10, 10);
-                        List<List<Object>> data3 = GoogleChartData(db, 10, 20);
-                        List<List<Object>> data4 = GoogleChartData(db, 9, 30);
+                    List<List<Object>> data1 = GoogleChartData(db, 10, 0);
+                    List<List<Object>> data2 = GoogleChartData(db, 10, 10);
+                    List<List<Object>> data3 = GoogleChartData(db, 10, 20);
+                    List<List<Object>> data4 = GoogleChartData(db, 9, 30);
 
-                    }
-                    <input type="hidden" id="data1" value="@Json.Encode(data1)" />
-                    <input type="hidden" id="data2" value="@Json.Encode(data2)" />
-                    <input type="hidden" id="data3" value="@Json.Encode(data3)" />
-                    <input type="hidden" id="data4" value="@Json.Encode(data4)" />
-                    <div class="panel">
-                        <div class="panel-body">
-                            <div id="topicsChart1"></div>
-                        </div>
+                }
+                <input type="hidden" id="data1" value="@Json.Encode(data1)" />
+                <input type="hidden" id="data2" value="@Json.Encode(data2)" />
+                <input type="hidden" id="data3" value="@Json.Encode(data3)" />
+                <input type="hidden" id="data4" value="@Json.Encode(data4)" />
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="topicsChart1"></div>
                     </div>
-                    <div class="panel">
-                        <div class="panel-body">
-                            <div id="topicsChart2"></div>
-                        </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="topicsChart2"></div>
                     </div>
-                    <div class="panel">
-                        <div class="panel-body">
-                            <div id="topicsChart3"></div>
-                        </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="topicsChart3"></div>
                     </div>
-                    <div class="panel">
-                        <div class="panel-body">
-                            <div id="topicsChart4"></div>
-                        </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="topicsChart4"></div>
                     </div>
                 </div>
             </div>
@@ -403,10 +403,10 @@
             var json_data2 = $('#data2').val();
             var json_data3 = $('#data3').val();
             var json_data4 = $('#data4').val();
-            googleChart(json_data1, 'topicsChart1');
-            googleChart(json_data2, 'topicsChart2');
-            googleChart(json_data3, 'topicsChart3');
-            googleChart(json_data4, 'topicsChart4');
+            googleChart(json_data1, 'line', 'topicsChart1');
+            googleChart(json_data2, 'line', 'topicsChart2');
+            googleChart(json_data3, 'line', 'topicsChart3');
+            googleChart(json_data4, 'line', 'topicsChart4');
         });
     </script>
 }
