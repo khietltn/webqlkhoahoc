@@ -2,17 +2,19 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+    Layout = "~/Views/Shared/PopUpLayout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span> Thông tin đề tài</h4>
+</div>
 
-<div>
-    <h4>BaiBao</h4>
-    <hr />
+<div class="modal-body">
+
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.MaISSN)
+            Mã bài báo:
         </dt>
 
         <dd>
@@ -20,7 +22,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TenBaiBao)
+            Tên bài báo:
         </dt>
 
         <dd>
@@ -28,15 +30,24 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LaTrongNuoc)
+            Tạp chí:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LaTrongNuoc)
+            @if (Model.LaTrongNuoc.Value)
+            {
+                var trongnuoc = "Trong nước";
+                <span>@trongnuoc</span>
+            }
+            else
+            {
+                var nuocngoai = "Nước ngoài";
+                <span>@nuocngoai</span>
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CQXuatBan)
+            Cơ quan xuất bản:
         </dt>
 
         <dd>
@@ -44,15 +55,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NamDangBao)
+            Năm đăng báo:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NamDangBao)
+            @Html.DisplayFor(model => model.NamDangBao.Value.Year)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TapPhatHanh)
+            Tập phát hành:
         </dt>
 
         <dd>
@@ -60,7 +71,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SoPhatHanh)
+            Số phát hành:
         </dt>
 
         <dd>
@@ -68,7 +79,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TrangBaiBao)
+            Trang bài báo:
         </dt>
 
         <dd>
@@ -76,7 +87,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LienKetWeb)
+            Web liên kết:
         </dt>
 
         <dd>
@@ -84,7 +95,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LinkFileUpLoad)
+            Link upload file:
         </dt>
 
         <dd>
@@ -92,7 +103,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CapTapChi.TenCapTapChi)
+            Cấp tạp chí:
         </dt>
 
         <dd>
@@ -100,16 +111,48 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PhanLoaiTapChi.TenLoaiTapChi)
+            Loại tạp chí:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.PhanLoaiTapChi.TenLoaiTapChi)
         </dd>
 
+        <dt>
+            Lĩnh vực:
+        </dt>
+
+        <dd>
+            @foreach (var linhvuc in Model.LinhVucs)
+            {
+                @Html.DisplayFor(modelLV => linhvuc.TenLinhVuc)
+            }
+        </dd>
+
+        <dt>
+            Tác giả:
+        </dt>
+
+        <dd>
+            @for (int i = 0; i < Model.DSNguoiThamGiaBaiBaos.Count; i++)
+            {
+                var tg = Model.DSNguoiThamGiaBaiBaos.ToList()[i];
+                var name = tg.NhaKhoaHoc.HoNKH + " " + tg.NhaKhoaHoc.TenNKH;
+                if (tg.LaTacGiaChinh.Value)
+                {
+                    name += " (Chủ Biên)";
+                }
+                if (i < (Model.DSNguoiThamGiaBaiBaos.Count - 1))
+                {
+                    name += ", ";
+                }
+                <span>@name</span>
+            }
+        </dd>
+
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaBaiBao }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+</div>

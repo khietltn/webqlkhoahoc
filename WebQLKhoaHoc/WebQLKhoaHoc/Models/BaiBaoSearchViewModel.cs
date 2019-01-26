@@ -7,6 +7,7 @@ namespace WebQLKhoaHoc.Models
 {
     public class BaiBaoSearchViewModel
     {
+        public string MaLinhVuc { get; set; }
         public string MaLoaiTapChi { get; set; }
         public string CQXuatBan { get; set; }
         public string MaPhanLoaiTapChi { get; set; }
