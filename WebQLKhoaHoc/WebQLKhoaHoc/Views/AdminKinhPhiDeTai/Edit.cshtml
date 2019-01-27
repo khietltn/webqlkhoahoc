@@ -1,0 +1,70 @@
+﻿@model WebQLKhoaHoc.KinhPhiDeTai
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>KinhPhiDeTai</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.MaPhi)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaDeTai, "MaDeTai", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("MaDeTai", String.Empty)
+                @Html.ValidationMessageFor(model => model.MaDeTai)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LoaiKinhPhi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LoaiKinhPhi)
+                @Html.ValidationMessageFor(model => model.LoaiKinhPhi)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NamTiepNhan, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NamTiepNhan)
+                @Html.ValidationMessageFor(model => model.NamTiepNhan)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoTien, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoTien)
+                @Html.ValidationMessageFor(model => model.SoTien)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LoaiTien, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LoaiTien)
+                @Html.ValidationMessageFor(model => model.LoaiTien)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

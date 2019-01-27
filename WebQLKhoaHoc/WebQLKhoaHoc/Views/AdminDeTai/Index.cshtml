@@ -1,0 +1,136 @@
+﻿@model IEnumerable<WebQLKhoaHoc.DeTai>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaDeTaiHoSo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenDeTai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MucTieuDeTai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoiDungDeTai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KetQuaDeTai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamBD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamKT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KinhPhi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LienKetWeb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LinkFileUpload)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CapDeTai.TenCapDeTai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiHinhDeTai.TenLoaiDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonViChuTri.TenDVChuTri)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonViQL.TenDonVI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LinhVuc.TenLinhVuc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.XepLoai.TenXepLoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TinhTrangDeTai.TenTinhTrang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhanLoaiSP.TenPhanLoai)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaDeTaiHoSo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenDeTai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MucTieuDeTai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoiDungDeTai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KetQuaDeTai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamBD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamKT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KinhPhi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LienKetWeb)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LinkFileUpload)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CapDeTai.TenCapDeTai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiHinhDeTai.TenLoaiDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonViChuTri.TenDVChuTri)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.XepLoai.TenXepLoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TinhTrangDeTai.TenTinhTrang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhanLoaiSP.TenPhanLoai)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaDeTai }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaDeTai }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaDeTai })
+        </td>
+    </tr>
+}
+
+</table>

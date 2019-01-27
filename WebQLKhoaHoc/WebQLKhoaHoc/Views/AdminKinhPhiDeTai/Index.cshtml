@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebQLKhoaHoc.KinhPhiDeTai>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiKinhPhi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamTiepNhan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoTien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiTien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeTai.MaDeTaiHoSo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiKinhPhi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamTiepNhan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoTien)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiTien)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeTai.MaDeTaiHoSo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaPhi }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaPhi }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaPhi })
+        </td>
+    </tr>
+}
+
+</table>

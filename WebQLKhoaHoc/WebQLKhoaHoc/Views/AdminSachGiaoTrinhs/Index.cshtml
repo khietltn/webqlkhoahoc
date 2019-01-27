@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebQLKhoaHoc.SachGiaoTrinh>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaISBN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenSach)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamXuatBan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LinhVuc.TenLinhVuc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NhaXuatBan.TenNXB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhanLoaiSach.TenLoai)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaISBN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenSach)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamXuatBan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NhaXuatBan.TenNXB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhanLoaiSach.TenLoai)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaSach }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaSach }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaSach })
+        </td>
+    </tr>
+}
+
+</table>
