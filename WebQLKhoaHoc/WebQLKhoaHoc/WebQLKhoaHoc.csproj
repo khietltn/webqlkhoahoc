@@ -377,6 +377,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\avatar.bmp" />
+    <Content Include="Image\logo_hcmup.png" />
     <Content Include="QLKH.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKH.edmx</DependentUpon>
@@ -407,6 +408,7 @@
     </Content>
     <Content Include="Content\custom.css" />
     <Content Include="Content\daterangepicker.css" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom-admin.js" />
     <Content Include="Scripts\custom.js" />
@@ -434,8 +436,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
@@ -458,7 +458,6 @@
     <Content Include="Views\Charts\degreeCharts.cshtml" />
     <Content Include="Views\Charts\quantumCharts.cshtml" />
     <Content Include="Views\Charts\book.cshtml" />
-    <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
     <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\topicsChart.cshtml" />
