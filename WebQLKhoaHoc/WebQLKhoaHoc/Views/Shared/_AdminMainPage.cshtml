@@ -1,7 +1,8 @@
-﻿<html lang="en">
+﻿<html lang="en" class="">
 @{
 
     QLKhoaHocEntities db = new QLKhoaHocEntities();
+    WebQLKhoaHoc.Models.UserLoginViewModel nd = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"] ?? new WebQLKhoaHoc.Models.UserLoginViewModel();
 }
 <!-- Head BEGIN -->
 <head>
@@ -9,9 +10,7 @@
     <meta name="viewport" content="width=device-width" />
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,700,300">
-    <script src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" data-auto-replace-svg="nest"></script>   
-
-
+    <script src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" data-auto-replace-svg="nest"></script> 
     <title>@ViewBag.Title</title>
     <!-- Theme styles START -->
     @Styles.Render("~/Content/admincss")
@@ -31,21 +30,16 @@
                         <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>ADMIN PAGE</span></a>
                     </div>
                     <div class="clearfix"></div>
-                    @{
-
-                        WebQLKhoaHoc.Models.UserLoginViewModel nd = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"] ?? new WebQLKhoaHoc.Models.UserLoginViewModel();
-
-                        <div class="profile clearfix">
-                            <div class="profile_pic">
-                                <!-- image of admin -->
-                                <img src="@nd.AnhCaNhan" alt="..." class="img-circle profile_img">
-                            </div>
-                            <div class="profile_info">
-                                <span>Welcome,</span>
-                                <h2>@nd.Ten</h2>
-                            </div>
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <!-- image of admin -->
+                            <img src="@nd.AnhCaNhan" alt="..." class="img-circle profile_img">
                         </div>
-                    }
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2>@nd.Ten</h2>
+                        </div>
+                    </div>
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section active">
                             <h3>General</h3>
@@ -53,7 +47,7 @@
                                 <!-- list controllers -->
                                 <li>
                                     <a><i class="fa fa-home"></i> Name Of Controller <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="display: block;">
+                                    <ul class="nav child_menu" style="display: none;">
                                         <!-- list children controllers -->
                                         <li><a href="index.html">Dashboard</a></li>
                                         <li><a href="index2.html">Dashboard2</a></li>
@@ -111,14 +105,29 @@
                     </nav>
                 </div>
             </div>
-        </div>
+            <div class="right_col" role="main">
+                @RenderBody()
+                <div class="">
 
-        @RenderBody()
-        <!-- end wrapper -->
-        <!-- Footer Scripts -->
-        @Scripts.Render("~/bundles/jquery")
-       
-        @Scripts.Render("~/bundles/admin")
+
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <footer>
+                <div class="pull-right">
+                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- end wrapper -->
+    <!-- Footer Scripts -->
+
+
+    @Scripts.Render("~/bundles/admin")
 
 
 

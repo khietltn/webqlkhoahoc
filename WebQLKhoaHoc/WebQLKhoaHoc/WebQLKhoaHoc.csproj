@@ -353,6 +353,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\animate.css" />
+    <Content Include="Content\Admin\bootstrap-theme.min.css" />
+    <Content Include="Content\Admin\bootstrap.min.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -384,8 +387,15 @@
       <DependentUpon>QLKH.edmx</DependentUpon>
       <LastGenOutput>QLKH.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Admin\autosize.min.js" />
+    <Content Include="Scripts\Admin\bootstrap.min.js" />
+    <Content Include="Scripts\Admin\jquery.knob.min.js" />
+    <Content Include="Scripts\Admin\jquery.min.js" />
+    <Content Include="Scripts\Admin\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\Admin\multifield.js" />
+    <Content Include="Scripts\Admin\validator.js" />
     <Content Include="Scripts\app.js" />
-    <Content Include="Scripts\app_admin.js" />
+    <Content Include="Scripts\app_admin.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="QLKH.edmx">

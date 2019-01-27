@@ -34,11 +34,20 @@ namespace WebQLKhoaHoc
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
-                "~/Scripts/app_admin.js"
+                "~/Scripts/Admin/jquery.min.js",
+                "~/Scripts/Admin/jquery.mousewheel.min.js",
+                "~/Scripts/Admin/jquery.knob.min.js",
+                "~/Scripts/Admin/bootstrap.min.js",
+                "~/Scripts/Admin/autosize.min.js",
+                "~/Scripts/app_admin.min.js"
+
             ));
 
             bundles.Add(new StyleBundle("~/Content/admincss").Include(
-               "~/Content/jquery-ui.min.css",
+                "~/Content/Admin/animate.css",
+                "~/Content/Admin/bootstrap.min.css",
+                "~/Content/Admin/bootstrap-theme.min.css",
+                
                "~/Content/custom.css",
                "~/Content/daterangepicker.css"
                ));
