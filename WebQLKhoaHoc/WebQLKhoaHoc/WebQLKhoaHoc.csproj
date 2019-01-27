@@ -356,6 +356,7 @@
     <Content Include="Content\Admin\animate.css" />
     <Content Include="Content\Admin\bootstrap-theme.min.css" />
     <Content Include="Content\Admin\bootstrap.min.css" />
+    <Content Include="Content\Admin\dataTables.bootstrap.min.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -390,6 +391,8 @@
     </Content>
     <Content Include="Scripts\Admin\autosize.min.js" />
     <Content Include="Scripts\Admin\bootstrap.min.js" />
+    <Content Include="Scripts\Admin\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\Admin\jquery.dataTables.min.js" />
     <Content Include="Scripts\Admin\jquery.knob.min.js" />
     <Content Include="Scripts\Admin\jquery.min.js" />
     <Content Include="Scripts\Admin\jquery.mousewheel.min.js" />

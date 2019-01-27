@@ -33,7 +33,16 @@
                     <div class="profile clearfix">
                         <div class="profile_pic">
                             <!-- image of admin -->
-                            <img src="@nd.AnhCaNhan" alt="..." class="img-circle profile_img">
+                            @{
+                                if (String.IsNullOrWhiteSpace(nd.AnhCaNhan))
+                                {
+                                    <img src=@Url.Content("~/Image/avatar.bmp") style="height: 58px; width:58px; border-radius: 50%;" />
+                                }
+                                else
+                                {
+                                    <img src="@nd.AnhCaNhan" style="height: 58px; width:58px; border-radius: 50%;" />
+                                }
+                            }
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
@@ -46,7 +55,7 @@
                             <ul class="nav side-menu" style="">
                                 <!-- list controllers -->
                                 <li>
-                                    <a><i class="fa fa-home"></i> Name Of Controller <span class="fa fa-chevron-down"></span></a>
+                                    <a href="@Url.Action("Index","AdminNhaKhoaHoc")"><i class="fa fa-home"></i> Nhà Khoa Học <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
                                         <!-- list children controllers -->
                                         <li><a href="index.html">Dashboard</a></li>
@@ -54,7 +63,33 @@
                                         <li><a href="index3.html">Dashboard3</a></li>
                                     </ul>
                                 </li>
-
+                                <li>
+                                    <a href="@Url.Action("Index","AdminDeTai")"><i class="fa fa-home"></i> Đề Tài <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none;">
+                                        <!-- list children controllers -->
+                                        <li><a href="index.html">Dashboard</a></li>
+                                        <li><a href="index2.html">Dashboard2</a></li>
+                                        <li><a href="index3.html">Dashboard3</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","AdminSachGiaoTrinhs")"><i class="fa fa-home"></i> Sách và Giáo Trình <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none;">
+                                        <!-- list children controllers -->
+                                        <li><a href="index.html">Dashboard</a></li>
+                                        <li><a href="index2.html">Dashboard2</a></li>
+                                        <li><a href="index3.html">Dashboard3</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","AdminBaiBao")"><i class="fa fa-home"></i> Bài Báo <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none;">
+                                        <!-- list children controllers -->
+                                        <li><a href="index.html">Dashboard</a></li>
+                                        <li><a href="index2.html">Dashboard2</a></li>
+                                        <li><a href="index3.html">Dashboard3</a></li>
+                                    </ul>
+                                </li>
 
                             </ul>
                         </div>
@@ -76,7 +111,16 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/img.jpg" alt="">John Doe
+                                    @{
+                                        if (String.IsNullOrWhiteSpace(nd.AnhCaNhan))
+                                        {
+                                            <img src=@Url.Content("~/Image/avatar.bmp") style="height: 29px; width: 29px; border-radius: 50%;"/>
+                                        }
+                                        else
+                                        {
+                                            <img src="@nd.AnhCaNhan" style="height: 29px; width: 29px; border-radius: 50%;"/>
+                                        }
+                                    }@nd.Ten
 
                                     <span class=" fa fa-angle-down"></span>
                                 </a>

@@ -37,9 +37,13 @@ namespace WebQLKhoaHoc
                 "~/Scripts/Admin/jquery.min.js",
                 "~/Scripts/Admin/jquery.mousewheel.min.js",
                 "~/Scripts/Admin/jquery.knob.min.js",
+                "~/Scripts/Admin/jquery.dataTables.min.js",
                 "~/Scripts/Admin/bootstrap.min.js",
                 "~/Scripts/Admin/autosize.min.js",
+                
+                "~/Scripts/Admin/dataTables.bootstrap.min.js",
                 "~/Scripts/app_admin.min.js"
+
 
             ));
 
@@ -47,7 +51,7 @@ namespace WebQLKhoaHoc
                 "~/Content/Admin/animate.css",
                 "~/Content/Admin/bootstrap.min.css",
                 "~/Content/Admin/bootstrap-theme.min.css",
-                
+                "~/Content/Admin/dataTables.bootstrap.min.css",
                "~/Content/custom.css",
                "~/Content/daterangepicker.css"
                ));

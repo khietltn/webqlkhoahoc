@@ -27,6 +27,11 @@ namespace WebQLKhoaHoc.Controllers
                 lstNKH.Add(nkh);
             }
 
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
             return View(lstNKH);
         }
 
