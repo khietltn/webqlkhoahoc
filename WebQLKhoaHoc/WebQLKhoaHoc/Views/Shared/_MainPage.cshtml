@@ -95,11 +95,11 @@
 
                                     <li>
                                         <a><img src="~/Image/@nd.AnhDaiDien" style="width:30px;height:30px;border-radius: 50%;display: inline-block;" /> @nd.ChucVi @nd.HoVaTen</a>
-                                    <ul class="dropdown">
-                                        <li><a>Đổi mật khẩu</a></li>
-                                        <li><a>Thông tin tài khoản</a></li>
-                                        <li>@Html.ActionLink("Đăng xuất", "LogOff", "Account")</li>
-                                    </ul>
+                                        <ul class="dropdown">
+                                            <li><a>Đổi mật khẩu</a></li>
+                                            <li><a>Thông tin tài khoản</a></li>
+                                            <li>@Html.ActionLink("Đăng xuất", "LogOff", "Account")</li>
+                                        </ul>
                                     </li>
                                     <li></li>
                                 }
@@ -190,7 +190,11 @@
     @RenderSection("scripts", required: false)
     @RenderSection("charts", required: false)
 
-
+    <script>
+        function modal_load(url) {
+            $('#mydata .modal-content').load(url);
+        };
+    </script>
 </body>
 <!-- END BODY -->
 </html>

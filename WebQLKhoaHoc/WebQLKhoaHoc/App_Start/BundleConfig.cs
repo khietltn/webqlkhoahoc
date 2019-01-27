@@ -33,6 +33,18 @@ namespace WebQLKhoaHoc
                 "~/Scripts/charts.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/admin").Include(
+                "~/Scripts/app.js",
+                "~/Scripts/app_admin.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/Content/admincss").Include(
+                     "~/Content/bootstrap.css",   
+               "~/Content/jquery-ui.min.css",
+               "~/Content/custom.css",
+               "~/Content/daterangepicker.css"
+               ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",

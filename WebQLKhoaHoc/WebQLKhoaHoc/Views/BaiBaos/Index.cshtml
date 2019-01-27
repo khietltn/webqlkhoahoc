@@ -121,13 +121,7 @@
                                                 @Html.DisplayFor(modelItem => item.TenBaiBao)
                                             </h4>
                                         </a>
-                                        <script>
-                                            function modal_load(url) {
-                                                var currentUrl = url.replace("http://", "");
-                                                $('#mydata .modal-content').load(currentUrl);
-                                            };
-                                        </script>
-
+                                       
                                         <p class="text-gray font-13 mb-0">
                                             @Html.DisplayFor(modelItem => item.CQXuatBan), @Html.DisplayFor(modelItem => item.NamDangBao.Value.Year)
 
