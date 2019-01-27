@@ -4,6 +4,51 @@
     ViewBag.Title = "Thống kê - CSDL Khoa học";
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
+@functions{
+    public List<List<Object>> GoogleChartData(QLKhoaHocEntities db, int take = 10, int skip = 0)
+    {
+        List<List<Object>> data = new List<List<Object>>(){new List<Object>() {
+                                        "Đơn vị công tác",
+                                        "Giảng viên",
+                                        "Giảng viên chính",
+                                        "Giảng viên cao cấp",
+                                        "Giáo viên trung học",
+                                        "Chuyên viên",
+                                        "Chuyên viên chính",
+                                        "Thư viện viên",
+                                        "Kỹ thuật viên",
+                                        "Kỹ thuật viên cao cấp",
+                                        "Nghiên cứu viên",
+                                        "Kế toán viên",
+                                        "Kỹ thuật viên chính",
+                                        "Nhân viên văn thư",
+                                        "Cán sự",
+                                    }};
+        var data_rows = Model.Skip(skip).Take(take);
+        foreach (var row in data_rows)
+        {
+            string tenDonVi = db.DonViQLs.Find(row.MaDVQL).TenDonVI;
+            data.Add(new List<Object>() {
+            tenDonVi,
+            row.GV,
+            row.GVC,
+            row.GVCC,
+            row.GVTH,
+            row.CV,
+            row.CVC,
+            row.TVV,
+            row.KTV,
+            row.KTVCC,
+            row.NCV,
+            row.KTOAN,
+            row.KTVC,
+            row.NVVT,
+            row.CS
+    });
+        }
+        return data;
+    }
+}
 <div class="main-content">
     <!-- Section: About -->
     <section class="">
@@ -251,9 +296,56 @@
                         </div>
                     </div>
                 </div>
+                @{
+
+                    List<List<Object>> data1 = GoogleChartData(db, 10, 0);
+                    List<List<Object>> data2 = GoogleChartData(db, 10, 10);
+                    List<List<Object>> data3 = GoogleChartData(db, 10, 20);
+                    List<List<Object>> data4 = GoogleChartData(db, 9, 30);
+
+                }
+                <input type="hidden" id="data1" value="@Json.Encode(data1)" />
+                <input type="hidden" id="data2" value="@Json.Encode(data2)" />
+                <input type="hidden" id="data3" value="@Json.Encode(data3)" />
+                <input type="hidden" id="data4" value="@Json.Encode(data4)" />
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="quantumChart1"></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="quantumChart2"></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="quantumChart3"></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="quantumChart4"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 </div>
 
-
+@section charts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    @Scripts.Render("~/bundles/charts")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var json_data1 = $('#data1').val();
+            var json_data2 = $('#data2').val();
+            var json_data3 = $('#data3').val();
+            var json_data4 = $('#data4').val();
+            googleChart(json_data1, 'line', 'quantumChart1');
+            googleChart(json_data2, 'line', 'quantumChart2');
+            googleChart(json_data3, 'line', 'quantumChart3');
+            googleChart(json_data4, 'line', 'quantumChart4');
+        });
+    </script>
+}

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<WebQLKhoaHoc.BaiBao>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaISSN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenBaiBao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LaTrongNuoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CQXuatBan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamDangBao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TapPhatHanh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoPhatHanh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrangBaiBao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LienKetWeb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LinkFileUpLoad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CapTapChi.TenCapTapChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhanLoaiTapChi.TenLoaiTapChi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaISSN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenBaiBao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LaTrongNuoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CQXuatBan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamDangBao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TapPhatHanh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoPhatHanh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrangBaiBao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LienKetWeb)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LinkFileUpLoad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CapTapChi.TenCapTapChi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhanLoaiTapChi.TenLoaiTapChi)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaBaiBao }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaBaiBao }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaBaiBao })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,49 @@
+﻿@model WebQLKhoaHoc.DSNguoiThamGiaDeTai
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DSNguoiThamGiaDeTai</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LaChuNhiem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LaChuNhiem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeTai.MaDeTaiHoSo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeTai.MaDeTaiHoSo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NhaKhoaHoc.MaNKHHoSo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhaKhoaHoc.MaNKHHoSo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

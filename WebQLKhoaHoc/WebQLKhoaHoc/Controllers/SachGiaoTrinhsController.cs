@@ -19,13 +19,23 @@ namespace WebQLKhoaHoc.Controllers
         private QLKHRepository QLKHrepo = new QLKHRepository();
 
         // GET: SachGiaoTrinhs
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? Page_No)
         {
             ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
             ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB");
             ViewBag.MaLoai = new SelectList(db.PhanLoaiSaches, "MaLoai", "TenLoai");
             var sachGiaoTrinhs = db.SachGiaoTrinhs.Include(s => s.LinhVuc).Include(s => s.NhaXuatBan).Include(s => s.PhanLoaiSach);
-            return View(await sachGiaoTrinhs.ToListAsync());
+            var listDT = sachGiaoTrinhs.Concat(sachGiaoTrinhs)
+                           .Concat(sachGiaoTrinhs)
+                           .Concat(sachGiaoTrinhs)
+                           .Concat(sachGiaoTrinhs)
+                           .Concat(sachGiaoTrinhs)
+                           .Concat(sachGiaoTrinhs)
+                           .ToList();
+
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
+            return View(listDT.ToPagedList(No_Of_Page, Size_Of_Page));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -61,7 +71,7 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: SachGiaoTrinhs/sachgiaotrinhls/5
-        public async Task<ActionResult> sachgiaotrinhls(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
