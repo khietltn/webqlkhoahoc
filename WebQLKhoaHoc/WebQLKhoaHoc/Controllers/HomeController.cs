@@ -101,7 +101,7 @@ namespace WebQLKhoaHoc.Controllers
             }
         }
 
-        public ActionResult About()
+        public ActionResult Admin()
         {
             ViewBag.Message = "Your application description page.";
 

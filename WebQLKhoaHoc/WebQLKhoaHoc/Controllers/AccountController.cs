@@ -35,7 +35,7 @@ namespace WebQLKhoaHoc.Controllers
                 {
                     NhaKhoaHoc nhaKhoaHoc = db.NhaKhoaHocs.Find(nguoiDung.MaNKH);
                     string hovaten = nhaKhoaHoc.HoNKH + " " + nhaKhoaHoc.TenNKH;
-                    string anhdaidien = nhaKhoaHoc.AnhDaiDien;
+                    string anhdaidien = nhaKhoaHoc.AnhCaNhan != null ? string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(nhaKhoaHoc.AnhCaNhan)) : String.Empty; ;
 
                     // lấy tên viết tắt
                     string tenhocham = "";
@@ -61,7 +61,7 @@ namespace WebQLKhoaHoc.Controllers
                     }
 
                     int machucnang = Convert.ToInt16(nguoiDung.MaChucNang);
-                    UserLoginViewModel user = UserLoginViewModel.Mapping(nhaKhoaHoc.MaNKH, hovaten, anhdaidien, chucvi, machucnang);
+                    UserLoginViewModel user = UserLoginViewModel.Mapping(nhaKhoaHoc.TenNKH, nhaKhoaHoc.MaNKH, hovaten, anhdaidien, chucvi, machucnang);
 
                     Session["user"] = user;
                     return RedirectToAction("Index", "Home");
