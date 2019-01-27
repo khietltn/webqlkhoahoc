@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebQLKhoaHoc;
+using WebQLKhoaHoc.Models;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -18,8 +19,15 @@ namespace WebQLKhoaHoc.Controllers
         // GET: AdminNhaKhoaHoc
         public async Task<ActionResult> Index()
         {
-            var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc);
-            return View(await nhaKhoaHocs.ToListAsync());
+            var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc).ToList();
+            var lstNKH = new List<NhaKhoaHocViewModel>();
+            for (int i = 0; i < nhaKhoaHocs.Count; i++)
+            {
+                NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHocs[i]);
+                lstNKH.Add(nkh);
+            }
+
+            return View(lstNKH);
         }
 
         // GET: AdminNhaKhoaHoc/Details/5

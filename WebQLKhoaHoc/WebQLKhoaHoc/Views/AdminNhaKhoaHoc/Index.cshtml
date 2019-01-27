@@ -1,15 +1,125 @@
-﻿@model IEnumerable<WebQLKhoaHoc.NhaKhoaHoc>
+﻿@model IEnumerable<WebQLKhoaHoc.Models.NhaKhoaHocViewModel>
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+    Layout = "~/Views/Shared/_AdminMainPage.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Admin nhasssss</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>List  gi do  <small>Users</small></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <!-- search list component  -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dataTables_length" id="datatable_length">
+                                <label>
+                                    Show
+                                    <select name="datatable_length" aria-controls="datatable" class="form-control input-sm">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entries
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="datatable_filter" class="dataTables_filter">
+                                <label>
+                                    Search:
+                                    <input type="search" class="form-control input-sm" placeholder="" aria-controls="datatable">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- list component  -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 55px;">Image</th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 41px;">Name</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 55px;">Position</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 38px;">Office</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 25px;">Age</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 44px;">Start date</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 44px;">Salary</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 44px;">Action</th>
+                                        </tr>
+                                </thead>
+
+                                <!-- grid nkh  -->
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr role="row" class="even">
+                                            <td>
+                                                @{
+                                                    if (String.IsNullOrWhiteSpace(item.AnhCaNhan))
+                                                    {
+                                                        <img src=@Url.Content("~/Image/avatar.bmp") style="height: 58px; width:58px; border-radius: 50%;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@item.AnhCaNhan" style="height: 29px; width:29px; border-radius: 50%;" />
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.HoNKH) @Html.DisplayFor(modelItem => item.TenNKH)
+                                            </td>
+                                            <td>Regional Director</td>
+                                            <td>San Francisco</td>
+                                            <td class="">36</td>
+                                            <td class="sorting_1">2008/10/16</td>
+                                            <td>$470,600</td>
+                                            <td> </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+
+
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- pagination component  -->
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+                                <ul class="pagination">
+                                    Paging here
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 <table class="table">
     <tr>
         <th>
@@ -60,59 +170,65 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaNKHHoSo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoNKH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenNKH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GioiTinhNKH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgaySinh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiaChiLienHe)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DienThoai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailLienHe)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnhDaiDien)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnhCaNhan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChuyenNganh.TenChuyenNganh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HocHam.TenVietTat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HocVi.TenVietTat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgachVienChuc.TenNgach)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaNKH }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaNKH }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaNKH })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaNKHHoSo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoNKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenNKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinhNKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChiLienHe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailLienHe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnhDaiDien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnhCaNhan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChuyenNganh.TenChuyenNganh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HocHam.TenVietTat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HocVi.TenVietTat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgachVienChuc.TenNgach)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaNKH }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaNKH }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaNKH })
+            </td>
+        </tr>
+    }
+
+
+
+
+
 
 </table>
