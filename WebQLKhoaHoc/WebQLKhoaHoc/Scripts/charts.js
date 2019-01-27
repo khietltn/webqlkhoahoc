@@ -5,7 +5,7 @@
     });
     function drawChart(json_data, container) {
         var arr_data = JSON.parse(json_data);
-        //console.log(arr_data);
+        console.log(arr_data);
         
         var data = google.visualization.arrayToDataTable(arr_data);
         

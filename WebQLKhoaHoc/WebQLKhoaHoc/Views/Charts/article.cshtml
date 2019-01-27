@@ -3,7 +3,31 @@
     ViewBag.Title = "Thống kê - CSDL Khoa học";
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
+@functions{
+    public List<List<Object>> GoogleChartDataTrongNuoc(QLKhoaHocEntities db)
+    {
+        List<List<Object>> data = new List<List<Object>>(){new List<Object>() {
+        "Loại tạp chí",
+        "Số lượng"
+    }};
+        data.Add(new List<Object>() { "TCKH do HĐCDGS quy định", ViewBag.nHDCDGS });
+        data.Add(new List<Object>() { "Khác", ViewBag.nKhac_in });
+        return data;
+    }
 
+    public List<List<Object>> GoogleChartDataNgoaiNuoc(QLKhoaHocEntities db)
+    {
+        List<List<Object>> data = new List<List<Object>>(){new List<Object>() {
+        "Loại tạp chí",
+        "Số lượng"
+    }};
+        data.Add(new List<Object>() { "Tạp chí ISI", ViewBag.nISI });
+        data.Add(new List<Object>() { "Tạp chí SCOPUS", ViewBag.nSCOPUS });
+        data.Add(new List<Object>() { "Tạp chí ESCI", ViewBag.nESCI });
+        data.Add(new List<Object>() { "Khác", ViewBag.nKhac_out });
+        return data;
+    }
+}
 <div class="main-content">
     <!-- Section: About -->
     <section class="">
@@ -137,24 +161,45 @@
                                             {
                                                 if (item > 0)
                                                 {
-                                                    <td class="text-center">@item</td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="text-center">-</td>
-                                                }
+                                                <td class="text-center">@item</td>
                                             }
-                                         }
+                                            else
+                                            {
+                                                <td class="text-center">-</td>
+                                            }
+                                        }
+                                        }
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </div>
 
+                @{
+                    List<List<Object>> dataTrongNuoc = GoogleChartDataTrongNuoc(db);
+                    List<List<Object>> dataNgoaiNuoc = GoogleChartDataNgoaiNuoc(db);
+                }
+                <input type="hidden" id="dataTrongNuoc" value="@Json.Encode(dataTrongNuoc)" />
+                <input type="hidden" id="dataNgoaiNuoc" value="@Json.Encode(dataNgoaiNuoc)" />
+                <div class="row">
+                    <div class="col-md-6"><div id="chartTrongNuoc"></div></div>
+                    <div class="col-md-6"><div id="chartNgoaiNuoc"></div></div>
                 </div>
             </div>
-        </section>
-    </div>
-
+        </div>
+    </section>
+</div>
+@section charts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    @Scripts.Render("~/bundles/charts")
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var json_dataTrongNuoc = $('#dataTrongNuoc').val();
+        var json_dataNgoaiNuoc = $('#dataNgoaiNuoc').val();
+        googleChart(json_dataTrongNuoc, 'pie', 'chartTrongNuoc', 'Số bài báo trên TCKH trong nước');
+        googleChart(json_dataNgoaiNuoc, 'pie', 'chartNgoaiNuoc', 'Số bài báo trên TCKH nước ngoài');
+    });
+    </script>
+}
 

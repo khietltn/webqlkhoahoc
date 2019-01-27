@@ -1,8 +1,21 @@
-﻿ @{
-     ViewBag.Title = "Thống kê - CSDL Khoa học";
-     Layout = "~/Views/Shared/_MainPage.cshtml";
+﻿@{
+    ViewBag.Title = "Thống kê - CSDL Khoa học";
+    Layout = "~/Views/Shared/_MainPage.cshtml";
 }
-
+@functions{
+    public List<List<Object>> GoogleChartDataSoLuong(QLKhoaHocEntities db)
+    {
+        List<List<Object>> data = new List<List<Object>>(){new List<Object>() {
+                "Loại sách",
+                "Số lượng"
+            }};
+        data.Add(new List<Object>() { "Giáo trình", ViewBag.giaoTrinh });
+        data.Add(new List<Object>() { "Chuyên khảo", ViewBag.chuyenKhao });
+        data.Add(new List<Object>() { "Tham khảo", ViewBag.Khac });
+        data.Add(new List<Object>() { "Khác", ViewBag.DTCCS });
+        return data;
+    }
+}
 <div class="main-content">
     <!-- Section: About -->
     <section class="">
@@ -19,7 +32,7 @@
                                         <label class="control-label">Chọn đơn vị:</label>
                                     </div>
                                     <div class="col-md-9">
-                                        @{ 
+                                        @{
                                             QLKhoaHocEntities db = new QLKhoaHocEntities();
                                             List<DonViQL> donViQLs = db.DonViQLs.ToList();
                                         }
@@ -122,14 +135,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{ 
-                                            if (ViewBag.giaoTrinh > 0)
-                                            {
-                                                <td class="text-center">
-                                                    <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book/index/unit/0/book_type/2/page/1">
-                                                        @ViewBag.giaoTrinh
-                                                    </a>
-                                                </td>
+                                        <tr>
+                                            @{
+                                                if (ViewBag.giaoTrinh > 0)
+                                                {
+                                                    <td class="text-center">
+                                                        <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book/index/unit/0/book_type/2/page/1">
+                                                            @ViewBag.giaoTrinh
+                                                        </a>
+                                                    </td>
                                                 }
                                                 else
                                                 {
@@ -188,14 +202,36 @@
                                                     </td>
                                                 }
                                             }
-                                        </tbody>
-                                    </table>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                @{
 
+                    List<List<Object>> dataSoLuong = GoogleChartDataSoLuong(db);
+
+                }
+                <input type="hidden" id="dataSoLuong" value="@Json.Encode(dataSoLuong)" />
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="chartSoLuong"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 </div>
+
+@section charts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    @Scripts.Render("~/bundles/charts")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var json_dataSoLuong = $('#dataSoLuong').val();
+            googleChart(json_dataSoLuong, 'pie', 'chartSoLuong', 'Số lượng sách, giáo trình');
+        });
+    </script>
+}
