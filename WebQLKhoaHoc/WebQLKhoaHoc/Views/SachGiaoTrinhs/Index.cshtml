@@ -98,14 +98,7 @@
                                             <h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
                                                 @Html.DisplayFor(modelItem => item.TenSach)
                                             </h4>
-                                        </a>
-                                        <script>
-                                            function modal_load(url) {
-                                                var currentUrl = url.replace("http://", "");
-                                                $(".jquery-modal.blocker.current").children(".fade").addClass("in");
-                                                $('#mydata .modal-content').load(currentUrl);
-                                            };
-                                        </script>
+                                        </a>                                        
 
                                         <p class="text-gray font-13 mb-0">
                                             @Html.DisplayFor(modelItem => item.NhaXuatBan.TenNXB)

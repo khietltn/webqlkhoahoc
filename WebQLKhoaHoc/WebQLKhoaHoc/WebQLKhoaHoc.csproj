@@ -384,6 +384,8 @@
       <DependentUpon>QLKH.edmx</DependentUpon>
       <LastGenOutput>QLKH.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\app_admin.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="QLKH.edmx">
@@ -393,7 +395,10 @@
     <Content Include="QLKH.edmx.diagram">
       <DependentUpon>QLKH.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\daterangepicker.css" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\custom-admin.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -639,6 +644,7 @@
     <Content Include="Views\AdminPhanLoaiSaches\Details.cshtml" />
     <Content Include="Views\AdminPhanLoaiSaches\Edit.cshtml" />
     <Content Include="Views\AdminPhanLoaiSaches\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminMainPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
