@@ -947,7 +947,7 @@ a {
 }
 
     .panel_toolbox > li {
-        float: left;
+        float: right;
         cursor: pointer
     }
 
