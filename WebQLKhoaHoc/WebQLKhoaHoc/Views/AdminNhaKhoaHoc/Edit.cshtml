@@ -1,4 +1,4 @@
-﻿@model WebQLKhoaHoc.NhaKhoaHoc
+﻿@model WebQLKhoaHoc.Models.NhaKhoaHocViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -112,45 +112,378 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Học hàm</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Học hàm" value="@Html.DisplayFor(model => model.HocHam.TenHocHam)">
+                                            @Html.DropDownList("MaHH", (IEnumerable<SelectListItem>)ViewBag.MaHocHam, "--Chọn học hàm--", new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Học vị</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Học vị" value="@Html.DisplayFor(model => model.HocVi.TenHocVi)">
+                                            @Html.DropDownList("MaHV", (IEnumerable<SelectListItem>)ViewBag.MaHocVi, "--Chọn học vị--", new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Chuyên ngành đào tạo</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Chuyên ngành đào tạo" value="@Html.DisplayFor(model => model.ChuyenNganh.TenChuyenNganh)">
+                                            @Html.DropDownList("MaCNDT", (IEnumerable<SelectListItem>)ViewBag.MaCNDaoTao, "--Chọn chuyên ngành--", new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Đơn vị quản lý</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Đơn vị quản lý" value="@Html.DisplayFor(model => model.DonViQL.TenDonVI)">
+                                            @Html.DropDownList("MaDonVi", (IEnumerable<SelectListItem>)ViewBag.MaDonViQL, "--Chọn đơn vị--", new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngạch viên chức</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Ngạch viên chức" value="@Html.DisplayFor(model => model.NgachVienChuc.TenNgach)">
+                                            @Html.DropDownList("MaNgach", (IEnumerable<SelectListItem>)ViewBag.MaNgachVienChuc, "--Chọn ngạch--", new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            <p>
-                                3 Tabs DS
-                            </p>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>
+                                                Danh Sách Tác Giả
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li>
+                                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            @Html.ActionLink("Create New", "Create", "AdminDSTacGia")
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div id="datatable_wrapper_3" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                <!-- list component  -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table id="datatable_3" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th>Sách</th>
+                                                                    <th>Chủ Biên</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <!-- grid nkh  -->
+                                                            <tbody>
+                                                                @foreach (var item in Model.DSTacGias)
+                                                                {
+                                                                    <tr role="row" class="even">
+
+                                                                        <td class="">  @Html.DisplayFor(modelItem => item.SachGiaoTrinh.TenSach)</td>
+                                                                        <td class="sorting_1">  @Html.CheckBoxFor(modelItem => item.LaChuBien.Value, new { @disabled = "disabled" })</td>
+                                                                        <td>
+                                                                            <a href="@Url.Action("Edit", "AdminDSTacGia", new {id = item.MaSach})">
+                                                                                <i class="far fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Details", "AdminDSTacGia", new { id = item.MaSach})">
+                                                                                <i class="fas fa-info"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Delete", "AdminDSTacGia", new {id = item.MaSach})">
+                                                                                <i class="far fa-trash-alt"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>
+                                                Danh Sách Người Tham Gia Đề Tài
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li>
+                                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            @Html.ActionLink("Create New", "Create", "AdminDSNguoiThamGiaDeTai")
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div id="datatable_wrapper_4" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                <!-- list component  -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table id="datatable_4" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th>Đề Tài</th>
+                                                                    <th>Chủ Nhiệm</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <!-- grid nkh  -->
+                                                            <tbody>
+                                                                @foreach (var item in Model.DSNguoiThamGiaDeTais)
+                                                                {
+                                                                    <tr role="row" class="even">
+
+                                                                        <td class="">  @Html.DisplayFor(modelItem => item.DeTai.TenDeTai)</td>
+                                                                        <td class="sorting_1">  @Html.CheckBoxFor(modelItem => item.LaChuNhiem.Value, new { @disabled = "disabled" })</td>
+                                                                        <td>
+                                                                            <a href="@Url.Action("Edit", "AdminDSNguoiThamGiaDeTai", new {id = item.MaDeTai})">
+                                                                                <i class="far fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Details", "AdminDSNguoiThamGiaDeTai", new { id = item.MaDeTai})">
+                                                                                <i class="fas fa-info"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Delete", "AdminDSNguoiThamGiaDeTai", new {id = item.MaDeTai})">
+                                                                                <i class="far fa-trash-alt"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>
+                                                Danh Sách Người Tham Gia Bài Báo
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li>
+                                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            @Html.ActionLink("Create New", "Create", "AdminDSNguoiThamGiaBaiBao")
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div id="datatable_wrapper_5" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                <!-- list component  -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table id="datatable_5" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th>Bài Báo</th>
+                                                                    <th>Là Tác Giả Chính</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <!-- grid nkh  -->
+                                                            <tbody>
+                                                                @foreach (var item in Model.DSNguoiThamGiaBaiBaos)
+                                                                {
+                                                                    <tr role="row" class="even">
+
+                                                                        <td class="">  @Html.DisplayFor(modelItem => item.BaiBao.DSNguoiThamGiaBaiBaos)</td>
+                                                                        <td class="sorting_1">  @Html.CheckBoxFor(modelItem => item.LaTacGiaChinh.Value,new { @disabled = "disabled"})</td>
+                                                                        <td>
+                                                                            <a href="@Url.Action("Edit", "AdminDSNguoiThamGiaBaiBao", new {id = item.MaBaiBao})">
+                                                                                <i class="far fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Details", "AdminDSNguoiThamGiaBaiBao", new { id = item.MaBaiBao})">
+                                                                                <i class="fas fa-info"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Delete", "AdminDSNguoiThamGiaBaiBao", new {id = item.MaBaiBao})">
+                                                                                <i class="far fa-trash-alt"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
-                            <p>
-                                2 Tabs QT
-                            </p>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>
+                                                Quá Trình Đào Tạo
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li>
+                                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            @Html.ActionLink("Create New", "Create", "AdminQuaTrinhDaoTao")
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                <!-- list component  -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th>Thời Gian Bắt Đầu</th>
+                                                                    <th>Thời Gian Kết Thúc</th>
+                                                                    <th>Bậc Đào Tạo</th>
+                                                                    <th>Cơ Sở Đào Tạo</th>
+                                                                    <th>Ngành</th>
+                                                                    <th>Năm Tốt Nghiệp</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <!-- grid nkh  -->
+                                                            <tbody>
+                                                                @foreach (var item in Model.QuaTrinhDaoTaos)
+                                                                {
+                                                                    <tr role="row" class="even">
+
+                                                                        <td> @item.ThoiGianBD.Value.ToShortDateString()</td>
+                                                                        <td> @item.ThoiGianKT.Value.ToShortDateString()</td>
+                                                                        <td class="">  @Html.DisplayFor(modelItem => item.BacDaoTao.TenBacDT)</td>
+                                                                        <td class="sorting_1">  @Html.DisplayFor(modelItem => item.CoSoDaoTao)</td>
+                                                                        <td>  @Html.DisplayFor(modelItem => item.NganhDaoTao.TenNganhDaoTao)</td>
+                                                                        <td>  @item.NamTotNghiep.Value.Year</td>
+                                                                        <td>
+                                                                            <a href="@Url.Action("Edit", "AdminQuaTrinhDaoTao", new {id = item.MaQT})">
+                                                                                <i class="far fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Details", "AdminQuaTrinhDaoTao", new { id = item.MaQT})">
+                                                                                <i class="fas fa-info"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Delete", "AdminQuaTrinhDaoTao", new {id = item.MaQT})">
+                                                                                <i class="far fa-trash-alt"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>
+                                                Quá Trình Công Tác
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            @Html.ActionLink("Create New", "Create", "AdminQuaTrinhCongTac")
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                             
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div id="datatable_wrapper_2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                <!-- list component  -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table id="datatable_2" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th>Thời Gian Bắt Đầu</th>
+                                                                    <th>Thời Gian Kết Thúc</th>
+                                                                    <th>Chức Danh Công Tác</th>
+                                                                    <th>Đơn Vị Quản Lý</th>
+                                                                    <th>Chức Vụ Công Tác</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <!-- grid nkh  -->
+                                                            <tbody>
+                                                                @foreach (var item in Model.QuaTrinhCongTacs)
+                                                                {
+                                                                    <tr role="row" class="even">
+                                                                        
+                                                                        <td> @item.ThoiGianBD.Value.ToShortDateString()</td>
+                                                                        <td> @item.ThoiGIanKT.Value.ToShortDateString()</td>
+                                                                        <td class="">  @Html.DisplayFor(modelItem => item.ChucDanhCT)</td>
+                                                                        <td class="sorting_1">  @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)</td>
+                                                                        <td>  @Html.DisplayFor(modelItem => item.ChucVuCT)</td>
+                                                                        <td>
+                                                                            <a href="@Url.Action("Edit", "AdminQuaTrinhCongTac", new {id = item.MaCT})">
+                                                                                <i class="far fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Details", "AdminQuaTrinhCongTac", new { id = item.MaCT })">
+                                                                                <i class="fas fa-info"></i>
+                                                                            </a>
+                                                                            <a href="@Url.Action("Delete", "AdminQuaTrinhCongTac", new {id = item.MaCT})">
+                                                                                <i class="far fa-trash-alt"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
                             <div>
@@ -219,7 +552,7 @@
     </div>
 </div>
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -359,4 +692,4 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@

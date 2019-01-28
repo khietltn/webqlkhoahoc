@@ -13,6 +13,11 @@ namespace WebQLKhoaHoc.Models
         {
 
         }
+        //check whether the FileUpload control contain file or not
+        public bool HasFile(HttpPostedFileBase file)
+        {
+            return (file != null && file.ContentLength > 0) ? true : false;
+        }
 
         public IList<LinhVucViewMenuModel> GetListMenuLinhVuc()
         {

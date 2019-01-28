@@ -14,6 +14,7 @@ namespace WebQLKhoaHoc.Controllers
     public class AdminNhaKhoaHocController : Controller
     {
         private QLKhoaHocEntities db = new QLKhoaHocEntities();
+        private QLKHRepository repo = new QLKHRepository();
 
         // GET: AdminNhaKhoaHoc
         public async Task<ActionResult> Index()
@@ -50,7 +51,7 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: AdminNhaKhoaHoc/Create
-       
+
         public ActionResult Create()
         {
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh");
@@ -62,12 +63,6 @@ namespace WebQLKhoaHoc.Controllers
             return View();
         }
 
-        public static byte[] StrToByteArray(string strValue)
-        {
-            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-            return encoding.GetBytes(strValue);
-        }
-
         // POST: AdminNhaKhoaHoc/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -75,24 +70,27 @@ namespace WebQLKhoaHoc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(HttpPostedFileBase fileUpload, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,AnhCaNhan,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
         {
-           
+
             if (ModelState.IsValid)
-            {                 
-                if (fileUpload != null)
+            {
+                        
+                if (repo.HasFile(fileUpload))
                 {
-                    var fileName = Path.GetFileName(fileUpload.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Image/"), fileName);
-                 
-                    fileUpload.SaveAs(path);
-                    byte[] newByte = StrToByteArray(path);
-                    nhaKhoaHoc.AnhCaNhan = newByte;
-                }                
+                    string mimeType = fileUpload.ContentType;
+                    Stream fileStream = fileUpload.InputStream;
+                    string fileName = Path.GetFileName(fileUpload.FileName);
+                    int fileLength = fileUpload.ContentLength;
+                    byte[] fileData = new byte[fileLength];
+                    nhaKhoaHoc.AnhCaNhan = fileData;
+                    fileStream.Read(fileData, 0, fileLength);
+                }
+
                 db.NhaKhoaHocs.Add(nhaKhoaHoc);
                 await db.SaveChangesAsync();
-                
+
                 return RedirectToAction("Index");
             }
-            
+
 
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh", nhaKhoaHoc.MaCNDaoTao);
             ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", nhaKhoaHoc.MaDonViQL);
@@ -109,15 +107,16 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NhaKhoaHoc nhaKhoaHoc = await db.NhaKhoaHocs.FindAsync(id);
-            if (nhaKhoaHoc == null)
+            NhaKhoaHoc nkh = await db.NhaKhoaHocs.FindAsync(id);
+            if (nkh == null)
             {
                 return HttpNotFound();
             }
+            NhaKhoaHocViewModel nhaKhoaHoc = NhaKhoaHocViewModel.Mapping(nkh);
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh", nhaKhoaHoc.MaCNDaoTao);
             ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", nhaKhoaHoc.MaDonViQL);
-            ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenVietTat", nhaKhoaHoc.MaHocHam);
-            ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenVietTat", nhaKhoaHoc.MaHocVi);
+            ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam", nhaKhoaHoc.MaHocHam);
+            ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi", nhaKhoaHoc.MaHocVi);
             ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach", nhaKhoaHoc.MaNgachVienChuc);
             return View(nhaKhoaHoc);
         }
