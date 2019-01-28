@@ -45,20 +45,21 @@
                                         <th>Link File Upload</th>
                                         <th>Cấp Đề Tài</th>
                                         <th>Loại Hình Đề Tài</th>
-                                        <th>Tên Đơn Vị Chủ Trì>
+                                        <th>Tên Đơn Vị Chủ Trì</th>
+                                        <th>Tên Đơn Vị Quản Lý</th>
                                         <th>Tên Lĩnh Vực</th>
                                         <th>Xếp Lọai</th>
                                         <th>Tình Trạng Đề Tài</th>
                                         <th>Tên Phân Loại Đề Tài</th>
+                                        <th>Action</th>
                                     </tr>
-                                </thead>
-
+                                  </thead>
                                 <!-- grid nkh  -->
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
                                     <tr role="row" class="even">
-                                        
+
                                         <td>
                                             @Html.DisplayFor(modelItem => item.MaDeTaiHoSo)
                                         </td>
@@ -72,13 +73,13 @@
                                             @Html.DisplayFor(modelItem => item.NoiDungDeTai)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.KetQuaDeTai)
-                                        </td>
-                                        <td class="" >
                                             @Html.DisplayFor(modelItem => item.NamBD)
                                         </td>
-                                        <td class="sorting_1">
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.NamKT)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.KetQuaDeTai)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.KinhPhi)
