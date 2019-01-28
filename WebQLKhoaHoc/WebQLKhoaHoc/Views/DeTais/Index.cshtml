@@ -108,12 +108,14 @@
                             {
                                 <div class="col-xs-12">
                                     <div class="bg-white p-15 mb-30 border-1px">
-
-                                        <a href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("Details", "Detais", new { id = item.MaDeTai})')">
+                                        <span class="mb-20 mt-5 p-5 bg-theme-color-2 text-white pull-right">
+                                            @item.MaDeTaiHoSo
+                                        </span>
+                                        <a href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("Details", "Detais", new {id = item.MaDeTai})')">
                                             <h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
                                                 @Html.DisplayFor(modelItem => item.TenDeTai)
                                             </h4>
-                                        </a>                                      
+                                        </a>
 
                                         <p class="text-gray font-13 mb-0">
                                             <i class="fa fa-globe" aria-hidden="true"></i>
@@ -121,7 +123,7 @@
                                             @Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
                                             <br>
                                             <i class="fa fa-university" aria-hidden="true"></i>
-                                            <b> Đơn vị chủ trì :  </b>
+                                            <b> Đơn vị chủ trì : </b>
                                             @Html.DisplayFor(modelItem => item.DonViChuTri.TenDVChuTri)
                                             <br>
                                             <i class="fa fa-university" aria-hidden="true"></i>
@@ -130,24 +132,24 @@
                                             <br>
                                             <i class="fa fa-users" aria-hidden="true"></i>
                                             <b>Người tham gia:</b>
-                                            
-                                                @for (int i = 0; i <item.DSNguoiThamGiaDeTais.Count; i++)
+
+                                            @for (int i = 0; i < item.DSNguoiThamGiaDeTais.Count; i++)
+                                            {
+                                                var nkh = item.DSNguoiThamGiaDeTais.ToList()[i];
+                                                var name = nkh.NhaKhoaHoc.HoNKH + " " + nkh.NhaKhoaHoc.TenNKH;
+                                                if (nkh.LaChuNhiem.Value)
                                                 {
-                                                    var nkh = item.DSNguoiThamGiaDeTais.ToList()[i];
-                                                    var name =nkh.NhaKhoaHoc.HoNKH + " " + nkh.NhaKhoaHoc.TenNKH;
-                                                    if (nkh.LaChuNhiem.Value)
-                                                    {
-                                                        name += " (Chủ Nhiệm)";
-                                                    }
-                                                    if (i < (item.DSNguoiThamGiaDeTais.Count - 1))
-                                                    {
-                                                        name += ", ";
-                                                    }
-                                                    <span>@name</span>
-
-
+                                                    name += " (Chủ Nhiệm)";
                                                 }
-                                            
+                                                if (i < (item.DSNguoiThamGiaDeTais.Count - 1))
+                                                {
+                                                    name += ", ";
+                                                }
+                                                <span>@name</span>
+
+
+                                            }
+
                                             @*<a href="#"></a>*@
                                             <br>
 
