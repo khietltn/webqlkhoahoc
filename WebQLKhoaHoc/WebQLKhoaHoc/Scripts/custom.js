@@ -173,8 +173,15 @@ var THEMEMASCOT = {};
             THEMEMASCOT.initialize.TM_YTPlayer();
             THEMEMASCOT.initialize.TM_equalHeightDivs();
             THEMEMASCOT.initialize.TM_Timeline();
+            THEMEMASCOT.initialize.TM_Listbox();
         },
-
+        TM_Listbox: function () {
+            $('.listbox').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                filterBehavior: 'value'
+            });
+        },
         TM_Timeline: function () {
             var timelines = $('.cd-horizontal-timeline'),
                 eventsMinDistance = 60;

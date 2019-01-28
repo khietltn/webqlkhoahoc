@@ -26,7 +26,8 @@ namespace WebQLKhoaHoc
             bundles.Add(new ScriptBundle("~/bundles/qlkh").Include(
                 "~/Scripts/custom.js",
                 "~/Scripts/jquery-ui.min.js",
-                "~/Scripts/jquery-plugin-collection.js"
+                "~/Scripts/jquery-plugin-collection.js",
+                "~/Scripts/bootstrap-multiselect.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/charts").Include(
@@ -67,7 +68,8 @@ namespace WebQLKhoaHoc
                 "~/Content/style-main.css",
                 "~/Content/theme-skin-color-set-1.css",
                 "~/Content/utility-classes.css",
-                "~/Content/jquery-ui.min.css"
+                "~/Content/jquery-ui.min.css",
+                      "~/Content/bootstrap-multiselect.css"
                 ));
         }
     }
