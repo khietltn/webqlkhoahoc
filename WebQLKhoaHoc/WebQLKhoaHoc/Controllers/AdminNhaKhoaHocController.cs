@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using WebQLKhoaHoc;
+using System.Text;
+using WebQLKhoaHoc.Models;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -18,8 +18,20 @@ namespace WebQLKhoaHoc.Controllers
         // GET: AdminNhaKhoaHoc
         public async Task<ActionResult> Index()
         {
-            var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc);
-            return View(await nhaKhoaHocs.ToListAsync());
+            var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc).ToList();
+            var lstNKH = new List<NhaKhoaHocViewModel>();
+            for (int i = 0; i < nhaKhoaHocs.Count; i++)
+            {
+                NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHocs[i]);
+                lstNKH.Add(nkh);
+            }
+
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            lstNKH = lstNKH.Concat(lstNKH).ToList();
+            return View(lstNKH);
         }
 
         // GET: AdminNhaKhoaHoc/Details/5
@@ -38,6 +50,7 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: AdminNhaKhoaHoc/Create
+       
         public ActionResult Create()
         {
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh");
@@ -45,7 +58,14 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenVietTat");
             ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenVietTat");
             ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach");
+
             return View();
+        }
+
+        public static byte[] StrToByteArray(string strValue)
+        {
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            return encoding.GetBytes(strValue);
         }
 
         // POST: AdminNhaKhoaHoc/Create
@@ -53,14 +73,26 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,AnhCaNhan,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
+        public async Task<ActionResult> Create(HttpPostedFileBase fileUpload, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,AnhCaNhan,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
         {
+           
             if (ModelState.IsValid)
-            {
+            {                 
+                if (fileUpload != null)
+                {
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                 
+                    fileUpload.SaveAs(path);
+                    byte[] newByte = StrToByteArray(path);
+                    nhaKhoaHoc.AnhCaNhan = newByte;
+                }                
                 db.NhaKhoaHocs.Add(nhaKhoaHoc);
                 await db.SaveChangesAsync();
+                
                 return RedirectToAction("Index");
             }
+            
 
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh", nhaKhoaHoc.MaCNDaoTao);
             ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", nhaKhoaHoc.MaDonViQL);

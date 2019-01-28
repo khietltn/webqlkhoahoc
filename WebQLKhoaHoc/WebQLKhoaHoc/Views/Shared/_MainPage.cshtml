@@ -5,18 +5,14 @@
     <meta name="viewport" content="width=device-width" />
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,700,300">
-    <script src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" data-auto-replace-svg="nest"></script>    
-
-   
+    <script src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" data-auto-replace-svg="nest"></script>
     <title>@ViewBag.Title</title>
-    <!-- Theme styles START -->
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <!-- Theme styles END -->
 </head>
 <!-- Head END -->
 <!-- Body BEGIN -->
-<body class="">
+<body>
     <div id="wrapper" class="clearfix">
         <!-- Header -->
         <header id="header" class="header">
@@ -26,11 +22,10 @@
                         <div class="col-xs-12 col-sm-4 col-md-3 text-left">
                             <div class="widget no-border m-0">
                                 <a class=" menuzord-menu flip xs-pull-center mt-10 mb-10" href="javascript:void(0)">
-                                    <img src="~/Images/logo_hcmup.png" style="width: 70%;" alt="">
+                                    <img src="~/Image/logo_hcmup.png" style="width: 70%;" alt="">
                                 </a>
                             </div>
                         </div>
-
                         <div class="col-xs-12 col-sm-8 col-md-9">
                             <div class="widget mt-10 pull-left sm-pull-none sm-text-center">
                                 <h3 class="font-weight-800 text-theme-colored font-27">CSDL KHOA HỌC VÀ CÔNG NGHỆ</h3>
@@ -91,10 +86,8 @@
                                 {
                                     QLKhoaHocEntities db = new QLKhoaHocEntities();
                                     WebQLKhoaHoc.Models.UserLoginViewModel nd = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
-
-
                                     <li>
-                                        <a><img src="~/Image/@nd.AnhDaiDien" style="width:30px;height:30px;border-radius: 50%;display: inline-block;" /> @nd.ChucVi @nd.HoVaTen</a>
+                                        <a><img src="@nd.AnhCaNhan" style="width:30px;height:30px;border-radius: 50%;display: inline-block;" /> @nd.ChucVi @nd.HoVaTen</a>
                                         <ul class="dropdown">
                                             <li><a>Đổi mật khẩu</a></li>
                                             <li><a>Thông tin tài khoản</a></li>
@@ -110,12 +103,8 @@
                 </div><div></div>
             </div>
         </header>
-
         @RenderBody()
-
     </div>
-
-
     <!-- Footer -->
     <footer id="footer" class="footer divider layer-overlay overlay-dark-9" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/1920x1280.png" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/1920x1280.png&quot;);">
         <div class="container">
@@ -149,7 +138,7 @@
                 </div>
                 <div class="col-sm-4 col-md-6 text-center">
                     <div class="widget dark">
-                        <img class="mt-5" width="200" alt="" src="~/Images/logo_hcmup.png">
+                        <img class="mt-5" width="200" alt="" src="~/Image/logo_hcmup.png">
                     </div>
                 </div>
             </div>
@@ -170,18 +159,13 @@
             </div>
         </div>
     </footer>
-
-
     <div id="mydata" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
         </div>
     </div>
-
-
     <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
-
     <!-- end wrapper -->
     <!-- Footer Scripts -->
     @Scripts.Render("~/bundles/jquery")
@@ -189,7 +173,6 @@
     @Scripts.Render("~/bundles/qlkh")
     @RenderSection("scripts", required: false)
     @RenderSection("charts", required: false)
-
     <script>
         function modal_load(url) {
             $('#mydata .modal-content').load(url);

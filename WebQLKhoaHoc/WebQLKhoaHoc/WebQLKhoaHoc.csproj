@@ -353,6 +353,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\animate.css" />
+    <Content Include="Content\Admin\bootstrap-theme.min.css" />
+    <Content Include="Content\Admin\bootstrap.min.css" />
+    <Content Include="Content\Admin\dataTables.bootstrap.min.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -374,6 +378,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\avatar.bmp" />
+    <Content Include="Image\logo_hcmup.png" />
     <Content Include="QLKH.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKH.edmx</DependentUpon>
@@ -384,8 +389,17 @@
       <DependentUpon>QLKH.edmx</DependentUpon>
       <LastGenOutput>QLKH.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Admin\autosize.min.js" />
+    <Content Include="Scripts\Admin\bootstrap.min.js" />
+    <Content Include="Scripts\Admin\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\Admin\jquery.dataTables.min.js" />
+    <Content Include="Scripts\Admin\jquery.knob.min.js" />
+    <Content Include="Scripts\Admin\jquery.min.js" />
+    <Content Include="Scripts\Admin\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\Admin\multifield.js" />
+    <Content Include="Scripts\Admin\validator.js" />
     <Content Include="Scripts\app.js" />
-    <Content Include="Scripts\app_admin.js" />
+    <Content Include="Scripts\app_admin.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="QLKH.edmx">
@@ -397,6 +411,7 @@
     </Content>
     <Content Include="Content\custom.css" />
     <Content Include="Content\daterangepicker.css" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom-admin.js" />
     <Content Include="Scripts\custom.js" />
@@ -424,8 +439,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
@@ -448,7 +461,6 @@
     <Content Include="Views\Charts\degreeCharts.cshtml" />
     <Content Include="Views\Charts\quantumCharts.cshtml" />
     <Content Include="Views\Charts\book.cshtml" />
-    <Content Include="Views\Charts\process.cshtml" />
     <Content Include="Views\Charts\article.cshtml" />
     <Content Include="Views\Charts\totalCharts.cshtml" />
     <Content Include="Views\Charts\topicsChart.cshtml" />
@@ -645,6 +657,7 @@
     <Content Include="Views\AdminPhanLoaiSaches\Edit.cshtml" />
     <Content Include="Views\AdminPhanLoaiSaches\Index.cshtml" />
     <Content Include="Views\Shared\_AdminMainPage.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
