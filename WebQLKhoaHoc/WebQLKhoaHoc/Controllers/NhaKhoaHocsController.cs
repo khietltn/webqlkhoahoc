@@ -10,12 +10,15 @@ using WebQLKhoaHoc;
 using WebQLKhoaHoc.Models;
 using PagedList.Mvc;
 using PagedList;
+using System.Text;
+using System.IO;
 
 namespace WebQLKhoaHoc.Controllers
 {
     public class NhaKhoaHocsController : Controller
     {
         private QLKhoaHocEntities db = new QLKhoaHocEntities();
+        private QLKHRepository repo = new QLKHRepository();
 
         // GET: NhaKhoaHocs
         public async Task<ActionResult> Index(int? Page_No)
@@ -163,7 +166,8 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam", nhaKhoaHoc.MaHocHam);
             ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi", nhaKhoaHoc.MaHocVi);
             ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach", nhaKhoaHoc.MaNgachVienChuc);
-            return View(nhaKhoaHoc);
+            NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHoc);
+             return View(nkh);
         }
 
         // POST: NhaKhoaHocs/Edit/5
@@ -171,10 +175,36 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
+        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
         {
+           
             if (ModelState.IsValid)
             {
+                // Edit list dropdown
+                var selectedValue1 = Int32.Parse(Request.Form["MaHH1"].ToString());
+                var selectedValue2 = Int32.Parse(Request.Form["MaHH2"].ToString());
+                var selectedValue3 = Int32.Parse(Request.Form["MaHH3"].ToString());
+                var selectedValue4 = Int32.Parse(Request.Form["MaHH4"].ToString());
+                var selectedValue5 = Int32.Parse(Request.Form["MaHH5"].ToString());
+
+                nhaKhoaHoc.MaHocHam = selectedValue1;
+                nhaKhoaHoc.MaHocVi = selectedValue2;
+                nhaKhoaHoc.MaCNDaoTao = selectedValue3;
+                nhaKhoaHoc.MaDonViQL = selectedValue4;
+                nhaKhoaHoc.MaNgachVienChuc = selectedValue5;
+
+                // upload image
+                if (repo.HasFile(fileUpload))
+                {
+                    string mimeType = fileUpload.ContentType;
+                    Stream fileStream = fileUpload.InputStream;
+                    string fileName = Path.GetFileName(fileUpload.FileName);
+                    int fileLength = fileUpload.ContentLength;
+                    byte[] fileData = new byte[fileLength];
+                    nhaKhoaHoc.AnhCaNhan = fileData;
+                    fileStream.Read(fileData, 0, fileLength);
+                }
+
                 db.Entry(nhaKhoaHoc).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -183,8 +213,9 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", nhaKhoaHoc.MaDonViQL);
             ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam", nhaKhoaHoc.MaHocHam);
             ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi", nhaKhoaHoc.MaHocVi);
-            ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach", nhaKhoaHoc.MaNgachVienChuc);
-            return View(nhaKhoaHoc);
+            //ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach", nhaKhoaHoc.MaNgachVienChuc);
+            NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHoc);
+            return View(nkh);
         }
 
         // GET: NhaKhoaHocs/Delete/5

@@ -1,16 +1,310 @@
-﻿@model WebQLKhoaHoc.NhaKhoaHoc
+﻿@using Microsoft.Ajax.Utilities
+@model WebQLKhoaHoc.Models.NhaKhoaHocViewModel
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
 
-<h2>Edit</h2>
 
-@using (Html.BeginForm())
+<section class="">
+    <!-- Section: Scientist header -->
+    <section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
+        @using (Html.BeginForm("Search", "NhaKhoaHocs", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="display-table">
+                <div class="display-table-cell">
+                    <div class="container pt-30 pb-20">
+                        <div class="row">
+                            <div class="col-md-6 pt-10">
+                                <h2 class="title text-white">Dữ liệu Nhà khoa học</h2>
+                                <ol class="breadcrumb text-left text-black mt-10">
+                                    <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+                                    <li class="active text-gray-silver">Nhà khoa học</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Appointment Form Starts -->
+                                <form class="subpage bg-white pt-20 pl-30 pr-30 pb-15" method="post" action="http://csdlkhoahoc.hueuni.edu.vn/index.php/scientist/search">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                <div class="styled-select">
+                                                    @Html.DropDownList("MaDonVi", (IEnumerable<SelectListItem>)ViewBag.MaDonViQL, "--Chọn đơn vị--", new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaNgach", (IEnumerable<SelectListItem>)ViewBag.MaNgachVienChuc, "--Chọn ngạch--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaHocHam", (IEnumerable<SelectListItem>)ViewBag.MaHocHam, "--Chọn học hàm--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaHocVi", (IEnumerable<SelectListItem>)ViewBag.MaHocVi, "--Chọn học vị--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                @Html.DropDownList("MaCNDaoTao", (IEnumerable<SelectListItem>)ViewBag.MaCNDaoTao, "--Chọn chuyên ngành--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-8 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                <div class="styled-select">
+                                                    <input name="SearchValue" id="SearchValue" class="form-control" type="text" placeholder="Từ khóa tìm kiếm" value="@ViewBag.SearchValue">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4 pl-5 pr-5">
+                                            <div class="form-group mb-5">
+                                                <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
+                                                    Tìm Kiếm
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+    <div class="container">
+
+        <div class="section-content">
+
+            <!-- Section: Experts Details -->
+            <section>                
+                @using (Html.BeginForm("Edit", "NhaKhoaHocs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.MaNKH)
+                    <div class="container">
+                        <div class="section-content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="thumb">
+                                        @{
+                                            if (Model.AnhCaNhan.IsNullOrWhiteSpace())
+                                            {
+                                                <img class="img-fullwidth" src=@Url.Content("~/Image/avatar.bmp") style="max-height: 100vw; border-radius: 50%" />
+                                            }
+                                            else
+                                            {
+                                                <img class="img-fullwidth" src="@Model.AnhCaNhan" style="max-height: 100vw; border-radius: 50%" />
+                                            }
+                                        }
+
+                                    </div>
+                                    <div class="form-group">
+                                        @*@Html.LabelFor(model => model.AnhCaNhan, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                        <h5 class="mt-0 mb-0 font-weight-600">Ảnh cá nhân:</h5>
+                                        <div class="col-md-10">
+                                            <input type="file" name="fileUpload" style="width: 100%;" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 mt-20 text-center">
+                                            <h4 class="name font-24 mt-0 mb-0">
+                                                @Model.HoNKH @Model.TenNKH
+                                            </h4>
+                                            <h5 class="mt-5 text-theme-color-2">
+                                                @Model.HocHam.TenHocHam - @Model.HocVi.TenHocVi
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <!-- Divider: Funfact -->
+
+                                    <div class="row divider parallax " data-parallax-ratio="0.7" style="background-position: 50% 380px;">
+                                        <div class="col-xs-12 col-sm-6 col-md-4 mb-md-50">
+                                            <div class="funfact text-center">
+                                                <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/article/index/user/2873/page/1">
+                                                    <h2 data-animation-duration="2000" data-value="@Model.DsBaiBao" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">0</h2>
+                                                </a>
+                                                <h5 class="text-uppercase mb-0">Bài báo</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-4 mb-md-50">
+                                            <div class="funfact text-center">
+                                                <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/book/index/user/2873/page/1">
+                                                    <h2 data-animation-duration="2000" data-value="@Model.DsSach" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">0</h2>
+                                                </a>
+                                                <h5 class="text-uppercase mb-0">Sách - Giáo trình</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-4 mb-md-50">
+                                            <div class="funfact text-center">
+                                                <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/topic/index/user/2873/page/1">
+                                                    <h2 data-animation-duration="2000" data-value="@Model.DsDetai" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">1</h2>
+                                                </a>
+                                                <h5 class="text-uppercase mb-0">Đề tài khoa học</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4 class="line-bottom">Thông tin:</h4>
+                                            <div class="volunteer-address">
+                                                <ul>
+                                                    <li>
+                                                        <div class="bg-light media border-bottom p-15 mb-20">
+                                                            <div class="media-left">
+                                                                <i class="fa fa-user text-theme-colored font-24 mt-5"></i>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="form-group">
+                                                                    <p>
+                                                                        <span class="mt-0 mb-0 font-weight-600">Họ:</span>
+                                                                        @Html.EditorFor(model => model.HoNKH)<br>
+                                                                        <span class="mt-0 mb-0 font-weight-600">Tên:</span>
+                                                                        @Html.EditorFor(model => model.TenNKH)<br>
+                                                                        <span class="mt-0 mb-0 font-weight-600">Giới tính:</span>
+                                                                        <select>
+                                                                            <option>Nam</option>
+                                                                            <option>Nữ</option>
+                                                                        </select>
+                                                                        <br>
+                                                                        <span class="mt-0 mb-0 font-weight-600">Ngày sinh</span>
+                                                                        @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @Value = DateTime.Now, @class = "form-control datepicker" } })
+                                                                    </p>
+                                                                </div>
+                                                                @*<p>
+                                                            <span class="mt-0 mb-0 font-weight-600">Họ:</span>
+                                                            @Html.EditorFor(model => model.HoNKH)<br>
+                                                            <span class="mt-0 mb-0 font-weight-600">Tên:</span>
+                                                            @Html.EditorFor(model => model.TenNKH)<br>
+                                                            <span class="mt-0 mb-0 font-weight-600">Giới tính:</span>
+                                                            @Html.EditorFor(model => model.GioiTinhNKH)<br>
+                                                            <span class="mt-0 mb-0 font-weight-600">Năm sinh:</span>
+                                                            @Html.EditorFor(model => model.NgaySinh.Value.Year)
+                                                        </p>*@
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="bg-light media border-bottom p-15 mb-20">
+                                                            <div class="media-left">
+                                                                <i class="fa fa-map-marker text-theme-colored font-24 mt-5"></i>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="form-group">
+                                                                    <h5 class="mt-0 mb-0 font-weight-600">Địa chỉ:</h5>
+                                                                    <p>
+                                                                        @Html.EditorFor(model => model.DiaChiLienHe)
+                                                                    </p>
+                                                                </div>
+                                                                @*<h5 class="mt-0 mb-0 font-weight-600">Địa chỉ:</h5>
+                                                        <p>
+                                                            @Html.EditorFor(model => model.DiaChiLienHe)
+                                                        </p>*@
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="bg-light media border-bottom p-15">
+                                                            <div class="media-left">
+                                                                <i class="fa fa-phone text-theme-colored font-24 mt-5"></i>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="form-group">
+                                                                    <h5 class="mt-0 mb-0 font-weight-600">Liên hệ:</h5>
+                                                                    <p>
+                                                                        <span>Điện thoại:</span> @Html.EditorFor(model => model.DienThoai, new { @class = "form-control" })<br>
+                                                                        <span>Email:</span> @Html.EditorFor(model => model.EmailLienHe, new { @class = "form-control" })<br>
+
+                                                                    </p>
+                                                                </div>
+                                                                @*<h5 class="mt-0 mb-0 font-weight-600">Liên hệ:</h5>
+                                                        <p>
+                                                            <span>Điện thoại:</span> @Html.EditorFor(model => model.DienThoai)<br>
+                                                            <span>Email:</span> @Html.EditorFor(model => model.EmailLienHe)<br>
+
+                                                        </p>*@
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="line-bottom">Chuyên môn:</h4>
+                                            <div class="volunteer-address">
+                                                <ul>
+                                                    <li>
+                                                        <div class="bg-light media border-bottom p-15 mb-20">
+                                                            <div class="media-left">
+                                                                <i class="fa fa-bookmark text-theme-colored font-24 mt-5"></i>
+                                                            </div>
+                                                            <div class="media-body form-group">
+                                                                <h5 class="mt-0 mb-0 font-weight-600">Chức danh:</h5>
+                                                                <p>
+                                                                    @Html.DropDownList("MaHH1", (IEnumerable<SelectListItem>)ViewBag.MaHocHam, "--Chọn học hàm--", new { @class = "form-control" })
+                                                                </p>
+                                                                <h5 class="mt-0 mb-0 font-weight-600">Học vị:</h5>
+                                                                <p>
+                                                                    @Html.DropDownList("MaHH2", (IEnumerable<SelectListItem>)ViewBag.MaHocVi, "--Chọn học vị--", new { @class = "form-control" })
+                                                                </p>
+                                                                <h5 class="mt-0 mb-0 font-weight-600">Chuyên ngành đào tạo:</h5>
+                                                                <p>
+                                                                    @Html.DropDownList("MaHH3", (IEnumerable<SelectListItem>)ViewBag.MaCNDaoTao, "--Chọn chuyên ngành--", new { @class = "form-control" })
+                                                                </p>
+                                                                <h5 class="mt-0 mb-0 font-weight-600">Đơn vị quản lý:</h5>
+                                                                <p>
+                                                                    @Html.DropDownList("MaHH4", (IEnumerable<SelectListItem>)ViewBag.MaDonViQL, "--Chọn đơn vị--", new { @class = "form-control" })
+                                                                </p>
+                                                                <h5 class="mt-0 mb-0 font-weight-600">Ngạch viên chức:</h5>
+                                                                <p>
+                                                                    @Html.DropDownList("MaHH5", (IEnumerable<SelectListItem>)ViewBag.MaNgachVienChuc, "--Chọn ngạch--", new { @class = "form-control" })
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                }
+            </section>
+
+        </div>
+    </div>
+</section>
+
+
+@*@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>NhaKhoaHoc</h4>
         <hr />
@@ -139,4 +433,4 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
