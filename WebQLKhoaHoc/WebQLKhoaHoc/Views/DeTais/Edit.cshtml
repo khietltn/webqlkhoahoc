@@ -11,162 +11,188 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>DeTai</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.MaDeTai)
+<div class="form-horizontal">
+    <h4>DeTai</h4>
+    <hr />
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.MaDeTai)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaDeTaiHoSo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span> Thông tin đề tài</h4>
+    </div>
+
+    <div class="modal-body">
+
+        <dl class="dl-horizontal">
+           
+            <dd>
                 @Html.EditorFor(model => model.MaDeTaiHoSo)
-                @Html.ValidationMessageFor(model => model.MaDeTaiHoSo)
-            </div>
-        </div>
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenDeTai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <dt>
+                Tên đề tài:
+            </dt>
+
+            <dd>
                 @Html.EditorFor(model => model.TenDeTai)
-                @Html.ValidationMessageFor(model => model.TenDeTai)
-            </div>
-        </div>
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaLoaiDeTai, "MaLoaiDeTai", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaLoaiDeTai", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaLoaiDeTai)
-            </div>
-        </div>
+            <dt>
+                Mục tiêu đề tài:
+            </dt>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaCapDeTai, "MaCapDeTai", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaCapDeTai", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaCapDeTai)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaDVChuTri, "MaDVChuTri", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaDVChuTri", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaDVChuTri)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaDonViQLThucHien, "MaDonViQLThucHien", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaDonViQLThucHien", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaDonViQLThucHien)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaLinhVuc, "MaLinhVuc", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaLinhVuc", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaLinhVuc)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MucTieuDeTai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <dd>
                 @Html.EditorFor(model => model.MucTieuDeTai)
-                @Html.ValidationMessageFor(model => model.MucTieuDeTai)
-            </div>
-        </div>
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NoiDungDeTai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <dt>
+                Nội dung đề tài
+            </dt>
+
+            <dd>
                 @Html.EditorFor(model => model.NoiDungDeTai)
-                @Html.ValidationMessageFor(model => model.NoiDungDeTai)
-            </div>
-        </div>
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KetQuaDeTai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <dt>
+                Kết quả đề tài
+            </dt>
+
+            <dd>
                 @Html.EditorFor(model => model.KetQuaDeTai)
-                @Html.ValidationMessageFor(model => model.KetQuaDeTai)
-            </div>
-        </div>
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NamBD, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NamBD)
-                @Html.ValidationMessageFor(model => model.NamBD)
-            </div>
-        </div>
+            <dt>
+                Năm bắt đầu:
+            </dt>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NamKT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NamKT)
-                @Html.ValidationMessageFor(model => model.NamKT)
-            </div>
-        </div>
+            <dd>
+                <input name="NamBD" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@Model.NamBD.Value" autocomplete="off">
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaXepLoai, "MaXepLoai", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaXepLoai", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaXepLoai)
-            </div>
-        </div>
+            <dt>
+                Năm kết thúc:
+            </dt>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaTinhTrang, "MaTinhTrang", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaTinhTrang", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaTinhTrang)
-            </div>
-        </div>
+            <dd>
+                <input name="NamKT" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@Model.NamKT.Value" autocomplete="off">
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaPhanLoaiSP, "MaPhanLoaiSP", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaPhanLoaiSP", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaPhanLoaiSP)
-            </div>
-        </div>
+            <dt>
+                Kinh phí:
+            </dt>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KinhPhi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <dd>
                 @Html.EditorFor(model => model.KinhPhi)
-                @Html.ValidationMessageFor(model => model.KinhPhi)
-            </div>
-        </div>
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LienKetWeb, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <dt>
+                Web liên kết:
+            </dt>
+
+            <dd>
                 @Html.EditorFor(model => model.LienKetWeb)
-                @Html.ValidationMessageFor(model => model.LienKetWeb)
-            </div>
-        </div>
+            </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LinkFileUpload, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <dt>
+                Link upload file:
+            </dt>
+
+            <dd>
                 @Html.EditorFor(model => model.LinkFileUpload)
-                @Html.ValidationMessageFor(model => model.LinkFileUpload)
-            </div>
-        </div>
+            </dd>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+            <dt>
+                Cấp đề tài:
+            </dt>
+
+            <dd>
+                @Html.DropDownList("MaCapDeTai", (IEnumerable<SelectListItem>)ViewBag.MaCapDeTai,  new { @class = "form-control" })
+            </dd>
+
+            <dt>
+                Loại đề tài:
+            </dt>
+
+            <dd>
+                @Html.DropDownList("MaLoaiDeTai", (IEnumerable<SelectListItem>)ViewBag.MaLoaiDeTai,  new { @class = "form-control" })
+            </dd>
+
+            <dt>
+                Đơn vị chủ trì:
+            </dt>
+
+            <dd>
+                @Html.DropDownList("MaDVChuTri", (IEnumerable<SelectListItem>)ViewBag.MaDVChuTri,  new { @class = "form-control" })
+            </dd>
+
+            <dt>
+                Đơn vị:
+            </dt>
+
+            <dd>
+                @Html.DropDownList("MaDonViQLThucHien", (IEnumerable<SelectListItem>)ViewBag.MaDonViQLThucHien, new { @class = "form-control" })
+            </dd>
+
+            <dt>
+                Lĩnh vực:
+            </dt>
+
+            <dd>
+                @Html.DropDownList("MaLinhVuc", (IEnumerable<SelectListItem>)ViewBag.MaLinhVuc, new { @class = "form-control" })
+            </dd>
+
+            <dt>
+                Xếp loại:
+            </dt>
+
+            <dd>
+                @Html.DropDownList("MaXepLoai", (IEnumerable<SelectListItem>)ViewBag.MaXepLoai,  new { @class = "form-control" })
+            </dd>
+
+            <dt>
+                Tình trạng:
+            </dt>
+
+            <dd>
+                @Html.DropDownList("MaTinhTrang", (IEnumerable<SelectListItem>)ViewBag.MaTinhTrang,  new { @class = "form-control" })
+            </dd>
+
+            <dt>
+                Phân loại:
+            </dt>
+
+            <dd>
+                @Html.DropDownList("MaPhanLoaiSP", (IEnumerable<SelectListItem>)ViewBag.MaPhanLoaiSP,  new { @class = "form-control" })
+            </dd>
+
+            <dt>
+                Người tham gia:
+            </dt>
+
+            <dd>
+                @Html.ListBox("DSNguoiThamGiaDT", ViewBag.DSNguoiThamGiaDeTai as MultiSelectList, new { @class = "listbox" })
+            </dd>
+
+        </dl>
+
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
+</div>
 }
 
 <div>

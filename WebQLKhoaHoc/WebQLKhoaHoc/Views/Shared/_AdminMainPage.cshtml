@@ -114,11 +114,11 @@
                                     @{
                                         if (String.IsNullOrWhiteSpace(nd.AnhCaNhan))
                                         {
-                                            <img src=@Url.Content("~/Image/avatar.bmp") style="height: 29px; width: 29px; border-radius: 50%;"/>
+                                            <img src=@Url.Content("~/Image/avatar.bmp") style="height: 29px; width: 29px; border-radius: 50%;" />
                                         }
                                         else
                                         {
-                                            <img src="@nd.AnhCaNhan" style="height: 29px; width: 29px; border-radius: 50%;"/>
+                                            <img src="@nd.AnhCaNhan" style="height: 29px; width: 29px; border-radius: 50%;" />
                                         }
                                     }@nd.Ten
 
@@ -166,13 +166,24 @@
             </footer>
         </div>
     </div>
-
+    <div id="mydata" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
     <!-- end wrapper -->
     <!-- Footer Scripts -->
 
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/qlkh")
     @Scripts.Render("~/bundles/admin")
-
+    <script>
+        function modal_load(url) {
+            $('#mydata .modal-content').load(url);
+        };
+    </script>
 
 
 </body>

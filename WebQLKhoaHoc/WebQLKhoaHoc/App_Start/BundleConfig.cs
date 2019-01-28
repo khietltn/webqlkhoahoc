@@ -26,25 +26,21 @@ namespace WebQLKhoaHoc
             bundles.Add(new ScriptBundle("~/bundles/qlkh").Include(
                 "~/Scripts/custom.js",
                 "~/Scripts/jquery-ui.min.js",
-                "~/Scripts/jquery-plugin-collection.js"
+                "~/Scripts/jquery-plugin-collection.js",
+                "~/Scripts/bootstrap-multiselect.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/charts").Include(
                 "~/Scripts/charts.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/admin").Include(
-                "~/Scripts/Admin/jquery.min.js",
+            bundles.Add(new ScriptBundle("~/bundles/admin").Include(                
                 "~/Scripts/Admin/jquery.mousewheel.min.js",
                 "~/Scripts/Admin/jquery.knob.min.js",
-                "~/Scripts/Admin/jquery.dataTables.min.js",
-                "~/Scripts/Admin/bootstrap.min.js",
-                "~/Scripts/Admin/autosize.min.js",
-                
+                "~/Scripts/Admin/jquery.dataTables.min.js",                
+                "~/Scripts/Admin/autosize.min.js",                
                 "~/Scripts/Admin/dataTables.bootstrap.min.js",
                 "~/Scripts/app_admin.min.js"
-
-
             ));
 
             bundles.Add(new StyleBundle("~/Content/admincss").Include(
@@ -67,7 +63,8 @@ namespace WebQLKhoaHoc
                 "~/Content/style-main.css",
                 "~/Content/theme-skin-color-set-1.css",
                 "~/Content/utility-classes.css",
-                "~/Content/jquery-ui.min.css"
+                "~/Content/jquery-ui.min.css",
+                      "~/Content/bootstrap-multiselect.css"
                 ));
         }
     }

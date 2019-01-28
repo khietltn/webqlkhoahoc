@@ -358,6 +358,7 @@
     <Content Include="Content\Admin\bootstrap.min.css" />
     <Content Include="Content\Admin\dataTables.bootstrap.min.css" />
     <Content Include="Content\animate.css" />
+    <Content Include="Content\bootstrap-multiselect.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css-plugin-collections.css" />
@@ -400,6 +401,7 @@
     <Content Include="Scripts\Admin\validator.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\app_admin.min.js" />
+    <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="QLKH.edmx">
