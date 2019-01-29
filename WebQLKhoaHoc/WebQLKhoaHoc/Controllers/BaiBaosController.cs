@@ -49,7 +49,36 @@ namespace WebQLKhoaHoc.Controllers
             int No_Of_Page = (Page_No ?? 1);
             return View(listBB.ToPagedList(No_Of_Page, Size_Of_Page));
         }
+        public async Task<ActionResult> Search(int? Page_No)
+        {
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
+            ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
+            ViewBag.MaPhanLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
+            ViewBag.MaLoaiTapChi = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Trong Nước", Value = "1"},
+                new SelectListItem { Text = "Ngoài Nước", Value ="0"},
+            };
 
+            var baiBaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs).Include(b => b.DSNguoiThamGiaBaiBaos);
+
+            var listBB = baiBaos.Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .Concat(baiBaos)
+                .ToList();
+
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
+            return View("Index",listBB.ToPagedList(No_Of_Page, Size_Of_Page));
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaLinhVuc,MaPhanLoaiTapChi,MaLoaiTapChi,MaCapTapChi,CQXuatBan,Fromdate,Todate,SearchValue")] BaiBaoSearchViewModel baibao)

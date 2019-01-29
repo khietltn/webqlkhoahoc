@@ -37,6 +37,25 @@ namespace WebQLKhoaHoc.Controllers
             int No_Of_Page = (Page_No ?? 1);
             return View(listDT.ToPagedList(No_Of_Page, Size_Of_Page));
         }
+
+        public async Task<ActionResult> Search(int? Page_No)
+        {
+            ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
+            ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
+            var deTais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).Include(d => d.DSNguoiThamGiaDeTais);
+            var listDT = deTais.Concat(deTais)
+                .Concat(deTais)
+                .Concat(deTais)
+                .Concat(deTais)
+                .Concat(deTais)
+                .Concat(deTais)
+                .ToList();
+
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
+            return View("Index",listDT.ToPagedList(No_Of_Page, Size_Of_Page));
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaCapDeTai,MaDonViQLThucHien,MaLinhVuc,Fromdate,Todate,SearchValue")] DeTaiSearchViewModel detai)
