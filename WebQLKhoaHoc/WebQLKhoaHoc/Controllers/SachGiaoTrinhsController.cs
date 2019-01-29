@@ -37,6 +37,24 @@ namespace WebQLKhoaHoc.Controllers
             int No_Of_Page = (Page_No ?? 1);
             return View(listDT.ToPagedList(No_Of_Page, Size_Of_Page));
         }
+        public async Task<ActionResult> Search(int? Page_No)
+        {
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
+            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB");
+            ViewBag.MaLoai = new SelectList(db.PhanLoaiSaches, "MaLoai", "TenLoai");
+            var sachGiaoTrinhs = db.SachGiaoTrinhs.Include(s => s.LinhVuc).Include(s => s.NhaXuatBan).Include(s => s.PhanLoaiSach);
+            var listDT = sachGiaoTrinhs.Concat(sachGiaoTrinhs)
+                .Concat(sachGiaoTrinhs)
+                .Concat(sachGiaoTrinhs)
+                .Concat(sachGiaoTrinhs)
+                .Concat(sachGiaoTrinhs)
+                .Concat(sachGiaoTrinhs)
+                .ToList();
+
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
+            return View("Index",listDT.ToPagedList(No_Of_Page, Size_Of_Page));
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaLinhVuc,MaLoai,MaNXB,SearchValue")] SachGiaoTrinhSearchViewModel sachgiaotrinh)

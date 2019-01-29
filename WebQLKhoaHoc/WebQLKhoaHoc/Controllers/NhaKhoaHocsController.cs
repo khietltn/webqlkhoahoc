@@ -79,6 +79,30 @@ namespace WebQLKhoaHoc.Controllers
             return View();
         }
 
+        public async Task<ActionResult> Search(int? Page_No)
+        {
+            ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs.ToList(), "MaChuyenNganh", "TenChuyenNganh");
+            ViewBag.MaDonViQL = new SelectList(db.DonViQLs.ToList(), "MaDonVi", "TenDonVI");
+            ViewBag.MaHocHam = new SelectList(db.HocHams.ToList(), "MaHocHam", "TenHocHam");
+            ViewBag.MaHocVi = new SelectList(db.HocVis.ToList(), "MaHocVi", "TenHocVi");
+            ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs.ToList(), "MaNgach", "TenNgach");
+            var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc);
+            var listNKH = nhaKhoaHocs.Concat(nhaKhoaHocs)
+                .Concat(nhaKhoaHocs)
+                .Concat(nhaKhoaHocs)
+                .Concat(nhaKhoaHocs)
+                .ToList();
+            var lstNKH = new List<NhaKhoaHocViewModel>();
+            for (int i = 0; i < listNKH.Count; i++)
+            {
+                NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(listNKH[i]);
+                lstNKH.Add(nkh);
+            }
+
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
+            return View("Index",lstNKH.ToPagedList(No_Of_Page, Size_Of_Page));
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Search(int? Page_No,[Bind(Include = "MaDonVi,MaNgach,MaHocHam,MaHocVi,MaCNDaoTao,SearchValue")] NhaKhoaHocSearchViewModel nhaKhoaHoc)

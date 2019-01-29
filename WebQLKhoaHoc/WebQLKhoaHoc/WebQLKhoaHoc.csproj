@@ -170,27 +170,35 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BacDaoTao.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="BaiBao.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="CapDeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="CapTapChi.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ChucNang.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ChuyenMon.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ChuyenMonNKH.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ChuyenNganh.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminBacDaoTaoController.cs" />
@@ -236,42 +244,54 @@
     <Compile Include="Controllers\SachGiaoTrinhsController.cs" />
     <Compile Include="DeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DonViChuTri.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DonViQL.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DSBaiBaoDeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DSNguoiThamGiaBaiBao.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DSNguoiThamGiaDeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DSTacGia.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HocHam.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="HocVi.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="KinhPhiDeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="LinhVuc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="LoaiHinhDeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\BaiBaoSearchViewModel.cs" />
     <Compile Include="Models\HomeSearchViewModel.cs" />
@@ -291,65 +311,83 @@
     <Compile Include="Models\UserLoginViewModel.cs" />
     <Compile Include="NgachVienChuc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="NganhDaoTao.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="NguoiDung.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="NhaKhoaHoc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="NhaXuatBan.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="NhomLinhVuc.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PhanLoaiSach.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PhanLoaiSP.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PhanLoaiTapChi.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QLKH.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QLKH.Context.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="QLKH.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="QLKH.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QLKH.edmx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="QuaTrinhCongTac.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="QuaTrinhDaoTao.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="SachGiaoTrinh.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="TinhTrangDeTai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="TrinhDoNgoaiNgu.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XepLoai.cs">
       <DependentUpon>QLKH.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -384,11 +422,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKH.edmx</DependentUpon>
       <LastGenOutput>QLKH.Context.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="QLKH.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKH.edmx</DependentUpon>
       <LastGenOutput>QLKH.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\Admin\autosize.min.js" />
     <Content Include="Scripts\Admin\bootstrap.min.js" />
@@ -407,9 +447,11 @@
     <EntityDeploy Include="QLKH.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>QLKH.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EntityDeploy>
     <Content Include="QLKH.edmx.diagram">
       <DependentUpon>QLKH.edmx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\custom.css" />
     <Content Include="Content\daterangepicker.css" />
