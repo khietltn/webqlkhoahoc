@@ -108,15 +108,14 @@
                                         }
 
                                     </div>
-                                    <div class="form-group">
+                                    <div class="col-md-12 mt-20 text-center">
                                         @*@Html.LabelFor(model => model.AnhCaNhan, htmlAttributes: new { @class = "control-label col-md-2" })*@
                                         <h5 class="mt-0 mb-0 font-weight-600">Ảnh cá nhân:</h5>
                                         <div class="col-md-10">
                                             <input type="file" name="fileUpload" style="width: 100%;" />
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12 mt-20 text-center">
+                                        <div class="col-md-12 mt-40 text-center">
                                             <h4 class="name font-24 mt-0 mb-0">
                                                 @Model.HoNKH @Model.TenNKH
                                             </h4>
@@ -124,7 +123,6 @@
                                                 @Model.HocHam.TenHocHam - @Model.HocVi.TenHocVi
                                             </h5>
                                         </div>
-                                    </div>
                                 </div>
                                 <div class="col-md-8">
                                     <!-- Divider: Funfact -->
@@ -169,18 +167,34 @@
                                                             <div class="media-body">
                                                                 <div class="form-group">
                                                                     <p>
-                                                                        <span class="mt-0 mb-0 font-weight-600">Họ:</span>
-                                                                        @Html.EditorFor(model => model.HoNKH)<br>
-                                                                        <span class="mt-0 mb-0 font-weight-600">Tên:</span>
-                                                                        @Html.EditorFor(model => model.TenNKH)<br>
-                                                                        <span class="mt-0 mb-0 font-weight-600">Giới tính:</span>
-                                                                        <select>
-                                                                            <option>Nam</option>
-                                                                            <option>Nữ</option>
-                                                                        </select>
-                                                                        <br>
-                                                                        <span class="mt-0 mb-0 font-weight-600">Ngày sinh</span>
-                                                                        @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @Value = DateTime.Now, @class = "form-control datepicker" } })
+                                                                        <div class="col-md-4">
+                                                                            <span class="mt-0 mb-0 font-weight-600">Họ:</span>
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            @Html.EditorFor(model => model.HoNKH)<br>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <span class="mt-0 mb-0 font-weight-600">Tên:</span>
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            @Html.EditorFor(model => model.TenNKH)<br>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <span class="mt-0 mb-0 font-weight-600">Giới tính:</span>
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            <select>
+                                                                                <option>Nam</option>
+                                                                                <option>Nữ</option>
+                                                                            </select>
+                                                                            <br>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <span class="mt-0 mb-0 font-weight-600">Ngày sinh</span>
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @Value = DateTime.Now , @class = "form-control datepicker" } })
+                                                                        </div>                             
                                                                     </p>
                                                                 </div>
                                                                 @*<p>
