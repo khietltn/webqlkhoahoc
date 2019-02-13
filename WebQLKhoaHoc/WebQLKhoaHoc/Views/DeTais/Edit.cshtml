@@ -5,194 +5,189 @@
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
 
-<h2>Edit</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>DeTai</h4>
-    <hr />
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.MaDeTai)
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
+        <div class="form-horizontal">
 
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span> Thông tin đề tài</h4>
-    </div>
-
-    <div class="modal-body">
-
-        <dl class="dl-horizontal">
-           
-            <dd>
-                @Html.EditorFor(model => model.MaDeTaiHoSo)
-            </dd>
-
-            <dt>
-                Tên đề tài:
-            </dt>
-
-            <dd>
-                @Html.EditorFor(model => model.TenDeTai)
-            </dd>
-
-            <dt>
-                Mục tiêu đề tài:
-            </dt>
-
-            <dd>
-                @Html.EditorFor(model => model.MucTieuDeTai)
-            </dd>
-
-            <dt>
-                Nội dung đề tài
-            </dt>
-
-            <dd>
-                @Html.EditorFor(model => model.NoiDungDeTai)
-            </dd>
-
-            <dt>
-                Kết quả đề tài
-            </dt>
-
-            <dd>
-                @Html.EditorFor(model => model.KetQuaDeTai)
-            </dd>
-
-            <dt>
-                Năm bắt đầu:
-            </dt>
-
-            <dd>
-                <input name="NamBD" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@Model.NamBD.Value.ToString("d")" autocomplete="off">
-            </dd>
-
-            <dt>
-                Năm kết thúc:
-            </dt>
-
-            <dd>
-                <input name="NamKT" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@Model.NamKT.Value.ToString("d")" autocomplete="off">
-            </dd>
-
-            <dt>
-                Kinh phí:
-            </dt>
-
-            <dd>
-                @Html.EditorFor(model => model.KinhPhi)
-            </dd>
-
-            <dt>
-                Web liên kết:
-            </dt>
-
-            <dd>
-                @Html.EditorFor(model => model.LienKetWeb)
-            </dd>
-
-            <dt>
-                Link upload file:
-            </dt>
-
-            <dd>
-                @Html.EditorFor(model => model.LinkFileUpload)
-            </dd>
-
-            <dt>
-                Cấp đề tài:
-            </dt>
-
-            <dd>
-                @Html.DropDownList("MaCapDeTai", (IEnumerable<SelectListItem>)ViewBag.MaCapDeTai,  new { @class = "form-control" })
-            </dd>
-
-            <dt>
-                Loại đề tài:
-            </dt>
-
-            <dd>
-                @Html.DropDownList("MaLoaiDeTai", (IEnumerable<SelectListItem>)ViewBag.MaLoaiDeTai,  new { @class = "form-control" })
-            </dd>
-
-            <dt>
-                Đơn vị chủ trì:
-            </dt>
-
-            <dd>
-                @Html.DropDownList("MaDVChuTri", (IEnumerable<SelectListItem>)ViewBag.MaDVChuTri,  new { @class = "form-control" })
-            </dd>
-
-            <dt>
-                Đơn vị:
-            </dt>
-
-            <dd>
-                @Html.DropDownList("MaDonViQLThucHien", (IEnumerable<SelectListItem>)ViewBag.MaDonViQLThucHien, new { @class = "form-control" })
-            </dd>
-
-            <dt>
-                Lĩnh vực:
-            </dt>
-
-            <dd>
-                @Html.DropDownList("MaLinhVuc", (IEnumerable<SelectListItem>)ViewBag.MaLinhVuc, new { @class = "form-control" })
-            </dd>
-
-            <dt>
-                Xếp loại:
-            </dt>
-
-            <dd>
-                @Html.DropDownList("MaXepLoai", (IEnumerable<SelectListItem>)ViewBag.MaXepLoai,  new { @class = "form-control" })
-            </dd>
-
-            <dt>
-                Tình trạng:
-            </dt>
-
-            <dd>
-                @Html.DropDownList("MaTinhTrang", (IEnumerable<SelectListItem>)ViewBag.MaTinhTrang,  new { @class = "form-control" })
-            </dd>
-
-            <dt>
-                Phân loại:
-            </dt>
-
-            <dd>
-                @Html.DropDownList("MaPhanLoaiSP", (IEnumerable<SelectListItem>)ViewBag.MaPhanLoaiSP,  new { @class = "form-control" })
-            </dd>
-
-            <dt>
-                Người tham gia:
-            </dt>
-
-            <dd>
-                @Html.ListBox("DSNguoiThamGiaDT", ViewBag.DSNguoiThamGiaDeTai as MultiSelectList, new { @class = "listbox" })
-            </dd>
-
-        </dl>
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.MaDeTai)
 
 
-    </div>
+            <div class="modal-header">
 
-    <div class="modal-footer">
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a href="@Url.Action("Index","DeTais")" type="button" class="btn btn-danger">Đóng</a>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span> Thông tin đề tài</h4>
             </div>
+
+            <div class="modal-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        Mã đề tài hộ sở:
+                    </dt>
+                    <dd>
+                        @Html.EditorFor(model => model.MaDeTaiHoSo, new { htmlAttributes = new { @class = "form-control" } })
+                    </dd>
+                    <dt>
+                        Tên đề tài:
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.TenDeTai, new { htmlAttributes = new { @class = "form-control" } })
+                    </dd>
+
+                    <dt>
+                        Mục tiêu đề tài:
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.MucTieuDeTai, new { htmlAttributes = new { @class = "form-control" } })
+                    </dd>
+
+                    <dt>
+                        Nội dung đề tài
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.NoiDungDeTai, new { htmlAttributes = new { @class = "form-control" } })
+                    </dd>
+
+                    <dt>
+                        Kết quả đề tài
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.KetQuaDeTai, new { htmlAttributes = new { @class = "form-control" } })
+                    </dd>
+
+                    <dt>
+                        Năm bắt đầu:
+                    </dt>
+
+                    <dd>
+                        <input name="NamBD" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@Model.NamBD.Value.ToString("d")" autocomplete="off">
+                    </dd>
+
+                    <dt>
+                        Năm kết thúc:
+                    </dt>
+
+                    <dd>
+                        <input name="NamKT" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@Model.NamKT.Value.ToString("d")" autocomplete="off">
+                    </dd>
+
+                    <dt>
+                        Kinh phí:
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.KinhPhi, new { htmlAttributes = new { @class = "form-control" } })
+                    </dd>
+
+                    <dt>
+                        Web liên kết:
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.LienKetWeb, new { htmlAttributes = new { @class = "form-control" } })
+                    </dd>
+
+                    <dt>
+                        Link upload file:
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.LinkFileUpload, new { htmlAttributes = new { @class = "form-control" } })
+                    </dd>
+
+                    <dt>
+                        Cấp đề tài:
+                    </dt>
+
+                    <dd>
+                        @Html.DropDownList("MaCapDeTai", (IEnumerable<SelectListItem>)ViewBag.MaCapDeTai, new { @class = "form-control" })
+                    </dd>
+
+                    <dt>
+                        Loại đề tài:
+                    </dt>
+
+                    <dd>
+                        @Html.DropDownList("MaLoaiDeTai", (IEnumerable<SelectListItem>)ViewBag.MaLoaiDeTai, new { @class = "form-control" })
+                    </dd>
+
+                    <dt>
+                        Đơn vị chủ trì:
+                    </dt>
+
+                    <dd>
+                        @Html.DropDownList("MaDVChuTri", (IEnumerable<SelectListItem>)ViewBag.MaDVChuTri, new { @class = "form-control" })
+                    </dd>
+
+                    <dt>
+                        Đơn vị:
+                    </dt>
+
+                    <dd>
+                        @Html.DropDownList("MaDonViQLThucHien", (IEnumerable<SelectListItem>)ViewBag.MaDonViQLThucHien, new { @class = "form-control" })
+                    </dd>
+
+                    <dt>
+                        Lĩnh vực:
+                    </dt>
+
+                    <dd>
+                        @Html.DropDownList("MaLinhVuc", (IEnumerable<SelectListItem>)ViewBag.MaLinhVuc, new { @class = "form-control" })
+                    </dd>
+
+                    <dt>
+                        Xếp loại:
+                    </dt>
+
+                    <dd>
+                        @Html.DropDownList("MaXepLoai", (IEnumerable<SelectListItem>)ViewBag.MaXepLoai, new { @class = "form-control" })
+                    </dd>
+
+                    <dt>
+                        Tình trạng:
+                    </dt>
+
+                    <dd>
+                        @Html.DropDownList("MaTinhTrang", (IEnumerable<SelectListItem>)ViewBag.MaTinhTrang, new { @class = "form-control" })
+                    </dd>
+
+                    <dt>
+                        Phân loại:
+                    </dt>
+
+                    <dd>
+                        @Html.DropDownList("MaPhanLoaiSP", (IEnumerable<SelectListItem>)ViewBag.MaPhanLoaiSP, new { @class = "form-control" })
+                    </dd>
+
+                    <dt>
+                        Người tham gia:
+                    </dt>
+
+                    <dd>
+                        @Html.ListBox("DSNguoiThamGiaDT", ViewBag.DSNguoiThamGiaDeTai as MultiSelectList, new { @class = "listbox" })
+                    </dd>
+
+                </dl>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Lưu Xuống" class="btn btn-primary" />
+                        <a href="@Url.Action("Index","DeTais")" type="button" class="btn btn-danger">Trở Về</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-
-</div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>

@@ -1140,7 +1140,7 @@
                                                 showElement = true;
                                             }
                                         }
-                                        else if (filterCandidate.indexOf(this.query) > -1) {
+                                        else if (filterCandidate.normalize().indexOf(this.query.normalize()) > -1) {
                                             showElement = true;
                                         }
 

@@ -179,7 +179,9 @@ var THEMEMASCOT = {};
             $('.listbox').multiselect({
                 includeSelectAllOption: true,
                 enableFiltering: true,
-                filterBehavior: 'value'
+                filterPlaceholder: 'Search',
+                enableCaseInsensitiveFiltering: false
+                
             });
         },
         TM_Timeline: function () {
