@@ -7,7 +7,7 @@
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span> Thông tin đề tài</h4>
+    <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span> Thông tin bài báo</h4>
 </div>
 
 <div class="modal-body">
@@ -154,5 +154,6 @@
 </div>
 
 <div class="modal-footer">
+    <a href="@Url.Action("Edit","BaiBaos",new { id = Model.MaBaiBao})" type="button" class="btn btn-primary">Chỉnh Sửa</a>
     <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
 </div>
