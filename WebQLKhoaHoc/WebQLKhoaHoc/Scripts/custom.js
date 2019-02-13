@@ -1,5 +1,6 @@
 var THEMEMASCOT = {};
 
+
 (function ($) {
     "use strict";
 
@@ -174,6 +175,20 @@ var THEMEMASCOT = {};
             THEMEMASCOT.initialize.TM_equalHeightDivs();
             THEMEMASCOT.initialize.TM_Timeline();
             THEMEMASCOT.initialize.TM_Listbox();
+            THEMEMASCOT.initialize.TM_Counter();
+        },
+        TM_Counter: function() {
+            $('.counter').each(function () {
+                $(this).prop('Counter', 0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 5000,
+                    easing: 'swing',
+                    step: function (now) {
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });
         },
         TM_Listbox: function () {
             $('.listbox').multiselect({

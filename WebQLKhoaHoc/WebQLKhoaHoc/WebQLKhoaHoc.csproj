@@ -411,6 +411,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\avatar.bmp" />
+    <Content Include="Image\bg-cover.jpg" />
     <Content Include="Image\logo_hcmup.png" />
     <Content Include="QLKH.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
