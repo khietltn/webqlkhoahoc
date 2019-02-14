@@ -5202,7 +5202,7 @@ blockquote p {
 .card {
   float: left;
   min-height: 250px;
-  padding-bottom: 25%;
+  /*padding-bottom: 25%;*/
   position: relative;
   text-align: center;
   width: 100%;
