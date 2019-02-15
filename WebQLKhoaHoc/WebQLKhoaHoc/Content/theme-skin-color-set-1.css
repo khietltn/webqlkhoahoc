@@ -3,7 +3,7 @@
 @URL: http://themeforest.net/user/ThemeMascot
 
 Default COLOR :  Color Set 1
-COLOR CODE1: #202C45 
+COLOR CODE1: #005882
 COLOR CODE2: #F2184F 
 ----------------------------------------- */
 /*Theme Colored Red Text-color*/
@@ -15,7 +15,7 @@ COLOR CODE2: #F2184F
 /*Theme Colored Red Bg-color*/
 /* background-theme-color */
 .bg-theme-colored {
-  background-color: #202C45 !important;
+  background-color: #005882!important;
 }
 .bg-theme-colored-lighter2 {
   background-color: #25334f !important;
@@ -121,7 +121,7 @@ COLOR CODE2: #F2184F
 }
 /*Theme Colored Red Border-bottom-color*/
 .border-bottom-theme-color-2-1px {
-  border-bottom: 1px solid #F2184F !important;
+  border-bottom: 1px solid grey !important;
 }
 .border-bottom-theme-color-2-2px {
   border-bottom: 2px solid #F2184F !important;
@@ -268,10 +268,10 @@ COLOR CODE2: #F2184F
   background: #202C45;
 }
 .panel-group .panel-title a.active {
-  background-color: #202C45 !important;
+  background-color: #005882!important;
 }
 .ui-state-highlight {
-  background: #202C45 !important;
+  background: #005882!important;
   color: #fff !important;
 }
 /*
@@ -325,20 +325,20 @@ ul.list.theme-colored.check li:before,
 }
 /* text-theme-color */
 .text-theme-colored {
-  color: #202C45 !important;
+  color: #005882!important;
 }
 /* text-hover-theme-color */
 .text-hover-theme-colored:hover {
-  color: #202C45 !important;
+  color: #005882!important;
 }
 /* background-theme-color */
 .bg-theme-colored {
-  background-color: #202C45 !important;
+  background-color: #005882!important;
 }
 /* bg-hover-theme-color */
 .bg-hover-theme-colored:hover {
-  background: #202C45 !important;
-  border-color: #202C45 !important;
+  background: #005882!important;
+  border-color: #005882!important;
   color: #fff !important;
 }
 .bg-hover-theme-colored:hover h1,
@@ -357,13 +357,13 @@ ul.list.theme-colored.check li:before,
 }
 /* border-theme-color */
 .border-theme-colored {
-  border-color: #202C45 !important;
+  border-color: #005882!important;
 }
 .widget .services-list li.active::after {
-  border-color: transparent #202C45 transparent transparent;
+  border-color: transparent #005882transparent transparent;
 }
 .widget .services-list li.active {
-  background-color: #202C45 !important;
+  background-color: #005882!important;
   border-right: 6px solid #F2184F !important;
 }
 /* background-color-transparent */
@@ -423,7 +423,7 @@ ul.list.theme-colored.check li:before,
   background-color: #202C45;
 }
 .preloader-dot-loading .cssload-loading i {
-  background: #202C45 !important;
+  background: #005882!important;
 }
 /*
  * border: theme-color
@@ -440,7 +440,7 @@ ul.list.theme-colored.check li:before,
   border-color: #202C45;
 }
 .icon-box.box-style1.practice-style3:hover .icon-wrapper::after {
-  border-color: #202C45 transparent transparent;
+  border-color: #005882transparent transparent;
 }
 .opening-hours ul li {
   border-bottom: 1px dashed #202C45;

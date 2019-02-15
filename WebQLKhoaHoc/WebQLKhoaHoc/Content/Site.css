@@ -4,8 +4,13 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-
-
+.tip-list-item {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 10px 0 2px;
+}
+    .tip-list-item a {
+        padding: 0 0 0 20px
+    }
 
 /* styles for validation helpers */
 .field-validation-error {
@@ -803,6 +808,9 @@ output {
 @media(min-width:768px) {
     .form-horizontal .control-label {
         padding-top: 8px
+    }
+    .header-container {
+        max-width: 100% !important;
     }
 }
 
@@ -7781,7 +7789,7 @@ pre.line-numbers {
 
     .material-card .material-card-block, .material-card .material-card-body, .material-card.material-card-block, .material-card.material-card-body {
         padding: 20px;
-        padding: 2rem
+        padding: 1rem
     }
 
         .material-card .material-card-block p:last-child, .material-card .material-card-body p:last-child, .material-card.material-card-block p:last-child, .material-card.material-card-body p:last-child {
@@ -7806,7 +7814,6 @@ pre.line-numbers {
 
     .material-card .material-card-header {
         padding: 15px 20px;
-        padding: 1.5rem 2rem;
         background-color: #eee;
         border: 0
     }
@@ -7832,7 +7839,7 @@ pre.line-numbers {
 
         .material-card .material-card-header h3 {
             font-size: 16px;
-            font-size: 1.6rem
+            font-size: 1rem
         }
 
         .material-card .material-card-header h4 {
@@ -13946,6 +13953,7 @@ body.lb-disable-scrolling {
 
             .ms-timeline .ms-timeline-item .material-card {
                 margin-left: 20px;
+                margin-right: 20px;
                 transition: box-shadow ease .5s
             }
 

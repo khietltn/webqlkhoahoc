@@ -4,6 +4,9 @@
 }
 @{
     QLKhoaHocEntities db = new QLKhoaHocEntities();
+    var daTruyCap = System.Web.HttpContext.Current.Application["DaTruyCap"].ToString();
+
+    var dangTruyCap = System.Web.HttpContext.Current.Application["DangTruyCap"].ToString();
 }
 <div class="main-content">
     <!-- Section: home header -->
@@ -21,7 +24,7 @@
                                 <a class="text-white font-18" href="@Url.Action("Index","NhaKhoaHocs")">
                                     <h2 class="counter">@db.NhaKhoaHocs.Count()</h2>
                                     <i class="fa fa-4x fa-briefcase color-royal"></i>
-                                    <p class="mt-2 no-mb lead small-caps">Nhà Khoa Học</p>
+                                    <p class="mt-2 no-mb lead small-caps">NHÀ KHOA HỌC</p>
                                 </a>
                             </div>
                         </div>
@@ -188,11 +191,10 @@
                                     <ul class="ms-timeline">
                                         @foreach (var item in db.DeTais.OrderByDescending(p => p.NamBD).Take(5))
                                         {
-                                            <li class="ms-timeline-item materialUp" style="visibility: visible;">
+                                            <li class="ms-timeline-item" style="visibility: visible;">
                                                 <div class="ms-timeline-date">
                                                     <time class="timeline-time" datetime="">@item.NamKT.Value.Year <span>@item.NamKT.Value.ToString("MMMM")</span></time>
                                                     <i class="ms-timeline-point bg-warning"></i>
-
                                                 </div>
                                                 <div class="material-card material-card-info">
                                                     <div class="material-card-header">
@@ -200,7 +202,6 @@
                                                     </div>
                                                     <div class="material-card-body">
                                                         <p>@item.NoiDungDeTai</p>
-
                                                     </div>
                                                     <div class="modal-footer">
                                                         <a href="@Url.Action("Details", "DeTais", new {id = item.MaDeTai})" type="button" class="btn btn-info">Chi Tiết</a>
@@ -215,8 +216,73 @@
 
                                 </div>
                                 <div class="col-md-4">
-                                    <h2> cubu</h2>
+                                    <h2 class="line-bottom mt-0 line-height-1">
+                                        Nội Dung Khác
+                                    </h2>
+                                    <div class="material-card  material-card-info">
+                                        <div class="material-card-header">
+                                            <h3 class="material-card-title">Bài Báo Mới</h3>
+                                        </div>
 
+                                        <ul class="tip-list">
+                                            @foreach (var item in db.DeTais.OrderByDescending(p => p.NamBD).Take(5))
+                                            {
+                                                <li class="tip-list-item">
+
+                                                    <a href="@Url.Action("Details","DeTais",new {id = item.MaDeTai })">
+                                                        @item.NoiDungDeTai <span class="cdate" style="color: #f00; font-size: 11px; font-weight: normal !important;"> (@item.NamBD.Value.ToShortDateString())</span>
+                                                    </a>
+
+
+                                                </li>
+                                            }
+                                            @foreach (var item in db.BaiBaos.OrderByDescending(p => p.NamDangBao).Take(5))
+                                            {
+                                                <li class="tip-list-item">
+                                                    <a href="@Url.Action("Details","DeTais",new {id = item.MaBaiBao })">
+                                                        @item.TenBaiBao <span class="cdate" style="color: #f00; font-size: 11px; font-weight: normal !important;"> (@item.NamDangBao.Value.ToShortDateString())</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+
+                                    </div>
+                                    <div class="material-card  material-card-info">
+                                        <div class="material-card-header">
+                                            <h3 class="material-card-title">Sách Và Giáo Trình Mới</h3>
+                                        </div>
+
+                                        <ul class="tip-list">
+                                            @foreach (var item in db.DeTais.OrderByDescending(p => p.NamBD).Take(5))
+                                            {
+                                                <li class="tip-list-item">
+
+                                                    <a href="@Url.Action("Details","DeTais",new {id = item.MaDeTai })">
+                                                        @item.NoiDungDeTai <span class="cdate" style="color: #f00; font-size: 11px; font-weight: normal !important;"> (@item.NamBD.Value.ToShortDateString())</span>
+                                                    </a>
+
+
+                                                </li>
+                                            }
+                                            @foreach (var item in db.SachGiaoTrinhs.OrderByDescending(p => p.NamXuatBan).Take(5))
+                                            {
+                                                <li class="tip-list-item">
+                                                    <a href="@Url.Action("Details","DeTais",new {id = item.MaSach })">
+                                                        @item.TenSach <span class="cdate" style="color: #f00; font-size: 11px; font-weight: normal !important;"> (@item.NamXuatBan.Value.ToShortDateString())</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+
+                                    </div>
+                                    <div class="material-card  text-center">
+                                        <div class="material-card-body">
+                                            <h2 class=""><span class="counter">@daTruyCap</span></h2>
+                                            <i class="fa fa-4x fa-heart color-danger "></i>
+                                            <h4 class="">Lượt Truy Cập</h4>
+                                            <p>Đang Online: @dangTruyCap</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
