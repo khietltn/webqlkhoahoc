@@ -809,11 +809,13 @@ output {
     .form-horizontal .control-label {
         padding-top: 8px
     }
+   
+}
+@media(max-width: 992px) {
     .header-container {
         max-width: 100% !important;
     }
 }
-
 @media(min-width:768px) {
     .form-horizontal .form-group-lg .control-label {
         padding-top: 13.0px;
