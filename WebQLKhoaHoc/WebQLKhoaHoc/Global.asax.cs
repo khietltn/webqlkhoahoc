@@ -23,6 +23,7 @@ namespace WebQLKhoaHoc
             Application["DaTruyCap"] = int.Parse(File.ReadAllText(Server.MapPath("Count_Visited.txt")));
         }
         void Session_Start(object sender, EventArgs e)
+
         {
             // Tăng số đang truy cập lên 1 nếu có khách truy cập
             if (Application["DangTruyCap"] == null)
@@ -31,9 +32,9 @@ namespace WebQLKhoaHoc
                 Application["DangTruyCap"] = (int)Application["DangTruyCap"] + 1;
             // Tăng số đã truy cập lên 1 nếu có khách truy cập
             Application["DaTruyCap"] = (int)Application["DaTruyCap"] + 1;
-            File.WriteAllText(Server.MapPath("Count_Visited.txt"), Application["DaTruyCap"].ToString());
+            File.WriteAllText(Server.MapPath("~/Count_Visited.txt"), Application["DaTruyCap"].ToString());
         }
-
+        
         void Session_End(object sender, EventArgs e)
         {
             //Khi hết session hoặc người dùng thoát khỏi website thì giảm số người đang truy cập đi 1

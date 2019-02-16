@@ -406,6 +406,7 @@
     <Content Include="Content\style-main.css" />
     <Content Include="Content\theme-skin-color-set-1.css" />
     <Content Include="Content\utility-classes.css" />
+    <Content Include="Count_Visited.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -698,6 +699,7 @@
     <Content Include="Views\AdminPhanLoaiSaches\Index.cshtml" />
     <Content Include="Views\Shared\_AdminMainPage.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\DeTais\ScriptingPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

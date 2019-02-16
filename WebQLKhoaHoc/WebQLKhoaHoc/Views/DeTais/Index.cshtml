@@ -14,9 +14,9 @@
 <!-- Start main-content -->
 <div class="main-content">
     <section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
-        @using (Html.BeginForm("Search", "DeTais", FormMethod.Post))
+        @using (Html.BeginForm("Index","Detais",FormMethod.Get))
         {
-            @Html.AntiForgeryToken()
+            
             <div class="display-table">
                 <div class="display-table-cell">
                     <div class="container pt-30 pb-20">
@@ -27,15 +27,17 @@
                                     <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
                                     <li class="active text-gray-silver">Đề tài khoa học</li>
                                 </ol>
+
                                 <!-- Hiển thị nút khi đã đăng nhập -->
                                 <div class="col-xs-12 col-sm-4 pl-5 pr-5">
                                     <div class="form-group mb-5">
-                                        <a href="@Url.Action("/MyResearch")" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block btn-round" data-loading-text="Please wait...">
+                                        <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block btn-round" data-loading-text="Please wait...">
                                             Đề tài của tôi
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                                 <!--    ***************            -->
+
                             </div>
                             <div class="col-md-6">
                                 <!-- Appointment Form Starts -->
@@ -81,6 +83,13 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        @if (Session["user"] != null)
+                                        {
+                                            WebQLKhoaHoc.Models.UserLoginViewModel nkh = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
+                                            <input name="nkhId" id="nkhId" type="hidden" value="@nkh.MaNKH">
+                                        }
+                                       
                                         <div class="col-xs-12 col-sm-4 pl-5 pr-5">
                                             <div class="form-group mb-5">
                                                 <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
@@ -103,12 +112,15 @@
             <div class="section-content">
                 <section id="services" class="bg-white-transparent-6 border-radius-10px">
                     <div class="container pt-40">
-                        <div class="section-title mb-10">
-                            <div class="row">
-                                <div class="col-md-12">
+                        <div class="section-title mb-11">
+                            <div class="row">                               
+                                <div class="col-md-11">
                                     <h2 class="text-uppercase title" style="color:deepskyblue; border-bottom:1px double #008aff">
                                         Dữ liệu đề tài
                                     </h2>
+                                 </div>
+                                <div class="col-md-1">
+                                    <a href="@Url.Action("Create","Detais")" class="btn btn-success border-radius-10px pull-right">Thêm mới</a>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +187,16 @@
                         </div>
 
                         <div class="row mt-20 text-center">
-                            @Html.PagedListPager(Model, Page_No => Url.Action("Index", "DeTais", new { Page_No, search = Request.QueryString["search"] }))
+                            @Html.PagedListPager(Model, Page_No => Url.Action("Index", "DeTais", new
+                       {
+                           Page_No,
+                           MaDonViQLThucHien = Request.QueryString["MaDonViQLThucHien"],
+                           MaCapDeTai = Request.QueryString["MaCapDeTai"],
+                           MaLinhVuc = Request.QueryString["MaLinhVuc"],
+                           Fromdate = Request.QueryString["Fromdate"],
+                           Todate = Request.QueryString["Todate"],
+                           nkhId = Request.QueryString["nkhId"]
+                       }));
                         </div>
                     </div>
                 </section>
