@@ -56,6 +56,7 @@ namespace WebQLKhoaHoc.Controllers
             int No_Of_Page = (Page_No ?? 1);
             return View("Index",listDT.ToPagedList(No_Of_Page, Size_Of_Page));
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaCapDeTai,MaDonViQLThucHien,MaLinhVuc,Fromdate,Todate,SearchValue")] DeTaiSearchViewModel detai)
@@ -66,6 +67,7 @@ namespace WebQLKhoaHoc.Controllers
             {
                 detais = detais.Where(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien).ToList();
             }
+
             if (!String.IsNullOrEmpty(detai.MaLinhVuc))
             {
                 if (detai.MaLinhVuc[0] == 'a')
@@ -92,12 +94,41 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
             ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
             ViewBag.SearchValue = detai.SearchValue;
+            detais = detais.Concat(detais)
+                .Concat(detais)
+                .Concat(detais)
+                .Concat(detais)
+                .Concat(detais)
+                .Concat(detais)
+                .ToList();
+            int Size_Of_Page = 3;
+            int No_Of_Page = (Page_No ?? 1);
+            return View("Index", detais.ToPagedList(No_Of_Page, Size_Of_Page));
+        }
+
+
+        //Get: Detais/MyResearch       
+        public async Task<ActionResult> MyResearch(int? Page_No)
+        {
+            ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
+            ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
+            var detais = await db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).ToListAsync();
+            if (Session["user"] == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,"User Unidentified");
+            }
+            UserLoginViewModel nd = (UserLoginViewModel)Session["user"];
+            var madetais = db.DSNguoiThamGiaDeTais.Where(p => p.MaNKH == nd.MaNKH).Select(p=>p.MaDeTai).ToList();
+
+            detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
             int Size_Of_Page = 6;
             int No_Of_Page = (Page_No ?? 1);
             return View("Index", detais.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
+
         // GET: DeTais/Details/5
+   
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -105,13 +136,28 @@ namespace WebQLKhoaHoc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DeTai deTai = await db.DeTais.FindAsync(id);
+
             if (deTai == null)
             {
                 return HttpNotFound();
             }
             return View(deTai);
         }
-   
+        
+        public async Task<ActionResult> ScriptingPage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DeTai deTai = await db.DeTais.FindAsync(id);
+            if(deTai == null)
+            {
+                return HttpNotFound();
+            }
+            return View(deTai);
+        }
+
         // GET: DeTais/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -138,7 +184,8 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaXepLoai = new SelectList(db.XepLoais, "MaXepLoai", "TenXepLoai", deTai.MaXepLoai);
             ViewBag.MaTinhTrang = new SelectList(db.TinhTrangDeTais, "MaTinhTrang", "TenTinhTrang", deTai.MaTinhTrang);
             ViewBag.MaPhanLoaiSP = new SelectList(db.PhanLoaiSPs, "MaPhanLoai", "TenPhanLoai", deTai.MaPhanLoaiSP);
-            ViewBag.DSNguoiThamGiaDeTai = new MultiSelectList(lstAllNKH, "MaNKH","TenNKH",lstNKH);
+            ViewBag.DSNguoiThamGiaDeTai = new MultiSelectList(lstAllNKH.Concat(lstAllNKH)
+                .Concat(lstAllNKH).Concat(lstAllNKH).Concat(lstAllNKH).Concat(lstAllNKH), "MaNKH","TenNKH",lstNKH);
             return View(deTai);
         }
 
