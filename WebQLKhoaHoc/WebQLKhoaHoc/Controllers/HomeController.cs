@@ -31,7 +31,7 @@ namespace WebQLKhoaHoc.Controllers
         public async Task<ActionResult> Search([Bind(Include = "MaDanhMuc,MaDonViQLThucHien,SearchValue")] HomeSearchViewModel home)
         {
 
-            ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+           
             ViewBag.SearchValue = home.SearchValue;
             int Size_Of_Page = 6;
             int No_Of_Page = 1;
@@ -39,6 +39,7 @@ namespace WebQLKhoaHoc.Controllers
             {
                 case "1":
                     ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
+                    ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
                     ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
                     var detais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).ToList();
                     if (!String.IsNullOrEmpty(home.MaDonViQLThucHien))
@@ -47,7 +48,7 @@ namespace WebQLKhoaHoc.Controllers
                     }
                     if (!String.IsNullOrEmpty(home.SearchValue))
                     {
-                        detais = detais.Where(p => p.TenDeTai.Contains(home.SearchValue)).ToList();
+                        detais = detais.Where(p => p.TenDeTai.ToLower().Contains(home.SearchValue.ToLower())).ToList();
                     }
                     return View("~/Views/DeTais/Index.cshtml", detais.ToPagedList(No_Of_Page, Size_Of_Page));
                 case "2":
@@ -62,7 +63,7 @@ namespace WebQLKhoaHoc.Controllers
                     var baibaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).ToList();
                     if (!String.IsNullOrEmpty(home.SearchValue))
                     {
-                        baibaos = baibaos.Where(p => p.TenBaiBao.Contains(home.SearchValue)).ToList();
+                        baibaos = baibaos.Where(p => p.TenBaiBao.ToLower().Contains(home.SearchValue.ToLower())).ToList();
                     }
                     return View("~/Views/BaiBaos/Index.cshtml", baibaos.ToPagedList(No_Of_Page, Size_Of_Page));
                 case "3":
@@ -73,13 +74,14 @@ namespace WebQLKhoaHoc.Controllers
                     
                     if (!String.IsNullOrEmpty(home.SearchValue))
                     {
-                        sachGiaoTrinhs = sachGiaoTrinhs.Where(p => p.TenSach.Contains(home.SearchValue)).ToList();
+                        sachGiaoTrinhs = sachGiaoTrinhs.Where(p => p.TenSach.ToLower().Contains(home.SearchValue.ToLower())).ToList();
                     }
                     return View("~/Views/SachGiaoTrinhs/Index.cshtml", sachGiaoTrinhs.ToPagedList(No_Of_Page, Size_Of_Page));
                 default:
                     ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs.ToList(), "MaChuyenNganh", "TenChuyenNganh");
                     ViewBag.MaHocHam = new SelectList(db.HocHams.ToList(), "MaHocHam", "TenHocHam");
                     ViewBag.MaHocVi = new SelectList(db.HocVis.ToList(), "MaHocVi", "TenHocVi");
+                    ViewBag.MaDonViQL = new SelectList(db.DonViQLs.ToList(), "MaDonVi", "TenDonVI");
                     ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs.ToList(), "MaNgach", "TenNgach");
                     var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc).ToList();
                     if (!String.IsNullOrEmpty(home.MaDonViQLThucHien))
@@ -88,7 +90,7 @@ namespace WebQLKhoaHoc.Controllers
                     }
                     if (!String.IsNullOrEmpty(home.SearchValue))
                     {
-                        nhaKhoaHocs = nhaKhoaHocs.Where(p => p.TenNKH.Contains(home.SearchValue)).ToList();
+                        nhaKhoaHocs = nhaKhoaHocs.Where(p => (p.HoNKH + " " + p.TenNKH).ToLower().Contains(home.SearchValue.ToLower())).ToList();
                     }
                     var lstNKH = new List<NhaKhoaHocViewModel>();
                     for (int i = 0; i < nhaKhoaHocs.Count; i++)

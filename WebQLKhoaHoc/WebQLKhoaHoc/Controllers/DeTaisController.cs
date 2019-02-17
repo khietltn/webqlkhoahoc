@@ -27,8 +27,7 @@ namespace WebQLKhoaHoc.Controllers
            
             var detais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).Include(d => d.DSNguoiThamGiaDeTais).ToList();
 
-            /* Phần xử lý search*/
-            /* Nếu đã sử dụng mã nkh thì không cần phải search theo khung đề tài*/
+           
             if (nkhId == null){                
                 if (!String.IsNullOrEmpty(detai.MaDonViQLThucHien))
                 {
@@ -53,7 +52,7 @@ namespace WebQLKhoaHoc.Controllers
                 }
                 if (!String.IsNullOrEmpty(detai.SearchValue))
                 {
-                    detais = detais.Where(p => p.TenDeTai.Contains(detai.SearchValue)).ToList();
+                    detais = detais.Where(p => p.TenDeTai.ToLower().Contains(detai.SearchValue.ToLower())).ToList();
                 }
 
                 /* Nếu Thời gian search được nhập thì mới đỏ vào view bag */
