@@ -97,39 +97,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                                <tr>
-                                                    <td class="ma-phi">12</td>
-                                                    <td class="text-right">Ngân sách nhà nước</td>
-                                                    <td class="text-right">2019</td>
-                                                    <td class="text-right">40000000</td>
-                                                    <td class="text-right">VND</td>
-                                                    <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="ma-phi">13</td>
-                                                    <td class="text-right">Ngân sách nhà nước</td>
-                                                    <td class="text-right">2020</td>
-                                                    <td class="text-right">40000000</td>
-                                                    <td class="text-right">VND</td>
-                                                    <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="ma-phi">14</td>
-                                                    <td class="text-right">Ngân sách nhà nước</td>
-                                                    <td class="text-right">2020</td>
-                                                    <td class="text-right">40000000</td>
-                                                    <td class="text-right">VND</td>
-                                                    <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="ma-phi">15</td>
-                                                    <td class="text-right">Ngân sách nhà nước</td>
-                                                    <td class="text-right">2020</td>
-                                                    <td class="text-right">40000000</td>
-                                                    <td class="text-right">VND</td>
-                                                    <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
-                                                </tr>
+                                                @foreach (var kinhphi in Model.KinhPhiDeTais)
+                                                {
+                                                    <tr>
+                                                        <td class="ma-phi">@kinhphi.MaPhi</td>
+                                                        <td class="text-right">@kinhphi.LoaiKinhPhi</td>
+                                                        <td class="text-right">@kinhphi.NamTiepNhan</td>
+                                                        <td class="text-right">@kinhphi.SoTien</td>
+                                                        <td class="text-right">@kinhphi.LoaiTien</td>
+                                                        <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
                                         <input type="hidden" id="KinhPhiXoa" name="KinhPhiXoa" value="" />
