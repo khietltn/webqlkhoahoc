@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
 
-
+<style>
+    .ma-phi{
+        display:none;
+    }
+</style>
 <div class="container">
     @using (Html.BeginForm())
     {
@@ -76,14 +80,6 @@
 
                     <dd>
                         <input name="NamKT" id="Fromdate" class="form-control date-picker" type="text" placeholder="Từ thời điểm" value="@Model.NamKT.Value.ToString("d")" autocomplete="off">
-                    </dd>
-
-                    <dt>
-                        Kinh phí:
-                    </dt>
-
-                    <dd>
-                        @Html.EditorFor(model => model.KinhPhi, new { htmlAttributes = new { @class = "form-control" } })
                     </dd>
 
                     <dt>
@@ -174,6 +170,67 @@
                         @Html.ListBox("DSNguoiThamGiaDT", ViewBag.DSNguoiThamGiaDeTai as MultiSelectList, new { @class = "listbox" })
                     </dd>
 
+                    <dt>
+                        Kinh phí:
+                    </dt>
+
+                    <dd>
+                        <div>
+                            <button id="btnThem" type="button">Thêm kinh phí</button>
+                            <input id="inpLoaiKinhPhi" placeholder="Loại kinh phí" />
+                            <input id="inpNamCap" placeholder="Năm cấp" />
+                            <input id="inpSoTien" placeholder="Số tiền" />
+                            <input id="inpLoaiTien" placeholder="Loại tiền" />
+                        </div>
+                        <table class="table table-bordered" id="tblOne">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Loại kinh phí</th>
+                                    <th class="text-center">Năm cấp</th>
+                                    <th class="text-center">Số tiền</th>
+                                    <th class="text-center">Loại tiền</th>
+                                    <th class="text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td class="ma-phi">12</td>
+                                    <td class="text-right">Ngân sách nhà nước</td>
+                                    <td class="text-right">2019</td>
+                                    <td class="text-right">40000000</td>
+                                    <td class="text-right">VND</td>
+                                    <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="ma-phi">13</td>
+                                    <td class="text-right">Ngân sách nhà nước</td>
+                                    <td class="text-right">2020</td>
+                                    <td class="text-right">40000000</td>
+                                    <td class="text-right">VND</td>
+                                    <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="ma-phi">14</td>
+                                    <td class="text-right">Ngân sách nhà nước</td>
+                                    <td class="text-right">2020</td>
+                                    <td class="text-right">40000000</td>
+                                    <td class="text-right">VND</td>
+                                    <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="ma-phi">15</td>
+                                    <td class="text-right">Ngân sách nhà nước</td>
+                                    <td class="text-right">2020</td>
+                                    <td class="text-right">40000000</td>
+                                    <td class="text-right">VND</td>
+                                    <td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input type="hidden" id="KinhPhiXoa" name="KinhPhiXoa" value=""/>
+                        <input type="hidden" id="KinhPhiMoi" name="KinhPhiMoi" value=""/>
+                    </dd>
                 </dl>
 
 
@@ -191,3 +248,71 @@
         </div>
     }
 </div>
+
+
+@section scripts{
+<script>
+    $(document).ready(function () {
+        var ma_phi_xoa = [];
+        $('#tblOne > tbody > tr').click(function (ev) {
+            if (ev.target.className == 'btn btn-primary xoa-phi') {
+                //console.log(ev.target);
+                //console.log(ev.currentTarget);
+                var cf = confirm('Bạn có muốn xoá ?');
+                if (cf) {
+                    var id = $(ev.currentTarget.children[0]).html();
+                    //console.log(id);
+                    $(ev.currentTarget).fadeOut();
+                    if (id != '') {
+                        ma_phi_xoa.push(id);
+                        $('#KinhPhiXoa').val(JSON.stringify(ma_phi_xoa));
+                    }
+                }
+            }
+        });
+        $('#btnThem').click(function () {
+            var loaikinhphi = $('#inpLoaiKinhPhi').val();
+            var namcap = $('#inpNamCap').val();
+            var sotien = $('#inpSoTien').val();
+            var loaitien = $('#inpLoaiTien').val();
+            if (loaikinhphi != '' && namcap != '' && sotien != '' && loaitien != '') {
+                $('#tblOne > tbody:last-child').append('<tr><td class="ma-phi"></td><td class="text-right">' + loaikinhphi + '</td><td class="text-right">' + namcap + '</td><td class="text-right">' + sotien + '</td><td class="text-right">' + loaitien + '</td><td class="text-right"><button class="btn btn-primary xoa-phi" type="button">Xóa kinh phí</button></td></tr>');
+                $('#tblOne > tbody > tr').click(function (ev) {
+                    if (ev.target.className == 'btn btn-primary xoa-phi') {
+                        //console.log(ev.target);
+                        //console.log(ev.currentTarget);
+                        var cf = confirm('Bạn có muốn xoá ?');
+                        if (cf) {
+                            var id = $(ev.currentTarget.children[0]).html();
+                            //console.log(id);
+                            $(ev.currentTarget).fadeOut();
+                            if (id != '') {
+                                ma_phi_xoa.push(id);
+                                $('#KinhPhiXoa').val(JSON.stringify(ma_phi_xoa));
+                            }
+                        }
+                    }
+                });
+                
+            }
+        });
+        $("form").one('submit', function (e) {
+            e.preventDefault();
+            var data_kinhphi = [];
+            $('#tblOne > tbody > tr').each(function (i, row) {
+                if ($(row.children[0]).html() == '') {
+                    var row_data_kinhphi = [];
+                    $(row.children).each(function (j, cell) {
+                        if (j != 0 && j != row.childElementCount - 1) {
+                            row_data_kinhphi.push($(cell).html());
+                        }
+                    });
+                    data_kinhphi.push(row_data_kinhphi);
+                }
+            });
+            $('#KinhPhiMoi').val(JSON.stringify(data_kinhphi));
+            $(this).submit();
+        });
+    });
+</script>
+}
