@@ -119,26 +119,26 @@
                                             <span style="color:#333399">
                                                 <strong>
                                                     <strong>
-                                                        <a href="@Url.Action("Search","NhaKhoaHocs",new {MaNgachVienChuc = "1"})" target="_blank">
+                                                        <a href="@Url.Action("Index","NhaKhoaHocs",new {MaNgach = "1"})" target="_blank">
                                                             <span style="color: #333399">@db.NhaKhoaHocs.Where(p => p.MaNgachVienChuc == 1).Count()</span>
                                                         </a>
                                                     </strong>
                                                 </strong>
                                                 Đại học Sư Phạm TPHCM có <span style="color: #333399">
                                                     <strong>
-                                                        <a href="@Url.Action("Search", "NhaKhoaHocs", new {MaHocHam = "2"})" target="_blank">
+                                                        <a href="@Url.Action("Index", "NhaKhoaHocs", new {MaHocHam = "2"})" target="_blank">
                                                             <span style="color: #333399">@db.NhaKhoaHocs.Where(p => p.MaHocHam == 2).Count()</span>
                                                         </a>
                                                     </strong>
                                                 </span>&nbsp;GS,
                                                 <strong>
-                                                    <a href="@Url.Action("Search", "NhaKhoaHocs", new {MaHocHam = "1"})" target="_blank">
+                                                    <a href="@Url.Action("Index", "NhaKhoaHocs", new {MaHocHam = "1"})" target="_blank">
                                                         <span style="color: #333399"> @db.NhaKhoaHocs.Where(p => p.MaHocHam == 1).Count() </span>
                                                     </a>
                                                 </strong> PGS;
                                                 <span style="color:#333399">
                                                     <strong>
-                                                        <a href="@Url.Action("Search","NhaKhoaHocs",new {MaHocVi = "7"})" target="_blank">
+                                                        <a href="@Url.Action("Index","NhaKhoaHocs",new {MaHocVi = "7"})" target="_blank">
                                                             <span style="color: #333399">
                                                                 @db.NhaKhoaHocs.Where(p => p.MaHocVi == 6 || p.MaHocVi == 7).Count()
                                                             </span>
