@@ -195,7 +195,8 @@ var THEMEMASCOT = {};
                 includeSelectAllOption: true,
                 enableFiltering: true,
                 filterPlaceholder: 'Search',
-                enableCaseInsensitiveFiltering: false
+                enableCaseInsensitiveFiltering: false,
+                numberDisplayed: 1
                 
             });
         },
