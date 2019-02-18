@@ -11,6 +11,9 @@ using PagedList;
 using WebGrease.Css.Extensions;
 using WebQLKhoaHoc;
 using WebQLKhoaHoc.Models;
+using System.IO;
+using System.Data.Entity.Migrations;
+using Newtonsoft.Json;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -92,9 +95,22 @@ namespace WebQLKhoaHoc.Controllers
 
         public async Task<ActionResult> Create()
         {
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => p.MaNKH != 1).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+
+            
             ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
+            ViewBag.MaLoaiDeTai = new SelectList(db.LoaiHinhDeTais, "MaLoaiDT", "TenLoaiDT");
+            ViewBag.MaDVChuTri = new SelectList(db.DonViChuTris, "MaDVChuTri", "TenDVChuTri");
             ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
-            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
+            ViewBag.MaLinhVuc = new SelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc");
+            ViewBag.MaXepLoai = new SelectList(db.XepLoais, "MaXepLoai", "TenXepLoai");
+            ViewBag.MaTinhTrang = new SelectList(db.TinhTrangDeTais, "MaTinhTrang", "TenTinhTrang");
+            ViewBag.MaPhanLoaiSP = new SelectList(db.PhanLoaiSPs, "MaPhanLoai", "TenPhanLoai");
+            ViewBag.DSNguoiThamGiaDeTai = new MultiSelectList(lstAllNKH.Concat(lstAllNKH), "MaNKH", "TenNKH");
 
             return View();
         }
@@ -103,17 +119,66 @@ namespace WebQLKhoaHoc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(DeTai detai) {
+        public async Task<ActionResult> Create(List<string> DSNguoiThamGiaDT, [Bind(Include = "MaDeTai,MaDeTaiHoSo,TenDeTai,MaLoaiDeTai,MaCapDeTai,MaDVChuTri,MaDonViQLThucHien,MaLinhVuc,MucTieuDeTai,NoiDungDeTai,KetQuaDeTai,NamBD,NamKT,KinhPhi,MaXepLoai,MaTinhTrang,MaPhanLoaiSP,LienKetWeb")] DeTai deTai, HttpPostedFileBase linkUpload, string KinhPhiMoi)
+        {
             if (ModelState.IsValid)
             {
-                db.DeTais.Add(detai);
-                //db.SaveChanges();
+                /* file upload*/
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileName(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
+                    linkUpload.SaveAs(path);
+                    deTai.LinkFileUpload = filename;
 
+                }
+
+                db.DeTais.Add(deTai);
+                db.SaveChanges();
+                var id = deTai.MaDeTai;
+
+                if (KinhPhiMoi != null)
+                {
+                    List<string[]> kinhphimoi = JsonConvert.DeserializeObject<List<string[]>>(KinhPhiMoi);
+                    foreach (var x in kinhphimoi)
+                    {
+                        KinhPhiDeTai kinhphi_x = new KinhPhiDeTai
+                        {
+                            MaDeTai = id,
+                            LoaiKinhPhi = x[0],
+                            NamTiepNhan = DateTime.Parse(x[1]),
+                            SoTien = Int32.Parse(x[2]),
+                            LoaiTien = x[3]
+                        };
+                        db.KinhPhiDeTais.Add(kinhphi_x);
+                        db.SaveChanges();
+                    }
+                }
+
+                
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(detai);
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                var lstAllNKH = db.NhaKhoaHocs.Where(p => p.MaNKH != 1).Select(p => new
+                {
+                    p.MaNKH,
+                    TenNKH = p.HoNKH + " " + p.TenNKH
+                }).ToList();
+
+
+                ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
+                ViewBag.MaLoaiDeTai = new SelectList(db.LoaiHinhDeTais, "MaLoaiDT", "TenLoaiDT");
+                ViewBag.MaDVChuTri = new SelectList(db.DonViChuTris, "MaDVChuTri", "TenDVChuTri");
+                ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+                ViewBag.MaLinhVuc = new SelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc");
+                ViewBag.MaXepLoai = new SelectList(db.XepLoais, "MaXepLoai", "TenXepLoai");
+                ViewBag.MaTinhTrang = new SelectList(db.TinhTrangDeTais, "MaTinhTrang", "TenTinhTrang");
+                ViewBag.MaPhanLoaiSP = new SelectList(db.PhanLoaiSPs, "MaPhanLoai", "TenPhanLoai");
+                ViewBag.DSNguoiThamGiaDeTai = new MultiSelectList(lstAllNKH.Concat(lstAllNKH), "MaNKH", "TenNKH");
+
+                return View();
             }
 
         }
@@ -160,11 +225,13 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            var lstAllNKH = db.NhaKhoaHocs.Where(p => p.MaNKH !=1).Select(p => new
+
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => p.MaNKH != 1).Select(p => new
             {
                 p.MaNKH,
                 TenNKH = p.HoNKH + " " + p.TenNKH
             }).ToList();
+
             var lstNKH = db.NhaKhoaHocs.Where(p => p.DSNguoiThamGiaDeTais.Any(d => d.MaDeTai == deTai.MaDeTai && d.LaChuNhiem == false)).Select(p => p.MaNKH).ToList();
             ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai", deTai.MaCapDeTai);
             ViewBag.MaLoaiDeTai = new SelectList(db.LoaiHinhDeTais, "MaLoaiDT", "TenLoaiDT", deTai.MaLoaiDeTai);
@@ -174,8 +241,7 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaXepLoai = new SelectList(db.XepLoais, "MaXepLoai", "TenXepLoai", deTai.MaXepLoai);
             ViewBag.MaTinhTrang = new SelectList(db.TinhTrangDeTais, "MaTinhTrang", "TenTinhTrang", deTai.MaTinhTrang);
             ViewBag.MaPhanLoaiSP = new SelectList(db.PhanLoaiSPs, "MaPhanLoai", "TenPhanLoai", deTai.MaPhanLoaiSP);
-            ViewBag.DSNguoiThamGiaDeTai = new MultiSelectList(lstAllNKH.Concat(lstAllNKH)
-                .Concat(lstAllNKH).Concat(lstAllNKH).Concat(lstAllNKH).Concat(lstAllNKH), "MaNKH","TenNKH",lstNKH);
+            ViewBag.DSNguoiThamGiaDeTai = new MultiSelectList(lstAllNKH.Concat(lstAllNKH), "MaNKH","TenNKH",lstNKH);
             return View(deTai);
         }
 
@@ -184,13 +250,49 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(List<string> DSNguoiThamGiaDT,[Bind(Include = "MaDeTai,MaDeTaiHoSo,TenDeTai,MaLoaiDeTai,MaCapDeTai,MaDVChuTri,MaDonViQLThucHien,MaLinhVuc,MucTieuDeTai,NoiDungDeTai,KetQuaDeTai,NamBD,NamKT,MaXepLoai,MaTinhTrang,MaPhanLoaiSP,KinhPhi,LienKetWeb,LinkFileUpload")] DeTai deTai)
+        public async Task<ActionResult> Edit(List<string> DSNguoiThamGiaDT,[Bind(Include = "MaDeTai,MaDeTaiHoSo,TenDeTai,MaLoaiDeTai,MaCapDeTai,MaDVChuTri,MaDonViQLThucHien,MaLinhVuc,MucTieuDeTai,NoiDungDeTai,KetQuaDeTai,NamBD,NamKT,KinhPhi,MaXepLoai,MaTinhTrang,MaPhanLoaiSP,LienKetWeb")] DeTai deTai, HttpPostedFileBase linkUpload,string KinhPhiXoa,string KinhPhiMoi)
         {
+           
             if (ModelState.IsValid)
             {
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileName(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
+                    linkUpload.SaveAs(path);
+                    deTai.LinkFileUpload = filename;
+
+                }
+                /* phần xử lý thêm xóa sửa của kinh phí đề tài */               
 
                 db.Entry(deTai).State = EntityState.Modified;
-                db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == deTai.MaDeTai && p.LaChuNhiem == false).ForEach(x => db.DSNguoiThamGiaDeTais.Remove(x));
+                if (KinhPhiXoa != null && KinhPhiMoi != null)
+                {
+                    
+                    if (KinhPhiXoa != null)
+                    {
+                        List<int> kinhphixoa = JsonConvert.DeserializeObject<List<int>>(KinhPhiXoa);
+                        db.KinhPhiDeTais.Where(p => kinhphixoa.Contains(p.MaPhi)).ForEach(p => db.KinhPhiDeTais.Remove(p));                       
+                    }
+                    if (KinhPhiMoi != null)
+                    {
+                        List<string[]> kinhphimoi = JsonConvert.DeserializeObject<List<string[]>>(KinhPhiMoi);
+                        foreach (var x in kinhphimoi)
+                        {
+                            KinhPhiDeTai kinhphi_x = new KinhPhiDeTai
+                            {
+                                MaDeTai = Int32.Parse(x[0]),
+                                LoaiKinhPhi = x[1],
+                                NamTiepNhan = DateTime.Parse(x[2]),
+                                SoTien = Int32.Parse(x[3]),
+                                LoaiTien = x[4]
+                            };
+                            db.KinhPhiDeTais.Add(kinhphi_x);
+                        }
+                    }                  
+                }
+
+                //db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == deTai.MaDeTai && p.LaChuNhiem == false).ForEach(x => db.DSNguoiThamGiaDeTais.Remove(x));
                 foreach (var mankh in DSNguoiThamGiaDT)
                 {
                     DSNguoiThamGiaDeTai nguoiTGDT = new DSNguoiThamGiaDeTai
@@ -199,10 +301,10 @@ namespace WebQLKhoaHoc.Controllers
                         MaDeTai =  deTai.MaDeTai,
                         MaNKH = Int32.Parse(mankh)
                     };
-                    db.DSNguoiThamGiaDeTais.Add(nguoiTGDT);
+                    db.DSNguoiThamGiaDeTais.AddOrUpdate(nguoiTGDT);
                 }
-
-                await db.SaveChangesAsync();
+                
+                await db.SaveChangesAsync();           
                 return RedirectToAction("Index");
             }
             else
