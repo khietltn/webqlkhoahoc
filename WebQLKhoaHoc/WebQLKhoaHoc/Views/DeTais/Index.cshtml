@@ -22,7 +22,7 @@
                     <div class="container pt-30 pb-20">
                         <div class="row">
                             <div class="col-md-6 pt-10">
-                                <h2 class="title text-white">Dữ liệu Đề Tài</h2>
+                                <h2 class="title text-white">Dữ liệu <span class="text-theme-color-2">Đề Tài</span></h2>
                                 <ol class="breadcrumb text-left text-black mt-10">
                                     <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
                                     <li class="active text-gray-silver">Đề tài khoa học</li>
@@ -32,7 +32,7 @@
                                 <!-- Hiển thị nút khi đã đăng nhập -->
                                 <div class="col-xs-12 col-sm-4 pl-5 pr-5">
                                     <div class="form-group mb-5">
-                                        <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block btn-round" data-loading-text="Please wait...">
+                                        <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block btn-round border-radius-15px" data-loading-text="Please wait...">
                                             Đề tài của tôi
                                         </button>
                                     </div>
@@ -115,7 +115,7 @@
                         <div class="section-title mb-11">
                             <div class="row">                               
                                 <div class="col-md-11">
-                                    <h2 class="text-uppercase title" style="color:deepskyblue; border-bottom:1px double #008aff">
+                                    <h2 class="text-uppercase title line-bottom" style="color:deepskyblue;">
                                         Dữ liệu đề tài
                                     </h2>
                                  </div>
@@ -137,52 +137,52 @@
                                         <span class="mb-20 mt-5 p-5 bg-theme-colored-transparent-6 text-white pull-right border-radius-10px">
                                             @item.MaDeTaiHoSo                                           
                                         </span>
-                                        <div class="dropdown">
-                                            <button class="btn btn-link left" style="padding-left:unset" role="link" href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("ScriptingPage", "Detais", new { id = item.MaDeTai })')">
-                                                <h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
-                                                    @Html.DisplayFor(modelItem => item.TenDeTai)
-                                                </h4>
-                                            </button>
-                                            <button class="btn btn-default btn-round" data-toggle="collapse" data-target="#research-@quantity "><i class="fas fa-caret-down"></i></button>
-                                            <div id="research-@quantity" class="collapse">
-                                                <p class="text-gray font-13 mb-0">
-                                                    <i class="fa fa-globe" aria-hidden="true"></i>
-                                                    <b>Lĩnh vực:</b>
-                                                    @Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
-                                                    <br>
-                                                    <i class="fa fa-university" aria-hidden="true"></i>
-                                                    <b> Đơn vị chủ trì : </b>
-                                                    @Html.DisplayFor(modelItem => item.DonViChuTri.TenDVChuTri)
-                                                    <br>
-                                                    <i class="fa fa-university" aria-hidden="true"></i>
-                                                    <b> Đơn vị thực hiện :</b>
-                                                    @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
-                                                    <br>
-                                                    <i class="fa fa-users" aria-hidden="true"></i>
-                                                    <b>Người tham gia:</b>
-                                                    @for (int i = 0; i < item.DSNguoiThamGiaDeTais.Count; i++)
+                                       
+                                        <button class="btn btn-link left" style="padding-left:unset" role="link" href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("ScriptingPage", "Detais", new { id = item.MaDeTai })')">
+                                            <h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
+                                                @Html.DisplayFor(modelItem => item.TenDeTai)
+                                            </h4>
+                                        </button>
+                                        <button class="btn btn-default btn-round" data-toggle="collapse" data-target="#research-@quantity"><i class="fas fa-caret-down"></i></button>
+                                           
+                                        <div id="research-@quantity" class="collapse">
+                                            <p class="text-gray font-13 mb-0">
+                                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                                <b>Lĩnh vực:</b>
+                                                @Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
+                                                <br>
+                                                <i class="fa fa-university" aria-hidden="true"></i>
+                                                <b> Đơn vị chủ trì : </b>
+                                                @Html.DisplayFor(modelItem => item.DonViChuTri.TenDVChuTri)
+                                                <br>
+                                                <i class="fa fa-university" aria-hidden="true"></i>
+                                                <b> Đơn vị thực hiện :</b>
+                                                @Html.DisplayFor(modelItem => item.DonViQL.TenDonVI)
+                                                <br>
+                                                <i class="fa fa-users" aria-hidden="true"></i>
+                                                <b>Người tham gia:</b>
+                                                @for (int i = 0; i < item.DSNguoiThamGiaDeTais.Count; i++)
+                                                {
+                                                    var nkh = item.DSNguoiThamGiaDeTais.ToList()[i];
+                                                    var name = nkh.NhaKhoaHoc.HoNKH + " " + nkh.NhaKhoaHoc.TenNKH;
+                                                    if (nkh.LaChuNhiem.Value)
                                                     {
-                                                        var nkh = item.DSNguoiThamGiaDeTais.ToList()[i];
-                                                        var name = nkh.NhaKhoaHoc.HoNKH + " " + nkh.NhaKhoaHoc.TenNKH;
-                                                        if (nkh.LaChuNhiem.Value)
-                                                        {
-                                                            name += " (Chủ Nhiệm)";
-                                                        }
-                                                        if (i < (item.DSNguoiThamGiaDeTais.Count - 1))
-                                                        {
-                                                            name += ", ";
-                                                        }
-
-                                                        <a class="customlink" href="@Url.Action("Details", "NhaKhoaHocs", new { id = nkh.MaNKH })">@name</a>
-
-
+                                                        name += " (Chủ Nhiệm)";
                                                     }
-                                                    @*<a href="#"></a>*@
-                                                    @{ quantity++;}
-                                                    <br>
-                                                </p>
+                                                    if (i < (item.DSNguoiThamGiaDeTais.Count - 1))
+                                                    {
+                                                        name += ", ";
+                                                    }
 
-                                            </div>
+                                                    <a class="customlink" href="@Url.Action("Details", "NhaKhoaHocs", new { id = nkh.MaNKH })">@name</a>
+                                                
+                                                }
+                                                @*<a href="#"></a>*@
+                                                @{ quantity++;}
+                                                <br>
+                                            </p>
+
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@
                            Fromdate = Request.QueryString["Fromdate"],
                            Todate = Request.QueryString["Todate"],
                            nkhId = Request.QueryString["nkhId"]
-                       }));
+                       }))
                         </div>
                     </div>
                 </section>

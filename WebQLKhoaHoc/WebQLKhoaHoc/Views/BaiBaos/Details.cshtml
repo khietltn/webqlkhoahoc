@@ -146,7 +146,7 @@
                 {
                     name += ", ";
                 }
-                <span>@name</span>
+                @Html.ActionLink(name.ToString(), "Details", "NhaKhoaHocs", new { id = tg.MaNKH }, new { Class = "customlink" });
             }
         </dd>
 
@@ -155,5 +155,11 @@
 
 <div class="modal-footer">
     <a href="@Url.Action("Edit","BaiBaos",new { id = Model.MaBaiBao})" type="button" class="btn btn-primary">Chỉnh Sửa</a>
-    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 </div>
+
+<style>
+    a.customlink:hover {
+        color: red;
+    }
+</style>

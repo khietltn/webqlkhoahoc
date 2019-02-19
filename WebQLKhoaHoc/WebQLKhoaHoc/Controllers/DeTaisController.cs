@@ -154,7 +154,18 @@ namespace WebQLKhoaHoc.Controllers
                     }
                 }
 
-                
+                foreach (var mankh in DSNguoiThamGiaDT)
+                {
+                    DSNguoiThamGiaDeTai nguoiTGDT = new DSNguoiThamGiaDeTai
+                    {
+                        LaChuNhiem = false,
+                        MaDeTai = id,
+                        MaNKH = Int32.Parse(mankh)
+                    };
+                    db.DSNguoiThamGiaDeTais.Add(nguoiTGDT);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
             else
@@ -232,6 +243,7 @@ namespace WebQLKhoaHoc.Controllers
             }).ToList();
 
             var lstNKH = db.NhaKhoaHocs.Where(p => p.DSNguoiThamGiaDeTais.Any(d => d.MaDeTai == deTai.MaDeTai && d.LaChuNhiem == false)).Select(p => p.MaNKH).ToList();
+
             ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai", deTai.MaCapDeTai);
             ViewBag.MaLoaiDeTai = new SelectList(db.LoaiHinhDeTais, "MaLoaiDT", "TenLoaiDT", deTai.MaLoaiDeTai);
             ViewBag.MaDVChuTri = new SelectList(db.DonViChuTris, "MaDVChuTri", "TenDVChuTri", deTai.MaDVChuTri);

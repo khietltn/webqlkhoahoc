@@ -19,107 +19,77 @@ namespace WebQLKhoaHoc.Controllers
         private QLKHRepository QLKHrepo = new QLKHRepository();
 
         // GET: BaiBaos
-        public async Task<ActionResult> Index(int? Page_No)
+        public async Task<ActionResult> Index(int? Page_No, [Bind(Include = "MaLinhVuc,MaPhanLoaiTapChi,MaLoaiTapChi,MaCapTapChi,CQXuatBan,Fromdate,Todate,SearchValue")] BaiBaoSearchViewModel baibao, int? nkhId)
         {
-            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
-            ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
-            ViewBag.MaPhanLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
-            ViewBag.MaLoaiTapChi = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "Trong Nước", Value = "1"},
-                new SelectListItem { Text = "Ngoài Nước", Value ="0"},
-            };
-          
-            var baiBaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs).Include(b => b.DSNguoiThamGiaBaiBaos);
 
-            var listBB = baiBaos.Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
-                                .Concat(baiBaos)
+            var baibaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs).Include(b => b.DSNguoiThamGiaBaiBaos).ToList();
+
+            if (nkhId == null)
+            {
+                if (!String.IsNullOrEmpty(baibao.MaLinhVuc))
+                {
+                    if (baibao.MaLinhVuc[0] == 'a')
+                        baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaLinhVuc.ToString() == baibao.MaLinhVuc.Substring(1, baibao.MaLinhVuc.Length - 1))).ToList();
+                    else
+                        baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaNhomLinhVuc.ToString() == baibao.MaLinhVuc)).ToList();
+                }
+                if (!String.IsNullOrEmpty(baibao.MaPhanLoaiTapChi))
+                {
+                    baibaos = baibaos.Where(p => p.MaLoaiTapChi.ToString() == baibao.MaPhanLoaiTapChi).ToList();
+                }
+
+                if (!String.IsNullOrEmpty(baibao.MaLoaiTapChi))
+                {
+                    if (baibao.MaLoaiTapChi == "0")
+                        baibaos = baibaos.Where(p => p.LaTrongNuoc == false).ToList();
+                    else
+                        baibaos = baibaos.Where(p => p.LaTrongNuoc == true).ToList();
+                }
+
+                if (baibao.Fromdate > DateTime.MinValue)
+                {
+                    baibaos = baibaos.Where(p => p.NamDangBao.Value.Year >= baibao.Fromdate.Year).ToList();
+                }
+                if (baibao.Todate > DateTime.MinValue)
+                {
+                    baibaos = baibaos.Where(p => p.NamDangBao.Value.Year <= baibao.Todate.Year).ToList();
+                }
+                if (!String.IsNullOrEmpty(baibao.CQXuatBan))
+                {
+                    baibaos = baibaos.Where(p => p.CQXuatBan.Contains(baibao.CQXuatBan)).ToList();
+                }
+                if (!String.IsNullOrEmpty(baibao.SearchValue))
+                {
+                    baibaos = baibaos.Where(p => p.TenBaiBao.Contains(baibao.SearchValue)).ToList();
+                }
+            }
+            else
+            {
+                if (Session["user"] == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "User Unidentified");
+                }
+                UserLoginViewModel nd = (UserLoginViewModel)Session["user"];
+
+                var mabaibaos = db.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == 1).Select(p => p.MaBaiBao).ToList();
+                baibaos = baibaos.Where(p => mabaibaos.Contains(p.MaBaiBao)).ToList();
+            }
+
+
+
+            var listBB = baibaos.Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
+                                .Concat(baibaos)
                                 .ToList();
 
-            int Size_Of_Page = 6;
-            int No_Of_Page = (Page_No ?? 1);
-            return View(listBB.ToPagedList(No_Of_Page, Size_Of_Page));
-        }
-        public async Task<ActionResult> Search(int? Page_No)
-        {
-            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
-            ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
-            ViewBag.MaPhanLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
-            ViewBag.MaLoaiTapChi = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "Trong Nước", Value = "1"},
-                new SelectListItem { Text = "Ngoài Nước", Value ="0"},
-            };
-
-            var baiBaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs).Include(b => b.DSNguoiThamGiaBaiBaos);
-
-            var listBB = baiBaos.Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .Concat(baiBaos)
-                .ToList();
-
-            int Size_Of_Page = 6;
-            int No_Of_Page = (Page_No ?? 1);
-            return View("Index",listBB.ToPagedList(No_Of_Page, Size_Of_Page));
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Search(int? Page_No, [Bind(Include = "MaLinhVuc,MaPhanLoaiTapChi,MaLoaiTapChi,MaCapTapChi,CQXuatBan,Fromdate,Todate,SearchValue")] BaiBaoSearchViewModel baibao)
-        {
-            var baibaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).ToList();
-            if (!String.IsNullOrEmpty(baibao.MaLinhVuc))
-            {
-                if (baibao.MaLinhVuc[0] == 'a')
-                    baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaLinhVuc.ToString() == baibao.MaLinhVuc.Substring(1, baibao.MaLinhVuc.Length - 1))).ToList();
-                else
-                    baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaNhomLinhVuc.ToString() == baibao.MaLinhVuc)).ToList();
-            }
-            if (!String.IsNullOrEmpty(baibao.MaPhanLoaiTapChi))
-            {
-                baibaos = baibaos.Where(p => p.MaLoaiTapChi.ToString() == baibao.MaPhanLoaiTapChi).ToList();
-            }
-
-            if (!String.IsNullOrEmpty(baibao.MaLoaiTapChi))
-            {
-                if (baibao.MaLoaiTapChi == "0")
-                    baibaos = baibaos.Where(p => p.LaTrongNuoc == false).ToList();
-                else
-                    baibaos = baibaos.Where(p => p.LaTrongNuoc == true).ToList();
-            }
-
-            if (baibao.Fromdate > DateTime.MinValue)
-            {
-                baibaos = baibaos.Where(p => p.NamDangBao.Value.Year >= baibao.Fromdate.Year).ToList();
-            }
-            if (baibao.Todate > DateTime.MinValue)
-            {
-                baibaos = baibaos.Where(p => p.NamDangBao.Value.Year  <= baibao.Todate.Year).ToList();
-            }
-            if (!String.IsNullOrEmpty(baibao.CQXuatBan))
-            {
-                baibaos = baibaos.Where(p => p.CQXuatBan.Contains(baibao.CQXuatBan)).ToList();
-            }
-            if (!String.IsNullOrEmpty(baibao.SearchValue))
-            {
-                baibaos = baibaos.Where(p => p.TenBaiBao.Contains(baibao.SearchValue)).ToList();
-            }
             ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
             ViewBag.Fromdate = baibao.Fromdate.ToShortDateString();
             ViewBag.Todate = baibao.Todate.ToShortDateString();
@@ -132,11 +102,13 @@ namespace WebQLKhoaHoc.Controllers
             };
             ViewBag.CQXuatBan = baibao.CQXuatBan;
             ViewBag.SearchValue = baibao.SearchValue;
+
+
             int Size_Of_Page = 6;
             int No_Of_Page = (Page_No ?? 1);
-            return View("Index", baibaos.ToPagedList(No_Of_Page, Size_Of_Page));
-            
+            return View(listBB.ToPagedList(No_Of_Page, Size_Of_Page));
         }
+
 
         // GET: BaiBaos/baibaols/5
         public async Task<ActionResult> Details(int? id)
@@ -192,8 +164,25 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
+
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => p.MaNKH != 1).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+
+           
+
+            var tacgiaphu = db.NhaKhoaHocs.Where(p => p.DSNguoiThamGiaBaiBaos.Any(d => d.MaBaiBao == baiBao.MaBaiBao && d.LaTacGiaChinh == false)).Select(p => p.MaNKH).ToList();
+
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi", baiBao.MaLoaiTapChi);
+            ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH","TenNKH",tacgiaphu);
+            ViewBag.MaLinhVuc = new SelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", baiBao.LinhVucs);
+            ViewBag.NguonGoc = new List<SelectListItem> {
+                new SelectListItem { Text = "Trong nước" , Value = "true"},
+                new SelectListItem { Text = "Ngoài nước" , Value = "false"}
+            };
             return View(baiBao);
         }
 
@@ -202,13 +191,20 @@ namespace WebQLKhoaHoc.Controllers
         // more baibaols see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb,LinkFileUpLoad")] BaiBao baiBao)
-        {
+        public async Task<ActionResult> Edit(DSNguoiThamGiaBaiBao DSNguoiThamGiaBaiBao ,[Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb")] BaiBao baiBao,HttpPostedFileBase linkUpload)
+        {            
             if (ModelState.IsValid)
             {
                 db.Entry(baiBao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
+            }
+            foreach (ModelState modelState in ViewData.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                   var  message = error.ErrorMessage;
+                }
             }
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi", baiBao.MaLoaiTapChi);
