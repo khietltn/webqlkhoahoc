@@ -109,7 +109,7 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaXepLoai = new SelectList(db.XepLoais, "MaXepLoai", "TenXepLoai");
             ViewBag.MaTinhTrang = new SelectList(db.TinhTrangDeTais, "MaTinhTrang", "TenTinhTrang");
             ViewBag.MaPhanLoaiSP = new SelectList(db.PhanLoaiSPs, "MaPhanLoai", "TenPhanLoai");
-            ViewBag.DSNguoiThamGiaDeTai = new MultiSelectList(lstAllNKH.Concat(lstAllNKH), "MaNKH", "TenNKH");
+            ViewBag.DSNguoiThamGiaDeTai = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH");
 
             return View();
         }
@@ -131,7 +131,7 @@ namespace WebQLKhoaHoc.Controllers
                     deTai.LinkFileUpload = filename;
 
                 }
-
+               
                 db.DeTais.Add(deTai);
                 db.SaveChanges();
                 var id = deTai.MaDeTai;
@@ -274,7 +274,11 @@ namespace WebQLKhoaHoc.Controllers
                     deTai.LinkFileUpload = filename;
 
                 }
-                /* phần xử lý thêm xóa sửa của kinh phí đề tài */               
+                else
+                {
+                    deTai.LinkFileUpload = db.DeTais.Where(p => p.MaDeTai == deTai.MaDeTai).Select(p => p.LinkFileUpload).FirstOrDefault();
+                }
+                /* phần xử lý thêm xóa sửa của kinh phí đề tài */
 
                 db.Entry(deTai).State = EntityState.Modified;
                 if (KinhPhiXoa != null && KinhPhiMoi != null)

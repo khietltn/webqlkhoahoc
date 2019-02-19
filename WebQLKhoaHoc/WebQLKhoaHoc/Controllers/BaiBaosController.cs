@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using PagedList;
 using WebQLKhoaHoc;
 using WebQLKhoaHoc.Models;
+using System.IO;
+using System.Data.Entity.Migrations;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -77,18 +79,7 @@ namespace WebQLKhoaHoc.Controllers
 
 
 
-            var listBB = baibaos.Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .Concat(baibaos)
-                                .ToList();
+          
 
             ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
             ViewBag.Fromdate = baibao.Fromdate.ToShortDateString();
@@ -106,7 +97,7 @@ namespace WebQLKhoaHoc.Controllers
 
             int Size_Of_Page = 6;
             int No_Of_Page = (Page_No ?? 1);
-            return View(listBB.ToPagedList(No_Of_Page, Size_Of_Page));
+            return View(baibaos.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
 
@@ -128,8 +119,23 @@ namespace WebQLKhoaHoc.Controllers
         // GET: BaiBaos/Create
         public ActionResult Create()
         {
+              
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => p.MaNKH != 1).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+            
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi");
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi");
+            ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH");
+            ViewBag.LinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc");
+            ViewBag.DeTai = new MultiSelectList(db.DeTais, "MaDeTai", "TenDeTai");
+            ViewBag.NguonGoc = new List<SelectListItem> {
+                new SelectListItem { Text = "Trong nước" , Value = "true"},
+                new SelectListItem { Text = "Ngoài nước" , Value = "false"}
+            };
+
             return View();
         }
 
@@ -138,17 +144,69 @@ namespace WebQLKhoaHoc.Controllers
         // more baibaols see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb,LinkFileUpLoad")] BaiBao baiBao)
+        public async Task<ActionResult> Create(List<int> LinhVuc, List<string> DeTaiBaiBao, List<string> DSNguoiThamGiaBaiBao, [Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb")] BaiBao baiBao, HttpPostedFileBase linkUpload)
         {
             if (ModelState.IsValid)
             {
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileName(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
+                    linkUpload.SaveAs(path);
+                    baiBao.LinkFileUpLoad = filename;
+                }
+                if (LinhVuc != null) { 
+                    baiBao.LinhVucs = db.LinhVucs.Where(p => LinhVuc.Contains(p.MaLinhVuc)).ToList();
+                }
+
                 db.BaiBaos.Add(baiBao);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
+
+                foreach (var mankh in DSNguoiThamGiaBaiBao)
+                {
+                    DSNguoiThamGiaBaiBao nguoiTGBB = new DSNguoiThamGiaBaiBao
+                    {
+                        LaTacGiaChinh = false,
+                        MaBaiBao = baiBao.MaBaiBao,
+                        MaNKH = Int32.Parse(mankh)
+                    };
+                    db.DSNguoiThamGiaBaiBaos.Add(nguoiTGBB);
+                    db.SaveChanges();
+                }
+
+                foreach (var madetai in DeTaiBaiBao)
+                {
+                    DSBaiBaoDeTai detai = new DSBaiBaoDeTai
+                    {
+                        MaBaiBao = baiBao.MaBaiBao,
+                        MaDeTai = Int32.Parse(madetai)
+                    };
+                    db.DSBaiBaoDeTais.Add(detai);
+                    db.SaveChanges();
+                }
+                
                 return RedirectToAction("Index");
             }
 
+
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => p.MaNKH != 1).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+            var tacgiaphu = db.NhaKhoaHocs.Where(p => p.DSNguoiThamGiaBaiBaos.Any(d => d.MaBaiBao == baiBao.MaBaiBao && d.LaTacGiaChinh == false)).Select(p => p.MaNKH).ToList();
+            var detaibaibao = db.DSBaiBaoDeTais.Where(p => p.MaBaiBao == baiBao.MaBaiBao).Select(p => p.MaDeTai).ToList();
+
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi", baiBao.MaLoaiTapChi);
+            ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH", tacgiaphu);
+            ViewBag.LinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", baiBao.LinhVucs);
+            ViewBag.DeTai = new MultiSelectList(db.DeTais, "MaDeTai", "TenDeTai", detaibaibao);
+            ViewBag.NguonGoc = new List<SelectListItem> {
+                new SelectListItem { Text = "Trong nước" , Value = "true"},
+                new SelectListItem { Text = "Ngoài nước" , Value = "false"}
+            };
+
             return View(baiBao);
         }
 
@@ -170,15 +228,14 @@ namespace WebQLKhoaHoc.Controllers
                 p.MaNKH,
                 TenNKH = p.HoNKH + " " + p.TenNKH
             }).ToList();
-
-           
-
             var tacgiaphu = db.NhaKhoaHocs.Where(p => p.DSNguoiThamGiaBaiBaos.Any(d => d.MaBaiBao == baiBao.MaBaiBao && d.LaTacGiaChinh == false)).Select(p => p.MaNKH).ToList();
-
+            var detaibaibao = db.DSBaiBaoDeTais.Where(p => p.MaBaiBao == baiBao.MaBaiBao).Select(p => p.MaDeTai).ToList();
+   
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi", baiBao.MaLoaiTapChi);
             ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH","TenNKH",tacgiaphu);
-            ViewBag.MaLinhVuc = new SelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", baiBao.LinhVucs);
+            ViewBag.LinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", baiBao.LinhVucs);
+            ViewBag.DeTai = new MultiSelectList(db.DeTais, "MaDeTai", "TenDeTai", detaibaibao);
             ViewBag.NguonGoc = new List<SelectListItem> {
                 new SelectListItem { Text = "Trong nước" , Value = "true"},
                 new SelectListItem { Text = "Ngoài nước" , Value = "false"}
@@ -191,23 +248,70 @@ namespace WebQLKhoaHoc.Controllers
         // more baibaols see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(DSNguoiThamGiaBaiBao DSNguoiThamGiaBaiBao ,[Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb")] BaiBao baiBao,HttpPostedFileBase linkUpload)
+        public async Task<ActionResult> Edit(List<int> LinhVuc,List<string> DeTaiBaiBao,List<string> DSNguoiThamGiaBaiBao ,[Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb")] BaiBao baiBao,HttpPostedFileBase linkUpload)
         {            
             if (ModelState.IsValid)
             {
+                
                 db.Entry(baiBao).State = EntityState.Modified;
+
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileName(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
+                    linkUpload.SaveAs(path);
+                    baiBao.LinkFileUpLoad = filename;
+                }
+                else
+                {
+                    baiBao.LinkFileUpLoad = db.BaiBaos.Where(p => p.MaBaiBao == baiBao.MaBaiBao).Select(p => p.LinkFileUpLoad).FirstOrDefault();
+                }
+
+                foreach (var mankh in DSNguoiThamGiaBaiBao)
+                {
+                    DSNguoiThamGiaBaiBao nguoiTGBB = new DSNguoiThamGiaBaiBao
+                    {
+                        LaTacGiaChinh = false,
+                        MaBaiBao = baiBao.MaBaiBao,
+                        MaNKH = Int32.Parse(mankh)
+                    };
+                    db.DSNguoiThamGiaBaiBaos.AddOrUpdate(nguoiTGBB);
+                }
+                
+                foreach(var madetai in DeTaiBaiBao)
+                {
+                    DSBaiBaoDeTai detai = new DSBaiBaoDeTai
+                    {
+                        MaBaiBao = baiBao.MaBaiBao,
+                        MaDeTai = Int32.Parse(madetai)                       
+                    };
+                    db.DSBaiBaoDeTais.AddOrUpdate(detai);
+                }
+
+                baiBao.LinhVucs = db.LinhVucs.Where(p => LinhVuc.Contains(p.MaLinhVuc)).ToList();
+
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            foreach (ModelState modelState in ViewData.ModelState.Values)
+
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => p.MaNKH != 1).Select(p => new
             {
-                foreach (ModelError error in modelState.Errors)
-                {
-                   var  message = error.ErrorMessage;
-                }
-            }
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+            var tacgiaphu = db.NhaKhoaHocs.Where(p => p.DSNguoiThamGiaBaiBaos.Any(d => d.MaBaiBao == baiBao.MaBaiBao && d.LaTacGiaChinh == false)).Select(p => p.MaNKH).ToList();
+            var detaibaibao = db.DSBaiBaoDeTais.Where(p => p.MaBaiBao == baiBao.MaBaiBao).Select(p => p.MaDeTai).ToList();
+
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi", baiBao.MaLoaiTapChi);
+            ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH", tacgiaphu);
+            ViewBag.LinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", baiBao.LinhVucs);
+            ViewBag.DeTai = new MultiSelectList(db.DeTais, "MaDeTai", "TenDeTai", detaibaibao);
+            ViewBag.NguonGoc = new List<SelectListItem> {
+                new SelectListItem { Text = "Trong nước" , Value = "true"},
+                new SelectListItem { Text = "Ngoài nước" , Value = "false"}
+            };
+
             return View(baiBao);
         }
 

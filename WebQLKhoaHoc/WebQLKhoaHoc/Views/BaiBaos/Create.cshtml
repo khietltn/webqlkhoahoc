@@ -5,120 +5,153 @@
     Layout = "~/Views/Shared/_MainPage.cshtml";
 }
 
-<h2>Create</h2>
+<div class=" parallax layer-overlay overlay-light bg-white-transparent-4" data-bg-img="../../Image/research-background.png" style='background-image: url("../../Image/research-background.png")'>
+    <div class="container">
+        @using (Html.BeginForm("Create", "BaiBaos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true)
+                   
+                    <div class="modal-header bg-white-transparent-5">
+                        <h1 class="modal-title text-center text-theme-color-2 ">Tạo mới bài báo </h1>
+                    </div>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>BaiBao</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaISSN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaISSN)
-                @Html.ValidationMessageFor(model => model.MaISSN)
-            </div>
-        </div>
+                    <div class="modal-body">
+                        <div class="row  bg-white-transparent-7">
+                            <div class="col-md-6">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        Mã ISSN:
+                                    </dt>
+                                    <dd>
+                                        @Html.EditorFor(model => model.MaISSN, new { htmlAttributes = new { @class = "form-control", @required = "reuqired" } })
+                                    </dd>
+                                    <dt>
+                                        Tên bài báo:
+                                    </dt>
+                                    <dd>
+                                        @Html.EditorFor(model => model.TenBaiBao, new { htmlAttributes = new { @class = "form-control", @required = "reuqired" } })
+                                    </dd>
+                                    <dt>
+                                        Nguồn gốc:
+                                    </dt>
+                                    <dd>
+                                        @Html.DropDownList("LaTrongNuoc", (IEnumerable<SelectListItem>)ViewBag.NguonGoc, new { @class = "form-control" })
+                                    </dd>
+                                    <dt>
+                                        Tập phát hành:
+                                    </dt>
+                                    <dd>
+                                        @Html.EditorFor(model => model.TapPhatHanh, new { htmlAttributes = new { @class = "form-control", @required = "reuqired" } })
+                                    </dd>
+                                    <dt>
+                                        Số phát hành:
+                                    </dt>
+                                    <dd>
+                                        @Html.EditorFor(model => model.SoPhatHanh, new { htmlAttributes = new { @class = "form-control", @required = "reuqired" } })
+                                    </dd>
+                                </dl>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenBaiBao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenBaiBao)
-                @Html.ValidationMessageFor(model => model.TenBaiBao)
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LaTrongNuoc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LaTrongNuoc)
-                @Html.ValidationMessageFor(model => model.LaTrongNuoc)
-            </div>
-        </div>
+                            <div class="col-md-6">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        Trang báo:
+                                    </dt>
+                                    <dd>
+                                        @Html.EditorFor(model => model.TrangBaiBao, new { htmlAttributes = new { @class = "form-control", @required = "reuqired" } })
+                                    </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CQXuatBan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CQXuatBan)
-                @Html.ValidationMessageFor(model => model.CQXuatBan)
-            </div>
-        </div>
+                                    <dt>
+                                        Cơ quan xuất bản:
+                                    </dt>
+                                    <dd>
+                                        @Html.EditorFor(model => model.CQXuatBan, new { htmlAttributes = new { @class = "form-control", @required = "reuqired" } })
+                                    </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaLoaiTapChi, "MaLoaiTapChi", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaLoaiTapChi", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaLoaiTapChi)
-            </div>
-        </div>
+                                    <dt>
+                                        Năm đăng báo:
+                                    </dt>
+                                    <dd>
+                                        <input name="NamDangBao" id="NamDangBao" class="form-control date-picker" type="text" placeholder="Năm đăng báo" value="" autocomplete="off">
+                                    </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaCapTapChi, "MaCapTapChi", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaCapTapChi", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaCapTapChi)
-            </div>
-        </div>
+                                    <dt>
+                                        Web liên kết:
+                                    </dt>
+                                    <dd>
+                                        @Html.EditorFor(model => model.LienKetWeb, new { htmlAttributes = new { @class = "form-control" } })
+                                    </dd>
+                                    <dt></dt>
+                                    <dd></dd>
+                                    <dt>
+                                        Link upload file:
+                                    </dt>
+                                    <dd>
+                                        <input type="file" class="form-control-plaintext" name="linkUpload" id="linkUpload" />
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row bg-white-transparent-7">
+                            <div class="col-md-6">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        Lĩnh vực:
+                                    </dt>
+                                    <dd>
+                                        @Html.ListBox("LinhVuc", ViewBag.LinhVuc as MultiSelectList, new { @class = "form-control" })
+                                    </dd>
+                                    <dt>
+                                        Đề tài bài báo:
+                                    </dt>
+                                    <dd>
+                                        @Html.ListBox("DeTaiBaiBao", ViewBag.DeTai as MultiSelectList, new { @class = "form-control" })
+                                    </dd>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NamDangBao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NamDangBao)
-                @Html.ValidationMessageFor(model => model.NamDangBao)
-            </div>
-        </div>
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        Cấp tạp chí:
+                                    </dt>
+                                    <dd>
+                                        @Html.DropDownList("MaCapTapChi", (IEnumerable<SelectListItem>)ViewBag.MaCapTapChi, new { @class = "form-control form-control-sm" })
+                                    </dd>
+                                    <dt>
+                                        Loại tạp chí:
+                                    </dt>
+                                    <dd>
+                                        @Html.DropDownList("MaLoaiTapChi", (IEnumerable<SelectListItem>)ViewBag.MaLoaiTapChi, new { @class = "form-control" })
+                                    </dd>
+                                    <dt>
+                                        Tác giả:
+                                    </dt>
+                                    <dd>
+                                        @Html.ListBox("DSNguoiThamGiaBaiBao", ViewBag.DSNguoiThamBaiBao as MultiSelectList, new { @class = "listbox" })
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    <br />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TapPhatHanh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TapPhatHanh)
-                @Html.ValidationMessageFor(model => model.TapPhatHanh)
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Lưu Xuống" class="btn btn-warning btn-lg" />
+                                <a href="@Url.Action("Index","BaiBaos")" type="button" class="btn btn-danger btn-lg">Trở Về</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoPhatHanh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoPhatHanh)
-                @Html.ValidationMessageFor(model => model.SoPhatHanh)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrangBaiBao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TrangBaiBao)
-                @Html.ValidationMessageFor(model => model.TrangBaiBao)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LienKetWeb, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LienKetWeb)
-                @Html.ValidationMessageFor(model => model.LienKetWeb)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LinkFileUpLoad, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LinkFileUpLoad)
-                @Html.ValidationMessageFor(model => model.LinkFileUpLoad)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+        }
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>

@@ -20,7 +20,7 @@ namespace WebQLKhoaHoc
 
             if (!File.Exists(Server.MapPath("Count_Visited.txt")))
             File.WriteAllText(Server.MapPath("Count_Visited.txt"),"0");
-            Application["DaTruyCap"] = int.Parse(File.ReadAllText(Server.MapPath("Count_Visited.txt")));
+            Application["DaTruyCap"] = int.Parse(File.ReadAllText(Server.MapPath("~/Count_Visited.txt")));
         }
         void Session_Start(object sender, EventArgs e)
 
