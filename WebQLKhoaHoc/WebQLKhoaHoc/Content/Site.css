@@ -11,7 +11,10 @@
     .tip-list-item a {
         padding: 0 0 0 20px
     }
-
+.multiselect-container > li > a > label.checkbox
+{
+    width: 220px;
+}
 /* styles for validation helpers */
 .field-validation-error {
     color: #b94a48;
@@ -1364,6 +1367,7 @@ legend {
 
 .dropdown-menu {
     border: 0;
+    overflow: auto !important;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.26)
 }
 
@@ -1372,7 +1376,7 @@ legend {
     }
 
     .dropdown-menu li {
-        overflow: hidden;
+        /*overflow: hidden;*/
         position: relative
     }
 

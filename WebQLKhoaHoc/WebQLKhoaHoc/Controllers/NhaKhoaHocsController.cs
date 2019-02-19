@@ -12,6 +12,7 @@ using PagedList.Mvc;
 using PagedList;
 using System.Text;
 using System.IO;
+using System.Data.Entity.Migrations;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -94,11 +95,39 @@ namespace WebQLKhoaHoc.Controllers
         // GET: NhaKhoaHocs/Create
         public ActionResult Create()
         {
-            ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh");
-            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
-            ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam");
-            ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi");
-            ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach");
+           
+            ViewBag.MaCNDT = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh");
+            ViewBag.MaDVQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+            ViewBag.MaHH = new SelectList(db.HocHams, "MaHocHam", "TenHocHam");
+            ViewBag.MaHV = new SelectList(db.HocVis, "MaHocVi", "TenHocVi");
+            ViewBag.MaNgachVC = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach");
+
+            var lstAllTrinhDoNN = db.TrinhDoNgoaiNgus.Select(p => new
+            {
+                p.MaTrinhDoNN,
+                TenTD = p.TenTrinhDo
+            }).ToList();
+
+           
+            ViewBag.DSTrinhDoNgoaiNgu = new MultiSelectList(lstAllTrinhDoNN, "MaTrinhDoNN", "TenTD");
+
+            var lstAllLinhVucNC = db.LinhVucs.Select(p => new
+            {
+                p.MaLinhVuc,
+                TenLV = p.TenLinhVuc
+            });
+           
+            ViewBag.DSLinhVucNghienCuu = new MultiSelectList(lstAllLinhVucNC, "MaLinhVuc", "TenLV");
+
+            var lstAllChuyenMonGD = db.ChuyenMons.Select(p => new
+            {
+                p.MaChuyenMon,
+                TenCM = p.TenChuyenMon
+            });
+           
+            ViewBag.DSChuyenMonGiangDay = new MultiSelectList(lstAllChuyenMonGD, "MaChuyenMon", "TenCM");
+
+
             return View();
         }
         
@@ -127,7 +156,7 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: NhaKhoaHocs/Edit/5
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -138,13 +167,41 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh", nhaKhoaHoc.MaCNDaoTao);
-            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", nhaKhoaHoc.MaDonViQL);
-            ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam", nhaKhoaHoc.MaHocHam);
-            ViewBag.MaHocVi = new SelectList(db.HocVis, "MaHocVi", "TenHocVi", nhaKhoaHoc.MaHocVi);
-            ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach", nhaKhoaHoc.MaNgachVienChuc);
+
+            ViewBag.MaCNDT = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh", nhaKhoaHoc.MaCNDaoTao);
+            ViewBag.MaDVQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", nhaKhoaHoc.MaDonViQL);
+            ViewBag.MaHH = new SelectList(db.HocHams, "MaHocHam", "TenHocHam",nhaKhoaHoc.MaHocHam);
+            ViewBag.MaHV = new SelectList(db.HocVis, "MaHocVi", "TenHocVi", nhaKhoaHoc.MaHocVi);
+            ViewBag.MaNgachVC = new SelectList(db.NgachVienChucs, "MaNgach", "TenNgach", nhaKhoaHoc.MaNgachVienChuc);
+
+            var lstAllTrinhDoNN = db.TrinhDoNgoaiNgus.Select(p => new
+            {
+                p.MaTrinhDoNN,
+                TenTD = p.TenTrinhDo
+            }).ToList();
+          
+            var lstTrinhDoNN = db.TrinhDoNgoaiNgus.Where(p => p.NhaKhoaHocs.Select(t => t.MaNKH).Contains(nhaKhoaHoc.MaNKH)).Select(p => p.MaTrinhDoNN).ToList();
+            ViewBag.DSTrinhDoNgoaiNgu = new MultiSelectList(lstAllTrinhDoNN, "MaTrinhDoNN", "TenTD", lstTrinhDoNN);
+
+            var lstAllLinhVucNC = db.LinhVucs.Select(p => new
+            {
+                p.MaLinhVuc,
+                TenLV = p.TenLinhVuc
+            });
+            var lstLinhVucNC = db.LinhVucs.Where(p => p.NhaKhoaHocs.Select(t => t.MaNKH).Contains(nhaKhoaHoc.MaNKH)).Select(t => t.MaLinhVuc)
+                .ToList();
+            ViewBag.DSLinhVucNghienCuu = new MultiSelectList(lstAllLinhVucNC, "MaLinhVuc", "TenLV", lstLinhVucNC);
+
+            var lstAllChuyenMonGD = db.ChuyenMons.Select(p => new
+            {
+                p.MaChuyenMon,
+                TenCM = p.TenChuyenMon
+            });
+            var lstChuyenMonGD = db.ChuyenMonNKHs.Where(p => p.MaNKH == nhaKhoaHoc.MaNKH).Select(p => p.MaChuyenMon)
+                .ToList();
+            ViewBag.DSChuyenMonGiangDay = new MultiSelectList(lstAllChuyenMonGD, "MaChuyenMon", "TenCM", lstChuyenMonGD);
             NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHoc);
-             return View(nkh);
+            return View(nkh);
         }
 
         // POST: NhaKhoaHocs/Edit/5
@@ -152,24 +209,11 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
+        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload, List<int> DSTrinhDoNN,List<int> DSLinhVucNC, List<int> DSChuyenMonGD, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
         {
            
             if (ModelState.IsValid)
             {
-                // Edit list dropdown
-                var selectedValue1 = Int32.Parse(Request.Form["MaHH1"].ToString());
-                var selectedValue2 = Int32.Parse(Request.Form["MaHH2"].ToString());
-                var selectedValue3 = Int32.Parse(Request.Form["MaHH3"].ToString());
-                var selectedValue4 = Int32.Parse(Request.Form["MaHH4"].ToString());
-                var selectedValue5 = Int32.Parse(Request.Form["MaHH5"].ToString());
-
-                nhaKhoaHoc.MaHocHam = selectedValue1;
-                nhaKhoaHoc.MaHocVi = selectedValue2;
-                nhaKhoaHoc.MaCNDaoTao = selectedValue3;
-                nhaKhoaHoc.MaDonViQL = selectedValue4;
-                nhaKhoaHoc.MaNgachVienChuc = selectedValue5;
-
                 // upload image
                 if (repo.HasFile(fileUpload))
                 {
@@ -182,7 +226,18 @@ namespace WebQLKhoaHoc.Controllers
                     fileStream.Read(fileData, 0, fileLength);
                 }
 
-                db.Entry(nhaKhoaHoc).State = EntityState.Modified;
+              
+                foreach (var item in DSChuyenMonGD)
+                {
+                    ChuyenMonNKH chuyenmonNKH = new ChuyenMonNKH
+                    {
+                        MaNKH = nhaKhoaHoc.MaNKH,
+                        MaChuyenMon = item,
+                        NgayCapNhat = DateTime.Now
+                    };
+                    db.ChuyenMonNKHs.AddOrUpdate(chuyenmonNKH);
+                    db.SaveChanges();
+                }
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
