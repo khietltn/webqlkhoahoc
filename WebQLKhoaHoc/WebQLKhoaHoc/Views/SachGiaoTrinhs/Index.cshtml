@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainPage.cshtml";
+    // tạo biến đếm cho collapse
+    int quantity = 0;
 }
 
 @using PagedList.Mvc;
@@ -11,9 +13,9 @@
 
 <div class="main-content">
     <section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
-        @using (Html.BeginForm("Search", "SachGiaoTrinhs", FormMethod.Post))
+        @using (Html.BeginForm("Index", "SachGiaoTrinhs", FormMethod.Get))
         {
-            @Html.AntiForgeryToken()
+            
             <div class="display-table">
                 <div class="display-table-cell">
                     <div class="container pt-30 pb-20">
@@ -24,6 +26,18 @@
                                     <li> @Html.ActionLink("Trang Chủ", "Index", "Home")</li>
                                     <li class="active text-gray-silver">Sách Giáo Trình</li>
                                 </ol>
+                                @if (Session["user"] != null)
+                                {
+                                    <!-- Hiển thị nút khi đã đăng nhập -->
+                                    <div class="col-xs-12 col-sm-4 pl-5 pr-5">
+                                        <div class="form-group mb-5">
+                                            <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block btn-round" data-loading-text="Please wait...">
+                                                Sách Giáo Trình của tôi
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--    ***************            -->
+                                }
                             </div>
                             <div class="col-md-6">
                                 <!-- Appointment Form Starts -->
@@ -55,6 +69,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if (Session["user"] != null)
+                                        {
+                                            WebQLKhoaHoc.Models.UserLoginViewModel nkh = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
+                                            <input name="nkhId" id="nkhId" type="hidden" value="@nkh.MaNKH">
+                                        }
                                         <div class="col-xs-12 col-sm-4 pl-5 pr-5">
                                             <div class="form-group mb-5">
                                                 <button type="submit" class="btn btn-colored btn-theme-color-2 text-white btn-lg btn-block" data-loading-text="Please wait...">
@@ -72,18 +91,24 @@
             </div>
         }
     </section>
-    <section>
+    <section class="divider parallax layer-overlay overlay-light" data-bg-img="../../Image/research-background.png" style = 'background-image: url("../../Image/research-background.png")'>
         <div class="container">
             <div class="section-content">
-                <section id="services" class="bg-lightest">
+                <section id="services" class="bg-white-transparent-6 border-radius-10px">
                     <div class="container pt-40">
-                        <div class="section-title mb-10">
+                        <div class="section-title mb-11">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h3 class="text-uppercase text-theme-colored title line-bottom">
+                                    <h2 class="text-uppercase title" style="color:deepskyblue; border-bottom:1px double #008aff">
                                         Dữ liệu Sách và Giáo Trình
-                                    </h3>
+                                    </h2>
                                 </div>
+                                @if (Session["user"] != null)
+                                {
+                                    <div class="col-md-1">
+                                        <a href="@Url.Action("Create", "SachGiaoTrinhs")" class="btn btn-success border-radius-10px pull-right">Thêm mới</a>
+                                    </div>
+                                }
                             </div>
                         </div>
 
@@ -92,39 +117,72 @@
                             @foreach (var item in Model)
                             {
                                 <div class="col-xs-12">
-                                    <div class="bg-white p-15 mb-30 border-1px">
+                                    <div class="bg-white round p-15 mb-30 border-1px">
+                                        <span class="mb-20 mt-5 p-5 bg-theme-colored-transparent-6 text-white pull-right border-radius-10px">
+                                            @item.MaISBN
+                                        </span>
+                                        <div class="dropdown">
+                                            <button class="btn btn-link left" style="padding-left:unset" role="link" href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("Details", "SachGiaoTrinhs", new { id = item.MaSach })')">
+                                                <h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
+                                                    @Html.DisplayFor(modelItem => item.TenSach)
+                                                </h4>
+                                            </button>
+                                            <button class="btn btn-default btn-round" data-toggle="collapse" data-target="#research-@quantity "><i class="fas fa-caret-down"></i></button>
+                                            <div id="research-@quantity" class="collapse">
+                                                <p class="text-gray font-13 mb-0">
+                                                    <i class="fa fa-university" aria-hidden="true"></i>
+                                                    <b> Nhà xuất bản:</b>
+                                                    @Html.DisplayFor(modelItem => item.NhaXuatBan.TenNXB)
+                                                    <br>
+                                                    <i class="fa fa-tag" aria-hidden="true"></i>
+                                                    <b> Thể loại : </b>
+                                                    @Html.DisplayFor(modelItem => item.PhanLoaiSach.TenLoai)
+                                                    <br>
+                                                    <i class="fa fa-university" aria-hidden="true"></i>
+                                                    <b> Lĩnh vự :</b>
+                                                    @Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
+                                                    <br>
+                                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                                    <b>Người tham gia:</b>
+                                                    @for (int i = 0; i < item.DSTacGias.Count; i++)
+                                                    {
+                                                        var tg = item.DSTacGias.ToList()[i];
+                                                        var name = tg.NhaKhoaHoc.HoNKH + " " + tg.NhaKhoaHoc.TenNKH;
+                                                        if (tg.LaChuBien.Value)
+                                                        {
+                                                            name += " (Chủ biên)";
+                                                        }
+                                                        if (i < (item.DSTacGias.Count - 1))
+                                                        {
+                                                            name += ", ";
+                                                        }
 
-                                        <a href="javascript:" data-toggle="modal" data-target="#mydata" onclick="modal_load('@Url.Action("Details", "SachGiaoTrinhs", new { id = item.MaSach})')">
-                                            <h4 class="icon-box-title font-16 font-weight-600 m-0 mb-5 pr-15">
-                                                @Html.DisplayFor(modelItem => item.TenSach)
-                                            </h4>
-                                        </a>                                        
+                                                        <a class="customlink" href="@Url.Action("Details", "NhaKhoaHocs", new { id = tg.MaNKH })">@name</a>
 
-                                        <p class="text-gray font-13 mb-0">
-                                            @Html.DisplayFor(modelItem => item.NhaXuatBan.TenNXB)
-                                            <br>
-                                            <i class="fa fa-tag" aria-hidden="true"></i>
-                                            <b>Lĩnh vực:</b>
-                                            @Html.DisplayFor(modelItem => item.PhanLoaiSach.TenLoai)
-                                            <br>
-                                            <i class="fa fa-globe" aria-hidden="true"></i>
-                                            <b>Lĩnh vực:</b>
-                                            @Html.DisplayFor(modelItem => item.LinhVuc.TenLinhVuc)
-                                            <br>
-                                            <i class="fa fa-users" aria-hidden="true"></i>
-                                            <b> Tác giả:  </b>
-                                            @Html.DisplayFor(modelItem => item.DSTacGias)
-                                            <br>
 
-                                        </p>
+                                                    }
+                                                    @*<a href="#"></a>*@
+                                                    @{ quantity++;}
+                                                    <br>
+                                                </p>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             }
                         </div>
 
                         <div class="row mt-20 text-center">
-                                @Html.PagedListPager(Model, Page_No => Url.Action("Index", "SachGiaoTrinhs", new { Page_No, search = Request.QueryString["search"] }))
-                            </div>
+                            @Html.PagedListPager(Model, Page_No => Url.Action("Index", "SachGiaoTrinhs", new
+                            {
+                                Page_No,
+                                MaDonViQLThucHien = Request.QueryString["MaLinhVuc"],
+                                MaCapDeTai = Request.QueryString["MaLoai"],
+                                MaLinhVuc = Request.QueryString["MaNXB"],
+                                nkhId = Request.QueryString["nkhId"]
+                            }));
+                        </div>
                     </div>
                 </section>
             </div>
