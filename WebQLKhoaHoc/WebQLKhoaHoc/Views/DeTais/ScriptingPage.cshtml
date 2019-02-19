@@ -140,7 +140,10 @@
 
 </div>
 <div class="modal-footer">
-    <a href="@Url.Action("Edit","DeTais",new { id = Model.MaDeTai})" type="button" class="btn btn-primary">Chỉnh Sửa</a>
+    @if (Session["user"] != null)
+    {
+    <a href="@Url.Action("Edit", "DeTais", new { id = Model.MaDeTai })" type="button" class="btn btn-primary">Chỉnh Sửa</a>
+    }
     <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 </div>
 

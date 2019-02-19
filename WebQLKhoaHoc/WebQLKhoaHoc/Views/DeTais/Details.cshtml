@@ -192,7 +192,10 @@
               
         </div>
         <div class="modal-footer bg-white-transparent-6">
-            <a href="@Url.Action("Edit","DeTais",new { id = Model.MaDeTai})" class="btn btn-primary">Chỉnh Sửa</a>
+            @if (Session["user"] != null)
+            {
+            <a href="@Url.Action("Edit", "DeTais", new { id = Model.MaDeTai })" class="btn btn-primary">Chỉnh Sửa</a>
+            }
             <a href="@Url.Action("Index","DeTais")" class="btn btn-danger">Quay Lại</a>
         </div>
         <br />
