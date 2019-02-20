@@ -13,6 +13,7 @@ using PagedList;
 using System.Text;
 using System.IO;
 using System.Data.Entity.Migrations;
+using WebGrease.Css.Extensions;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -215,6 +216,54 @@ namespace WebQLKhoaHoc.Controllers
             if (ModelState.IsValid)
             {
                 // upload image
+                var nhakh = db.NhaKhoaHocs.Where(p => p.MaNKH == nhaKhoaHoc.MaNKH).Include(p => p.LinhVucs).Include(p=>p.TrinhDoNgoaiNgus).FirstOrDefault();
+                db.NhaKhoaHocs.AddOrUpdate(nhaKhoaHoc);
+                
+
+                if (DSLinhVucNC != null) {
+                    
+                    var deletedlinhvuc = nhakh.LinhVucs.Where(p => !DSLinhVucNC.Contains(p.MaLinhVuc)).ToList();
+                    var addedlinhvuc = DSLinhVucNC.Except(nhakh.LinhVucs.Select(p => p.MaLinhVuc)).ToList();
+                    var addlinhvuc = db.LinhVucs.Where(p => addedlinhvuc.Contains(p.MaLinhVuc)).ToList();
+                    foreach(var x in deletedlinhvuc){
+                        nhakh.LinhVucs.Remove(x);
+                    }
+                    foreach(var x in addlinhvuc)
+                    {
+                        nhakh.LinhVucs.Add(x);
+                    }
+                }
+                else
+                {
+                    foreach(var x in nhakh.LinhVucs)
+                    {
+                        nhakh.LinhVucs.Remove(x);
+                    }
+                }
+
+                if (DSTrinhDoNN != null) {
+                    var deletednn = nhakh.TrinhDoNgoaiNgus.Where(p => !DSTrinhDoNN.Contains(p.MaTrinhDoNN)).ToList();
+                    var addednn = DSTrinhDoNN.Except(nhakh.TrinhDoNgoaiNgus.Select(p => p.MaTrinhDoNN)).ToList();
+                    var addnn = db.TrinhDoNgoaiNgus.Where(p => addednn.Contains(p.MaTrinhDoNN)).ToList();
+                    foreach (var x in deletednn)
+                    {
+                        nhakh.TrinhDoNgoaiNgus.Remove(x);
+                    }
+                    foreach (var x in addnn)
+                    {
+                        nhakh.TrinhDoNgoaiNgus.Add(x);
+                    }
+                }
+                else
+                {
+                    foreach(var x in nhakh.TrinhDoNgoaiNgus)
+                    {
+                        nhakh.TrinhDoNgoaiNgus.Remove(x);
+                    }
+                }
+
+                
+
                 if (repo.HasFile(fileUpload))
                 {
                     string mimeType = fileUpload.ContentType;
@@ -227,20 +276,27 @@ namespace WebQLKhoaHoc.Controllers
                 }
 
               
-                foreach (var item in DSChuyenMonGD)
-                {
-                    ChuyenMonNKH chuyenmonNKH = new ChuyenMonNKH
+                if (DSChuyenMonGD != null) {
+                    db.ChuyenMonNKHs.Where(p => p.MaNKH == nhaKhoaHoc.MaNKH).ForEach(x => db.ChuyenMonNKHs.Remove(x));
+                    foreach (var item in DSChuyenMonGD)
                     {
-                        MaNKH = nhaKhoaHoc.MaNKH,
-                        MaChuyenMon = item,
-                        NgayCapNhat = DateTime.Now
-                    };
-                    db.ChuyenMonNKHs.AddOrUpdate(chuyenmonNKH);
-                    db.SaveChanges();
+                        ChuyenMonNKH chuyenmonNKH = new ChuyenMonNKH
+                        {
+                            MaNKH = nhaKhoaHoc.MaNKH,
+                            MaChuyenMon = item,
+                            NgayCapNhat = DateTime.Now
+                        };
+                        db.ChuyenMonNKHs.Add(chuyenmonNKH);
+                        db.SaveChanges();
+                    }
                 }
+               
+
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+
             ViewBag.MaCNDaoTao = new SelectList(db.ChuyenNganhs, "MaChuyenNganh", "TenChuyenNganh", nhaKhoaHoc.MaCNDaoTao);
             ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", nhaKhoaHoc.MaDonViQL);
             ViewBag.MaHocHam = new SelectList(db.HocHams, "MaHocHam", "TenHocHam", nhaKhoaHoc.MaHocHam);

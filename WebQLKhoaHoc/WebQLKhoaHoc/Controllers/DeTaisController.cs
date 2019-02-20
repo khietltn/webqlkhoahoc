@@ -24,61 +24,64 @@ namespace WebQLKhoaHoc.Controllers
         // GET: DeTais
         public async Task<ActionResult> Index(int? Page_No, [Bind(Include = "MaCapDeTai,MaDonViQLThucHien,MaLinhVuc,Fromdate,Todate,SearchValue")] DeTaiSearchViewModel detai,int? nkhId)
         {
-            ViewBag.MaCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
+            ViewBag.DSCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
             ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
             ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
            
             var detais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).Include(d => d.DSNguoiThamGiaDeTais).ToList();
 
-           
-            if (nkhId == null){                
-                if (!String.IsNullOrEmpty(detai.MaDonViQLThucHien))
-                {
-                    detais = detais.Where(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien).ToList();
-                }
+            int Size_Of_Page = 6;
+            int No_Of_Page = (Page_No ?? 1);
 
-                if (!String.IsNullOrEmpty(detai.MaLinhVuc))
-                {
-                    if (detai.MaLinhVuc[0] == 'a')
-                        detais = detais.Where(p =>
-                            p.MaLinhVuc.ToString() == detai.MaLinhVuc.Substring(1, detai.MaLinhVuc.Length - 1)).ToList();
-                    else
-                        detais = detais.Where(p => p.LinhVuc.MaNhomLinhVuc.ToString() == detai.MaLinhVuc).ToList();
-                }
-                if (detai.Fromdate > DateTime.MinValue)
-                {
-                    detais = detais.Where(p => p.NamBD >= detai.Fromdate).ToList();
-                }
-                if (detai.Todate > DateTime.MinValue)
-                {
-                    detais = detais.Where(p => p.NamKT <= detai.Todate).ToList();
-                }
-                if (!String.IsNullOrEmpty(detai.SearchValue))
-                {
-                    detais = detais.Where(p => p.TenDeTai.ToLower().Contains(detai.SearchValue.ToLower())).ToList();
-                }
-
-                /* Nếu Thời gian search được nhập thì mới đỏ vào view bag */
-                if (detai.Fromdate > DateTime.MinValue && detai.Todate > DateTime.MinValue) {
-                    ViewBag.Fromdate = detai.Fromdate.ToShortDateString();
-                    ViewBag.Todate = detai.Todate.ToShortDateString();
-                }
-                ViewBag.SearchValue = detai.SearchValue;
-                
+            if (nkhId != null && Session["user"] != null)
+            {                
+                var madetais = db.DSNguoiThamGiaDeTais.Where(p => p.MaNKH == nkhId).Select(p => p.MaDeTai).ToList();
+                detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
+                return View(detais.ToPagedList(No_Of_Page, Size_Of_Page));                
             }
-            else{
-                if (Session["user"] == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "User Unidentified");
-                }
-                UserLoginViewModel nd = (UserLoginViewModel)Session["user"];
-                var madetais = db.DSNguoiThamGiaDeTais.Where(p => p.MaNKH == nd.MaNKH).Select(p => p.MaDeTai).ToList();
+           
+                        
+            if (!String.IsNullOrEmpty(detai.MaDonViQLThucHien))
+            {
+                detais = detais.Where(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien).ToList();
+            }
 
+            if (!String.IsNullOrEmpty(detai.MaLinhVuc))
+            {
+                if (detai.MaLinhVuc[0] == 'a')
+                    detais = detais.Where(p =>
+                        p.MaLinhVuc.ToString() == detai.MaLinhVuc.Substring(1, detai.MaLinhVuc.Length - 1)).ToList();
+                else
+                    detais = detais.Where(p => p.LinhVuc.MaNhomLinhVuc.ToString() == detai.MaLinhVuc).ToList();
+            }
+            if (detai.Fromdate > DateTime.MinValue)
+            {
+                detais = detais.Where(p => p.NamBD >= detai.Fromdate).ToList();
+            }
+            if (detai.Todate > DateTime.MinValue)
+            {
+                detais = detais.Where(p => p.NamKT <= detai.Todate).ToList();
+            }
+            if (!String.IsNullOrEmpty(detai.SearchValue))
+            {
+                detais = detais.Where(p => p.TenDeTai.ToLower().Contains(detai.SearchValue.ToLower())).ToList();
+            }
+
+            if(nkhId != null)
+            {
+                var madetais = db.DSNguoiThamGiaDeTais.Where(p => p.MaNKH == nkhId).Select(p => p.MaDeTai).ToList();
                 detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
             }
             
-            int Size_Of_Page = 6;
-            int No_Of_Page = (Page_No ?? 1);
+            /* Nếu Thời gian search được nhập thì mới đỏ vào view bag */
+            if (detai.Fromdate > DateTime.MinValue && detai.Todate > DateTime.MinValue) {
+                ViewBag.Fromdate = detai.Fromdate.ToShortDateString();
+                ViewBag.Todate = detai.Todate.ToShortDateString();
+            }
+            ViewBag.SearchValue = detai.SearchValue;
+                
+                
+      
             return View(detais.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
@@ -282,7 +285,7 @@ namespace WebQLKhoaHoc.Controllers
                 {
                     deTai.LinkFileUpload = db.DeTais.Where(p => p.MaDeTai == deTai.MaDeTai).Select(p => p.LinkFileUpload).FirstOrDefault();
                 }
-
+                
                 db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == deTai.MaDeTai && p.LaChuNhiem == false).ForEach(x => db.DSNguoiThamGiaDeTais.Remove(x));
                 if (KinhPhiXoa != "")
                 {

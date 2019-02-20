@@ -138,7 +138,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-4 mb-md-50">
                                         <div class="funfact text-center">
-                                            <a href="http://csdlkhoahoc.hueuni.edu.vn/index.php/topic/index/user/2873/page/1">
+                                            <a href="../../DeTais?nkhId=@Model.MaNKH">
                                                 <h2 data-animation-duration="2000" data-value="@Model.DsDetai" class="animate-number mt-0 font-30 font-weight-500 text-theme-color-2 appeared">1</h2>
                                             </a>
                                             <h5 class="text-uppercase mb-0">Đề tài khoa học</h5>
@@ -517,10 +517,18 @@ c = 1;
                     </div>
                 </div>
             </section>
-        <div class="modal-footer bg-white-transparent-6">
-            <a href="@Url.Action("Edit","NhaKhoaHocs",new { id = Model.MaNKH})" class="btn btn-primary">Chỉnh Sửa</a>
-            <a href="@Url.Action("Index","NhaKhoaHocs")" class="btn btn-danger">Quay Lại</a>
-        </div>
+            <div class="modal-footer bg-white-transparent-6">
+                @if (Session["user"] != null)
+                {
+                    QLKhoaHocEntities db = new QLKhoaHocEntities();
+                    WebQLKhoaHoc.Models.UserLoginViewModel nkh = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
+                    if (nkh.MaNKH == Model.MaNKH)
+                    {
+                        <a href="@Url.Action("Edit", "NhaKhoaHocs", new { id = Model.MaNKH })" class="btn btn-primary">Chỉnh Sửa</a>
+                    }
+                }
+                    <a href="@Url.Action("Index","NhaKhoaHocs")" class="btn btn-danger">Quay Lại</a>
+                </div>
         <br />
         </div>
     </div>

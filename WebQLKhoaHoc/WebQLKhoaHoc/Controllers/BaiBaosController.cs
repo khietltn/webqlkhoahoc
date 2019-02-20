@@ -275,6 +275,7 @@ namespace WebQLKhoaHoc.Controllers
                 baiBao.DSNguoiThamGiaBaiBaos = baibao.DSNguoiThamGiaBaiBaos;
                 baibao = baiBao;
                 /* phần xửa lý lĩnh vực*/
+               
                 if (LinhVuc != null)
                 {
                     
@@ -288,6 +289,12 @@ namespace WebQLKhoaHoc.Controllers
                     foreach (var a in addlinhvuc)
                     {
                         baibao.LinhVucs.Add(a);
+                    }
+                }
+                else
+                {
+                    foreach (var x in baibao.LinhVucs) {
+                        baibao.LinhVucs.Remove(x);
                     }
                 }
                 
