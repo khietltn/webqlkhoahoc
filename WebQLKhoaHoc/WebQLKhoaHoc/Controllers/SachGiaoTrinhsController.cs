@@ -11,6 +11,7 @@ using PagedList;
 using WebQLKhoaHoc;
 using WebQLKhoaHoc.Models;
 using System.Data.Entity.Migrations;
+using WebGrease.Css.Extensions;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -22,21 +23,10 @@ namespace WebQLKhoaHoc.Controllers
         // GET: SachGiaoTrinhs
         public async Task<ActionResult> Index(int? Page_No, [Bind(Include = "MaLoai,MaNXB,MaLinhVuc,SearchValue")] SachGiaoTrinhSearchViewModel sachGiaoTrinh, int? nkhId)
         {
-            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB");
-            ViewBag.MaLoai = new SelectList(db.PhanLoaiSaches, "MaLoai", "TenLoai");
             var sachGiaoTrinhs = db.SachGiaoTrinhs.Include(s => s.LinhVuc).Include(s => s.NhaXuatBan).Include(s => s.PhanLoaiSach).Include(s => s.DSTacGias).ToList();
-
+            
             if (nkhId == null)
             {
-                if (!String.IsNullOrEmpty(sachGiaoTrinh.MaLoai))
-                {
-                    sachGiaoTrinhs = sachGiaoTrinhs.Where(p => p.MaLoai.ToString() == sachGiaoTrinh.MaLoai).ToList();
-                }
-                if (!String.IsNullOrEmpty(sachGiaoTrinh.MaNXB))
-                {
-                    sachGiaoTrinhs = sachGiaoTrinhs.Where(p => p.MaLoai.ToString() == sachGiaoTrinh.MaNXB).ToList();
-                }
                 if (!String.IsNullOrEmpty(sachGiaoTrinh.MaLinhVuc))
                 {
                     if (sachGiaoTrinh.MaLinhVuc[0] == 'a')
@@ -45,11 +35,19 @@ namespace WebQLKhoaHoc.Controllers
                     else
                         sachGiaoTrinhs = sachGiaoTrinhs.Where(p => p.LinhVuc.MaNhomLinhVuc.ToString() == sachGiaoTrinh.MaLinhVuc).ToList();
                 }
+                if (!String.IsNullOrEmpty(sachGiaoTrinh.MaLoai))
+                {
+                    sachGiaoTrinhs = sachGiaoTrinhs.Where(p => p.MaLoai.ToString() == sachGiaoTrinh.MaLoai).ToList();
+                }
+                if (!String.IsNullOrEmpty(sachGiaoTrinh.MaNXB))
+                {
+                    sachGiaoTrinhs = sachGiaoTrinhs.Where(p => p.MaLoai.ToString() == sachGiaoTrinh.MaNXB).ToList();
+                }
                 if (!String.IsNullOrEmpty(sachGiaoTrinh.SearchValue))
                 {
                     sachGiaoTrinhs = sachGiaoTrinhs.Where(p => p.TenSach.ToLower().Contains(sachGiaoTrinh.SearchValue.ToLower())).ToList();
                 }
-                ViewBag.SearchValue = sachGiaoTrinh.SearchValue;
+                
 
             }
             else
@@ -64,13 +62,10 @@ namespace WebQLKhoaHoc.Controllers
                 sachGiaoTrinhs = sachGiaoTrinhs.Where(p => maSachs.Contains(p.MaSach)).ToList();
             }
 
-            sachGiaoTrinhs = sachGiaoTrinhs.Concat(sachGiaoTrinhs)
-                .Concat(sachGiaoTrinhs)
-                .Concat(sachGiaoTrinhs)
-                .Concat(sachGiaoTrinhs)
-                .Concat(sachGiaoTrinhs)
-                .Concat(sachGiaoTrinhs)
-                .ToList();
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
+            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB");
+            ViewBag.MaLoai = new SelectList(db.PhanLoaiSaches, "MaLoai", "TenLoai");
+            ViewBag.SearchValue = sachGiaoTrinh.SearchValue;
             int Size_Of_Page = 6;
             int No_Of_Page = (Page_No ?? 1);
             return View(sachGiaoTrinhs.ToPagedList(No_Of_Page, Size_Of_Page));
@@ -103,7 +98,7 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaLinhVuc = new SelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc");
             ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB");
             ViewBag.MaLoai = new SelectList(db.PhanLoaiSaches, "MaLoai", "TenLoai");
-            ViewBag.DSTacGia = new MultiSelectList(lstAllNKH.Concat(lstAllNKH), "MaNKH", "TenNKH");
+            ViewBag.DSTacGia = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH");
             return View();
         }
 
@@ -116,6 +111,7 @@ namespace WebQLKhoaHoc.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 foreach (var mankh in DSTacGia)
                 {
                     DSTacGia tacGia = new DSTacGia
@@ -143,7 +139,7 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaLinhVuc = new SelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", sachGiaoTrinh.MaLinhVuc);
             ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sachGiaoTrinh.MaNXB);
             ViewBag.MaLoai = new SelectList(db.PhanLoaiSaches, "MaLoai", "TenLoai", sachGiaoTrinh.MaLoai);
-            ViewBag.DSTacGia = new MultiSelectList(lstAllNKH.Concat(lstAllNKH), "MaNKH", "TenNKH", tacgiaphu);
+            ViewBag.DSTacGia = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH", tacgiaphu);
             return View(sachGiaoTrinh);
         }
 
@@ -170,7 +166,7 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaLinhVuc = new SelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", sachGiaoTrinh.MaLinhVuc);
             ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sachGiaoTrinh.MaNXB);
             ViewBag.MaLoai = new SelectList(db.PhanLoaiSaches, "MaLoai", "TenLoai", sachGiaoTrinh.MaLoai);
-            ViewBag.DSTacGia = new MultiSelectList(lstAllNKH.Concat(lstAllNKH), "MaNKH", "TenNKH", tacgiaphu);
+            ViewBag.DSTacGia = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH", tacgiaphu);
             return View(sachGiaoTrinh);
         }
 
@@ -183,15 +179,19 @@ namespace WebQLKhoaHoc.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (var mankh in DSTacGia)
+                if (DSTacGia != null)
                 {
-                    DSTacGia tacGia = new DSTacGia
+                    db.DSTacGias.Where(p => p.MaSach == sachGiaoTrinh.MaSach && p.LaChuBien == false).ForEach(z => db.DSTacGias.Remove(z));
+                    foreach (var mankh in DSTacGia)
                     {
-                        LaChuBien = false,
-                        MaSach = sachGiaoTrinh.MaSach,
-                        MaNKH = Int32.Parse(mankh)
-                    };
-                    db.DSTacGias.AddOrUpdate(tacGia);
+                        DSTacGia tacGia = new DSTacGia
+                        {
+                            LaChuBien = false,
+                            MaSach = sachGiaoTrinh.MaSach,
+                            MaNKH = Int32.Parse(mankh)
+                        };
+                        sachGiaoTrinh.DSTacGias.Add(tacGia);
+                    }
                 }
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -206,7 +206,7 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaLinhVuc = new SelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", sachGiaoTrinh.MaLinhVuc);
             ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sachGiaoTrinh.MaNXB);
             ViewBag.MaLoai = new SelectList(db.PhanLoaiSaches, "MaLoai", "TenLoai", sachGiaoTrinh.MaLoai);
-            ViewBag.DSTacGia = new MultiSelectList(lstAllNKH.Concat(lstAllNKH), "MaNKH", "TenNKH", tacgiaphu);
+            ViewBag.DSTacGia = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH", tacgiaphu);
             return View(sachGiaoTrinh);
         }
 
