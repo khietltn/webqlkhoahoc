@@ -106,11 +106,12 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BaiBao baiBao = await db.BaiBaos.FindAsync(id);
+            BaiBao baiBao = await db.BaiBaos.FindAsync(id);  
             if (baiBao == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.IdChuBien = db.DSNguoiThamGiaBaiBaos.Where(p => p.MaBaiBao == baiBao.MaBaiBao && p.LaTacGiaChinh == true).Select(p => p.MaNKH);
             return View(baiBao);
         }
 
@@ -160,27 +161,40 @@ namespace WebQLKhoaHoc.Controllers
                 db.BaiBaos.Add(baiBao);
                 db.SaveChanges();
 
-                foreach (var mankh in DSNguoiThamGiaBaiBao)
+                UserLoginViewModel user = (UserLoginViewModel)Session["user"];
+                db.DSNguoiThamGiaBaiBaos.Add(new DSNguoiThamGiaBaiBao
                 {
-                    DSNguoiThamGiaBaiBao nguoiTGBB = new DSNguoiThamGiaBaiBao
-                    {
-                        LaTacGiaChinh = false,
-                        MaBaiBao = baiBao.MaBaiBao,
-                        MaNKH = Int32.Parse(mankh)
-                    };
-                    db.DSNguoiThamGiaBaiBaos.Add(nguoiTGBB);
-                    db.SaveChanges();
-                }
+                    LaTacGiaChinh = true,
+                    MaBaiBao = baiBao.MaBaiBao,
+                    MaNKH = user.MaNKH
+                });
 
-                foreach (var madetai in DeTaiBaiBao)
+                if (DSNguoiThamGiaBaiBao != null)
                 {
-                    DSBaiBaoDeTai detai = new DSBaiBaoDeTai
+                    foreach (var mankh in DSNguoiThamGiaBaiBao)
                     {
-                        MaBaiBao = baiBao.MaBaiBao,
-                        MaDeTai = Int32.Parse(madetai)
-                    };
-                    db.DSBaiBaoDeTais.Add(detai);
-                    db.SaveChanges();
+                        DSNguoiThamGiaBaiBao nguoiTGBB = new DSNguoiThamGiaBaiBao
+                        {
+                            LaTacGiaChinh = false,
+                            MaBaiBao = baiBao.MaBaiBao,
+                            MaNKH = Int32.Parse(mankh)
+                        };
+                        db.DSNguoiThamGiaBaiBaos.Add(nguoiTGBB);
+                        db.SaveChanges();
+                    }
+                }
+                if (DeTaiBaiBao != null)
+                {
+                    foreach (var madetai in DeTaiBaiBao)
+                    {
+                        DSBaiBaoDeTai detai = new DSBaiBaoDeTai
+                        {
+                            MaBaiBao = baiBao.MaBaiBao,
+                            MaDeTai = Int32.Parse(madetai)
+                        };
+                        db.DSBaiBaoDeTais.Add(detai);
+                        db.SaveChanges();
+                    }
                 }
                 
                 return RedirectToAction("Index");
@@ -235,7 +249,7 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi", baiBao.MaLoaiTapChi);
             ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH","TenNKH",tacgiaphu);
-            ViewBag.LinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", linhvuc);
+            ViewBag.DSLinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", linhvuc);
             ViewBag.DeTai = new MultiSelectList(db.DeTais, "MaDeTai", "TenDeTai", detaibaibao);
 
             ViewBag.NguonGoc = new List<SelectListItem> {

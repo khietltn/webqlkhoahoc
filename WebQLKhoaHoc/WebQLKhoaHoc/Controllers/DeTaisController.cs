@@ -76,8 +76,7 @@ namespace WebQLKhoaHoc.Controllers
 
                 detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
             }
-
-            detais = detais.ToList();
+            
             int Size_Of_Page = 6;
             int No_Of_Page = (Page_No ?? 1);
             return View(detais.ToPagedList(No_Of_Page, Size_Of_Page));
@@ -148,18 +147,27 @@ namespace WebQLKhoaHoc.Controllers
                     }
                 }
 
-                
-                List<DSNguoiThamGiaDeTai> ds = new List<DSNguoiThamGiaDeTai>();
-                foreach (var mankh in DSNguoiThamGiaDT)
+                UserLoginViewModel user = (UserLoginViewModel)Session["user"];
+                db.DSNguoiThamGiaDeTais.Add(new DSNguoiThamGiaDeTai {
+                    LaChuNhiem = true,
+                    MaDeTai = id,
+                    MaNKH = user.MaNKH
+                });
+
+                if (DSNguoiThamGiaDT != null)
                 {
-                    ds.Add(new DSNguoiThamGiaDeTai
+                    List<DSNguoiThamGiaDeTai> ds = new List<DSNguoiThamGiaDeTai>();
+                    foreach (var mankh in DSNguoiThamGiaDT)
                     {
-                        LaChuNhiem = false,
-                        MaDeTai = id,
-                        MaNKH = Int32.Parse(mankh)
-                    });
+                        ds.Add(new DSNguoiThamGiaDeTai
+                        {
+                            LaChuNhiem = false,
+                            MaDeTai = id,
+                            MaNKH = Int32.Parse(mankh)
+                        });
+                    }
+                    db.DSNguoiThamGiaDeTais.AddRange(ds);
                 }
-                db.DSNguoiThamGiaDeTais.AddRange(ds);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -211,10 +219,11 @@ namespace WebQLKhoaHoc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DeTai deTai = await db.DeTais.FindAsync(id);
-            if(deTai == null)
+            if (deTai == null)
             {
                 return HttpNotFound();
             }
+            
             return View(deTai);
         }
 
