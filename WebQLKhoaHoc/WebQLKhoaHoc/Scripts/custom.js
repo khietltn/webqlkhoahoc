@@ -196,7 +196,9 @@ var THEMEMASCOT = {};
                 enableFiltering: true,
                 filterPlaceholder: 'Search',
                 enableCaseInsensitiveFiltering: false,
-                numberDisplayed: 1
+                numberDisplayed: 1,
+                maxHeight: 400,
+                maxWidth: 200
                 
             });
         },

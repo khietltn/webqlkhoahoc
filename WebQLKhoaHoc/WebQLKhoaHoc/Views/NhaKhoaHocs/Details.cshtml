@@ -11,7 +11,7 @@
 <section class="">
     <!-- Section: Scientist header -->
     <section id="home" class="divider parallax layer-overlay overlay-dark-4" data-bg-img="http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg" style="background-image: url(&quot;http://csdlkhoahoc.hueuni.edu.vn/csdl/images/bg5.jpg&quot;); background-position: 50% 91px;">
-        @using (Html.BeginForm("Search", "NhaKhoaHocs", FormMethod.Post))
+        @using (Html.BeginForm("Index", "NhaKhoaHocs", FormMethod.Get))
         {
             @Html.AntiForgeryToken()
             <div class="display-table">
@@ -517,7 +517,11 @@ c = 1;
                     </div>
                 </div>
             </section>
-
+        <div class="modal-footer bg-white-transparent-6">
+            <a href="@Url.Action("Edit","NhaKhoaHocs",new { id = Model.MaNKH})" class="btn btn-primary">Chỉnh Sửa</a>
+            <a href="@Url.Action("Index","NhaKhoaHocs")" class="btn btn-danger">Quay Lại</a>
+        </div>
+        <br />
         </div>
     </div>
 </section>

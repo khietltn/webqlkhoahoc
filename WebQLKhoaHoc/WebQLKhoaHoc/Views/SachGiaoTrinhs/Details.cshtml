@@ -67,11 +67,34 @@
 
         <dd>
             @Html.DisplayFor(model => model.DSTacGias)
+            @for (int i = 0; i < Model.DSTacGias.Count; i++)
+            {
+                var tg = Model.DSTacGias.ToList()[i];
+                var name = tg.NhaKhoaHoc.HoNKH + " " + tg.NhaKhoaHoc.TenNKH;
+                if (tg.LaChuBien.Value)
+                {
+                    name += " (Chủ Biên)";
+                }
+                if (i < (Model.DSTacGias.Count - 1))
+                {
+                    name += ", ";
+                }
+                @Html.ActionLink(name.ToString(), "Details", "NhaKhoaHocs", new { id = tg.MaNKH }, new { Class = "customlink" });
+            }
         </dd>
     </dl>
 </div>
 
 <div class="modal-footer">
+    @if (Session["user"] != null)
+    {
     <a href="@Url.Action("Edit","SachGiaoTrinhs",new { id = Model.MaSach})" type="button" class="btn btn-primary">Chỉnh Sửa</a>
-    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+    }
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 </div>
+
+<style>
+    a.customlink:hover {
+        color: red;
+    }
+</style>
