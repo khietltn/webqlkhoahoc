@@ -88,7 +88,12 @@
 <div class="modal-footer">
     @if (Session["user"] != null)
     {
-    <a href="@Url.Action("Edit","SachGiaoTrinhs",new { id = Model.MaSach})" type="button" class="btn btn-primary">Chỉnh Sửa</a>
+        QLKhoaHocEntities db = new QLKhoaHocEntities();
+        WebQLKhoaHoc.Models.UserLoginViewModel nkh = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
+        if (db.DSTacGias.Any(p => p.MaNKH == nkh.MaNKH && p.LaChuBien == true))
+        {
+            <a href="@Url.Action("Edit","SachGiaoTrinhs",new { id = Model.MaSach})" type="button" class="btn btn-primary">Chỉnh Sửa</a>
+        }
     }
     <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 </div>
