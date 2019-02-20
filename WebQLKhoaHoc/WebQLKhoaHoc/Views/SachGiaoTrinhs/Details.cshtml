@@ -90,7 +90,7 @@
     {
         QLKhoaHocEntities db = new QLKhoaHocEntities();
         WebQLKhoaHoc.Models.UserLoginViewModel nkh = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
-        if (db.DSTacGias.Any(p => p.MaNKH == nkh.MaNKH && p.LaChuBien == true))
+        if (db.DSTacGias.Any(p => p.MaNKH == nkh.MaNKH && p.LaChuBien == true && p.MaSach == Model.MaSach))
         {
             <a href="@Url.Action("Edit","SachGiaoTrinhs",new { id = Model.MaSach})" type="button" class="btn btn-primary">Chỉnh Sửa</a>
         }
