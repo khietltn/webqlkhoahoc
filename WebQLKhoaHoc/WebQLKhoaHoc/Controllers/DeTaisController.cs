@@ -77,13 +77,7 @@ namespace WebQLKhoaHoc.Controllers
                 detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
             }
 
-            detais = detais.Concat(detais)
-                .Concat(detais)
-                .Concat(detais)
-                .Concat(detais)
-                .Concat(detais)
-                .Concat(detais)
-                .ToList();
+            detais = detais.ToList();
             int Size_Of_Page = 6;
             int No_Of_Page = (Page_No ?? 1);
             return View(detais.ToPagedList(No_Of_Page, Size_Of_Page));
@@ -134,8 +128,8 @@ namespace WebQLKhoaHoc.Controllers
                
                 db.DeTais.Add(deTai);
                 db.SaveChanges();
-                var id = deTai.MaDeTai;
 
+                var id = deTai.MaDeTai;
                 if (KinhPhiMoi != null)
                 {
                     List<string[]> kinhphimoi = JsonConvert.DeserializeObject<List<string[]>>(KinhPhiMoi);
@@ -154,18 +148,19 @@ namespace WebQLKhoaHoc.Controllers
                     }
                 }
 
+                
+                List<DSNguoiThamGiaDeTai> ds = new List<DSNguoiThamGiaDeTai>();
                 foreach (var mankh in DSNguoiThamGiaDT)
                 {
-                    DSNguoiThamGiaDeTai nguoiTGDT = new DSNguoiThamGiaDeTai
+                    ds.Add(new DSNguoiThamGiaDeTai
                     {
                         LaChuNhiem = false,
                         MaDeTai = id,
                         MaNKH = Int32.Parse(mankh)
-                    };
-                    db.DSNguoiThamGiaDeTais.Add(nguoiTGDT);
-                    db.SaveChanges();
+                    });
                 }
-
+                db.DSNguoiThamGiaDeTais.AddRange(ds);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             else
@@ -278,18 +273,21 @@ namespace WebQLKhoaHoc.Controllers
                 {
                     deTai.LinkFileUpload = db.DeTais.Where(p => p.MaDeTai == deTai.MaDeTai).Select(p => p.LinkFileUpload).FirstOrDefault();
                 }
-                /* phần xử lý thêm xóa sửa của kinh phí đề tài */
+
+                db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == deTai.MaDeTai && p.LaChuNhiem == false).ForEach(x => db.DSNguoiThamGiaDeTais.Remove(x));
+                if (KinhPhiXoa != "")
+                {
+                    List<int> kinhphixoa = JsonConvert.DeserializeObject<List<int>>(KinhPhiXoa);
+                    db.KinhPhiDeTais.Where(p => kinhphixoa.Contains(p.MaPhi)).ForEach(p => db.KinhPhiDeTais.Remove(p));
+                }
+                db.SaveChanges();
+
 
                 db.Entry(deTai).State = EntityState.Modified;
-                if (KinhPhiXoa != null && KinhPhiMoi != null)
+                /* phần xử lý thêm xóa sửa của kinh phí đề tài */
+                if (KinhPhiMoi != "")
                 {
-                    
-                    if (KinhPhiXoa != null)
-                    {
-                        List<int> kinhphixoa = JsonConvert.DeserializeObject<List<int>>(KinhPhiXoa);
-                        db.KinhPhiDeTais.Where(p => kinhphixoa.Contains(p.MaPhi)).ForEach(p => db.KinhPhiDeTais.Remove(p));                       
-                    }
-                    if (KinhPhiMoi != null)
+                    if (KinhPhiMoi != "")
                     {
                         List<string[]> kinhphimoi = JsonConvert.DeserializeObject<List<string[]>>(KinhPhiMoi);
                         foreach (var x in kinhphimoi)
@@ -306,20 +304,19 @@ namespace WebQLKhoaHoc.Controllers
                         }
                     }                  
                 }
-
-                //db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == deTai.MaDeTai && p.LaChuNhiem == false).ForEach(x => db.DSNguoiThamGiaDeTais.Remove(x));
+                
                 foreach (var mankh in DSNguoiThamGiaDT)
                 {
+                    
                     DSNguoiThamGiaDeTai nguoiTGDT = new DSNguoiThamGiaDeTai
                     {
                         LaChuNhiem = false,
-                        MaDeTai =  deTai.MaDeTai,
+                        MaDeTai = deTai.MaDeTai,
                         MaNKH = Int32.Parse(mankh)
                     };
                     db.DSNguoiThamGiaDeTais.AddOrUpdate(nguoiTGDT);
-                }
-                
-                await db.SaveChangesAsync();           
+                }          
+                await db.SaveChangesAsync();               
                 return RedirectToAction("Index");
             }
             else

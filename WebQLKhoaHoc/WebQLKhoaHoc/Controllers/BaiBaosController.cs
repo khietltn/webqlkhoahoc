@@ -12,6 +12,7 @@ using WebQLKhoaHoc;
 using WebQLKhoaHoc.Models;
 using System.IO;
 using System.Data.Entity.Migrations;
+using WebGrease.Css.Extensions;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -76,9 +77,6 @@ namespace WebQLKhoaHoc.Controllers
                 var mabaibaos = db.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == 1).Select(p => p.MaBaiBao).ToList();
                 baibaos = baibaos.Where(p => mabaibaos.Contains(p.MaBaiBao)).ToList();
             }
-
-
-
           
 
             ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
@@ -218,6 +216,7 @@ namespace WebQLKhoaHoc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             BaiBao baiBao = await db.BaiBaos.FindAsync(id);
+            
             if (baiBao == null)
             {
                 return HttpNotFound();
@@ -230,12 +229,15 @@ namespace WebQLKhoaHoc.Controllers
             }).ToList();
             var tacgiaphu = db.NhaKhoaHocs.Where(p => p.DSNguoiThamGiaBaiBaos.Any(d => d.MaBaiBao == baiBao.MaBaiBao && d.LaTacGiaChinh == false)).Select(p => p.MaNKH).ToList();
             var detaibaibao = db.DSBaiBaoDeTais.Where(p => p.MaBaiBao == baiBao.MaBaiBao).Select(p => p.MaDeTai).ToList();
-   
+            var linhvucbaibao = db.BaiBaos.Where(p => p.MaBaiBao == baiBao.MaBaiBao).Include(p => p.LinhVucs).FirstOrDefault();
+            var linhvuc = baiBao.LinhVucs.Select(p => p.MaLinhVuc).ToList();
+           
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi", baiBao.MaLoaiTapChi);
             ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH","TenNKH",tacgiaphu);
-            ViewBag.LinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", baiBao.LinhVucs);
+            ViewBag.LinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", linhvuc);
             ViewBag.DeTai = new MultiSelectList(db.DeTais, "MaDeTai", "TenDeTai", detaibaibao);
+
             ViewBag.NguonGoc = new List<SelectListItem> {
                 new SelectListItem { Text = "Trong nước" , Value = "true"},
                 new SelectListItem { Text = "Ngoài nước" , Value = "false"}
@@ -252,43 +254,73 @@ namespace WebQLKhoaHoc.Controllers
         {            
             if (ModelState.IsValid)
             {
+                               
+                var baibao = db.BaiBaos.Where(p => p.MaBaiBao == baiBao.MaBaiBao).Include(p => p.LinhVucs).Include(p=>p.DSBaiBaoDeTais).Include(p=>p.DSNguoiThamGiaBaiBaos).FirstOrDefault();
+                baiBao.LinhVucs = baibao.LinhVucs;
+                baiBao.DSBaiBaoDeTais = baibao.DSBaiBaoDeTais;
+                baiBao.DSNguoiThamGiaBaiBaos = baibao.DSNguoiThamGiaBaiBaos;
+                baibao = baiBao;
+                /* phần xửa lý lĩnh vực*/
+                if (LinhVuc != null)
+                {
+                    
+                    var deletedlinhvuc = baibao.LinhVucs.Where(p => !LinhVuc.Contains(p.MaLinhVuc)).ToList();
+                    var addedlinhvuc = LinhVuc.Except(baibao.LinhVucs.Select(p => p.MaLinhVuc).ToList<int>());
+                    var addlinhvuc = db.LinhVucs.Where(p => addedlinhvuc.Contains(p.MaLinhVuc)).ToList();
+                    foreach (var d in deletedlinhvuc)
+                    {
+                        baibao.LinhVucs.Remove(d);
+                    }
+                    foreach (var a in addlinhvuc)
+                    {
+                        baibao.LinhVucs.Add(a);
+                    }
+                }
                 
-                db.Entry(baiBao).State = EntityState.Modified;
-
+                /* xử lý ảnh upload*/
                 if (linkUpload != null && linkUpload.ContentLength > 0)
                 {
                     string filename = Path.GetFileName(linkUpload.FileName);
                     string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
                     linkUpload.SaveAs(path);
-                    baiBao.LinkFileUpLoad = filename;
+                    baibao.LinkFileUpLoad = filename;
                 }
                 else
                 {
-                    baiBao.LinkFileUpLoad = db.BaiBaos.Where(p => p.MaBaiBao == baiBao.MaBaiBao).Select(p => p.LinkFileUpLoad).FirstOrDefault();
+                    baibao.LinkFileUpLoad = db.BaiBaos.Where(p => p.MaBaiBao == baibao.MaBaiBao).Select(p => p.LinkFileUpLoad).FirstOrDefault();
                 }
 
-                foreach (var mankh in DSNguoiThamGiaBaiBao)
+                /* xừ lý người tham gia bài báo*/
+                if (DSNguoiThamGiaBaiBao != null)
                 {
-                    DSNguoiThamGiaBaiBao nguoiTGBB = new DSNguoiThamGiaBaiBao
+                    db.DSNguoiThamGiaBaiBaos.Where(p => p.MaBaiBao == baibao.MaBaiBao && p.LaTacGiaChinh == false).ForEach(z => db.DSNguoiThamGiaBaiBaos.Remove(z));
+                    foreach (var mankh in DSNguoiThamGiaBaiBao)
                     {
-                        LaTacGiaChinh = false,
-                        MaBaiBao = baiBao.MaBaiBao,
-                        MaNKH = Int32.Parse(mankh)
-                    };
-                    db.DSNguoiThamGiaBaiBaos.AddOrUpdate(nguoiTGBB);
-                }
-                
-                foreach(var madetai in DeTaiBaiBao)
-                {
-                    DSBaiBaoDeTai detai = new DSBaiBaoDeTai
-                    {
-                        MaBaiBao = baiBao.MaBaiBao,
-                        MaDeTai = Int32.Parse(madetai)                       
-                    };
-                    db.DSBaiBaoDeTais.AddOrUpdate(detai);
+                        DSNguoiThamGiaBaiBao nguoiTGBB = new DSNguoiThamGiaBaiBao
+                        {
+                            LaTacGiaChinh = false,
+                            MaBaiBao = baibao.MaBaiBao,
+                            MaNKH = Int32.Parse(mankh)
+                        };
+                        baibao.DSNguoiThamGiaBaiBaos.Add(nguoiTGBB);
+                    }
                 }
 
-                baiBao.LinhVucs = db.LinhVucs.Where(p => LinhVuc.Contains(p.MaLinhVuc)).ToList();
+                /* xử lý đề tài bài báo*/
+                if (DeTaiBaiBao != null)
+                {
+                    db.DSBaiBaoDeTais.Where(p => p.MaBaiBao == baibao.MaBaiBao).ForEach(z => db.DSBaiBaoDeTais.Remove(z));
+                    foreach (var madetai in DeTaiBaiBao)
+                    {
+                        DSBaiBaoDeTai detai = new DSBaiBaoDeTai
+                        {
+                            MaBaiBao = baiBao.MaBaiBao,
+                            MaDeTai = Int32.Parse(madetai)
+                        };
+                        db.DSBaiBaoDeTais.Add(detai);
+                    }
+
+                }             
 
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -304,7 +336,7 @@ namespace WebQLKhoaHoc.Controllers
 
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
             ViewBag.MaLoaiTapChi = new SelectList(db.PhanLoaiTapChis, "MaLoaiTapChi", "TenLoaiTapChi", baiBao.MaLoaiTapChi);
-            ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH", tacgiaphu);
+            ViewBag.DSNguoiThamGiaBaiBao = new MultiSelectList(lstAllNKH, "MaNKH", "TenNKH", tacgiaphu);           
             ViewBag.LinhVuc = new MultiSelectList(db.LinhVucs, "MaLinhVuc", "TenLinhVuc", baiBao.LinhVucs);
             ViewBag.DeTai = new MultiSelectList(db.DeTais, "MaDeTai", "TenDeTai", detaibaibao);
             ViewBag.NguonGoc = new List<SelectListItem> {
