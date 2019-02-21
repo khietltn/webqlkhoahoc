@@ -52,12 +52,8 @@ namespace WebQLKhoaHoc.Controllers
             }
             else
             {
-                if (Session["user"] == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "User Unidentified");
-                }
-                UserLoginViewModel nd = (UserLoginViewModel)Session["user"];
-                var maSachs = db.DSTacGias.Where(p => p.MaNKH == nd.MaNKH).Select(p => p.MaSach).ToList();
+                
+                var maSachs = db.DSTacGias.Where(p => p.MaNKH == nkhId).Select(p => p.MaSach).ToList();
 
                 sachGiaoTrinhs = sachGiaoTrinhs.Where(p => maSachs.Contains(p.MaSach)).ToList();
             }

@@ -33,41 +33,36 @@ namespace WebQLKhoaHoc.Controllers
             int Size_Of_Page = 6;
             int No_Of_Page = (Page_No ?? 1);
 
-            if (nkhId != null && Session["user"] != null)
-            {                
-                var madetais = db.DSNguoiThamGiaDeTais.Where(p => p.MaNKH == nkhId).Select(p => p.MaDeTai).ToList();
-                detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
-                return View(detais.ToPagedList(No_Of_Page, Size_Of_Page));                
-            }
-           
-                        
-            if (!String.IsNullOrEmpty(detai.MaDonViQLThucHien))
-            {
-                detais = detais.Where(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien).ToList();
-            }
 
-            if (!String.IsNullOrEmpty(detai.MaLinhVuc))
+            if (nkhId == null)
             {
-                if (detai.MaLinhVuc[0] == 'a')
-                    detais = detais.Where(p =>
-                        p.MaLinhVuc.ToString() == detai.MaLinhVuc.Substring(1, detai.MaLinhVuc.Length - 1)).ToList();
-                else
-                    detais = detais.Where(p => p.LinhVuc.MaNhomLinhVuc.ToString() == detai.MaLinhVuc).ToList();
-            }
-            if (detai.Fromdate > DateTime.MinValue)
-            {
-                detais = detais.Where(p => p.NamBD >= detai.Fromdate).ToList();
-            }
-            if (detai.Todate > DateTime.MinValue)
-            {
-                detais = detais.Where(p => p.NamKT <= detai.Todate).ToList();
-            }
-            if (!String.IsNullOrEmpty(detai.SearchValue))
-            {
-                detais = detais.Where(p => p.TenDeTai.ToLower().Contains(detai.SearchValue.ToLower())).ToList();
-            }
+                if (!String.IsNullOrEmpty(detai.MaDonViQLThucHien))
+                {
+                    detais = detais.Where(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien).ToList();
+                }
 
-            if(nkhId != null)
+                if (!String.IsNullOrEmpty(detai.MaLinhVuc))
+                {
+                    if (detai.MaLinhVuc[0] == 'a')
+                        detais = detais.Where(p =>
+                            p.MaLinhVuc.ToString() == detai.MaLinhVuc.Substring(1, detai.MaLinhVuc.Length - 1)).ToList();
+                    else
+                        detais = detais.Where(p => p.LinhVuc.MaNhomLinhVuc.ToString() == detai.MaLinhVuc).ToList();
+                }
+                if (detai.Fromdate > DateTime.MinValue)
+                {
+                    detais = detais.Where(p => p.NamBD >= detai.Fromdate).ToList();
+                }
+                if (detai.Todate > DateTime.MinValue)
+                {
+                    detais = detais.Where(p => p.NamKT <= detai.Todate).ToList();
+                }
+                if (!String.IsNullOrEmpty(detai.SearchValue))
+                {
+                    detais = detais.Where(p => p.TenDeTai.ToLower().Contains(detai.SearchValue.ToLower())).ToList();
+                }
+            }
+            else
             {
                 var madetais = db.DSNguoiThamGiaDeTais.Where(p => p.MaNKH == nkhId).Select(p => p.MaDeTai).ToList();
                 detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
