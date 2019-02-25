@@ -14,6 +14,7 @@ using System.Text;
 using System.IO;
 using System.Data.Entity.Migrations;
 using WebGrease.Css.Extensions;
+using Newtonsoft.Json;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -163,7 +164,7 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NhaKhoaHoc nhaKhoaHoc = await db.NhaKhoaHocs.FindAsync(id);
+            NhaKhoaHoc nhaKhoaHoc = await db.NhaKhoaHocs.FindAsync(id);           
             if (nhaKhoaHoc == null)
             {
                 return HttpNotFound();
@@ -210,7 +211,7 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload, List<int> DSTrinhDoNN,List<int> DSLinhVucNC, List<int> DSChuyenMonGD, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
+        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload, List<int> DSTrinhDoNN,List<int> DSLinhVucNC, List<int> DSChuyenMonGD, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc, NhaKhoaHocViewModel quatrinhdaotao)
         {
            
             if (ModelState.IsValid)
@@ -225,9 +226,12 @@ namespace WebQLKhoaHoc.Controllers
                     var deletedlinhvuc = nhakh.LinhVucs.Where(p => !DSLinhVucNC.Contains(p.MaLinhVuc)).ToList();
                     var addedlinhvuc = DSLinhVucNC.Except(nhakh.LinhVucs.Select(p => p.MaLinhVuc)).ToList();
                     var addlinhvuc = db.LinhVucs.Where(p => addedlinhvuc.Contains(p.MaLinhVuc)).ToList();
-                    foreach(var x in deletedlinhvuc){
+                   
+                    foreach (var x in deletedlinhvuc)
+                    {
                         nhakh.LinhVucs.Remove(x);
                     }
+                   
                     foreach(var x in addlinhvuc)
                     {
                         nhakh.LinhVucs.Add(x);
@@ -306,8 +310,102 @@ namespace WebQLKhoaHoc.Controllers
             return View(nkh);
         }
 
-        // GET: NhaKhoaHocs/Delete/5
-        public async Task<ActionResult> Delete(string id)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditQuaTrinhDT(List<QuaTrinhDaoTao> quatrinhdaotao, string xoaquatrinhdaotao, string xoaquatrinhdaotaojs, int MaNKH)
+        {
+            //các MaQT cần xóa trong DB
+            List<int> maxoa = JsonConvert.DeserializeObject<List<int>>(xoaquatrinhdaotao);
+            //xử lý các dòng chưa có MaQT mà cần xóa
+            List<int> maxoajs = JsonConvert.DeserializeObject<List<int>>(xoaquatrinhdaotaojs);
+            if (maxoajs != null)
+            {
+                maxoajs.Sort();
+                maxoajs.Reverse();
+                foreach (var x in maxoajs)
+                {
+                    quatrinhdaotao.RemoveAt(x);
+                }
+            }
+
+            /* track entity để thêm xóa sửa*/
+            var quatrinhnhakhoahoc = db.NhaKhoaHocs.Where(p => p.MaNKH == MaNKH).Include(p=>p.QuaTrinhDaoTaos).FirstOrDefault();
+            if (maxoa!= null)
+            {                           
+                foreach (var x in maxoa)
+                {
+                    var deleteddatao = db.QuaTrinhDaoTaos.Where(p => p.MaQT == x).FirstOrDefault();
+                    db.QuaTrinhDaoTaos.Remove(deleteddatao);
+                    quatrinhdaotao.RemoveAll(p=>p.MaQT == x);
+                    db.SaveChanges();
+                }
+            }
+            foreach(var x in quatrinhdaotao)
+            {
+                var daotao = db.QuaTrinhDaoTaos.Where(p => p.MaQT == x.MaQT).SingleOrDefault();
+                if (daotao != null)
+                {
+                    db.QuaTrinhDaoTaos.AddOrUpdate(x);              
+                }
+                else                
+                {
+                    quatrinhnhakhoahoc.QuaTrinhDaoTaos.Add(x);
+                }
+                db.SaveChanges();
+            }
+            await db.SaveChangesAsync();
+            return RedirectToAction("Edit", new { id = MaNKH });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditQuaTrinhCT(List<QuaTrinhCongTac> quatrinhcongtac, string xoaquatrinhcongtac, string xoaquatrinhcongtacjs, int MaNKH)
+        {
+            //các MaQT cần xóa trong DB
+            List<int> maxoa = JsonConvert.DeserializeObject<List<int>>(xoaquatrinhcongtac);
+            //xử lý các dòng chưa có MaQT mà cần xóa
+            List<int> maxoajs = JsonConvert.DeserializeObject<List<int>>(xoaquatrinhcongtacjs);
+            if (maxoajs != null)
+            {
+                maxoajs.Sort();
+                maxoajs.Reverse();
+                foreach (var x in maxoajs)
+                {
+                    quatrinhcongtac.RemoveAt(x);
+                }
+            }
+
+            /* track entity để thêm xóa sửa*/
+            var quatrinhnhakhoahoc = db.NhaKhoaHocs.Where(p => p.MaNKH == MaNKH).Include(p => p.QuaTrinhCongTacs).FirstOrDefault();
+            if (maxoa != null)
+            {
+                foreach (var x in maxoa)
+                {
+                    var deletedcongtac = db.QuaTrinhCongTacs.Where(p => p.MaCT == x).FirstOrDefault();
+                    db.QuaTrinhCongTacs.Remove(deletedcongtac);
+                    quatrinhcongtac.RemoveAll(p => p.MaCT == x);
+                    db.SaveChanges();
+                }
+            }
+            foreach (var x in quatrinhcongtac)
+            {
+                var congtac = db.QuaTrinhCongTacs.Where(p => p.MaCT == x.MaCT).SingleOrDefault();
+                if (congtac != null)
+                {
+                    db.QuaTrinhCongTacs.AddOrUpdate(x);
+                }
+                else
+                {
+                    quatrinhnhakhoahoc.QuaTrinhCongTacs.Add(x);
+                }
+                db.SaveChanges();
+            }
+            await db.SaveChangesAsync();
+            return RedirectToAction("Edit", new { id = MaNKH });
+        }
+            // GET: NhaKhoaHocs/Delete/5
+            public async Task<ActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -320,6 +418,9 @@ namespace WebQLKhoaHoc.Controllers
             }
             return View(nhaKhoaHoc);
         }
+
+
+
 
         // POST: NhaKhoaHocs/Delete/5
         [HttpPost, ActionName("Delete")]
