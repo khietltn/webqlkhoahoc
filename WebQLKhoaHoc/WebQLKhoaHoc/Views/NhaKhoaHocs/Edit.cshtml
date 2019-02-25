@@ -293,8 +293,8 @@
                                             <tr>
                                                 <td style="display:none;">@Html.Hidden("[" + indexerct + "].MaCT", item.MaCT, new { @id = "MaCT" })</td>
                                                 <td style="display:none;">@Html.Hidden("[" + indexerct + "].MaNKH", item.MaNKH)</td>
-                                                <td><input name="[@indexerct].ThoiGianBD" id="[@indexerct].ThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="@item.ThoiGianBD.Value.ToString("d")" /></td>
-                                                <td><input name="[@indexerct].ThoiGIanKT" id="[@indexerct].ThoiGIanKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="@item.ThoiGIanKT.Value.ToString("d")" /></td>
+                                                <td><input name="[@indexerct].ThoiGianBD" id="ThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="@item.ThoiGianBD.Value.ToString("d")" /></td>
+                                                <td><input name="[@indexerct].ThoiGIanKT" id="ThoiGIanKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="@item.ThoiGIanKT.Value.ToString("d")" /></td>
                                                 <td>@Html.TextBox("[" + indexerct + "].ChucDanhCT", item.ChucDanhCT, new { @class = "form-control text-right" })</td>
                                                 <td>@Html.DropDownList("[" + indexerct + "].MaDonViQL", new SelectList(db.DonViQLs, "MaDonVi", "TenDonVi", item.MaDonViQL), new { @class = "form-control text-right" })</td>
                                                 <td>@Html.TextBox("[" + indexerct + "].ChucVuCT", item.ChucVuCT, new { @class = "form-control text-right" })</td>
@@ -335,8 +335,8 @@
             $("#ThemQuaTrinhDaoTao").click(function () {
                 $("#quatrinhdt tbody:last-child ").append(`  <tr>
                                                     <input name="[`+indexerjs+`].MaNKH" type="hidden" value="@Model.MaNKH" />
-                                                    <td><input name="[`+ indexerjs + `].ThoiGianBD" id="[` + indexerjs +`].ThoiGianBD" class="form-control  text-right" type="text" autocomplete="off" value="" /></td>
-                                                    <td><input name="[`+ indexerjs + `].ThoiGianKT" id="[` + indexerjs +`].ThoiGianKT" class="form-control  text-right" type="text" autocomplete="off" value="" /></td>
+                                                    <td><input name="[`+ indexerjs + `].ThoiGianBD" id="DTThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
+                                                    <td><input name="[`+ indexerjs + `].ThoiGianKT" id="ThoiGianKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
                                                     <td><select class="form-control text-right" name="[`+ indexerjs +`].MaBacDT"><option value="1">Phổ th&#244;ng</option>
 <option value="2">Trung Cấp</option>
 <option value="3">Cao đẳng</option>
@@ -355,7 +355,8 @@
                                                     <td><input name="[`+ indexerjs + `].NamTotNghiep" id="[` + indexerjs +`].NamTotNghiep" class="form-control  text-right" type="text" autocomplete="off" value="" /></td>
                                                     <td><buton class="btn btn-danger" id="xoadaotao"><span class="glyphicon glyphicon-remove-sign"></span></buton></td>
                                                 </tr>`);
-                indexerjs++;              
+                indexerjs++;       
+                $(".date-picker").datepicker();
             });
 
             
@@ -381,8 +382,8 @@
             $("#ThemQuaTrinhCongTac").click(function () {
                 $("#quatrinhct tbody:last-child ").append(`<tr>                                                
                                                 <input name="[`+ indexerjsct +`].MaNKH" type="hidden" value="@Model.MaNKH" />
-                                                <td><input name="[`+ indexerjsct + `].ThoiGianBD" id="[` + indexerjsct +`].ThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
-                                                <td><input name="[`+ indexerjsct + `].ThoiGIanKT" id="[` + indexerjsct +`].ThoiGianKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
+                                                <td><input name="[`+ indexerjsct + `].ThoiGianBD" id="ThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
+                                                <td><input name="[`+ indexerjsct + `].ThoiGIanKT" id="ThoiGianKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
                                                 <td><input class="form-control text-right" name="[`+ indexerjsct +`].ChucDanhCT" type="text" value="" /></td>
                                                 <td><select class="form-control text-right" name="[`+ indexerjsct +`].MaDonViQL"><option value="1">Khoa C&#244;ng nghệ Th&#244;ng tin</option>
 <option value="2">Khoa Địa l&#237;</option>
@@ -429,7 +430,8 @@
                                             </tr >`);
 
 
-                indexerjsct++;
+                    indexerjsct++;
+                    $(".date-picker").datepicker();
             });
 
 

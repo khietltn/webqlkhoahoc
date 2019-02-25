@@ -218,6 +218,19 @@ namespace WebQLKhoaHoc.Controllers
             {
                 // upload image
                 var nhakh = db.NhaKhoaHocs.Where(p => p.MaNKH == nhaKhoaHoc.MaNKH).Include(p => p.LinhVucs).Include(p=>p.TrinhDoNgoaiNgus).FirstOrDefault();
+
+                if (repo.HasFile(fileUpload))
+                {
+                    string mimeType = fileUpload.ContentType;
+                    Stream fileStream = fileUpload.InputStream;
+                    string fileName = Path.GetFileName(fileUpload.FileName);
+                    int fileLength = fileUpload.ContentLength;
+                    byte[] fileData = new byte[fileLength];
+
+                    fileStream.Read(fileData, 0, fileLength);
+                    nhaKhoaHoc.AnhCaNhan = fileData;
+                }
+
                 db.NhaKhoaHocs.AddOrUpdate(nhaKhoaHoc);
                 
 
@@ -267,17 +280,6 @@ namespace WebQLKhoaHoc.Controllers
                 }
 
                 
-
-                if (repo.HasFile(fileUpload))
-                {
-                    string mimeType = fileUpload.ContentType;
-                    Stream fileStream = fileUpload.InputStream;
-                    string fileName = Path.GetFileName(fileUpload.FileName);
-                    int fileLength = fileUpload.ContentLength;
-                    byte[] fileData = new byte[fileLength];
-                    nhaKhoaHoc.AnhCaNhan = fileData;
-                    fileStream.Read(fileData, 0, fileLength);
-                }
 
               
                 if (DSChuyenMonGD != null) {
