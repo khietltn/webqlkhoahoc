@@ -7813,4 +7813,12 @@ blockquote p {
 
 .timeline a {
     text-decoration: none;
-}s
+}
+.icon-glyphicon-search-custom {
+    position: absolute;
+    top: 8px;
+    left: 75%;
+}
+.btn-search-component {
+    background-color: #428bca;
+}
