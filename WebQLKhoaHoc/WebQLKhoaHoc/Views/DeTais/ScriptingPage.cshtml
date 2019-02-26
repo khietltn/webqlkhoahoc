@@ -52,19 +52,13 @@
             @Model.NamKT.Value.ToString("dd/MM/yyyy")
         </dd>
         <dt>
-            Kinh phí:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.KinhPhi)
-        </dd>
-        <dt>
             Web liên kết:
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LienKetWeb)
+            <a class="customlink" href="@Model.LienKetWeb.ToString()">@Model.LienKetWeb.ToString()</a>
         </dd>
         <dt>
-            Link upload file:
+            Tên file:
         </dt>
         <dd>
             @Html.DisplayFor(model => model.LinkFileUpload)
@@ -118,6 +112,32 @@
             @Html.DisplayFor(model => model.PhanLoaiSP.TenPhanLoai)
         </dd>
         <dt>
+            Kinh phí:
+        </dt>
+        <dd>
+        </dd>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">Loại kinh phí</th>
+                        <th class="text-center">Năm cấp</th>
+                        <th class="text-center">Số tiền</th>
+                        <th class="text-center">Loại tiền</th>                       
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var kinhphi in Model.KinhPhiDeTais)
+                    {
+                        <tr>
+                            <td class="text-right">@kinhphi.LoaiKinhPhi</td>
+                            <td class="text-right">@kinhphi.NamTiepNhan.Value.ToString("d")</td>
+                            <td class="text-right">@kinhphi.SoTien</td>
+                            <td class="text-right">@kinhphi.LoaiTien</td>                            
+                        </tr>
+                    }
+                </tbody>
+            </table>        
+        <dt>
             Người tham gia:
         </dt>
         <dd>
@@ -133,7 +153,7 @@
                 {
                     name += ", ";
                 }
-                @Html.ActionLink(name.ToString(), "Details", "NhaKhoaHocs", new { id = nkh.MaNKH },new {Class="customlink"});
+                @Html.ActionLink(name.ToString(), "Details", "NhaKhoaHocs", new { id = nkh.MaNKH }, new { Class = "customlink" });
             }
         </dd>
     </dl>
@@ -156,6 +176,7 @@
 <style>
     a.customlink:hover{
         color: red;
+        cursor:pointer;
     }
 </style>
 

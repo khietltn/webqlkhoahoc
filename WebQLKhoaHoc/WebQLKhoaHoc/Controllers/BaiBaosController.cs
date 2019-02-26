@@ -144,7 +144,7 @@ namespace WebQLKhoaHoc.Controllers
                 if (linkUpload != null && linkUpload.ContentLength > 0)
                 {
                     string filename = Path.GetFileName(linkUpload.FileName);
-                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), filename);
                     linkUpload.SaveAs(path);
                     baiBao.LinkFileUpLoad = filename;
                 }
@@ -267,7 +267,7 @@ namespace WebQLKhoaHoc.Controllers
                 baiBao.LinhVucs = baibao.LinhVucs;
                 baiBao.DSBaiBaoDeTais = baibao.DSBaiBaoDeTais;
                 baiBao.DSNguoiThamGiaBaiBaos = baibao.DSNguoiThamGiaBaiBaos;
-                baibao = baiBao;
+                db.BaiBaos.AddOrUpdate(baiBao);
                 /* phần xửa lý lĩnh vực*/
                
                 if (LinhVuc != null)
@@ -296,15 +296,14 @@ namespace WebQLKhoaHoc.Controllers
                 if (linkUpload != null && linkUpload.ContentLength > 0)
                 {
                     string filename = Path.GetFileName(linkUpload.FileName);
-                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), filename);
                     linkUpload.SaveAs(path);
-                    baibao.LinkFileUpLoad = filename;
+                    baibao.LinkFileUpLoad = filename;                   
                 }
                 else
                 {
                     baibao.LinkFileUpLoad = db.BaiBaos.Where(p => p.MaBaiBao == baibao.MaBaiBao).Select(p => p.LinkFileUpLoad).FirstOrDefault();
-                }
-
+                }                
                 /* xừ lý người tham gia bài báo*/
                 if (DSNguoiThamGiaBaiBao != null)
                 {

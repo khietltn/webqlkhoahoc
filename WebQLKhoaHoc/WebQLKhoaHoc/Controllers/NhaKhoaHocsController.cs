@@ -211,7 +211,7 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload, List<int> DSTrinhDoNN,List<int> DSLinhVucNC, List<int> DSChuyenMonGD, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc, NhaKhoaHocViewModel quatrinhdaotao)
+        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload, List<int> DSTrinhDoNN,List<int> DSLinhVucNC, List<int> DSChuyenMonGD, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
         {
            
             if (ModelState.IsValid)
@@ -277,9 +277,7 @@ namespace WebQLKhoaHoc.Controllers
                     {
                         nhakh.TrinhDoNgoaiNgus.Remove(x);
                     }
-                }
-
-                
+                }                               
 
               
                 if (DSChuyenMonGD != null) {

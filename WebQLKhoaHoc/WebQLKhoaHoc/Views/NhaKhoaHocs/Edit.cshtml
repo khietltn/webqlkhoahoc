@@ -293,8 +293,8 @@
                                             <tr>
                                                 <td style="display:none;">@Html.Hidden("[" + indexerct + "].MaCT", item.MaCT, new { @id = "MaCT" })</td>
                                                 <td style="display:none;">@Html.Hidden("[" + indexerct + "].MaNKH", item.MaNKH)</td>
-                                                <td><input name="[@indexerct].ThoiGianBD" id="ThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="@item.ThoiGianBD.Value.ToString("d")" /></td>
-                                                <td><input name="[@indexerct].ThoiGIanKT" id="ThoiGIanKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="@item.ThoiGIanKT.Value.ToString("d")" /></td>
+                                                <td><input name="[@indexerct].ThoiGianBD" id="[@indexerct]DTThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="@item.ThoiGianBD.Value.ToString("d")" /></td>
+                                                <td><input name="[@indexerct].ThoiGIanKT" id="[@indexerct]DTThoiGIanKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="@item.ThoiGIanKT.Value.ToString("d")" /></td>
                                                 <td>@Html.TextBox("[" + indexerct + "].ChucDanhCT", item.ChucDanhCT, new { @class = "form-control text-right" })</td>
                                                 <td>@Html.DropDownList("[" + indexerct + "].MaDonViQL", new SelectList(db.DonViQLs, "MaDonVi", "TenDonVi", item.MaDonViQL), new { @class = "form-control text-right" })</td>
                                                 <td>@Html.TextBox("[" + indexerct + "].ChucVuCT", item.ChucVuCT, new { @class = "form-control text-right" })</td>
@@ -324,7 +324,7 @@
     </div>
 </section>
 @section NhaKhoaHocScripts{
-    <script>
+<script>
         var indexerjs = @indexer;
         var indexerjsct = @indexerct;
         var ma_phi_xoa = [];
@@ -335,31 +335,23 @@
             $("#ThemQuaTrinhDaoTao").click(function () {
                 $("#quatrinhdt tbody:last-child ").append(`  <tr>
                                                     <input name="[`+indexerjs+`].MaNKH" type="hidden" value="@Model.MaNKH" />
-                                                    <td><input name="[`+ indexerjs + `].ThoiGianBD" id="DTThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
-                                                    <td><input name="[`+ indexerjs + `].ThoiGianKT" id="ThoiGianKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
-                                                    <td><select class="form-control text-right" name="[`+ indexerjs +`].MaBacDT"><option value="1">Phổ th&#244;ng</option>
-<option value="2">Trung Cấp</option>
-<option value="3">Cao đẳng</option>
-<option value="4">Đại học</option>
-<option value="5">Thạc sĩ</option>
-<option value="6">Tiến sĩ</option>
-<option value="7">Sau Tiến sĩ</option>
-<option value="8">Kh&#225;c</option>
-</select></td>
+                                                    <td><input name="[`+ indexerjs + `].ThoiGianBD" id="[` + indexerjs + `]DTThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
+                                                    <td><input name="[`+ indexerjs + `].ThoiGianKT" id="[` + indexerjs + `]DTThoiGianKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
+                                                    <td>@Html.DropDownList("s", new SelectList(db.BacDaoTaos, "MaBacDT", "TenBacDT"), new { @class = "form-control text-right", @id = "SelectListMaBacDaoTao" })</td>
                                                     <td><input class="form-control text-right" name="[`+ indexerjs +`].CoSoDaoTao" type="text" value="" /></td>
-                                                    <td><select class="form-control text-right" name="[`+ indexerjs +`].MaNganh"><option value="1">C&#244;ng Nghệ Th&#244;ng Tin</option>
-<option value="2">H&#243;a</option>
-<option value="3">Sinh</option>
-<option value="4">To&#225;n</option>
-</select></td>
-                                                    <td><input name="[`+ indexerjs + `].NamTotNghiep" id="[` + indexerjs +`].NamTotNghiep" class="form-control  text-right" type="text" autocomplete="off" value="" /></td>
+                                                    <td>@Html.DropDownList("s", new SelectList(db.NganhDaoTaos, "MaNganhDaoTao", "TenNganhDaoTao"), new { @class = "form-control text-right" , @id="SelectListMaNganhDaoTao"})</td>
+                                                    <td><input name="[`+ indexerjs + `].NamTotNghiep" id="[` + indexerjs +`].NamTotNghiep" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
                                                     <td><buton class="btn btn-danger" id="xoadaotao"><span class="glyphicon glyphicon-remove-sign"></span></buton></td>
                                                 </tr>`);
-                indexerjs++;       
+                $("#SelectListMaBacDaoTao").attr('name', "[" + indexerjs + "].MaBacDT");
+                $("#SelectListMaNganhDaoTao").attr('name', "[" + indexerjs + "].MaNganh");
+                $("#SelectListMaBacDaoTao").removeAttr('id');
+                $("#SelectListMaNganhDaoTao").removeAttr('id');
+                indexerjs++;
                 $(".date-picker").datepicker();
             });
 
-            
+
             $('#quatrinhdt').on('click', '#xoadaotao', function () {
                 var id = $(this).closest("tr").find("td:first input#MaQT").val();
                 if (id != null) {
@@ -368,10 +360,10 @@
                     console.log($("#xoaquatrinhdaotao").val());
                 }
                 else {
-                    var index = $(this).parents("tr").index("tr") - 1; 
+                    var index = $(this).parents("tr").index("tr") - 1;
                     console.log($(this).parents("tr").index("tr")-1);
-                    ma_phi_xoa_js.push(index);   
-                    $("#xoaquatrinhdaotaojs").val(JSON.stringify(ma_phi_xoa_js));                   
+                    ma_phi_xoa_js.push(index);
+                    $("#xoaquatrinhdaotaojs").val(JSON.stringify(ma_phi_xoa_js));
                 }
                 $(this).closest("tr").hide();
             });
@@ -380,58 +372,20 @@
             // Nếu add như thế sẽ không add động dược một khi chỉnh sửa database về khoa thì sẽ phải chỉnh front end lại -- fix sau
 
             $("#ThemQuaTrinhCongTac").click(function () {
-                $("#quatrinhct tbody:last-child ").append(`<tr>                                                
-                                                <input name="[`+ indexerjsct +`].MaNKH" type="hidden" value="@Model.MaNKH" />
+                $("#quatrinhct tbody:last-child ").append(`<tr>
+                                                <input name="[`+ indexerjsct + `].MaNKH" type="hidden" value="@Model.MaNKH" />
                                                 <td><input name="[`+ indexerjsct + `].ThoiGianBD" id="ThoiGianBD" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
                                                 <td><input name="[`+ indexerjsct + `].ThoiGIanKT" id="ThoiGianKT" class="form-control date-picker text-right" type="text" autocomplete="off" value="" /></td>
-                                                <td><input class="form-control text-right" name="[`+ indexerjsct +`].ChucDanhCT" type="text" value="" /></td>
-                                                <td><select class="form-control text-right" name="[`+ indexerjsct +`].MaDonViQL"><option value="1">Khoa C&#244;ng nghệ Th&#244;ng tin</option>
-<option value="2">Khoa Địa l&#237;</option>
-<option value="3">Khoa Gi&#225;o dục Ch&#237;nh trị</option>
-<option value="4">Khoa Gi&#225;o dục Đặc biệt</option>
-<option value="5">Khoa Gi&#225;o dục Mầm non</option>
-<option value="6">Khoa Gi&#225;o dục Quốc ph&#242;ng</option>
-<option value="7">Khoa Gi&#225;o dục Thể chất</option>
-<option value="8">Khoa Hóa học</option>
-<option value="9">Khoa Khoa học Gi&#225;o dục</option>
-<option value="10">Khoa Lịch sử</option>
-<option value="11">Khoa Ngữ văn</option>
-<option value="12">Khoa Sinh học</option>
-<option value="13">Khoa T&#226;m L&#253; học</option>
-<option value="14">Khoa Ti&#234;́ng Anh</option>
-<option value="15">Khoa Tiếng H&#224;n Quốc</option>
-<option value="16">Khoa Ti&#234;́ng Nga</option>
-<option value="17">Khoa Ti&#234;́ng Nh&#226;̣t</option>
-<option value="18">Khoa Ti&#234;́ng Pháp</option>
-<option value="19">Khoa Ti&#234;́ng Trung</option>
-<option value="20">Khoa Toán - Tin</option>
-<option value="21">Khoa V&#226;̣t l&#237;</option>
-<option value="22">K&#237; túc xá</option>
-<option value="23">Nhà xu&#226;́t bản</option>
-<option value="24">Ph&#242;ng Thanh tra Đ&#224;o tạo</option>
-<option value="25">Phòng C&#244;ng nghệ Th&#244;ng tin</option>
-<option value="26">Phòng C&#244;ng t&#225;c Ch&#237;nh trị &amp; Học sinh Sinh vi&#234;n</option>
-<option value="27">Phòng Đào tạo</option>
-<option value="28">Phòng Hợp t&#225;c Quốc tế</option>
-<option value="29">Phòng Khoa học C&#244;ng nghệ-M&#244;i Trường &amp; TCKH</option>
-<option value="30">Phòng Kế hoạch - T&#224;i ch&#237;nh</option>
-<option value="31">Pho\`ng Qu ? n tr ? Thi ? t b ? - Y t ?</option >
-                    <option value="32">Phòng Sau Đại học</option>
-                    <option value="33">Phòng Tổ chức - H&#224;nh ch&#237;nh</option>
-                    <option value="34">Thư vi&#234;̣n</option>
-                    <option value="35">T&#244;̉ Gi&#225;o dục Nữ c&#244;ng</option>
-                    <option value="36">Trung t&#226;m Ngoại ngữ</option>
-                    <option value="37">Trung t&#226;m Tin học</option>
-                    <option value="38">Trường Trung học Thực h&#224;nh</option>
-                    <option value="39">Vi&#234;̣n Nghi&#234;n cứu Gi&#225;o dục</option>
-</select ></td >
-                    <td><input class="form-control text-right" name="[`+ indexerjsct +`].ChucVuCT" type="text" value="" /></td>
+                                                <td><input class="form-control text-right" name="[`+ indexerjsct + `].ChucDanhCT" type="text" value="" /></td>
+                                                <td>@Html.DropDownList("s", new SelectList(db.DonViQLs, "MaDonVi", "TenDonVi"), new { @class = "form-control text-right", @id="SelectListDonViQuanLy" })</td >
+                    <td><input class="form-control text-right" name="[`+ indexerjsct + `].ChucVuCT" type="text" value="" /></td>
                     <td><buton class="btn btn-danger" id="xoacongtac"><span class="glyphicon glyphicon-remove-sign"></span></buton></td>
-                                            </tr >`);
+                                            </tr >`);
 
-
-                    indexerjsct++;
-                    $(".date-picker").datepicker();
+                $("#SelectListDonViQuanLy").attr('name', "[" + indexerjsct + "].MaDonViQL");
+                $("#SelectListDonViQuanLy").removeAttr('id');
+                indexerjsct++;
+                $(".date-picker").datepicker();
             });
 
 
@@ -443,12 +397,12 @@
                     console.log($("#xoaquatrinhcongtac").val());
                 }
                 else {
-                    var index = $(this).closest("tr").index() - 2;                   
+                    var index = $(this).closest("tr").index() - 2;
                     ma_phi_xoa_ct_js.push(index);
                     $("#xoaquatrinhcongtacjs").val(JSON.stringify(ma_phi_xoa_ct_js));
                 }
                 $(this).closest("tr").hide();
             });
         });
-    </script>
+</script>
 }

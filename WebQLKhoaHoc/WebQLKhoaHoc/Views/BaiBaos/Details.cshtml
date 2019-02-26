@@ -91,7 +91,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LienKetWeb)
+           <a class ="customlink" href="@Model.LienKetWeb">@Model.LienKetWeb</a>
         </dd>
 
         <dt>
@@ -123,10 +123,19 @@
         </dt>
 
         <dd>
-            @foreach (var linhvuc in Model.LinhVucs)
-            {
-                @Html.DisplayFor(modelLV => linhvuc.TenLinhVuc)
-            }
+            @{var countLinhVuc = Model.LinhVucs.Count;
+                int t = 0;
+
+                foreach (var linhvuc in Model.LinhVucs)
+                {
+                    @Html.DisplayFor(modelLV => linhvuc.TenLinhVuc)
+                    if (t < countLinhVuc - 1)
+                    {
+                        @:, 
+                    }
+                    t++;
+                }
+             }
         </dd>
 
         <dt>

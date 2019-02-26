@@ -702,6 +702,7 @@
     <Content Include="Views\DeTais\ScriptingPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\uploads\baibao_file\" />
     <Folder Include="App_Data\uploads\detai_file\" />
   </ItemGroup>
   <ItemGroup>
