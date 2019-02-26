@@ -134,10 +134,10 @@
 
                                                             <div class="form-group">
                                                                 <div class="col-md-12">
-                                                                    <span class="mt-0 mb-0 font-weight-600">Liên hệ:</span>
+                                                                    <span class="mt-0 mb-0 font-weight-600">Điện thoại</span>
                                                                 </div>
                                                                 <div class="col-md-4" style="padding-right:0px">
-                                                                    <span class="mt-0 mb-0 font-weight-600">Điện thoại:</span>
+                                                                    <span class="mt-0 mb-0 font-weight-600">Liên hệ:</span>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     @Html.EditorFor(model => model.DienThoai, new { htmlAttributes = new { @class = "form-control", @required = "reuqired" } })<br>
@@ -231,7 +231,7 @@
                                             <th>Cơ sở đào tạo</th>
                                             <th>Ngành đào tạo</th>
                                             <th>Năm tốt nghiệp</th>
-                                            <th><button class="btn btn-success btn-lg" id="ThemQuaTrinhDaoTao" type="button"><span class="glyphicon glyphicon-plus-sign"></span></button></th>
+                                            <th><button class="btn btn-success" id="ThemQuaTrinhDaoTao" type="button"><span class="glyphicon glyphicon-plus-sign"></span></button></th>
                                         </tr>
                                     </thead>
                                     <tbody class="custom-tablebody">
@@ -260,7 +260,7 @@
                         <div class="modal-footer" style="border-top:0 !important;">
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Lưu" class="btn btn-primary btn-lg" />
+                                    <input type="submit" value="Lưu" class="btn btn-primary" />
                                 </div>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
                                             <th>Chức danh công tác</th>
                                             <th>Đơn vị quản lý</th>
                                             <th>Chức vụ công tác</th>
-                                            <th><button class="btn btn-success btn-lg" id="ThemQuaTrinhCongTac" type="button"><span class="glyphicon glyphicon-plus-sign"></span></button></th>
+                                            <th><button class="btn btn-success" id="ThemQuaTrinhCongTac" type="button"><span class="glyphicon glyphicon-plus-sign"></span></button></th>
                                         </tr>
                                     </thead>
                                     <tbody class="custom-tablebody">
@@ -311,14 +311,14 @@
                         <div class="modal-footer" style="border-top:0 !important;">
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">                                    
-                                    <input type="submit" value="Lưu" class="btn btn-primary btn-lg" />
+                                    <input type="submit" value="Lưu" class="btn btn-primary" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 }
                 <hr style="border: 1px solid #F2184F !important;" />
-                <a href="@Url.Action("Index","NhaKhoaHocs")" type="button" class="btn btn-danger btn-lg pull-right">Quay về</a>
+                <a href="@Url.Action("Index","NhaKhoaHocs")" type="button" class="btn btn-danger pull-right">Quay về</a>
             </section>
         </div>
     </div>

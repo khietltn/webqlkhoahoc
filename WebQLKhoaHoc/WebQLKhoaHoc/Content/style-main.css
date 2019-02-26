@@ -2539,9 +2539,9 @@ section > .container-fluid {
   font-size: 14px;
 }
 .form-control {
-  border-radius: 0.25rem;
-  box-shadow: none;
-  height: 45px;
+    border-radius: 0.25rem;
+    box-shadow: none;
+    height: 35px;
     display: block;
     width: 100%;
     padding: 6px 12px;

@@ -15313,7 +15313,8 @@ body.lb-disable-scrolling {
         clear: left;
         text-align: right;
         text-overflow: ellipsis;
-        white-space: nowrap
+        white-space: nowrap;
+        margin-top: 6px;
     }
 
     .dl-horizontal dd {
