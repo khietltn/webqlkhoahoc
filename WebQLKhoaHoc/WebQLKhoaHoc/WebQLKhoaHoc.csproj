@@ -395,6 +395,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css-plugin-collections.css" />
     <Content Include="Content\custom-bootstrap-margin-padding.css" />
+    <Content Include="Content\custom.min.css" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\lightbox\close.png" />
     <Content Include="Content\lightbox\loading.gif" />
@@ -452,10 +453,12 @@
     </Content>
     <Content Include="Content\custom.css" />
     <Content Include="Content\daterangepicker.css" />
+    <Content Include="Content\font-awesome.min" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom-admin.js" />
     <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\custom.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -700,6 +703,7 @@
     <Content Include="Views\Shared\_AdminMainPage.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\DeTais\ScriptingPage.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\baibao_file\" />

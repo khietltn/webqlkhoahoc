@@ -1,68 +1,61 @@
 ﻿@{
     ViewBag.Title = "Cổng đăng nhập";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+    Layout = "~/Views/Shared/PopUpLayout.cshtml";
 }
 
-<style>
-    .login-box {
-        margin: 7% auto;
-        width: 360px;
-    }
-    .login-logo{
-        background-color: #202C45;
-    }
-    .login-box-body {
-        padding: 10px;
-        background-color: lightgrey;
-    }
-    a.btn.btn-block.btn-google.btn-flat {
-        background-color: #dd4b39;
-        color: #fff;
-    }
-    .col-xs-4 {
-        width: 33.33333333333333%;
-        margin-left: 33%;
-    }
-</style>
-<div class="container">
-    <div class="login-box">
-        <div class="login-logo text-center">
-            <a href="#"><h3 style="color:white">Đăng nhập</h3></a>
-        </div>
-        <br />
-        <!-- /.login-logo -->
-        @if (ViewBag.Error != null)
-        {
-            <div class="text-center"><span class="alert alert-danger">@ViewBag.Error</span></div>
-        }
-        <br />
-        <div class="login-box-body">
 
-            <form action="Login" method="post" novalidate="novalidate">
-                <div class="form-group has-feedback">
-                    <input type="text" id="username" name="username" value="" class="form-control" placeholder="Tài khoản" required>
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Mật khẩu" required>
-                </div>
-                <div class="row">
-                    <!-- /.col -->
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
+<div class="container-contact100">
+    <div class="wrap-contact100">
 
-            <div class="social-auth-links text-center">
-                <p>- Hoặc -</p>
-                <a href="#" class="btn btn-block btn-google btn-flat">
-                    Đăng nhập bằng tài khoản email Đại học Sư Phạm
-                </a>
+
+        <form action="Login" method="post" novalidate="novalidate" class="contact100-form validate-form">
+            <a href="/" class="btn btn-info btn-lg" style="background: #6675df; position: absolute; top: 2%; left: 85%;">
+                <span class="glyphicon glyphicon-log-out"></span> Back To Home Page
+            </a>
+
+            <span class="contact100-form-title">
+                Đăng Nhập
+            </span>
+
+            @if (ViewBag.Error != null)
+            {
+                <div style=" margin-bottom: 35px; max-width: 100%; text-align: center;">
+                    <span class="alert alert-danger">@ViewBag.Error</span>
+                </div>
+
+            }
+            <div class="wrap-input100 validate-input">
+                <label class="label-input100" for="name">User Name</label>
+                <input type="text" id="username" class="input100" name="username" value="" placeholder="Enter your username" required>
+            </div>
+            <div class="wrap-input100 validate-input">
+                <label class="label-input100" for="name">Password</label>
+                <input type="password" id="password" name="password" class="input100" placeholder="Enter your password" required>
             </div>
 
-            <a href="#" id="right" class="pull-right">Quên mật khẩu?</a><br>
+            <div class="container-contact100-form-btn">
+                <button type="submit" class="contact100-form-btn">Đăng nhập</button>
+            </div>
+
+        </form>
+        <div class="contact100-more flex-col-c-m" style="background-image: url('/Image/login_background.jpg');">
         </div>
-        <!-- /.login-box-body -->
     </div>
+
+   
 </div>
+@Scripts.Render("~/bundles/jquery")
+<script>
+(function ($) {
+    "use strict";
+    $('.validate-form .input100').each(function(){
+        $(this).focus(function(){
+           hideValidate(this);
+        });
+    });
+    function hideValidate(input) {
+        var thisAlert = $(input).parent();
+        $(thisAlert).removeClass('alert-validate');
+    }
+})(jQuery);
+</script>

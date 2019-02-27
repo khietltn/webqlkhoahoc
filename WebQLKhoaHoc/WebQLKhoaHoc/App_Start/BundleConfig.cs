@@ -27,7 +27,8 @@ namespace WebQLKhoaHoc
                 "~/Scripts/custom.js",
                 "~/Scripts/jquery-ui.min.js",
                 "~/Scripts/jquery-plugin-collection.js",
-                "~/Scripts/bootstrap-multiselect.js"
+                "~/Scripts/bootstrap-multiselect.js",
+                "~/Scripts/custom.min.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/charts").Include(
@@ -45,16 +46,16 @@ namespace WebQLKhoaHoc
 
             bundles.Add(new StyleBundle("~/Content/admincss").Include(
                 "~/Content/Admin/animate.css",
-                "~/Content/Admin/bootstrap.min.css",
-                "~/Content/Admin/bootstrap-theme.min.css",
-                "~/Content/Admin/dataTables.bootstrap.min.css",
+               "~/Content/Admin/bootstrap.min.css",
+               "~/Content/Admin/bootstrap-theme.min.css",
+               "~/Content/Admin/dataTables.bootstrap.min.css",
                "~/Content/custom.css",
                "~/Content/daterangepicker.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
+                "~/Content/bootstrap.css",
+                "~/Content/site.css",
                 "~/Content/animate.css",
                 "~/Content/css-plugin-collections.css",
                 "~/Content/custom-bootstrap-margin-padding.css",
@@ -64,7 +65,8 @@ namespace WebQLKhoaHoc
                 "~/Content/theme-skin-color-set-1.css",
                 "~/Content/utility-classes.css",
                 "~/Content/jquery-ui.min.css",
-                      "~/Content/bootstrap-multiselect.css"
+                "~/Content/bootstrap-multiselect.css",
+                "~/Content/custom.min.css"
                 ));
         }
     }
