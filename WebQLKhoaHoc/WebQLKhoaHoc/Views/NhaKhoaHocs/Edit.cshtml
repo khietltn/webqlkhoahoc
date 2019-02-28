@@ -237,9 +237,18 @@
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(model => model.MaNKH)
                     <div class="form-group">
-                        <div class="row">
-                            <h2 class="tile text-center text-black-444 border-bottom-theme-color-2-2px" style="padding-bottom: 5px;"> Quá trình công tác và đào tạo</h2>
-                            <div class="col-md-12">
+                        <div class="row x_panel">
+                            <div class="x_title">
+                                <h2>Quá trình công tác và đào tạo </h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li class="icon-toggle">
+                                        <a class="collapse-link"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                         
+                            <div class="col-md-12 x_content">
                                 <table class="table table-bordered table-striped" id="quatrinhdt">
                                     <thead class="custom-tablebody">
                                         <tr>
@@ -291,8 +300,18 @@
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(model => model.MaNKH)
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
+                        <div class="row x_panel">
+                            <div class="x_title">
+                                <h2></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li class="icon-toggle">
+                                        <a class="collapse-link"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="col-md-12 x_content">
                                 <table class="table table-bordered" id="quatrinhct">
                                     <thead class="custom-tablebody">
                                         <tr>
