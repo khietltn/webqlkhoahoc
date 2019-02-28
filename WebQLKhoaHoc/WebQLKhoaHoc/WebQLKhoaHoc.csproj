@@ -453,7 +453,6 @@
     </Content>
     <Content Include="Content\custom.css" />
     <Content Include="Content\daterangepicker.css" />
-    <Content Include="Content\font-awesome.min" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom-admin.js" />

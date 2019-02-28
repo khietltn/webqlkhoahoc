@@ -939,30 +939,6 @@ a {
     padding: 9px
 }
 
-.panel_toolbox {
-    float: right;
-    min-width: 70px
-}
-
-    .panel_toolbox > li {
-        float: left;
-        cursor: pointer
-    }
-
-        .panel_toolbox > li > a {
-            padding: 5px;
-            color: #C5C7CB;
-            font-size: 14px
-        }
-
-            .panel_toolbox > li > a:hover {
-                background: #F5F7FA
-            }
-
-.line_30 {
-    line-height: 30px
-}
-
 .main_menu_side {
     padding: 0
 }
@@ -2211,11 +2187,6 @@ a.star {
     width: 100%
 }
 
-.btn, .buttons, .modal-footer .btn + .btn, button {
-    margin-bottom: 5px;
-    margin-right: 5px
-}
-
 .btn-group .btn, .btn-group-vertical .btn {
     margin-bottom: 0;
     margin-right: 0
@@ -2389,11 +2360,6 @@ span.section {
     color: #333;
     border: 0;
     border-bottom: 1px solid #e5e5e5
-}
-
-.form-control {
-    border-radius: 0;
-    width: 100%
 }
 
 .form-horizontal .control-label {
@@ -2579,10 +2545,6 @@ input.parsley-error, select.parsley-error, textarea.parsley-error {
 .autocomplete-suggestions strong {
     color: #39f;
     font-weight: bolder
-}
-
-.btn {
-    border-radius: 3px
 }
 
 a.btn-danger, a.btn-primary, a.btn-success, a.btn-warning {
@@ -3594,9 +3556,6 @@ ul.project_files li {
     display: block !important
 }
 
-.form-group .btn {
-    margin-bottom: -6px
-}
 
 .input-group-btn .btn {
     margin-bottom: 0

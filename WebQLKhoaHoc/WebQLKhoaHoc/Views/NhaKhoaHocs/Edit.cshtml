@@ -25,20 +25,16 @@
                         <div class="section-content">
                             <div class="row">
                                 <div class="col-md-4">
-
-                                    <div class="thumb">
-                                        @{
-                                            if (Model.AnhCaNhan.IsNullOrWhiteSpace())
-                                            {
-                                                <img class="img-fullwidth" id="thumbnail" src=@Url.Content("~/Image/avatar.bmp") style="max-height: 100vw; border-radius: 50%" />
-                                            }
-                                            else
-                                            {
-                                                <img class="img-fullwidth" id="thumbnail" src="@Model.AnhCaNhan" style="max-height: 100vw; border-radius: 50%" />
-                                            }
+                                    @{
+                                        if (Model.AnhCaNhan.IsNullOrWhiteSpace())
+                                        {
+                                            <img class="img-fullwidth" id="thumbnail" src=@Url.Content("~/Image/avatar.bmp") style="max-height: 100vw; border-radius: 50%" />
                                         }
-
-                                    </div>
+                                        else
+                                        {
+                                            <img class="img-fullwidth" id="thumbnail" src="@Model.AnhCaNhan" style="max-height: 100vw; border-radius: 50%" />
+                                        }
+                                    }
                                     <div class="col-md-12 mt-20 text-center">
                                         @*@Html.LabelFor(model => model.AnhCaNhan, htmlAttributes: new { @class = "control-label col-md-2" })*@
                                         <h5 class="mt-0 mb-0 font-weight-600">Ảnh cá nhân:</h5>
@@ -80,8 +76,8 @@
                                                 <div class="x_title">
                                                     <h2>Thông tin: </h2>
                                                     <ul class="nav navbar-right panel_toolbox">
-                                                        <li>
-                                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                        <li class="icon-toggle">
+                                                            <a class="collapse-link"><i class="glyphicon glyphicon-chevron-up"></i></a>
                                                         </li>
                                                     </ul>
                                                     <div class="clearfix"></div>
@@ -167,45 +163,56 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <h4 class="line-bottom">Chuyên môn:</h4>
-                                            <div class="volunteer-address">
-                                                <div class="bg-light media border-bottom p-15 mb-20" style="overflow: visible">
-                                                    <div class="form-group">
-                                                        <h5 class="mt-0 mb-0 font-weight-600">Chức danh:</h5>
-                                                        <p>
-                                                            @Html.DropDownList("MaHocHam", (IEnumerable<SelectListItem>)ViewBag.MaHH, "--Chọn học hàm--", new { @class = "form-control" })
-                                                        </p>
-                                                        <h5 class="mt-0 mb-0 font-weight-600">Học vị:</h5>
-                                                        <p>
-                                                            @Html.DropDownList("MaHocVi", (IEnumerable<SelectListItem>)ViewBag.MaHV, "--Chọn học vị--", new { @class = "form-control" })
-                                                        </p>
-                                                        <h5 class="mt-0 mb-0 font-weight-600">Chuyên ngành đào tạo:</h5>
-                                                        <p>
-                                                            @Html.DropDownList("MaCNDaoTao", (IEnumerable<SelectListItem>)ViewBag.MaCNDT, "--Chọn chuyên ngành--", new { @class = "form-control" })
-                                                        </p>
-                                                        <h5 class="mt-0 mb-0 font-weight-600">Đơn vị quản lý:</h5>
-                                                        <p>
-                                                            @Html.DropDownList("MaDonViQL", (IEnumerable<SelectListItem>)ViewBag.MaDVQL, "--Chọn đơn vị--", new { @class = "form-control" })
-                                                        </p>
-                                                        <h5 class="mt-0 mb-0 font-weight-600">Ngạch viên chức:</h5>
-                                                        <p>
-                                                            @Html.DropDownList("MaNgachVienChuc", (IEnumerable<SelectListItem>)ViewBag.MaNgachVC, "--Chọn ngạch--", new { @class = "form-control" })
-                                                        </p>
-                                                        <h5 class="mt-0 mb-0 font-weight-600">Chuyên Môn Giảng Dạy:</h5>
-                                                        <p>
-                                                            @Html.ListBox("DSChuyenMonGD", ViewBag.DSChuyenMonGiangDay as MultiSelectList, new { @class = "listbox" })
-                                                        </p>
-                                                        <h5 class="mt-0 mb-0 font-weight-600">Lĩnh Vực Nghiên Cứu:</h5>
-                                                        <p>
-                                                            @Html.ListBox("DSLinhVucNC", ViewBag.DSLinhVucNghienCuu as MultiSelectList, new { @class = "listbox" })
-                                                        </p>
-                                                        <h5 class="mt-0 mb-0 font-weight-600">Trình Độ Ngoại Ngữ:</h5>
-                                                        <p>
-                                                            @Html.ListBox("DSTrinhDoNN", ViewBag.DSTrinhDoNgoaiNgu as MultiSelectList, new { @class = "listbox" })
-                                                        </p>
-                                                    </div>
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2>Chuyên môn:</h2>
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li class="icon-toggle">
+                                                            <a class="collapse-link"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="clearfix"></div>
                                                 </div>
 
+                                                <div class="volunteer-address x_content">
+                                                    <div class="bg-light media border-bottom p-15 mb-20" style="overflow: visible">
+                                                        <div class="form-group">
+                                                            <h5 class="mt-0 mb-0 font-weight-600">Chức danh:</h5>
+                                                            <p>
+                                                                @Html.DropDownList("MaHocHam", (IEnumerable<SelectListItem>)ViewBag.MaHH, "--Chọn học hàm--", new { @class = "form-control" })
+                                                            </p>
+                                                            <h5 class="mt-0 mb-0 font-weight-600">Học vị:</h5>
+                                                            <p>
+                                                                @Html.DropDownList("MaHocVi", (IEnumerable<SelectListItem>)ViewBag.MaHV, "--Chọn học vị--", new { @class = "form-control" })
+                                                            </p>
+                                                            <h5 class="mt-0 mb-0 font-weight-600">Chuyên ngành đào tạo:</h5>
+                                                            <p>
+                                                                @Html.DropDownList("MaCNDaoTao", (IEnumerable<SelectListItem>)ViewBag.MaCNDT, "--Chọn chuyên ngành--", new { @class = "form-control" })
+                                                            </p>
+                                                            <h5 class="mt-0 mb-0 font-weight-600">Đơn vị quản lý:</h5>
+                                                            <p>
+                                                                @Html.DropDownList("MaDonViQL", (IEnumerable<SelectListItem>)ViewBag.MaDVQL, "--Chọn đơn vị--", new { @class = "form-control" })
+                                                            </p>
+                                                            <h5 class="mt-0 mb-0 font-weight-600">Ngạch viên chức:</h5>
+                                                            <p>
+                                                                @Html.DropDownList("MaNgachVienChuc", (IEnumerable<SelectListItem>)ViewBag.MaNgachVC, "--Chọn ngạch--", new { @class = "form-control" })
+                                                            </p>
+                                                            <h5 class="mt-0 mb-0 font-weight-600">Chuyên Môn Giảng Dạy:</h5>
+                                                            <p>
+                                                                @Html.ListBox("DSChuyenMonGD", ViewBag.DSChuyenMonGiangDay as MultiSelectList, new { @class = "listbox" })
+                                                            </p>
+                                                            <h5 class="mt-0 mb-0 font-weight-600">Lĩnh Vực Nghiên Cứu:</h5>
+                                                            <p>
+                                                                @Html.ListBox("DSLinhVucNC", ViewBag.DSLinhVucNghienCuu as MultiSelectList, new { @class = "listbox" })
+                                                            </p>
+                                                            <h5 class="mt-0 mb-0 font-weight-600">Trình Độ Ngoại Ngữ:</h5>
+                                                            <p>
+                                                                @Html.ListBox("DSTrinhDoNN", ViewBag.DSTrinhDoNgoaiNgu as MultiSelectList, new { @class = "listbox" })
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

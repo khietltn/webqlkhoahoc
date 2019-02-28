@@ -16038,3 +16038,7 @@ textarea.input100 {
     background-color: white !important;
     border-bottom: 1px solid #e5e5e5 !important;
 }
+
+.icon-toggle {
+    float: right;
+}
