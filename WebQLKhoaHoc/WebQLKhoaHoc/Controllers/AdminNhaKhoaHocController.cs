@@ -126,11 +126,22 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,AnhCaNhan,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
+        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload,[Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(nhaKhoaHoc).State = EntityState.Modified;
+                if (repo.HasFile(fileUpload))
+                {
+                    string mimeType = fileUpload.ContentType;
+                    Stream fileStream = fileUpload.InputStream;
+                    string fileName = Path.GetFileName(fileUpload.FileName);
+                    int fileLength = fileUpload.ContentLength;
+                    byte[] fileData = new byte[fileLength];                   
+                    fileStream.Read(fileData, 0, fileLength);
+                    nhaKhoaHoc.AnhCaNhan = fileData;
+                    nhaKhoaHoc.AnhDaiDien = Path.GetFileName(fileUpload.FileName);
+                }
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

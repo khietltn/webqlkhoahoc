@@ -1,52 +1,40 @@
 ﻿@model WebQLKhoaHoc.ChuyenMonNKH
-
+@{QLKhoaHocEntities db = new QLKhoaHocEntities(); }
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+    Layout = "~/Views/Shared/_AdminMainPage.cshtml";
 }
-
-<h2>Create</h2>
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>ChuyenMonNKH</h4>
-        <hr />
-        @Html.ValidationSummary(true)
+<div class="form-horizontal">
+    <h1>Chuyên môn nhà khoa hoc:</h1>
+    <hr />
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <input type="hidden" name="MaNKH" value="@ViewBag.manhakhoahoc" />
+        <input type="hidden" name="manhakhoahoc" value="@ViewBag.manhakhoahoc" />
         <div class="form-group">
-            @Html.LabelFor(model => model.MaNKH, "MaNKH", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaNKH", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaNKH)
+            <div class="col-md-2 col-md-offset-1"><h4>Tên chuyên môn:</h4></div>
+            <div class="col-md-7">
+                @Html.DropDownList("MaChuyenMon", ViewBag.ChuyenMon as SelectList ,new { @class="form-control"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MaChuyenMon, "MaChuyenMon", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaChuyenMon", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaChuyenMon)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayCapNhat, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NgayCapNhat)
-                @Html.ValidationMessageFor(model => model.NgayCapNhat)
+            <div class="col-md-2 col-md-offset-1"><h4>Ngày cập nhật:</h4></div>
+            <div class="col-md-7">
+                <input type="text" name="NgayCapNhat" class="form-control"/>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                @Html.ActionLink("Trở về", "Edit", "AdminNhaKhoaHoc", new { id = ViewBag.manhakhoahoc }, new { @class = "btn btn-default pull-right" })
+                <input type="submit" value="Tạo" class="btn btn-default pull-right" />
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+}

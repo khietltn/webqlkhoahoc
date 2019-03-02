@@ -143,7 +143,7 @@ namespace WebQLKhoaHoc.Controllers
             {
                 if (linkUpload != null && linkUpload.ContentLength > 0)
                 {
-                    string filename = Path.GetFileName(linkUpload.FileName);
+                    string filename = Path.GetFileNameWithoutExtension(linkUpload.FileName) + "_" + baiBao.MaBaiBao.ToString() + Path.GetExtension(linkUpload.FileName);
                     string path = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), filename);
                     linkUpload.SaveAs(path);
                     baiBao.LinkFileUpLoad = filename;
@@ -267,6 +267,26 @@ namespace WebQLKhoaHoc.Controllers
                 baiBao.LinhVucs = baibao.LinhVucs;
                 baiBao.DSBaiBaoDeTais = baibao.DSBaiBaoDeTais;
                 baiBao.DSNguoiThamGiaBaiBaos = baibao.DSNguoiThamGiaBaiBaos;
+                /* xử lý ảnh upload*/
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(linkUpload.FileName) + "_" + baiBao.MaBaiBao.ToString() + Path.GetExtension(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), filename);                    
+                    if (!String.IsNullOrEmpty(baibao.LinkFileUpLoad))
+                    {
+                        string oldpath = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), baibao.LinkFileUpLoad);
+                        if (System.IO.File.Exists(oldpath))
+                        {
+                            System.IO.File.Delete(oldpath);
+                        }
+                    }
+                    linkUpload.SaveAs(path);
+                    baiBao.LinkFileUpLoad = filename;
+                }
+                else
+                {
+                    baiBao.LinkFileUpLoad = baibao.LinkFileUpLoad;
+                }
                 db.BaiBaos.AddOrUpdate(baiBao);
                 /* phần xửa lý lĩnh vực*/
                
@@ -292,18 +312,7 @@ namespace WebQLKhoaHoc.Controllers
                     }
                 }
                 
-                /* xử lý ảnh upload*/
-                if (linkUpload != null && linkUpload.ContentLength > 0)
-                {
-                    string filename = Path.GetFileName(linkUpload.FileName);
-                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), filename);
-                    linkUpload.SaveAs(path);
-                    baibao.LinkFileUpLoad = filename;                   
-                }
-                else
-                {
-                    baibao.LinkFileUpLoad = db.BaiBaos.Where(p => p.MaBaiBao == baibao.MaBaiBao).Select(p => p.LinkFileUpLoad).FirstOrDefault();
-                }                
+                
                 /* xừ lý người tham gia bài báo*/
                 if (DSNguoiThamGiaBaiBao != null)
                 {

@@ -38,10 +38,9 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: AdminQuaTrinhCongTac/Create
-        public ActionResult Create()
+        public ActionResult Create(int? manhakhoahoc)
         {
-            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo");
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View();
         }
 
@@ -50,22 +49,21 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaCT,MaNKH,ThoiGianBD,ThoiGIanKT,ChucDanhCT,MaDonViQL,ChucVuCT")] QuaTrinhCongTac quaTrinhCongTac)
+        public async Task<ActionResult> Create([Bind(Include = "MaCT,MaNKH,ThoiGianBD,ThoiGIanKT,ChucDanhCT,MaDonViQL,ChucVuCT")] QuaTrinhCongTac quaTrinhCongTac,int manhakhoahoc)
         {
             if (ModelState.IsValid)
             {
                 db.QuaTrinhCongTacs.Add(quaTrinhCongTac);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "AdminNhaKhoaHoc", new { id = manhakhoahoc });
             }
 
-            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", quaTrinhCongTac.MaDonViQL);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", quaTrinhCongTac.MaNKH);
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View(quaTrinhCongTac);
         }
 
         // GET: AdminQuaTrinhCongTac/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id,int manhakhoahoc)
         {
             if (id == null)
             {
@@ -76,8 +74,8 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", quaTrinhCongTac.MaDonViQL);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", quaTrinhCongTac.MaNKH);
+
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View(quaTrinhCongTac);
         }
 
@@ -86,21 +84,20 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaCT,MaNKH,ThoiGianBD,ThoiGIanKT,ChucDanhCT,MaDonViQL,ChucVuCT")] QuaTrinhCongTac quaTrinhCongTac)
+        public async Task<ActionResult> Edit([Bind(Include = "MaCT,MaNKH,ThoiGianBD,ThoiGIanKT,ChucDanhCT,MaDonViQL,ChucVuCT")] QuaTrinhCongTac quaTrinhCongTac,int manhakhoahoc)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(quaTrinhCongTac).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "AdminNhaKhoaHoc", new { id = manhakhoahoc });
             }
-            ViewBag.MaDonViQL = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI", quaTrinhCongTac.MaDonViQL);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", quaTrinhCongTac.MaNKH);
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View(quaTrinhCongTac);
         }
 
         // GET: AdminQuaTrinhCongTac/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int? id,int manhakhoahoc)
         {
             if (id == null)
             {
@@ -111,19 +108,21 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            return View(quaTrinhCongTac);
+            db.QuaTrinhCongTacs.Remove(quaTrinhCongTac);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Edit", "AdminNhaKhoaHoc", new { id = manhakhoahoc });            
         }
 
         // POST: AdminQuaTrinhCongTac/Delete/5
-        [HttpPost, ActionName("Delete")]
+        /*[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id,int manhakhoahoc)
         {
             QuaTrinhCongTac quaTrinhCongTac = await db.QuaTrinhCongTacs.FindAsync(id);
             db.QuaTrinhCongTacs.Remove(quaTrinhCongTac);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+            return RedirectToAction("Edit", "AdminNhaKhoaHoc", new { id = manhakhoahoc });
+        }*/
 
         protected override void Dispose(bool disposing)
         {

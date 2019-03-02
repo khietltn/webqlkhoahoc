@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebQLKhoaHoc;
+using System.Data.Entity.Migrations;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -38,10 +39,19 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: AdminDSNguoiThamGiaDeTai/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id,int? manhakhoahoc)
         {
-            ViewBag.MaDeTai = new SelectList(db.DeTais, "MaDeTai", "MaDeTaiHoSo");
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo");
+            var dsnguoidathamgia = db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == id).Select(p => p.MaNKH).ToList();
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => !dsnguoidathamgia.Contains(p.MaNKH)).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+
+            ViewBag.MaNKH = new SelectList(lstAllNKH, "MaNKH", "TenNKH");
+            ViewBag.TenDeTai = db.DeTais.Find(id).TenDeTai;
+            ViewBag.MaDeTai = id;
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View();
         }
 
@@ -50,34 +60,43 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaDeTai,MaNKH,LaChuNhiem")] DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai)
+        public async Task<ActionResult> Create([Bind(Include = "MaDeTai,MaNKH,LaChuNhiem")] DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai,int ? manhakhoahoc)
         {
             if (ModelState.IsValid)
             {
                 db.DSNguoiThamGiaDeTais.Add(dSNguoiThamGiaDeTai);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit",new { id=dSNguoiThamGiaDeTai.MaDeTai, manhakhoahoc = manhakhoahoc});
             }
 
-            ViewBag.MaDeTai = new SelectList(db.DeTais, "MaDeTai", "MaDeTaiHoSo", dSNguoiThamGiaDeTai.MaDeTai);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", dSNguoiThamGiaDeTai.MaNKH);
-            return View(dSNguoiThamGiaDeTai);
+            var dsnguoidathamgia = db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == dSNguoiThamGiaDeTai.MaDeTai).Select(p => p.MaNKH).ToList();
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => !dsnguoidathamgia.Contains(p.MaNKH)).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+
+            ViewBag.MaNKH = new SelectList(lstAllNKH, "MaNKH", "TenNKH");
+            ViewBag.TenDeTai = db.DeTais.Find(dSNguoiThamGiaDeTai.MaDeTai).TenDeTai;
+            ViewBag.MaDeTai = dSNguoiThamGiaDeTai.MaDeTai;
+            ViewBag.manhakhoahoc = manhakhoahoc;
+            return View();
         }
 
         // GET: AdminDSNguoiThamGiaDeTai/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id,int? manhakhoahoc)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai = await db.DSNguoiThamGiaDeTais.FindAsync(id);
+            List<DSNguoiThamGiaDeTai> dSNguoiThamGiaDeTai = await db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == id).ToListAsync();
             if (dSNguoiThamGiaDeTai == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaDeTai = new SelectList(db.DeTais, "MaDeTai", "MaDeTaiHoSo", dSNguoiThamGiaDeTai.MaDeTai);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", dSNguoiThamGiaDeTai.MaNKH);
+            ViewBag.manhakhoahoc = manhakhoahoc;
+            ViewBag.madetai = id;
             return View(dSNguoiThamGiaDeTai);
         }
 
@@ -86,43 +105,51 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaDeTai,MaNKH,LaChuNhiem")] DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai)
+        public async Task<ActionResult> Edit([Bind(Include = "MaDeTai,MaNKH,LaChuNhiem")] List<DSNguoiThamGiaDeTai> dSNguoiThamGiaDeTai,int? manhakhoahoc,int? madetai)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dSNguoiThamGiaDeTai).State = EntityState.Modified;
+                foreach (var x in dSNguoiThamGiaDeTai)
+                {
+                    db.DSNguoiThamGiaDeTais.AddOrUpdate(x);
+                }
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit",new { id = madetai , manhakhoahoc = manhakhoahoc});
             }
-            ViewBag.MaDeTai = new SelectList(db.DeTais, "MaDeTai", "MaDeTaiHoSo", dSNguoiThamGiaDeTai.MaDeTai);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", dSNguoiThamGiaDeTai.MaNKH);
+
+
+            ViewBag.manhakhoahoc = manhakhoahoc;
+            ViewBag.madetai = madetai;
             return View(dSNguoiThamGiaDeTai);
         }
 
         // GET: AdminDSNguoiThamGiaDeTai/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int? id,int? mankh,int? manhakhoahoc)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai = await db.DSNguoiThamGiaDeTais.FindAsync(id);
+            DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai = await db.DSNguoiThamGiaDeTais.Where(p=>p.MaDeTai == id && p.MaNKH == mankh).FirstOrDefaultAsync();
             if (dSNguoiThamGiaDeTai == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.madetai = id;
+            ViewBag.mankh = mankh;
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View(dSNguoiThamGiaDeTai);
         }
 
         // POST: AdminDSNguoiThamGiaDeTai/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id,int? mankh, int? manhakhoahoc)
         {
-            DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai = await db.DSNguoiThamGiaDeTais.FindAsync(id);
+            DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai = await db.DSNguoiThamGiaDeTais.Where(p=>p.MaDeTai==id && p.MaNKH == mankh).FirstOrDefaultAsync();
             db.DSNguoiThamGiaDeTais.Remove(dSNguoiThamGiaDeTai);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit",new { id = id, manhakhoahoc = manhakhoahoc});
         }
 
         protected override void Dispose(bool disposing)

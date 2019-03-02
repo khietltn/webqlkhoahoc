@@ -1,38 +1,43 @@
 ﻿@model WebQLKhoaHoc.ChuyenMonNKH
-
+@{ QLKhoaHocEntities db = new QLKhoaHocEntities() }
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+    Layout = "~/Views/Shared/_AdminMainPage.cshtml";
 }
-
-<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>ChuyenMonNKH</h4>
-        <hr />
+<div class="form-horizontal">
+    <h1>Chuyên Môn Nhà Khoa Học</h1>
+    <hr />
+    <div class="row">
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.MaNKH)
 
         @Html.HiddenFor(model => model.MaChuyenMon)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NgayCapNhat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2"><h3>Ngày cập nhật :</h3></div>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NgayCapNhat)
-                @Html.ValidationMessageFor(model => model.NgayCapNhat)
+                <input class="form-control" name="NgayCapNhat" value="@Model.NgayCapNhat" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2"><h3>Chuyên môn nhà khoa học :</h3></div>
+            <div class="col-md-10">
+                @Html.DropDownList("MaChuyenMonMoi",new SelectList(db.ChuyenMons,"MaChuyenMon","TenChuyenMon",Model.MaChuyenMon))               
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="lưu" class="btn btn-default" />
             </div>
         </div>
     </div>
+</div>
 }
 
 <div>

@@ -38,11 +38,9 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: AdminQuaTrinhDaoTao/Create
-        public ActionResult Create()
-        {
-            ViewBag.MaBacDT = new SelectList(db.BacDaoTaos, "MaBacDT", "TenBacDT");
-            ViewBag.MaNganh = new SelectList(db.NganhDaoTaos, "MaNganhDaoTao", "TenNganhDaoTao");
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo");
+        public ActionResult Create(int? manhakhoahoc)
+        {   
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View();
         }
 
@@ -51,23 +49,21 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaQT,MaNKH,ThoiGianBD,ThoiGianKT,MaBacDT,CoSoDaoTao,MaNganh,NamTotNghiep")] QuaTrinhDaoTao quaTrinhDaoTao)
+        public async Task<ActionResult> Create([Bind(Include = "MaQT,MaNKH,ThoiGianBD,ThoiGianKT,MaBacDT,CoSoDaoTao,MaNganh,NamTotNghiep")] QuaTrinhDaoTao quaTrinhDaoTao,int? manhakhoahoc)
         {
             if (ModelState.IsValid)
             {
                 db.QuaTrinhDaoTaos.Add(quaTrinhDaoTao);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit","AdminNhaKhoaHoc",new { id = manhakhoahoc });
             }
 
-            ViewBag.MaBacDT = new SelectList(db.BacDaoTaos, "MaBacDT", "TenBacDT", quaTrinhDaoTao.MaBacDT);
-            ViewBag.MaNganh = new SelectList(db.NganhDaoTaos, "MaNganhDaoTao", "TenNganhDaoTao", quaTrinhDaoTao.MaNganh);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", quaTrinhDaoTao.MaNKH);
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View(quaTrinhDaoTao);
         }
 
         // GET: AdminQuaTrinhDaoTao/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id,int manhakhoahoc)
         {
             if (id == null)
             {
@@ -78,9 +74,8 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaBacDT = new SelectList(db.BacDaoTaos, "MaBacDT", "TenBacDT", quaTrinhDaoTao.MaBacDT);
-            ViewBag.MaNganh = new SelectList(db.NganhDaoTaos, "MaNganhDaoTao", "TenNganhDaoTao", quaTrinhDaoTao.MaNganh);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", quaTrinhDaoTao.MaNKH);
+
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View(quaTrinhDaoTao);
         }
 
@@ -89,22 +84,20 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaQT,MaNKH,ThoiGianBD,ThoiGianKT,MaBacDT,CoSoDaoTao,MaNganh,NamTotNghiep")] QuaTrinhDaoTao quaTrinhDaoTao)
+        public async Task<ActionResult> Edit([Bind(Include = "MaQT,MaNKH,ThoiGianBD,ThoiGianKT,MaBacDT,CoSoDaoTao,MaNganh,NamTotNghiep")] QuaTrinhDaoTao quaTrinhDaoTao,int manhakhoahoc)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(quaTrinhDaoTao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "AdminNhaKhoaHoc", new { id = manhakhoahoc });
             }
-            ViewBag.MaBacDT = new SelectList(db.BacDaoTaos, "MaBacDT", "TenBacDT", quaTrinhDaoTao.MaBacDT);
-            ViewBag.MaNganh = new SelectList(db.NganhDaoTaos, "MaNganhDaoTao", "TenNganhDaoTao", quaTrinhDaoTao.MaNganh);
-            ViewBag.MaNKH = new SelectList(db.NhaKhoaHocs, "MaNKH", "MaNKHHoSo", quaTrinhDaoTao.MaNKH);
+            ViewBag.manhakhoahoc = manhakhoahoc;
             return View(quaTrinhDaoTao);
         }
 
         // GET: AdminQuaTrinhDaoTao/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int? id,int? manhakhoahoc)
         {
             if (id == null)
             {
@@ -115,7 +108,9 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            return View(quaTrinhDaoTao);
+            db.QuaTrinhDaoTaos.Remove(quaTrinhDaoTao);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Edit", "AdminNhaKhoaHoc", new { id = manhakhoahoc });          
         }
 
         // POST: AdminQuaTrinhDaoTao/Delete/5

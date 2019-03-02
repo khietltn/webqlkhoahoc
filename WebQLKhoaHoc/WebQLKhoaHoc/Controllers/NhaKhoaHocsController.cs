@@ -228,7 +228,7 @@ namespace WebQLKhoaHoc.Controllers
                     byte[] fileData = new byte[fileLength];
 
                     fileStream.Read(fileData, 0, fileLength);
-                    nhaKhoaHoc.AnhCaNhan = fileData;
+                    nhaKhoaHoc.AnhCaNhan = fileData;                   
                 }
 
                 db.NhaKhoaHocs.AddOrUpdate(nhaKhoaHoc);

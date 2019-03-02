@@ -116,7 +116,7 @@ namespace WebQLKhoaHoc.Controllers
                 /* file upload*/
                 if (linkUpload != null && linkUpload.ContentLength > 0)
                 {
-                    string filename = Path.GetFileName(linkUpload.FileName);
+                    string filename = Path.GetFileNameWithoutExtension(linkUpload.FileName) + "_" + deTai.MaDeTai.ToString() + Path.GetExtension(linkUpload.FileName);
                     string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
                     linkUpload.SaveAs(path);
                     deTai.LinkFileUpload = filename;
@@ -265,22 +265,32 @@ namespace WebQLKhoaHoc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(List<string> DSNguoiThamGiaDT,[Bind(Include = "MaDeTai,MaDeTaiHoSo,TenDeTai,MaLoaiDeTai,MaCapDeTai,MaDVChuTri,MaDonViQLThucHien,MaLinhVuc,MucTieuDeTai,NoiDungDeTai,KetQuaDeTai,NamBD,NamKT,KinhPhi,MaXepLoai,MaTinhTrang,MaPhanLoaiSP,LienKetWeb")] DeTai deTai, HttpPostedFileBase linkUpload,string KinhPhiXoa,string KinhPhiMoi)
         {
-           
+            var detai = db.DeTais.Where(p => p.MaDeTai == deTai.MaDeTai).Include(p=>p.KinhPhiDeTais).Include(p=>p.DSNguoiThamGiaDeTais).FirstOrDefault();
             if (ModelState.IsValid)
             {
                 if (linkUpload != null && linkUpload.ContentLength > 0)
                 {
-                    string filename = Path.GetFileName(linkUpload.FileName);
+                    string filename = Path.GetFileNameWithoutExtension(linkUpload.FileName) + "_" + deTai.MaDeTai.ToString() + Path.GetExtension(linkUpload.FileName);
                     string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
+                    if (!String.IsNullOrEmpty(detai.LinkFileUpload))
+                    {
+                        string oldpath = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), detai.LinkFileUpload);
+                        if (System.IO.File.Exists(oldpath))
+                        {
+                            System.IO.File.Delete(oldpath);
+                        }
+                    }
                     linkUpload.SaveAs(path);
                     deTai.LinkFileUpload = filename;
 
                 }
                 else
                 {
-                    deTai.LinkFileUpload = db.DeTais.Where(p => p.MaDeTai == deTai.MaDeTai).Select(p => p.LinkFileUpload).FirstOrDefault();
+                    deTai.LinkFileUpload = detai.LinkFileUpload;
                 }
-                
+
+                db.DeTais.AddOrUpdate(deTai);
+
                 db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == deTai.MaDeTai && p.LaChuNhiem == false).ForEach(x => db.DSNguoiThamGiaDeTais.Remove(x));
                 if (KinhPhiXoa != "")
                 {
@@ -289,8 +299,7 @@ namespace WebQLKhoaHoc.Controllers
                 }
                 db.SaveChanges();
 
-
-                db.Entry(deTai).State = EntityState.Modified;
+                
                 /* phần xử lý thêm xóa sửa của kinh phí đề tài */
                 if (KinhPhiMoi != "")
                 {
@@ -311,18 +320,20 @@ namespace WebQLKhoaHoc.Controllers
                         }
                     }                  
                 }
-                
-                foreach (var mankh in DSNguoiThamGiaDT)
+                if (DSNguoiThamGiaDT != null)
                 {
-                    
-                    DSNguoiThamGiaDeTai nguoiTGDT = new DSNguoiThamGiaDeTai
+                    foreach (var mankh in DSNguoiThamGiaDT)
                     {
-                        LaChuNhiem = false,
-                        MaDeTai = deTai.MaDeTai,
-                        MaNKH = Int32.Parse(mankh)
-                    };
-                    db.DSNguoiThamGiaDeTais.AddOrUpdate(nguoiTGDT);
-                }          
+
+                        DSNguoiThamGiaDeTai nguoiTGDT = new DSNguoiThamGiaDeTai
+                        {
+                            LaChuNhiem = false,
+                            MaDeTai = deTai.MaDeTai,
+                            MaNKH = Int32.Parse(mankh)
+                        };
+                        db.DSNguoiThamGiaDeTais.AddOrUpdate(nguoiTGDT);
+                    }
+                }
                 await db.SaveChangesAsync();               
                 return RedirectToAction("Index");
             }
