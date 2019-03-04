@@ -2,123 +2,109 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+    Layout = "~/Views/Shared/_AdminMainPage.cshtml";
 }
 
-<h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create","AdminBaiBao",FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>BaiBao</h4>
+        <h1 class="text-center">Bài báo</h1>
         <hr />
-        @Html.ValidationSummary(true)
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaISSN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaISSN)
-                @Html.ValidationMessageFor(model => model.MaISSN)
+        <div class="row">
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Mã ISSN:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="MaISSN" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenBaiBao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenBaiBao)
-                @Html.ValidationMessageFor(model => model.TenBaiBao)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Tên bài báo:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="TenBaiBao" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LaTrongNuoc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LaTrongNuoc)
-                @Html.ValidationMessageFor(model => model.LaTrongNuoc)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Là trong nước:</h4>
+                <div class="col-md-7">
+                   <select type="checkbox" name="LaTrongNuoc" value="true" class="form-control">
+                       <option value="true" selected>Trong nước</option>
+                       <option value="false">Ngoài nước</option>
+                   </select>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CQXuatBan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CQXuatBan)
-                @Html.ValidationMessageFor(model => model.CQXuatBan)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Cơ quan xuất bản:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="CQXuanBan" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaLoaiTapChi, "MaLoaiTapChi", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaLoaiTapChi", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaLoaiTapChi)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Năm đăng báo:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="NamDangBao" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaCapTapChi, "MaCapTapChi", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaCapTapChi", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaCapTapChi)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Tập phát hành:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="TapPhatHanh" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NamDangBao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NamDangBao)
-                @Html.ValidationMessageFor(model => model.NamDangBao)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Số phát hành:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="SoPhatHanh" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TapPhatHanh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TapPhatHanh)
-                @Html.ValidationMessageFor(model => model.TapPhatHanh)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Trang bài báo:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="TrangBaiBao" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoPhatHanh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoPhatHanh)
-                @Html.ValidationMessageFor(model => model.SoPhatHanh)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Web liên kết:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="LienKetWeb" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrangBaiBao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TrangBaiBao)
-                @Html.ValidationMessageFor(model => model.TrangBaiBao)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">File Upload:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="linkUpload" type="file" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LienKetWeb, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LienKetWeb)
-                @Html.ValidationMessageFor(model => model.LienKetWeb)
+
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Cấp tạp chí:</h4>
+                <div class="col-md-7">
+                    @Html.DropDownList("MaLinhVuc", ViewBag.MaCapTapChi as SelectList, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LinkFileUpLoad, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LinkFileUpLoad)
-                @Html.ValidationMessageFor(model => model.LinkFileUpLoad)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Loại tạp chí:</h4>
+                <div class="col-md-7">
+                    @Html.DropDownList("MaNXB", ViewBag.MaLoaiTapChi as SelectList, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+           
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-7">
+                    @Html.ActionLink("Trở về", "Index", "AdminDeTai", null, new { @class = "pull-right btn btn-default" })
+                    <input type="submit" value="Create" class="btn btn-default pull-right" />
+                </div>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebQLKhoaHoc;
+using System.IO;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -50,11 +51,22 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb,LinkFileUpLoad")] BaiBao baiBao)
+        public async Task<ActionResult> Create(HttpPostedFileBase linkUpload,[Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb")] BaiBao baiBao)
         {
             if (ModelState.IsValid)
             {
                 db.BaiBaos.Add(baiBao);
+                await db.SaveChangesAsync();
+
+                db.BaiBaos.Attach(baiBao);
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(linkUpload.FileName) + "_" + baiBao.MaBaiBao.ToString() + Path.GetExtension(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), filename);
+                    linkUpload.SaveAs(path);
+                    baiBao.LinkFileUpLoad = filename;
+
+                }
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -86,12 +98,28 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb,LinkFileUpLoad")] BaiBao baiBao)
+        public async Task<ActionResult> Edit(HttpPostedFileBase linkUpload,[Bind(Include = "MaBaiBao,MaISSN,TenBaiBao,LaTrongNuoc,CQXuatBan,MaLoaiTapChi,MaCapTapChi,NamDangBao,TapPhatHanh,SoPhatHanh,TrangBaiBao,LienKetWeb,LinkFileUpLoad")] BaiBao baiBao)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(baiBao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(linkUpload.FileName) + "_" + baiBao.MaBaiBao.ToString() + Path.GetExtension(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), filename);
+                    if (!String.IsNullOrEmpty(baiBao.LinkFileUpLoad))
+                    {
+                        string oldpath = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), baiBao.LinkFileUpLoad);
+                        if (System.IO.File.Exists(oldpath))
+                        {
+                            System.IO.File.Delete(oldpath);
+                        }
+                    }
+                    linkUpload.SaveAs(path);
+                    baiBao.LinkFileUpLoad = filename;
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.MaCapTapChi = new SelectList(db.CapTapChis, "MaCapTapChi", "TenCapTapChi", baiBao.MaCapTapChi);
@@ -111,7 +139,31 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            return View(baiBao);
+
+
+            var baibaodetai = db.DSBaiBaoDeTais.Where(p => p.MaBaiBao == id).ToList();
+            foreach (var item in baibaodetai)
+            {
+                db.DSBaiBaoDeTais.Remove(item);
+                db.SaveChanges();
+            }
+
+            var nguoithamgia = db.DSNguoiThamGiaBaiBaos.Where(p => p.MaBaiBao == id).ToList();
+            foreach (var item in nguoithamgia)
+            {
+                db.DSNguoiThamGiaBaiBaos.Remove(item);
+            }
+
+            var linhvuc = baiBao.LinhVucs.ToList();
+            foreach (var item in linhvuc)
+            {
+                baiBao.LinhVucs.Remove(item);
+            }
+
+           
+            db.BaiBaos.Remove(baiBao);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // POST: AdminBaiBao/Delete/5

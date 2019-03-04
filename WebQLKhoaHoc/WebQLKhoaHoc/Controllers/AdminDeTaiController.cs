@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebQLKhoaHoc;
+using System.IO;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -56,11 +57,22 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaDeTai,MaDeTaiHoSo,TenDeTai,MaLoaiDeTai,MaCapDeTai,MaDVChuTri,MaDonViQLThucHien,MaLinhVuc,MucTieuDeTai,NoiDungDeTai,KetQuaDeTai,NamBD,NamKT,MaXepLoai,MaTinhTrang,MaPhanLoaiSP,KinhPhi,LienKetWeb,LinkFileUpload")] DeTai deTai)
+        public async Task<ActionResult> Create(HttpPostedFileBase linkUpload,[Bind(Include = "MaDeTai,MaDeTaiHoSo,TenDeTai,MaLoaiDeTai,MaCapDeTai,MaDVChuTri,MaDonViQLThucHien,MaLinhVuc,MucTieuDeTai,NoiDungDeTai,KetQuaDeTai,NamBD,NamKT,MaXepLoai,MaTinhTrang,MaPhanLoaiSP,LienKetWeb")] DeTai deTai)
         {
             if (ModelState.IsValid)
             {
                 db.DeTais.Add(deTai);
+                await db.SaveChangesAsync();
+
+                db.DeTais.Attach(deTai);
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(linkUpload.FileName) + "_" + deTai.MaDeTai.ToString() + Path.GetExtension(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
+                    linkUpload.SaveAs(path);
+                    deTai.LinkFileUpload = filename;
+
+                }
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -104,11 +116,30 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaDeTai,MaDeTaiHoSo,TenDeTai,MaLoaiDeTai,MaCapDeTai,MaDVChuTri,MaDonViQLThucHien,MaLinhVuc,MucTieuDeTai,NoiDungDeTai,KetQuaDeTai,NamBD,NamKT,MaXepLoai,MaTinhTrang,MaPhanLoaiSP,KinhPhi,LienKetWeb,LinkFileUpload")] DeTai deTai)
+        public async Task<ActionResult> Edit(HttpPostedFileBase linkUpload, [Bind(Include = "MaDeTai,MaDeTaiHoSo,TenDeTai,MaLoaiDeTai,MaCapDeTai,MaDVChuTri,MaDonViQLThucHien,MaLinhVuc,MucTieuDeTai,NoiDungDeTai,KetQuaDeTai,NamBD,NamKT,MaXepLoai,MaTinhTrang,MaPhanLoaiSP,LinkFileUpload")] DeTai deTai)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(deTai).State = EntityState.Modified;
+                if (linkUpload != null && linkUpload.ContentLength > 0)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(linkUpload.FileName) + "_" + deTai.MaDeTai.ToString() + Path.GetExtension(linkUpload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), filename);
+                    if (!String.IsNullOrEmpty(deTai.LinkFileUpload))
+                    {
+                        string oldpath = Path.Combine(Server.MapPath("~/App_Data/uploads/baibao_file"), deTai.LinkFileUpload);
+                        if (System.IO.File.Exists(oldpath))
+                        {
+                            System.IO.File.Delete(oldpath);
+                        }
+                    }
+                    linkUpload.SaveAs(path);
+                    deTai.LinkFileUpload = filename;
+                }
+                else
+                {
+                    deTai.LinkFileUpload = deTai.LinkFileUpload;
+                }
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

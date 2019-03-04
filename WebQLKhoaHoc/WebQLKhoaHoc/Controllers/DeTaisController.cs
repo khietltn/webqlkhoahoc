@@ -120,7 +120,6 @@ namespace WebQLKhoaHoc.Controllers
                     string path = Path.Combine(Server.MapPath("~/App_Data/uploads/detai_file"), filename);
                     linkUpload.SaveAs(path);
                     deTai.LinkFileUpload = filename;
-
                 }
                
                 db.DeTais.Add(deTai);
