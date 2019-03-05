@@ -3009,7 +3009,7 @@ ul.social li {
 
 .widget {
     min-width: 250px;
-    max-width: 310px
+    max-width: 370px;
 }
 
 .widget_tally_box .btn-group button {
@@ -4618,4 +4618,9 @@ ul.notifications {
 
 .dataTables_wrapper > .row {
     overflow: auto !important
+}
+
+.header-custom {
+    text-align: center;
+    margin-top: 40px;
 }

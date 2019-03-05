@@ -3,13 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,700,300">
-    <script src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" data-auto-replace-svg="nest"></script> 
+
+
     <title>@ViewBag.Title</title>
+    @Scripts.RenderFormat("<script src=\"/Scripts/use.fontawesome.js\" data-auto-replace-svg=\"nest\"></script>", "~/bundles/use.fontawesome")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <!-- Head END -->
 <!-- Body BEGIN -->
@@ -28,8 +31,8 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-8 col-md-9">
-                            <div class="widget mt-10 pull-left sm-pull-none sm-text-center">
-                                <h3 class="font-weight-800 text-theme-colored font-27">CSDL KHOA HỌC VÀ CÔNG NGHỆ</h3>
+                            <div class="header-custom">
+                                <h2 class="font-weight-800 text-theme-colored font-27">CSDL KHOA HỌC VÀ CÔNG NGHỆ</h2>
                             </div>
                         </div>
                     </div>
@@ -78,7 +81,7 @@
                             <ul class="menuzord-menu menuzord-indented scrollable" style="max-height: 400px;">
 
                                 @if (Session["user"] == null)
-                                {
+        {
                                     <li>
                                         @Html.ActionLink("Đăng nhập", "Login", "Account", null, new { @class = "bg-theme-color-2 text-white font-14" })
                                     </li>
@@ -86,7 +89,7 @@
                                 else
                                 {
                                     QLKhoaHocEntities db = new QLKhoaHocEntities();
-                                    WebQLKhoaHoc.Models.UserLoginViewModel nd = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
+        WebQLKhoaHoc.Models.UserLoginViewModel nd = (WebQLKhoaHoc.Models.UserLoginViewModel)Session["user"];
                                     <li>
                                         <a><img src="@nd.AnhCaNhan" style="width:30px;height:30px;border-radius: 50%;display: inline-block;" /> @nd.ChucVi @nd.HoVaTen</a>
                                         <ul class="dropdown">
@@ -112,54 +115,37 @@
             <div class="row">               
                 <div class="col-sm-4 col-md-6 text-center">
                     <div class="widget dark">
-                        <img class="mt-5" width="200" alt="" src="~/Image/logo_hcmup.png">
+                        <img class="mt-5" width="300" alt="" src="~/Image/logo_hcmup.png">
+                        <p class="font1 widget-title m-0 widget-title reset_pass">Bản quyền thuộc Đại học Sư Phạm TPHCM © 2018.</p>
                     </div>
+                   
                 </div>
 
                 <div class="col-sm-8 col-md-6 text-center">
                     <div class="widget dark">
-                        <h4 class="widget-title mb-10 font1">Thông tin liên hệ</h4>
+                        <h3 class="widget-title mb-10 font1">Thông Tin Liên Hệ</h3>
                         <ul class="list mt-5 font1 widget-title">
                             <li class="m-0 pl-10 pr-10">
                                 <i class="fa fa-map-marker text-theme-color-2 mr-5"></i>
-                                Phòng Công Nghệ Thông Tin - Đại học Sư Phạm TPHCM. Số 280 An Dương Vương - TP HCM
-                            </li>
-                            <li class="m-0 pl-10 pr-10">
-                                <i class="fa fa-phone text-theme-color-2 mr-5"></i>
-                                0123456789
+                                Phòng Công Nghệ Thông Tin
+                                <br />Đại học Sư Phạm TPHCM
+                                <br /><i class="fa fa-map text-theme-color-2 mr-5"></i>
+                                 Số 280 An Dương Vương - TP HCM
                             </li>
                             <li class="m-0 pl-10 pr-10">
                                 <i class="fa fa-user text-theme-color-2 mr-5"></i>
                                 Hỗ trợ kỹ thuật: Âu Bửu Long
                             </li>
                             <li class="m-0 pl-10 pr-10">
-                                <i class="fa fa-mobile text-theme-color-2 mr-5"></i>
-                                0123456789
-                            </li>
-                            <li class="m-0 pl-10 pr-10">
-                                <i class="fa fa-envelope-o text-theme-color-2 mr-5"></i>
-                                longab@hcmue.edu.vn
+                                <i class="fa fa-phone text-theme-color-2 mr-5"></i>
+                                0123456789 - longab@hcmue.edu.vn
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+        </div>
 
-        </div>
-        <div class="footer-bottom bg-black-333">
-            <div class="container pt-20 pb-20">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p class="font1 text-black-777 m-0 widget-title">Bản quyền thuộc Đại học Sư Phạm TPHCM © 2018.</p>
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <div class="widget no-border m-0 font1 widget-title">
-                            Hổ trợ kỹ thuật, xử lý sự cố Hotline: 0234.3823123 hoặc 0983.431.561
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </footer>
     <div id="mydata" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
