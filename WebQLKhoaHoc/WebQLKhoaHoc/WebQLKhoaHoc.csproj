@@ -703,7 +703,6 @@
     <Content Include="Views\Shared\_AdminMainPage.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\DeTais\ScriptingPage.cshtml" />
-    <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\TrinhDoNgoaiNguNKH\Create.cshtml" />
     <Content Include="Views\TrinhDoNgoaiNguNKH\Delete.cshtml" />
     <Content Include="Views\TrinhDoNgoaiNguNKH\Details.cshtml" />
