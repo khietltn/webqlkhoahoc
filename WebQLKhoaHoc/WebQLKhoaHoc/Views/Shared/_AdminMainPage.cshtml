@@ -64,11 +64,11 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index","AdminDeTai")"><i class="fa fa-home"></i> Đề Tài <span class="fa fa-chevron-down"></span></a>
+                                    <a href="javascript:;"><i class="fa fa-home"></i> Đề Tài <span class="fa fa-chevron-down"></span></ahref="javascript:;">
                                     <ul class="nav child_menu" style="display: none;">
                                         <!-- list children controllers -->
-                                        <li><a href="index.html">Dashboard</a></li>
-                                        <li><a href="index2.html">Dashboard2</a></li>
+                                        <li><a href="@Url.Action("Index","AdminDeTai")">Danh sách đề tài</a></li>
+                                        <li><a href="@Url.Action("Index","AdminKinhPhiDeTai")">Kinh phí đề tài</a></li>
                                         <li><a href="index3.html">Dashboard3</a></li>
                                     </ul>
                                 </li>
@@ -177,7 +177,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/qlkh")
     @Scripts.Render("~/bundles/admin")
     <script>
         function modal_load(url) {

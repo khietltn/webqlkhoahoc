@@ -80,9 +80,10 @@ namespace WebQLKhoaHoc.Controllers
                     Stream fileStream = fileUpload.InputStream;
                     string fileName = Path.GetFileName(fileUpload.FileName);
                     int fileLength = fileUpload.ContentLength;
-                    byte[] fileData = new byte[fileLength];
-                    nhaKhoaHoc.AnhCaNhan = fileData;
+                    byte[] fileData = new byte[fileLength];                   
                     fileStream.Read(fileData, 0, fileLength);
+                    nhaKhoaHoc.AnhCaNhan = fileData;
+                    nhaKhoaHoc.AnhDaiDien = fileName;
                 }
 
                 db.NhaKhoaHocs.Add(nhaKhoaHoc);
