@@ -712,6 +712,7 @@
     <Content Include="Views\TrinhDoNgoaiNguNKH\Details.cshtml" />
     <Content Include="Views\TrinhDoNgoaiNguNKH\Edit.cshtml" />
     <Content Include="Views\TrinhDoNgoaiNguNKH\Index.cshtml" />
+    <Content Include="Views\Shared\PopUpLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\baibao_file\" />
