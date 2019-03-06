@@ -10,7 +10,7 @@
 {
     @Html.AntiForgeryToken()
     <div class="container">
-        <div class="form-horizontal">       
+        <div class="form-horizontal">
             <div class="text-center">
                 <h1>Danh sách người tham gia biên soạn:</h1>
                 <h1>@ViewBag.TenSach</h1>
@@ -48,7 +48,7 @@
                                     </td>
                                 </tr>
                             </div>
-                         }
+                        }
                     </tbody>
                 </table>
                 <div class="form-group">
@@ -58,7 +58,7 @@
                         @Html.ActionLink("Thêm", "Create", "AdminDSTacGia", new { id = ViewBag.masach, manhakhoahoc = ViewBag.manhakhoahoc }, new { @class = "btn btn-default pull-right" })
                     </div>
                 </div>
-            </form>        
+            </form>
         </div>
     </div>
 }

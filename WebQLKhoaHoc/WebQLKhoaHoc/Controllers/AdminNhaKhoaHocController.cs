@@ -89,6 +89,14 @@ namespace WebQLKhoaHoc.Controllers
                 db.NhaKhoaHocs.Add(nhaKhoaHoc);
                 await db.SaveChangesAsync();
 
+                NguoiDung newuser = new NguoiDung {
+                    MaNKH = nhaKhoaHoc.MaNKH,
+                    Usernames = nhaKhoaHoc.MaNKHHoSo,
+                    Passwords = Encryptor.MD5Hash("123"),
+                    MaChucNang = 2
+                };
+                db.NguoiDungs.Add(newuser);
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 

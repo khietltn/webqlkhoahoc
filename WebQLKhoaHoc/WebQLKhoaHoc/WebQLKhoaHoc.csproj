@@ -709,6 +709,15 @@
     <Content Include="Views\TrinhDoNgoaiNguNKH\Details.cshtml" />
     <Content Include="Views\TrinhDoNgoaiNguNKH\Edit.cshtml" />
     <Content Include="Views\TrinhDoNgoaiNguNKH\Index.cshtml" />
+    <Content Include="Views\AdminSachGiaoTrinhs\DanhSachTacGia.cshtml" />
+    <Content Include="Views\AdminSachGiaoTrinhs\EditDanhSachTacGia.cshtml" />
+    <Content Include="Views\AdminSachGiaoTrinhs\CreateDanhSachTacGia.cshtml" />
+    <Content Include="Views\AdminDeTai\DanhSachNguoiThamGiaDeTai.cshtml" />
+    <Content Include="Views\AdminDeTai\CreateDanhSachNguoiThamGiaDeTai.cshtml" />
+    <Content Include="Views\AdminDeTai\EditDanhSachNguoiThamGiaDeTai.cshtml" />
+    <Content Include="Views\AdminBaiBao\DanhSachNguoiThamGiaBaiBao.cshtml" />
+    <Content Include="Views\AdminBaiBao\EditDanhSachNguoiThamGiaBaiBao.cshtml" />
+    <Content Include="Views\AdminBaiBao\CreateDanhSachNguoiThamGiaBaiBao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\baibao_file\" />

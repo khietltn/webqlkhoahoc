@@ -40,7 +40,7 @@ namespace WebQLKhoaHoc.Controllers
         // GET: AdminKinhPhiDeTai/Create
         public ActionResult Create()
         {
-            ViewBag.MaDeTai = new SelectList(db.DeTais, "MaDeTai", "MaDeTaiHoSo");
+            ViewBag.MaDeTai = new SelectList(db.DeTais, "MaDeTai", "MaDeTaiHoSo");           
             return View();
         }
 
@@ -107,7 +107,9 @@ namespace WebQLKhoaHoc.Controllers
             {
                 return HttpNotFound();
             }
-            return View(kinhPhiDeTai);
+            db.KinhPhiDeTais.Remove(kinhPhiDeTai);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // POST: AdminKinhPhiDeTai/Delete/5

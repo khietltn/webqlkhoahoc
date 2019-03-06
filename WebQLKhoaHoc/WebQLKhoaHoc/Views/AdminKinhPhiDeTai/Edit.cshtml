@@ -1,70 +1,59 @@
 ﻿@model WebQLKhoaHoc.KinhPhiDeTai
 
 @{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_MainPage.cshtml";
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminMainPage.cshtml";
 }
-
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "AdminKinhPhiDeTai", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>KinhPhiDeTai</h4>
+        <h1 class="text-center">Kinh phí @Model.DeTai.TenDeTai:</h1>
         <hr />
-        @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.MaPhi)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaDeTai, "MaDeTai", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaDeTai", String.Empty)
-                @Html.ValidationMessageFor(model => model.MaDeTai)
+        <div class="row">
+            @Html.ValidationSummary(true)
+            <input type="hidden" name="MaPhi" value="@Model.MaPhi" />
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Tên đề tài:</h4>
+                <div class="col-md-7">
+                    @Html.DropDownList("MaDeTai", ViewBag.MaDeTai as SelectList, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LoaiKinhPhi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LoaiKinhPhi)
-                @Html.ValidationMessageFor(model => model.LoaiKinhPhi)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Loại kinh phí:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="LoaiKinhPhi" value="@Model.LoaiKinhPhi"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NamTiepNhan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NamTiepNhan)
-                @Html.ValidationMessageFor(model => model.NamTiepNhan)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Năm tiếp nhận:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="NamTiepNhan" value="@Model.NamTiepNhan"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoTien, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoTien)
-                @Html.ValidationMessageFor(model => model.SoTien)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Số tiền:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="SoTien" value="@Model.SoTien" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LoaiTien, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LoaiTien)
-                @Html.ValidationMessageFor(model => model.LoaiTien)
+            <div class="form-group">
+                <h4 class="col-md-2 col-md-offset-1">Loại tiền:</h4>
+                <div class="col-md-7">
+                    <input required class="form-control" name="LoaiTien" value="@Model.LoaiTien"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-7">
+                    @Html.ActionLink("Trở về", "Index", "AdminKinhPhiDeTai", new { @class = "btn btn-default pull-right" })
+                    <input type="submit" value="Lưu" class="btn btn-default pull-right" />
+                </div>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+}s

@@ -13,13 +13,13 @@
             <h1 class="text-center title">@ViewBag.tenbaibao</h1>
             <hr />
             @Html.ValidationSummary(true)
-            <input type="hidden" name="manhakhoahoc" value="@ViewBag.manhakhoahoc" />
+         
             <input type="hidden" name="MaBaiBao" value="@ViewBag.mabaibao" />
 
             <div class="form-group text-left">
                 <div class="row">
                     <div class="col-md-4">
-                        <h3 style="margin-top: 0;">Danh sách nhà khoa học:</h3>
+                        <h3 style="margin-top: 0;">Tên nhà khoa học:</h3>
                     </div>
                     <div class="col-md-8">
                         @Html.DropDownList("MaNKH", ViewBag.MaNKH as SelectList, new { @class = "form-control" })
@@ -38,7 +38,7 @@
             <hr />
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    @Html.ActionLink("Trở về", "Edit", "AdminDSNguoiThamGiaBaiBao", new { id = ViewBag.mabaibao, manhakhoahoc = ViewBag.manhakhoahoc }, new { @class = "btn btn-default pull-right" })
+                    @Html.ActionLink("Trở về", "DanhSachNguoiThamGiaBaiBao", "AdminBaiBao", null, new { @class = "btn btn-default pull-right" })
                     <input type="submit" value="Thêm" class="btn btn-default pull-right" style="margin-right:10px;" />
                 </div>
             </div>
