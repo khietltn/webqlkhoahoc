@@ -419,6 +419,7 @@
     <Content Include="Image\admins.bmp" />
     <Content Include="Image\avatar.bmp" />
     <Content Include="Image\bg-cover.jpg" />
+    <Content Include="Image\hcmup_edu.ico" />
     <Content Include="Image\login_background.jpg" />
     <Content Include="Image\logo_hcmup.png" />
     <Content Include="Image\research-background.png" />
