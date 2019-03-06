@@ -416,8 +416,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\admins.bmp" />
     <Content Include="Image\avatar.bmp" />
     <Content Include="Image\bg-cover.jpg" />
+    <Content Include="Image\login_background.jpg" />
     <Content Include="Image\logo_hcmup.png" />
     <Content Include="Image\research-background.png" />
     <Content Include="QLKH.Context.tt">
