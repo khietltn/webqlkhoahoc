@@ -950,7 +950,6 @@ a {
 
 footer {
     background: #fff;
-    padding: 15px 20px;
     display: block
 }
 
@@ -3010,7 +3009,7 @@ ul.social li {
 
 .widget {
     min-width: 250px;
-    max-width: 310px
+    max-width: 370px;
 }
 
 .widget_tally_box .btn-group button {
@@ -3176,9 +3175,9 @@ ul.count2 {
             font-weight: 300
         }
 
-.divider {
+#footer {
     border-bottom: 1px solid #ddd;
-    margin: 10px
+    margin: 0;
 }
 
 .divider-dashed {
@@ -4619,4 +4618,9 @@ ul.notifications {
 
 .dataTables_wrapper > .row {
     overflow: auto !important
+}
+
+.header-custom {
+    text-align: center;
+    margin-top: 40px;
 }

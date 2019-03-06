@@ -14,7 +14,7 @@ using WebQLKhoaHoc.Models;
 using System.IO;
 using System.Data.Entity.Migrations;
 using Newtonsoft.Json;
-
+using LinqKit;
 namespace WebQLKhoaHoc.Controllers
 {
     public class DeTaisController : Controller
@@ -24,48 +24,48 @@ namespace WebQLKhoaHoc.Controllers
         // GET: DeTais
         public async Task<ActionResult> Index(int? Page_No, [Bind(Include = "MaCapDeTai,MaDonViQLThucHien,MaLinhVuc,Fromdate,Todate,SearchValue")] DeTaiSearchViewModel detai,int? nkhId)
         {
-            ViewBag.DSCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
-            ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
-            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
-           
-            var detais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).Include(d => d.DSNguoiThamGiaDeTais).ToList();
 
-            int Size_Of_Page = 6;
-            int No_Of_Page = (Page_No ?? 1);
-
+            var pre = PredicateBuilder.True<DeTai>();
+            //var detais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).Include(d => d.DSNguoiThamGiaDeTais).ToList();
 
             if (nkhId == null)
             {
                 if (!String.IsNullOrEmpty(detai.MaDonViQLThucHien))
                 {
-                    detais = detais.Where(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien).ToList();
+                    pre = pre.And(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien);
+                    //detais = detais.Where(p => p.MaDonViQLThucHien.ToString() == detai.MaDonViQLThucHien).ToList();
                 }
 
                 if (!String.IsNullOrEmpty(detai.MaLinhVuc))
                 {
                     if (detai.MaLinhVuc[0] == 'a')
-                        detais = detais.Where(p =>
-                            p.MaLinhVuc.ToString() == detai.MaLinhVuc.Substring(1, detai.MaLinhVuc.Length - 1)).ToList();
+                        pre = pre.And(p => p.MaLinhVuc.ToString() == detai.MaLinhVuc.Substring(1, detai.MaLinhVuc.Length - 1));
+                    //detais = detais.Where(p => p.MaLinhVuc.ToString() == detai.MaLinhVuc.Substring(1, detai.MaLinhVuc.Length - 1)).ToList();
                     else
-                        detais = detais.Where(p => p.LinhVuc.MaNhomLinhVuc.ToString() == detai.MaLinhVuc).ToList();
+                     pre = pre.And(p => p.LinhVuc.MaNhomLinhVuc.ToString() == detai.MaLinhVuc);
+                    //detais = detais.Where(p => p.LinhVuc.MaNhomLinhVuc.ToString() == detai.MaLinhVuc).ToList();
                 }
                 if (detai.Fromdate > DateTime.MinValue)
                 {
-                    detais = detais.Where(p => p.NamBD >= detai.Fromdate).ToList();
+                    pre = pre.And(p => p.NamBD >= detai.Fromdate);
+                    //detais = detais.Where(p => p.NamBD >= detai.Fromdate).ToList();
                 }
                 if (detai.Todate > DateTime.MinValue)
                 {
-                    detais = detais.Where(p => p.NamKT <= detai.Todate).ToList();
+                    pre = pre.And(p => p.NamKT <= detai.Todate);
+                    //detais = detais.Where(p => p.NamKT <= detai.Todate).ToList();
                 }
                 if (!String.IsNullOrEmpty(detai.SearchValue))
                 {
-                    detais = detais.Where(p => p.TenDeTai.ToLower().Contains(detai.SearchValue.ToLower())).ToList();
+                    pre = pre.And(p => p.TenDeTai.ToLower().Contains(detai.SearchValue.ToLower()));
+                    //detais = detais.Where(p => p.TenDeTai.ToLower().Contains(detai.SearchValue.ToLower())).ToList();
                 }
             }
             else
             {
                 var madetais = db.DSNguoiThamGiaDeTais.Where(p => p.MaNKH == nkhId).Select(p => p.MaDeTai).ToList();
-                detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
+                pre = pre.And(p => madetais.Contains(p.MaDeTai));
+                //detais = detais.Where(p => madetais.Contains(p.MaDeTai)).ToList();
             }
             
             /* Nếu Thời gian search được nhập thì mới đỏ vào view bag */
@@ -74,10 +74,17 @@ namespace WebQLKhoaHoc.Controllers
                 ViewBag.Todate = detai.Todate.ToShortDateString();
             }
             ViewBag.SearchValue = detai.SearchValue;
-                
-                
-      
-            return View(detais.ToPagedList(No_Of_Page, Size_Of_Page));
+
+
+            ViewBag.DSCapDeTai = new SelectList(db.CapDeTais, "MaCapDeTai", "TenCapDeTai");
+            ViewBag.MaDonViQLThucHien = new SelectList(db.DonViQLs, "MaDonVi", "TenDonVI");
+            ViewBag.MaLinhVuc = new SelectList(QLKHrepo.GetListMenuLinhVuc(), "Id", "TenLinhVuc");
+
+           
+            int No_Of_Page = (Page_No ?? 1);
+            var detais = db.DeTais.Include(d => d.CapDeTai).Include(d => d.LoaiHinhDeTai).Include(d => d.DonViChuTri).Include(d => d.DonViQL).Include(d => d.LinhVuc).Include(d => d.XepLoai).Include(d => d.TinhTrangDeTai).Include(d => d.PhanLoaiSP).Include(d => d.DSNguoiThamGiaDeTais).AsExpandable().Where(pre).OrderBy(p=>p.MaDeTai).Skip((No_Of_Page-1)*6).Take(6).ToList();
+
+            return View(detais.ToPagedList(No_Of_Page, 6));
         }
 
 

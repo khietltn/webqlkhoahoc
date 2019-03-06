@@ -15,6 +15,7 @@ using System.IO;
 using System.Data.Entity.Migrations;
 using WebGrease.Css.Extensions;
 using Newtonsoft.Json;
+using LinqKit;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -32,45 +33,58 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaHocHam = new SelectList(db.HocHams.ToList(), "MaHocHam", "TenHocHam");
             ViewBag.MaHocVi = new SelectList(db.HocVis.ToList(), "MaHocVi", "TenHocVi");
             ViewBag.MaNgachVienChuc = new SelectList(db.NgachVienChucs.ToList(), "MaNgach", "TenNgach");
-            var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc).ToList();
+
+            var pre = PredicateBuilder.True<NhaKhoaHoc>();
+
+            //var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc).ToList();
 
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaCNDaoTao))
             {
-                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaCNDaoTao.ToString() == nhaKhoaHoc.MaCNDaoTao).ToList();
+                pre = pre.And(p => p.MaCNDaoTao.ToString() == nhaKhoaHoc.MaCNDaoTao);
+                //nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaCNDaoTao.ToString() == nhaKhoaHoc.MaCNDaoTao).ToList();
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaDonVi))
             {
-                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaDonViQL.ToString() == nhaKhoaHoc.MaDonVi).ToList();
+                pre = pre.And(p => p.MaDonViQL.ToString() == nhaKhoaHoc.MaDonVi);
+                //nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaDonViQL.ToString() == nhaKhoaHoc.MaDonVi).ToList();
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaHocHam))
             {
-                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaHocHam.ToString() == nhaKhoaHoc.MaHocHam).ToList();
+                pre = pre.And(p => p.MaHocHam.ToString() == nhaKhoaHoc.MaHocHam);
+                //nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaHocHam.ToString() == nhaKhoaHoc.MaHocHam).ToList();
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaHocVi))
             {
-                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaHocVi.ToString() == nhaKhoaHoc.MaHocVi).ToList();
+                pre = pre.And(p => p.MaHocVi.ToString() == nhaKhoaHoc.MaHocVi);
+                //nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaHocVi.ToString() == nhaKhoaHoc.MaHocVi).ToList();
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.MaNgach))
             {
-                nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaNgachVienChuc.ToString() == nhaKhoaHoc.MaNgach).ToList();
+                pre = pre.And(p => p.MaNgachVienChuc.ToString() == nhaKhoaHoc.MaNgach);
+                //nhaKhoaHocs = nhaKhoaHocs.Where(p => p.MaNgachVienChuc.ToString() == nhaKhoaHoc.MaNgach).ToList();
             }
             if (!String.IsNullOrEmpty(nhaKhoaHoc.SearchValue))
             {
-                nhaKhoaHocs = nhaKhoaHocs.Where(p => (p.HoNKH+ " " +p.TenNKH).ToLower().Contains(nhaKhoaHoc.SearchValue.ToLower())).ToList();
+                pre = pre.And(p => (p.HoNKH + " " + p.TenNKH).ToLower().Contains(nhaKhoaHoc.SearchValue.ToLower()));
+                //nhaKhoaHocs = nhaKhoaHocs.Where(p => (p.HoNKH+ " " +p.TenNKH).ToLower().Contains(nhaKhoaHoc.SearchValue.ToLower())).ToList();
             }
             ViewBag.SearchValue = nhaKhoaHoc.SearchValue;
-
+            
+            int No_Of_Page = (Page_No ?? 1);
+            var nhaKhoaHocs = db.NhaKhoaHocs.Include(n => n.ChuyenNganh).Include(n => n.DonViQL).Include(n => n.HocHam).Include(n => n.HocVi).Include(n => n.NgachVienChuc).AsExpandable().Where(pre).OrderBy(p => p.MaNKH).Skip(No_Of_Page-1).Take(6).ToList(); 
 
             var lstNKH = new List<NhaKhoaHocViewModel>();
             for (int i = 0; i < nhaKhoaHocs.Count; i++)
             {
                 NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHocs[i]);
-                lstNKH.Add(nkh);
+               lstNKH.Add(nkh);
             }
 
-            int Size_Of_Page = 6;
-			int No_Of_Page = (Page_No ?? 1);
-            return View(lstNKH.ToPagedList(No_Of_Page, Size_Of_Page));
+            
+            int totalPage = (int)Math.Ceiling( (decimal)db.NhaKhoaHocs.Count() / 6);
+            IPagedList<NhaKhoaHocViewModel> pageOrders = new StaticPagedList<NhaKhoaHocViewModel>(lstNKH, No_Of_Page, 1, totalPage);
+
+            return View(pageOrders);
         }
 
         // GET: NhaKhoaHocs/Details/5

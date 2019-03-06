@@ -8,13 +8,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,700,300">
-    <script src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" data-auto-replace-svg="nest"></script> 
+    <link rel="shortcut icon" type="image/x-icon" href="~/Image/hcmup_edu.ico" />
+
     <title>@ViewBag.Title</title>
     <!-- Theme styles START -->
+    @Scripts.RenderFormat("<script src=\"/Scripts/use.fontawesome.js\" data -auto-replace-svg=\"nest\"></script>", "~/bundles/use.fontawesome")
     @Styles.Render("~/Content/admincss")
     @Scripts.Render("~/bundles/modernizr")
+
     <!-- Theme styles END -->
 </head>
 <!-- Head END -->
@@ -27,31 +28,12 @@
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
                         <!-- load page again -->
-                        <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>ADMIN PAGE</span></a>
+                        <a href="#" class="site_title"><span>ADMIN PAGE</span></a>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="profile clearfix">
-                        <div class="profile_pic">
-                            <!-- image of admin -->
-                            @{
-                                if (String.IsNullOrWhiteSpace(nd.AnhCaNhan))
-                                {
-                                    <img src=@Url.Content("~/Image/avatar.bmp") style="height: 58px; width:58px; border-radius: 50%;" />
-                                }
-                                else
-                                {
-                                    <img src="@nd.AnhCaNhan" style="height: 58px; width:58px; border-radius: 50%;" />
-                                }
-                            }
-                        </div>
-                        <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>@nd.Ten</h2>
-                        </div>
-                    </div>
+
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section active">
-                            <h3>General</h3>
                             <ul class="nav side-menu" style="">
                                 <!-- list controllers -->
                                 <li>
@@ -146,10 +128,7 @@
             <div class="right_col" role="main">
                 @RenderBody()
                 <div class="">
-
-
                     <div class="clearfix"></div>
-
                 </div>
             </div>
             <footer>
