@@ -8,8 +8,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Image/hcmup_edu.ico" />
+
     <title>@ViewBag.Title</title>
     <!-- Theme styles START -->
     @Scripts.RenderFormat("<script src=\"/Scripts/use.fontawesome.js\" data -auto-replace-svg=\"nest\"></script>", "~/bundles/use.fontawesome")
@@ -37,39 +37,34 @@
                             <ul class="nav side-menu" style="">
                                 <!-- list controllers -->
                                 <li>
-                                    <a href="@Url.Action("Index","AdminNhaKhoaHoc")"><i class="fa fa-home"></i> Nhà Khoa Học <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="display: none;">
-                                        <!-- list children controllers -->
-                                        <li><a href="index.html">Dashboard</a></li>
-                                        <li><a href="index2.html">Dashboard2</a></li>
-                                        <li><a href="index3.html">Dashboard3</a></li>
-                                    </ul>
+                                    <a href="@Url.Action("Index","AdminNhaKhoaHoc")"><i class="fa fa-home"></i> Nhà Khoa Học </a>
+                                  
                                 </li>
                                 <li>
-                                    <a href="javascript:;"><i class="fa fa-home"></i> Đề Tài <span class="fa fa-chevron-down"></span></ahref="javascript:;">
+
+                                    <a href="javascript:;"><i class="fa fa-home"></i> Đề Tài <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
                                         <!-- list children controllers -->
                                         <li><a href="@Url.Action("Index","AdminDeTai")">Danh sách đề tài</a></li>
-                                        <li><a href="@Url.Action("Index","AdminKinhPhiDeTai")">Kinh phí đề tài</a></li>
-                                        <li><a href="index3.html">Dashboard3</a></li>
+                                        <li><a href="@Url.Action("Index","AdminKinhPhiDeTai")">Kinh phí đề tài</a></li>     
+                                        <li><a href="@Url.Action("DanhSachNguoiThamGiaDeTai","AdminDeTai")">Danh sách người tham gia đề tài</a></li>     
+                                        
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index","AdminSachGiaoTrinhs")"><i class="fa fa-home"></i> Sách và Giáo Trình <span class="fa fa-chevron-down"></span></a>
+                                    <a href="javascript:;"><i class="fa fa-home"></i> Sách và Giáo Trình <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
                                         <!-- list children controllers -->
-                                        <li><a href="index.html">Dashboard</a></li>
-                                        <li><a href="index2.html">Dashboard2</a></li>
-                                        <li><a href="index3.html">Dashboard3</a></li>
+                                        <li><a href="@Url.Action("Index","AdminSachGiaoTrinhs")">Sách giáo trình</a></li>
+                                        <li><a href="@Url.Action("DanhSachTacGia","AdminSachGiaoTrinhs")">Danh sách tác giả</a></li>                                        
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index","AdminBaiBao")"><i class="fa fa-home"></i> Bài Báo <span class="fa fa-chevron-down"></span></a>
+                                    <a href="javascript:;"><i class="fa fa-home"></i> Bài Báo <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
                                         <!-- list children controllers -->
-                                        <li><a href="index.html">Dashboard</a></li>
-                                        <li><a href="index2.html">Dashboard2</a></li>
-                                        <li><a href="index3.html">Dashboard3</a></li>
+                                        <li><a href="@Url.Action("Index","AdminBaiBao")">Danh sách bài báo</a></li>
+                                        <li><a href="@Url.Action("DanhSachNguoiThamGiaBaiBao","AdminBaiBao")">Danh sách người thàm gia bài báo</a></li>                                       
                                     </ul>
                                 </li>
 
@@ -145,6 +140,7 @@
             </footer>
         </div>
     </div>
+
     <div id="mydata" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -153,6 +149,7 @@
     </div>
     <!-- end wrapper -->
     <!-- Footer Scripts -->
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

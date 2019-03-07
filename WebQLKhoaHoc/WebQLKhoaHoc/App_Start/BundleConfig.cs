@@ -39,7 +39,8 @@ namespace WebQLKhoaHoc
                 "~/Scripts/charts.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/admin").Include(                
+            bundles.Add(new ScriptBundle("~/bundles/admin").Include(
+                "~/Scripts/jquery-ui.min.js",
                 "~/Scripts/Admin/jquery.mousewheel.min.js",
                 "~/Scripts/Admin/jquery.knob.min.js",
                 "~/Scripts/Admin/jquery.dataTables.min.js",                

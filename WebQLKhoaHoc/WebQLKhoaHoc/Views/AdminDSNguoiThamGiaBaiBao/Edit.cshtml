@@ -47,9 +47,9 @@
             </table>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    @Html.ActionLink("Trở về", "Edit", "AdminNhaKhoaHoc", new { id = ViewBag.manhakhoahoc }, new { @class = "btn btn-danger btn-lg pull-right" })
-                    <input type="submit" value="Lưu" class="btn btn-primary btn-lg pull-right" style="margin-right:10px" />
-                    @Html.ActionLink("Thêm mới", "Create", "AdminDSNguoiThamGiaBaiBao", new { id = Model[0].MaBaiBao, manhakhoahoc = ViewBag.manhakhoahoc }, new { @class = "btn btn-success btn-lg pull-right", @style = "margin-right:10px" });
+                    @Html.ActionLink("Trở về", "Edit", "AdminNhaKhoaHoc", new { id = ViewBag.manhakhoahoc }, new { @class = "btn btn-default pull-right" })
+                    <input type="submit" value="Lưu" class="btn btn-default pull-right" style="margin-right:10px" />
+                    @Html.ActionLink("Thêm mới", "Create", "AdminDSNguoiThamGiaBaiBao", new { id = Model[0].MaBaiBao, manhakhoahoc = ViewBag.manhakhoahoc }, new { @class = "btn btn-default pull-right", @style = "margin-right:10px" })
                 </div>
             </div>
         </div>

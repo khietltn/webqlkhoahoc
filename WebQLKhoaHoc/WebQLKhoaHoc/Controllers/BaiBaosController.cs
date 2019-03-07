@@ -13,6 +13,7 @@ using WebQLKhoaHoc.Models;
 using System.IO;
 using System.Data.Entity.Migrations;
 using WebGrease.Css.Extensions;
+using LinqKit;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -24,52 +25,63 @@ namespace WebQLKhoaHoc.Controllers
         // GET: BaiBaos
         public async Task<ActionResult> Index(int? Page_No, [Bind(Include = "MaLinhVuc,MaPhanLoaiTapChi,MaLoaiTapChi,MaCapTapChi,CQXuatBan,Fromdate,Todate,SearchValue")] BaiBaoSearchViewModel baibao, int? nkhId)
         {
-
-            var baibaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs).Include(b => b.DSNguoiThamGiaBaiBaos).ToList();
+            var pre = PredicateBuilder.True<BaiBao>();
+            //var baibaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs).Include(b => b.DSNguoiThamGiaBaiBaos).ToList();
 
             if (nkhId == null)
             {
                 if (!String.IsNullOrEmpty(baibao.MaLinhVuc))
                 {
                     if (baibao.MaLinhVuc[0] == 'a')
-                        baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaLinhVuc.ToString() == baibao.MaLinhVuc.Substring(1, baibao.MaLinhVuc.Length - 1))).ToList();
+                        pre = pre.And(p => p.LinhVucs.Any(t => t.MaLinhVuc.ToString() == baibao.MaLinhVuc.Substring(1, baibao.MaLinhVuc.Length - 1)));
+                        //baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaLinhVuc.ToString() == baibao.MaLinhVuc.Substring(1, baibao.MaLinhVuc.Length - 1))).ToList();
+
                     else
-                        baibaos = baibaos.Where(p => p.LinhVucs.Any(t => t.MaNhomLinhVuc.ToString() == baibao.MaLinhVuc)).ToList();
+                        pre = pre.And(p => p.LinhVucs.Any(t => t.MaNhomLinhVuc.ToString() == baibao.MaLinhVuc));
+                        //baibaoss = baibaoss.Where(p => p.LinhVucs.Any(t => t.MaNhomLinhVuc.ToString() == baibao.MaLinhVuc)).ToList();
                 }
                 if (!String.IsNullOrEmpty(baibao.MaPhanLoaiTapChi))
                 {
-                    baibaos = baibaos.Where(p => p.MaLoaiTapChi.ToString() == baibao.MaPhanLoaiTapChi).ToList();
+                    pre = pre.And(p => p.MaLoaiTapChi.ToString() == baibao.MaPhanLoaiTapChi);
+                    //baibaos = baibaos.Where(p => p.MaLoaiTapChi.ToString() == baibao.MaPhanLoaiTapChi).ToList();
                 }
 
                 if (!String.IsNullOrEmpty(baibao.MaLoaiTapChi))
                 {
                     if (baibao.MaLoaiTapChi == "0")
-                        baibaos = baibaos.Where(p => p.LaTrongNuoc == false).ToList();
+                        pre = pre.And(p => p.LaTrongNuoc == false);
+                    //baibaos = baibaos.Where(p => p.LaTrongNuoc == false).ToList();
                     else
-                        baibaos = baibaos.Where(p => p.LaTrongNuoc == true).ToList();
+                        pre = pre.And(p => p.LaTrongNuoc == true);
+                        //baibaos = baibaos.Where(p => p.LaTrongNuoc == true).ToList();
                 }
 
                 if (baibao.Fromdate > DateTime.MinValue)
                 {
-                    baibaos = baibaos.Where(p => p.NamDangBao.Value.Year >= baibao.Fromdate.Year).ToList();
+                    pre = pre.And(p => p.NamDangBao.Value.Year >= baibao.Fromdate.Year);
+                    //baibaos = baibaos.Where(p => p.NamDangBao.Value.Year >= baibao.Fromdate.Year).ToList();
                 }
                 if (baibao.Todate > DateTime.MinValue)
                 {
-                    baibaos = baibaos.Where(p => p.NamDangBao.Value.Year <= baibao.Todate.Year).ToList();
+                    pre = pre.And(p => p.NamDangBao.Value.Year <= baibao.Todate.Year);
+                    //baibaos = baibaos.Where(p => p.NamDangBao.Value.Year <= baibao.Todate.Year).ToList();
                 }
                 if (!String.IsNullOrEmpty(baibao.CQXuatBan))
                 {
-                    baibaos = baibaos.Where(p => p.CQXuatBan.Contains(baibao.CQXuatBan)).ToList();
+                    pre = pre.And(p => p.CQXuatBan.Contains(baibao.CQXuatBan));
+                    //baibaos = baibaos.Where(p => p.CQXuatBan.Contains(baibao.CQXuatBan)).ToList();
                 }
                 if (!String.IsNullOrEmpty(baibao.SearchValue))
                 {
-                    baibaos = baibaos.Where(p => p.TenBaiBao.Contains(baibao.SearchValue)).ToList();
+                    pre = pre.And(p => p.TenBaiBao.Contains(baibao.SearchValue));
+                    //baibaos = baibaos.Where(p => p.TenBaiBao.Contains(baibao.SearchValue)).ToList();
                 }
             }
             else
             {
                 var mabaibaos = db.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == 1).Select(p => p.MaBaiBao).ToList();
-                baibaos = baibaos.Where(p => mabaibaos.Contains(p.MaBaiBao)).ToList();
+                pre = pre.And(p => mabaibaos.Contains(p.MaBaiBao));
+                //baibaos = baibaos.Where(p => mabaibaos.Contains(p.MaBaiBao)).ToList();
             }
           
 
@@ -87,9 +99,12 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.SearchValue = baibao.SearchValue;
 
 
-            int Size_Of_Page = 6;
+            //int Size_Of_Page = 6;
             int No_Of_Page = (Page_No ?? 1);
-            return View(baibaos.ToPagedList(No_Of_Page, Size_Of_Page));
+
+            var baibaos = db.BaiBaos.Include(b => b.CapTapChi).Include(b => b.PhanLoaiTapChi).Include(b => b.LinhVucs).Include(b => b.DSNguoiThamGiaBaiBaos).AsExpandable().Where(pre).OrderBy(p => p.MaBaiBao).Skip((No_Of_Page-1) * 6).Take(6).ToList();
+            
+            return View(baibaos.ToPagedList(No_Of_Page, 6));
         }
 
 

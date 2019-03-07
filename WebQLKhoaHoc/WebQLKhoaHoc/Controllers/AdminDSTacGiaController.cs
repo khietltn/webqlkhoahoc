@@ -39,7 +39,7 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: AdminDSTacGia/Create
-        public ActionResult Create(int? id, int? manhakhoahoc)
+        public ActionResult Create(int? id, int? manhakhoahoc )
         {
 
             var dsnguoidathamgia = db.DSTacGias.Where(p => p.MaSach == id).Select(p => p.MaNKH).ToList();
@@ -52,7 +52,7 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaNKH = new SelectList(lstAllNKH, "MaNKH", "TenNKH");        
             ViewBag.manhakhoahoc = manhakhoahoc;
             ViewBag.masach = id;
-            ViewBag.tensach = db.SachGiaoTrinhs.Find(id).TenSach;
+            ViewBag.tensach = db.SachGiaoTrinhs.Find(id).TenSach;            
             return View();
         }
 
@@ -61,13 +61,13 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaSach,MaNKH,LaChuBien")] DSTacGia dSTacGia,int? manhakhoahoc)
+        public async Task<ActionResult> Create([Bind(Include = "MaSach,MaNKH,LaChuBien")] DSTacGia dSTacGia,int? manhakhoahoc )
         {
             if (ModelState.IsValid)
             {
                 db.DSTacGias.Add(dSTacGia);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Edit",new { id= dSTacGia.MaSach,manhakhoahoc=manhakhoahoc});
+                await db.SaveChangesAsync();                
+                return RedirectToAction("Edit",new { id= dSTacGia.MaSach, manhakhoahoc = manhakhoahoc});
             }
 
 
@@ -81,12 +81,12 @@ namespace WebQLKhoaHoc.Controllers
             ViewBag.MaNKH = new SelectList(lstAllNKH, "MaNKH", "TenNKH");
             ViewBag.manhakhoahoc = manhakhoahoc;
             ViewBag.masach = dSTacGia.MaSach;
-            ViewBag.tensach = db.SachGiaoTrinhs.Find(dSTacGia.MaSach).TenSach;
+            ViewBag.tensach = db.SachGiaoTrinhs.Find(dSTacGia.MaSach).TenSach;            
             return View(dSTacGia);
         }
 
         // GET: AdminDSTacGia/Edit/5
-        public async Task<ActionResult> Edit(int? id, int? manhakhoahoc)
+        public async Task<ActionResult> Edit(int? id, int? manhakhoahoc )
         {
             if (id == null)
             {
@@ -100,7 +100,7 @@ namespace WebQLKhoaHoc.Controllers
 
             ViewBag.manhakhoahoc = manhakhoahoc;
             ViewBag.masach = id;
-            ViewBag.tensach = db.SachGiaoTrinhs.Find(id).TenSach;
+            ViewBag.tensach = db.SachGiaoTrinhs.Find(id).TenSach;          
             return View(dSTacGia);
         }
 
@@ -116,12 +116,12 @@ namespace WebQLKhoaHoc.Controllers
                 foreach (var x in dSTacGia) {
                     db.DSTacGias.AddOrUpdate(x);
                 }
-                await db.SaveChangesAsync();
-                return RedirectToAction("Edit",new { id = masach, manhakhoahoc= manhakhoahoc});
+                await db.SaveChangesAsync();             
+                return RedirectToAction("Edit",new { id = manhakhoahoc});
             }
             ViewBag.manhakhoahoc = manhakhoahoc;
             ViewBag.masach = masach;
-            ViewBag.tensach = db.SachGiaoTrinhs.Find(masach).TenSach;
+            ViewBag.tensach = db.SachGiaoTrinhs.Find(masach).TenSach;           
             return View(dSTacGia);
         }
 

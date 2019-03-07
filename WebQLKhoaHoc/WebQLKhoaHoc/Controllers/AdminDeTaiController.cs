@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebQLKhoaHoc;
 using System.IO;
+using System.Data.Entity.Migrations;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -179,6 +180,112 @@ namespace WebQLKhoaHoc.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+
+        /* danh sach nguoi tham gia*/
+
+        public async Task<ActionResult> DanhSachNguoiThamGiaDeTai()
+        {
+            var dSNguoiThamGiaDeTais = db.DSNguoiThamGiaDeTais.Include(d => d.DeTai).Include(d => d.NhaKhoaHoc);
+            return View(await dSNguoiThamGiaDeTais.ToListAsync());
+        }
+
+        /*Create danh sach tham gia*/
+        public ActionResult CreateDanhSachNguoiThamGiaDeTai(int? id)
+        {
+            var dsnguoidathamgia = db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == id).Select(p => p.MaNKH).ToList();
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => !dsnguoidathamgia.Contains(p.MaNKH)).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+
+            ViewBag.MaNKH = new SelectList(lstAllNKH, "MaNKH", "TenNKH");
+            ViewBag.TenDeTai = db.DeTais.Find(id).TenDeTai;
+            ViewBag.MaDeTai = id;
+            return View();
+        }
+
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateDanhSachNguoiThamGiaDeTai([Bind(Include = "MaDeTai,MaNKH,LaChuNhiem")] DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DSNguoiThamGiaDeTais.Add(dSNguoiThamGiaDeTai);
+                await db.SaveChangesAsync();
+                return RedirectToAction("DanhSachNguoiThamGiaDetai");
+            }
+
+            var dsnguoidathamgia = db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == dSNguoiThamGiaDeTai.MaDeTai).Select(p => p.MaNKH).ToList();
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => !dsnguoidathamgia.Contains(p.MaNKH)).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+
+            ViewBag.MaNKH = new SelectList(lstAllNKH, "MaNKH", "TenNKH");
+            ViewBag.TenDeTai = db.DeTais.Find(dSNguoiThamGiaDeTai.MaDeTai).TenDeTai;
+            ViewBag.MaDeTai = dSNguoiThamGiaDeTai.MaDeTai;
+            return View();
+        }
+
+        /*Edit danh sach nguoi tham gia*/
+        public async Task<ActionResult> EditDanhSachNguoiThamGiaDeTai(int? id, int? manhakhoahoc)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai = await db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == id && p.MaNKH == manhakhoahoc).FirstOrDefaultAsync();
+            if (dSNguoiThamGiaDeTai == null)
+            {
+                return HttpNotFound();
+            }
+           
+            ViewBag.TenDeTai = db.DeTais.Find(id).TenDeTai;
+            return View(dSNguoiThamGiaDeTai);
+        }
+
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditDanhSachNguoiThamGiaDeTai([Bind(Include = "MaDeTai,MaNKH,LaChuNhiem")] DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DSNguoiThamGiaDeTais.AddOrUpdate(dSNguoiThamGiaDeTai);               
+                await db.SaveChangesAsync();
+                return RedirectToAction("DanhSachNguoiThamGiaDeTai");
+            }
+
+
+            ViewBag.TenDeTai = db.DeTais.Find(dSNguoiThamGiaDeTai.MaDeTai).TenDeTai;
+            return View(dSNguoiThamGiaDeTai);
+        }
+
+
+
+
+
+        /*Delete danh sach tham gia*/
+        public async Task<ActionResult> DeleteDanhSachNguoiThamGiaDeTai(int? id, int? manhakhoahoc)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DSNguoiThamGiaDeTai dSNguoiThamGiaDeTai = await db.DSNguoiThamGiaDeTais.Where(p => p.MaDeTai == id && p.MaNKH == manhakhoahoc).FirstOrDefaultAsync();
+            if (dSNguoiThamGiaDeTai == null)
+            {
+                return HttpNotFound();
+            }
+            db.DSNguoiThamGiaDeTais.Remove(dSNguoiThamGiaDeTai);
+            await db.SaveChangesAsync();
+            return RedirectToAction("DanhSachNguoiThamGiaDeTai");
+        }
+
 
         protected override void Dispose(bool disposing)
         {

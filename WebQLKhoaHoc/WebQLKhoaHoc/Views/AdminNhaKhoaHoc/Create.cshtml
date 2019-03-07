@@ -26,10 +26,9 @@
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                                 <div>
                                     <!-- Thông tin cơ bản -->
-                                    @using (Html.BeginForm("Edit", "AdminNhaKhoaHoc", FormMethod.Post, new { @class = "form-horizontal form-label-right", @enctype = "multipart/form-data" }))
+                                    @using (Html.BeginForm("Create", "AdminNhaKhoaHoc", FormMethod.Post, new { @class = "form-horizontal form-label-right", @enctype = "multipart/form-data" }))
                                     {
                                         @Html.AntiForgeryToken()
-                                        @Html.HiddenFor(model => model.MaNKH)
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã nhà khoa học</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">

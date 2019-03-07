@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebQLKhoaHoc;
 using System.IO;
+using System.Data.Entity.Migrations;
 
 namespace WebQLKhoaHoc.Controllers
 {
@@ -176,6 +177,106 @@ namespace WebQLKhoaHoc.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+
+
+        public async Task<ActionResult> DanhSachNguoiThamGiaBaiBao()
+        {
+            var dSNguoiThamGiaBaiBaos = db.DSNguoiThamGiaBaiBaos.Include(d => d.BaiBao).Include(d => d.NhaKhoaHoc);
+            return View(await dSNguoiThamGiaBaiBaos.ToListAsync());
+        }
+
+        /* create DS NGuoi tham gia bai bao*/
+        public ActionResult CreateDanhSachNguoiThamGiaBaiBao(int? id)
+        {
+
+            var dsnguoidathamgia = db.DSNguoiThamGiaBaiBaos.Where(p => p.MaBaiBao == id).Select(p => p.MaNKH).ToList();
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => !dsnguoidathamgia.Contains(p.MaNKH)).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+
+            ViewBag.MaNKH = new SelectList(lstAllNKH, "MaNKH", "TenNKH");
+            ViewBag.tenbaibao = db.BaiBaos.Find(id).TenBaiBao;
+            ViewBag.mabaibao = id;           
+            return View();
+        }
+
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateDanhSachNguoiThamGiaBaiBao([Bind(Include = "MaBaiBao,MaNKH,LaTacGiaChinh")] DSNguoiThamGiaBaiBao dSNguoiThamGiaBaiBao)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DSNguoiThamGiaBaiBaos.Add(dSNguoiThamGiaBaiBao);
+                await db.SaveChangesAsync();
+                return RedirectToAction("DanhSachNguoiThamGiaBaiBao");
+            }
+            var dsnguoidathamgia = db.DSNguoiThamGiaBaiBaos.Where(p => p.MaBaiBao == dSNguoiThamGiaBaiBao.MaBaiBao).Select(p => p.MaNKH).ToList();
+            var lstAllNKH = db.NhaKhoaHocs.Where(p => !dsnguoidathamgia.Contains(p.MaNKH)).Select(p => new
+            {
+                p.MaNKH,
+                TenNKH = p.HoNKH + " " + p.TenNKH
+            }).ToList();
+
+            ViewBag.MaNKH = new SelectList(lstAllNKH, "MaNKH", "TenNKH");
+            ViewBag.tenbaibao = db.BaiBaos.Find(dSNguoiThamGiaBaiBao.MaBaiBao).TenBaiBao;
+            ViewBag.mabaibao = dSNguoiThamGiaBaiBao.MaBaiBao;          
+            return View();
+        }
+
+      /* EDit nguoi tham gia bai bao*/
+        public async Task<ActionResult> EditDanhSachNguoiThamGiaBaiBao(int? id, int? manhakhoahoc)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DSNguoiThamGiaBaiBao dSNguoiThamGiaBaiBao = await db.DSNguoiThamGiaBaiBaos.Where(p => p.MaBaiBao == id && p.MaNKH == manhakhoahoc).FirstOrDefaultAsync();
+            if (dSNguoiThamGiaBaiBao == null)
+            {
+                return HttpNotFound();
+            }                 
+            return View(dSNguoiThamGiaBaiBao);
+        }
+
+        // POST: AdminDSNguoiThamGiaBaiBao/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditDanhSachNguoiThamGiaBaiBao([Bind(Include = "MaBaiBao,MaNKH,LaTacGiaChinh")] DSNguoiThamGiaBaiBao dSNguoiThamGiaBaiBao)
+        {
+            if (ModelState.IsValid)
+            {
+                
+               db.DSNguoiThamGiaBaiBaos.AddOrUpdate(dSNguoiThamGiaBaiBao);
+             
+                await db.SaveChangesAsync();
+                return RedirectToAction("DanhSachNguoiThamGiaBaiBao");
+            }           
+            return View(dSNguoiThamGiaBaiBao);
+        }
+
+      /* DElete guoi tha gia bai bao*/
+        public async Task<ActionResult> DeleteDanhSachNguoiThamGiaBaiBao(int? id,int? manhakhoahoc)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DSNguoiThamGiaBaiBao dSNguoiThamGiaBaiBao = await db.DSNguoiThamGiaBaiBaos.Where(p => p.MaBaiBao == id && p.MaNKH == manhakhoahoc).FirstOrDefaultAsync();
+            if (dSNguoiThamGiaBaiBao == null)
+            {
+                return HttpNotFound();
+            }
+            db.DSNguoiThamGiaBaiBaos.Remove(dSNguoiThamGiaBaiBao);
+            await db.SaveChangesAsync();
+            return RedirectToAction("DanhSachNguoiThamGiaBaiBao");
+        }
+
 
         protected override void Dispose(bool disposing)
         {
