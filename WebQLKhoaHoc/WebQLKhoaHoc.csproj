@@ -217,6 +217,7 @@
     <Compile Include="Controllers\AdminLinhVucController.cs" />
     <Compile Include="Controllers\AdminLoaiHinhDeTaiController.cs" />
     <Compile Include="Controllers\AdminNgachVienChucController.cs" />
+    <Compile Include="Controllers\AdminNganHangNKHsController.cs" />
     <Compile Include="Controllers\AdminNganhDaoTaoController.cs" />
     <Compile Include="Controllers\AdminNguoiDungController.cs" />
     <Compile Include="Controllers\AdminNhaKhoaHocController.cs" />
@@ -693,14 +694,19 @@
     <Content Include="Views\AdminSachGiaoTrinhs\DanhSachTacGia.cshtml" />
     <Content Include="Views\AdminSachGiaoTrinhs\EditDanhSachTacGia.cshtml" />
     <Content Include="Views\DeTais\ScriptingPage.cshtml" />
-    <Content Include="Views\TrinhDoNgoaiNguNKH\Create.cshtml" />
-    <Content Include="Views\TrinhDoNgoaiNguNKH\Delete.cshtml" />
-    <Content Include="Views\TrinhDoNgoaiNguNKH\Details.cshtml" />
-    <Content Include="Views\TrinhDoNgoaiNguNKH\Edit.cshtml" />
-    <Content Include="Views\TrinhDoNgoaiNguNKH\Index.cshtml" />
+    <Content Include="Views\AdminTrinhDoNgoaiNguNKH\Create.cshtml" />
+    <Content Include="Views\AdminTrinhDoNgoaiNguNKH\Delete.cshtml" />
+    <Content Include="Views\AdminTrinhDoNgoaiNguNKH\Details.cshtml" />
+    <Content Include="Views\AdminTrinhDoNgoaiNguNKH\Edit.cshtml" />
+    <Content Include="Views\AdminTrinhDoNgoaiNguNKH\Index.cshtml" />
     <Content Include="Web.Config" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Shared\PopUpLayout.cshtml" />
+    <Content Include="Views\AdminNganHangNKHs\Create.cshtml" />
+    <Content Include="Views\AdminNganHangNKHs\Delete.cshtml" />
+    <Content Include="Views\AdminNganHangNKHs\Details.cshtml" />
+    <Content Include="Views\AdminNganHangNKHs\Edit.cshtml" />
+    <Content Include="Views\AdminNganHangNKHs\Index.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

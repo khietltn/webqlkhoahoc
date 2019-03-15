@@ -88,7 +88,7 @@ namespace WebQLKhoaHoc.Controllers
         }
 
         // GET: NhaKhoaHocs/Details/5
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -226,7 +226,7 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload, List<int> DSTrinhDoNN,List<int> DSLinhVucNC, List<int> DSChuyenMonGD, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc)
+        public async Task<ActionResult> Edit(HttpPostedFileBase fileUpload,List<int> DSLinhVucNC, List<int> DSChuyenMonGD, [Bind(Include = "MaNKH,MaNKHHoSo,HoNKH,TenNKH,GioiTinhNKH,NgaySinh,DiaChiLienHe,DienThoai,EmailLienHe,MaHocHam,MaHocVi,MaCNDaoTao,MaDonViQL,AnhDaiDien,MaNgachVienChuc")] NhaKhoaHoc nhaKhoaHoc, [Bind(Include = "MaNKH,STKNH,MaNH,ChiNhanhNH,GhiChu")] NganHangNKH nganHangNKH)
         {
            
             if (ModelState.IsValid)
@@ -272,7 +272,7 @@ namespace WebQLKhoaHoc.Controllers
                         nhakh.LinhVucs.Remove(x);
                     }
                 }
-
+                /*
                 if (DSTrinhDoNN != null) {
                     var deletednn = nhakh.NgoaiNguNKHs.Where(p => !DSTrinhDoNN.Contains(p.MaTrinhDoNN)).ToList();
                     var addednn = DSTrinhDoNN.Except(nhakh.NgoaiNguNKHs.Select(p => p.MaTrinhDoNN)).ToList();
@@ -298,7 +298,7 @@ namespace WebQLKhoaHoc.Controllers
                     {
                         nhakh.NgoaiNguNKHs.Remove(x);
                     }
-                }                               
+                }      */                         
 
               
                 if (DSChuyenMonGD != null) {
@@ -315,7 +315,11 @@ namespace WebQLKhoaHoc.Controllers
                         db.SaveChanges();
                     }
                 }
-               
+
+                if(nganHangNKH != null)
+                {
+                    db.NganHangNKHs.AddOrUpdate(nganHangNKH);
+                }
 
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -472,6 +476,11 @@ namespace WebQLKhoaHoc.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Edit", new { id = MaNKH });
         }
+
+
+
+
+
 
 
         // GET: NhaKhoaHocs/Delete/5

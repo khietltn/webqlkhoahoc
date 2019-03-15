@@ -43,6 +43,7 @@ namespace WebQLKhoaHoc.Models
         public virtual ICollection<LinhVuc> LinhVucs { get; set; }
         public virtual ICollection<TrinhDoNgoaiNgu> TrinhDoNgoaiNgus { get; set; }
         public virtual ICollection<NgoaiNguNKH> NgoaiNguNKHs { get; set; }
+        public virtual NganHangNKH NganHangNKHs { get; set; }
 
         public static NhaKhoaHocViewModel Mapping(NhaKhoaHoc nkh)
         {
@@ -83,7 +84,7 @@ namespace WebQLKhoaHoc.Models
             nkhvm.DsSach = nkh.DSTacGias.Where(p => p.MaNKH == nkh.MaNKH).Count();
             nkhvm.DsDetai = nkh.DSNguoiThamGiaBaiBaos.Where(p => p.MaNKH == nkh.MaNKH).Count();
             nkhvm.NgoaiNguNKHs = nkh.NgoaiNguNKHs ?? new List<NgoaiNguNKH>();
-
+            nkhvm.NganHangNKHs = nkh.NganHangNKH ?? new NganHangNKH();
             return nkhvm;
         }
 

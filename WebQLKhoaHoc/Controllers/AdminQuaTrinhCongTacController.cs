@@ -49,7 +49,7 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaCT,MaNKH,ThoiGianBD,ThoiGIanKT,ChucDanhCT,MaDonViQL,ChucVuCT")] QuaTrinhCongTac quaTrinhCongTac,int manhakhoahoc)
+        public async Task<ActionResult> Create([Bind(Include = "MaCT,MaNKH,ThoiGianBD,ThoiGIanKT,TenCoQuan,TenPhongBan,DiaChiCoQuan,TinhTP,ChucVuCT")] QuaTrinhCongTac quaTrinhCongTac,int manhakhoahoc)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace WebQLKhoaHoc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaCT,MaNKH,ThoiGianBD,ThoiGIanKT,ChucDanhCT,MaDonViQL,ChucVuCT")] QuaTrinhCongTac quaTrinhCongTac,int manhakhoahoc)
+        public async Task<ActionResult> Edit([Bind(Include = "MaCT,MaNKH,ThoiGianBD,ThoiGIanKT,TenCoQuan,TenPhongBan,DiaChiCoQuan,TinhTP,ChucVuCT")] QuaTrinhCongTac quaTrinhCongTac,int manhakhoahoc)
         {
             if (ModelState.IsValid)
             {

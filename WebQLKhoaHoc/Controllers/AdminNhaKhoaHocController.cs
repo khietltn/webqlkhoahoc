@@ -26,12 +26,6 @@ namespace WebQLKhoaHoc.Controllers
                 NhaKhoaHocViewModel nkh = NhaKhoaHocViewModel.Mapping(nhaKhoaHocs[i]);
                 lstNKH.Add(nkh);
             }
-
-            lstNKH = lstNKH.Concat(lstNKH).ToList();
-            lstNKH = lstNKH.Concat(lstNKH).ToList();
-            lstNKH = lstNKH.Concat(lstNKH).ToList();
-            lstNKH = lstNKH.Concat(lstNKH).ToList();
-            lstNKH = lstNKH.Concat(lstNKH).ToList();
             return View(lstNKH);
         }
 
